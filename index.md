@@ -3,5 +3,5 @@ layout: default
 title: Home
 ---
 
-# hey there
-I'm Michael, artist and senior digital designer. 
+# Hey there, I'm Michael.
+I'm an <span class="highlight">artist</span> and <span class="highlight">Senior Digital Designer</span> at Koch Comm in Oklahoma City. 

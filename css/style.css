@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
+:root {
+  --color-accent: #4575f9;
+  --color-text: #242222;
+}
 
 body {
   margin: 0;
   font-family: 'dm mono', monospace;
   line-height: 1.6;
-  background: #e1d9c0;
-  color: #242222;
+  background: #fffbef;
+  color: var(--color-text);
   padding: 2rem;
+  font-size: 16px;
+}
+
+main {
+  max-width: 400px;
 }
 
 nav ul {
@@ -21,9 +30,47 @@ nav ul {
 
 a {
   text-decoration: none;
-  color: #007acc;
+  color: var(--color-accent);
 }
 
 a:hover {
-  text-decoration: underline;
+  background-color: var(--color-accent);
+  padding: 0.1em 0.25em;
+  border-radius: 2px;
+  color: #fffbef;
+}
+
+h1 {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5;
+}
+
+h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.highlight {
+  background-color: var(--color-accent);
+  padding: 0.1em 0.25em;
+  border-radius: 2px;
+  color: #fffbef;
 }
