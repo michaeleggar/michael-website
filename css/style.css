@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'dm mono', monospace;
   line-height: 1.6;
   background: #e1d9c0;
   color: #242222;
@@ -13,6 +16,7 @@ nav ul {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  text-transform: lowercase;
 }
 
 a {
