@@ -53,3 +53,10 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+collections:
+  artwork: 
+    output: true
+    permalink: /artwork/:name/
+  design:
+    output: true
+    permalink: /design/:name/
