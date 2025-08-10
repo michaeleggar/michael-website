@@ -1,12 +1,12 @@
 :root {
 --color-primary: rgb(74, 149, 107);
---color-secondary: rgb(221, 231, 199);
---color-bg: #fffcf3;
---color-bg-2: rgba(213, 226, 186, 0.4);
---text-main: rgb(0, 0, 0, .7);
---text-secondary: rgb(0, 0, 0, .6);
---accent: rgb(74, 149, 107, .3);
-
+--color-secondary: rgb(74, 149, 107, 0.6);
+--color-bg: #fffdf8;
+--color-bg-2: rgb(74, 149, 107, 0.2);
+--text-main: rgb(34, 66, 49, 0.9);
+--text-secondary: rgb(34, 66, 49, .8);
+--accent: rgb(74, 149, 107, .25);
+--new: rgb(34, 66, 49);
 
 }
 
@@ -49,7 +49,7 @@ margin-top: .8rem;
 display: flex;
 justify-content: space-between;
 align-items: center;
-border-bottom: 2px dashed var(--accent);
+border-bottom: 2px dashed var(--color-secondary);
 padding-bottom: 1.8rem;
 }
 
@@ -62,26 +62,22 @@ gap: 1rem;
 }
 
 nav a {
-color: var(--color-primary);
+color: var(--text-secondary);
 text-decoration: none;
+font-weight: 500;
 padding: 0.4rem .8rem;
 border-radius: 80px;
 border: 1.5px solid var(--color-secondary);
-background-color: var(--color-bg-2);
+background-color: var(--color-bg);
 box-shadow: inset 0 0 0 1px var(--color-bg);
+transition: background-color .2s ease;
 
 }
 
 nav a:hover, .style-toggle:hover {
 background-color: var(--color-secondary);
-/* box-shadow: inset 0 0 0 1px var(--color-bg); */
 cursor: pointer;
-}
-
-.nav-title {
-font-weight: 600;
-font-style: italic;
-font-size: 1rem;
+color: var(--text-main);
 }
 
 .style-toggle {
@@ -97,7 +93,7 @@ max-width: 900px;
 margin: auto;
 padding: 1.6rem;
 font-family: "Cascadia Mono", monospace;
-font-weight: 370;
+font-weight: 400;
 color: var(--text-main);
 background-color: var(--color-bg);
 }
@@ -106,7 +102,7 @@ background-color: var(--color-bg);
 background-color: var(--color-bg-2);
 padding: 1rem 2rem 3rem 2rem;
 border-radius: 16px;
-border: 1.5px solid var(--color-secondary);
+border: 1.5px solid var(--color-bg-2);
 box-shadow: inset 0 0 0 1px var(--color-bg);
 }
 
@@ -121,7 +117,7 @@ color: var(--text-secondary);
 }
 
 tr {
-border-top: 2px dashed var(--accent);
+border-top: 2px dashed var(--color-secondary);
 }
 
 tr:first-child {
@@ -129,7 +125,7 @@ border-top: none;
 }
 
 th, td {
-border-left: 2px dashed var(--accent);
+border-left: 2px dashed var(--color-secondary);
 }
 
 td {
@@ -181,7 +177,7 @@ tr:hover td::before {
 }
 
 tr:hover td {
-  color: var(--color-primary);
+  color: var(--new);
 }
 
 .cell-content {
