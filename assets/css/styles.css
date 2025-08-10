@@ -48,7 +48,6 @@ color: var(--text-secondary);
 
 nav {
 margin-bottom: 1.5rem;
-margin-top: .8rem;
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -103,7 +102,7 @@ background-color: var(--color-bg);
 
 .main-container {
 background-color: var(--color-bg-2);
-padding: 1rem 2rem 3rem 2rem;
+padding: 2rem 2rem 3rem 2rem;
 border-radius: 16px;
 border: 1.5px solid var(--color-bg-2);
 box-shadow: inset 0 0 0 1px var(--color-bg);
@@ -198,11 +197,21 @@ tr:hover td {
 body {
   padding: .5rem;
 }
+
 .main-container {
-  padding: 1rem;
+padding: 2rem 1rem 3rem 1rem;
+}
+
+nav {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 .cell-content{
-  padding: .3rem;
+  padding: .4rem;
+}
+
+table {
+  margin-top: 2rem;
 }
 }
