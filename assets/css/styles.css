@@ -26,6 +26,9 @@ font-style: italic;
 font-display: swap;
 }
 
+
+
+
 h1 {
 font-size: 1.8rem;
 font-weight: 600;
@@ -186,4 +189,20 @@ tr:hover td {
   display: flex;
   padding: 0.8rem 1rem;
   border-radius: 10px;
+}
+
+
+
+@media (max-width: 600px) {
+
+body {
+  padding: .5rem;
+}
+.main-container {
+  padding: 1rem;
+}
+
+.cell-content{
+  padding: .3rem;
+}
 }
