@@ -27,8 +27,6 @@ font-display: swap;
 }
 
 
-
-
 h1 {
 font-size: 1.8rem;
 font-weight: 600;
@@ -42,8 +40,12 @@ letter-spacing: -.03rem;
 h2 {
 margin-top: .6rem;
 font-size: 1rem;
-font-weight: 400;
+font-weight: 500;
 color: var(--text-secondary);
+}
+
+p {
+  color: var(--color-secondary);
 }
 
 nav {
@@ -95,7 +97,7 @@ max-width: 900px;
 margin: auto;
 padding: 1.6rem;
 font-family: "Cascadia Mono", monospace;
-font-weight: 400;
+font-weight: 500;
 color: var(--text-main);
 background-color: var(--color-bg);
 }
@@ -214,4 +216,16 @@ nav {
 table {
   margin-top: 2rem;
 }
+}
+
+.grainy::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  pointer-events: none;
+  mix-blend-mode:soft-light;
+  opacity: .5;
+  filter: url(#grain);
+  background: var(--color-primary);
+  z-index: 9999;
 }
