@@ -49,7 +49,7 @@ margin-top: .8rem;
 display: flex;
 justify-content: space-between;
 align-items: center;
-border-bottom: 1.5px dashed var(--accent);
+border-bottom: 2px dashed var(--accent);
 padding-bottom: 1.8rem;
 }
 
@@ -68,6 +68,7 @@ padding: 0.4rem .8rem;
 border-radius: 80px;
 border: 1.5px solid var(--color-secondary);
 background-color: var(--color-bg-2);
+box-shadow: inset 0 0 0 1px var(--color-bg);
 
 }
 
@@ -120,7 +121,7 @@ color: var(--text-secondary);
 }
 
 tr {
-border-top: 1.5px dashed var(--accent);
+border-top: 2px dashed var(--accent);
 }
 
 tr:first-child {
@@ -128,7 +129,7 @@ border-top: none;
 }
 
 th, td {
-border-left: 1.5px dashed var(--accent);
+border-left: 2px dashed var(--accent);
 }
 
 td {
