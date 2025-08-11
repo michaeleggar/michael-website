@@ -7,18 +7,17 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <p>note: under construction; links not working yet</p>
     <div class="main-container grainy">
             <nav>
         <ul>
-            <li><a href="#">hello</a></li>
+            <li><a class="magnet" href="#">hello</a></li>
             <li><a href="#">garden</a></li>
             <li><a href="#">work</a></li>
         </ul>
         <button class="style-toggle"></button>
     </nav>
-        <h1>michael eggar</h1>
-        <h2>artist, designer, developer, human, etc.</h2>
+        <img width="30%" style="opacity: .8; mix-blend-mode: hard-light;" src="/assets/images/type-test-3.png">
+        <h2>artist, designer and developer</h2>
         <table>
             <thead>
                 <tr>
@@ -33,15 +32,15 @@
                 </tr>
                 <tr>
                     <td><span class="cell-content">design</span></td>
-                    <td><span class="cell-content">sr. digital designer @ koch comm</span></td>
+                    <td><span class="cell-content">sr. digital designer @ kc</span></td>
                 </tr>
                 <tr>
                     <td><span class="cell-content">development</span></td>
                     <td><span class="cell-content">frontend, js, p5</span></td>
                 </tr>
                 <tr>
-                    <td><span class="cell-content">etc.</span></td>
-                    <td><span class="cell-content">crochet & sewing</span></td>
+                    <td><span class="cell-content">interests</span></td>
+                    <td><span class="cell-content">sci-fi, crochet, sewing</span></td>
                 </tr>
                 <tr>
                     <td><span class="cell-content">reading</span></td>
@@ -50,14 +49,13 @@
             </tbody>
         </table>
     </div>
+    <p>note: under construction; links not working yet</p>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0">
   <filter id="grain">
-    <!-- Higher baseFrequency = finer noise; numOctaves adds complexity -->
     <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="9" seed="9" stitchTiles="stitch">
-   
     </feTurbulence>
   </filter>
 </svg>
-
+<script src="/assets/js/index.js"></script>
 </body>
 </html>
