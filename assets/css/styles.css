@@ -4,7 +4,7 @@
 --green-bg: #fffdf8;
 --green-bg-accent: rgb(74, 149, 107, 0.2);
 --green-text-primary: rgb(34, 66, 49, 0.9);
---green-text-secondary: rgb(34, 66, 49, .65);
+--green-text-secondary: rgb(34, 66, 49, .8);
 --green-accent: rgb(74, 149, 107, .25);
 }
 
@@ -87,13 +87,13 @@ font-display: swap;
 
 
 h1 {
-font-size: 2rem;
+font-size: 1.6rem;
 line-height: 1;
-margin-top: .4rem;
-margin-bottom: 1rem;
+margin-top: .2rem;
+margin-bottom: .4rem;
 font-family: "Oddball", "DM Mono", monospace;
 letter-spacing: .3rem;
-color: var(--green-secondary);
+color: var(--green-primary);
 font-feature-settings: "calt" 1;
 text-transform: lowercase;
 }
@@ -101,9 +101,20 @@ text-transform: lowercase;
 h2 {
 margin-top: .6rem;
 font-size: 1.1rem;
-font-weight: 500;
+font-weight: 600;
 font-style: italic;
 color: var(--green-text-secondary);
+}
+
+h3 {
+font-size: 1.2rem;
+line-height: .1rem;
+margin-top: 1rem;
+margin-bottom: .1rem;
+font-family: "DM Mono", monospace;
+color: var(--green-text-primary);
+text-transform: lowercase;
+font-weight: 800;
 }
 
 p {
@@ -131,27 +142,29 @@ nav a {
 color: var(--green-text-secondary);
 text-decoration: none;
 font-weight: 500;
-padding: 0.4rem .8rem;
-border-radius: 80px;
-border: 1.5px solid var(--green-secondary);
+padding: 0.3rem .8rem 0.3rem .8rem;
+border-radius: 100px;
+outline: 1.5px dashed var(--green-secondary);
 background-color: var(--green-bg);
-box-shadow: inset 0 0 0 1px var(--green-bg);
 transition: background-color .2s ease;
-transition: color .1s ease;
-
+font-size: .9rem;
+vertical-align: text-top;
 }
 
 nav a:hover, .style-toggle:hover, .active-nav {
-background-color: var(--green-secondary);
-cursor: pointer;
+background-color: var(--green-primary);
 color: var(--green-bg);
+outline: 1.5px solid var(--green-secondary);
+box-shadow: inset 0 0 0 1.5px var(--green-bg);
+
 }
 
 .style-toggle {
 border-radius: 100px;
 width: 1.8rem;
 height: 1.8rem;
-border: 1.5px solid var(--green-secondary);
+cursor: pointer;
+border: 2px dashed var(--green-secondary);
 background-color: var(--green-bg);
 }
 
@@ -172,8 +185,6 @@ gap: 1rem;
 background-color: var(--green-bg-accent);
 padding: 2rem 2rem 3rem 2rem;
 border-radius: 16px;
-border: 1.5px solid var(--green-bg-accent);
-box-shadow: inset 0 0 0 1px var(--green-bg);
 }
 
 table {
