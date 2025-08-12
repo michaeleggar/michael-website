@@ -140,8 +140,8 @@ transition: color .1s ease;
 
 }
 
-nav a:hover, .style-toggle:hover {
-background-color: var(--green-secondary);
+nav a:hover, .style-toggle:hover, .active-nav {
+background-color: var(--green-primary);
 cursor: pointer;
 color: var(--green-bg);
 }
