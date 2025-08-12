@@ -145,6 +145,8 @@ align-items: center;
 border-bottom: 2px dashed var(--green-secondary);
 padding-bottom: 1.5rem;
 min-height: 35px;
+transition: margin .2s ease;
+transition: padding .2s ease;
 }
 
 nav ul {
@@ -196,6 +198,7 @@ background-color: var(--green-bg);
 display: flex;
 flex-direction: column;
 gap: 1rem;
+transition: padding .2s ease;
 }
 
 .main-container {
@@ -213,6 +216,7 @@ font-size: 1rem;
 text-align: left;
 margin-top: 2rem;
 color: var(--green-text-secondary);
+transition: margin .2s ease;
 }
 
 tr {
