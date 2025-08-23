@@ -201,6 +201,7 @@ gap: 1rem;
 transition: padding .2s ease;
 }
 
+
 .main-container {
 background-color: var(--green-bg-accent);
 padding: 2rem 2rem 3rem 2rem;
