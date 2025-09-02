@@ -145,8 +145,8 @@ align-items: center;
 border-bottom: 2px dashed var(--green-secondary);
 padding-bottom: 1.5rem;
 min-height: 35px;
-transition: margin .2s ease;
-transition: padding .2s ease;
+transition: margin .2s ease-out;
+transition: padding .2s ease-out;
 }
 
 nav ul {
@@ -165,7 +165,7 @@ padding: 0.3rem .8rem 0.3rem .8rem;
 border-radius: 100px;
 outline: 1.5px dashed var(--green-secondary);
 background-color: var(--green-bg);
-transition: background-color .2s ease;
+transition: background-color .2s ease-out;
 font-size: .9rem;
 vertical-align: text-top;
 }
@@ -198,7 +198,7 @@ background-color: var(--green-bg);
 display: flex;
 flex-direction: column;
 gap: 1rem;
-transition: padding .2s ease;
+transition: padding .2s ease-out;
 }
 
 
@@ -206,7 +206,7 @@ transition: padding .2s ease;
 background-color: var(--green-bg-accent);
 padding: 2rem 2rem 3rem 2rem;
 border-radius: 16px;
-transition: padding .2s ease;
+transition: padding .2s ease-out;
 }
 
 table {
@@ -217,7 +217,7 @@ font-size: 1rem;
 text-align: left;
 margin-top: 2rem;
 color: var(--green-text-secondary);
-transition: margin .2s ease;
+transition: margin .2s ease-out;
 }
 
 tr {
@@ -272,7 +272,7 @@ td::before {
   inset: 0.4rem;
   border-radius: 6px;
   background: transparent;
-  transition: background-color .2s ease;
+  transition: background-color .2s ease-out;
 }
 
 tr:hover td::before {
@@ -288,18 +288,6 @@ tr:hover {
   z-index: 1;
   display: flex;
   padding: 0.8rem 1rem;
-}
-
-.grainy::before {
-  content: "";
-  position: fixed;
-  inset: -25%;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-  opacity: .2;
-  filter: url(#grain);
-  background: var(--green-primary);
-  z-index: 9999;
 }
 
 
