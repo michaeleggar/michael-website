@@ -163,12 +163,6 @@ nav a {
   border: 1px solid transparent;
 }
 
-nav a:hover,
-.style-toggle:hover {
-  background-color: var(--accent);
-  color: var(--bg);
-}
-
 .active-nav,
 .active-nav:hover {
   background-color: var(--secondary);
@@ -305,9 +299,10 @@ footer p {
 @media (max-width: 600px) {
   .main-container,
   nav,
-  footer {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  footer,
+  body {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   nav {
@@ -317,6 +312,6 @@ footer p {
   }
 
   .cell-content {
-    padding: 0.4rem;
+    padding: 0.5rem;
   }
 }
