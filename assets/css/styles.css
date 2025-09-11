@@ -3,7 +3,7 @@
   --accent: rgba(164, 160, 147, 0.9);
   --accent-two: rgba(164, 160, 147, 0.2);
   --secondary: #c9ceb0;
-  --bg: #2e2a2a;
+  --bg: #242121;
   --text-primary: #cecaba;
   --text-secondary: rgb(206, 202, 186, 0.6);
 
@@ -109,14 +109,14 @@ a:hover {
 }
 
 h1 {
-  font-size: 1.6rem;
-  line-height: 1;
-  margin-top: 0.2rem;
-  margin-bottom: 0.4rem;
+  font-size: 3rem;
+  line-height: 1.4;
+  margin-bottom: 0.2rem;
   font-family: "Oddball", "DM Mono", monospace;
   letter-spacing: 0.3rem;
-  color: var(--primary);
+  color: var(--secondary);
   font-feature-settings: "calt" 1;
+  text-wrap: balance;
   text-transform: lowercase;
 }
 
@@ -190,19 +190,22 @@ body {
   background-color: var(--bg);
   display: flex;
   flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .main-container {
   max-width: 700px;
-  margin: 2rem auto auto auto;
+  margin: 4rem auto auto auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .main-container p {
-  width: 80%;
+  width: 100%;
   font-weight: 400;
+  text-wrap: balance;
 }
 
 tr {
@@ -281,9 +284,9 @@ footer {
   display: flex;
   flex-direction: column;
   line-height: 0;
-  margin: 3rem auto auto auto;
   width: 100%;
-  max-width: 700px;
+  box-sizing: border-box;
+  padding-top: 3rem;
 }
 
 footer p {
@@ -306,6 +309,10 @@ footer p {
   body {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+
+  .main-container {
+    margin-top: 1.6rem;
   }
 
   .main-container p {
