@@ -302,6 +302,10 @@ footer p {
     padding-right: 0.5rem;
   }
 
+  footer {
+    box-sizing: border-box;
+  }
+
   nav {
     flex-direction: column;
     align-items: flex-start;
