@@ -1,8 +1,8 @@
 :root {
   --primary: #a4a093;
-  --accent: rgba(164, 160, 147, 0.8);
+  --accent: rgba(164, 160, 147, 0.9);
   --accent-two: rgba(164, 160, 147, 0.2);
-  --secondary: #a9ad93;
+  --secondary: #c9ceb0;
   --bg: #2e2a2a;
   --text-primary: #cecaba;
   --text-secondary: rgb(206, 202, 186, 0.6);
@@ -190,13 +190,11 @@ body {
   background-color: var(--bg);
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
 }
 
 .main-container {
   max-width: 700px;
-  margin: auto;
-  padding: 1.6rem;
+  margin: 2rem auto auto auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -204,6 +202,7 @@ body {
 
 .main-container p {
   width: 80%;
+  font-weight: 400;
 }
 
 tr {
@@ -222,6 +221,7 @@ table.kv {
   overflow: hidden;
   font-family: inherit;
   font-weight: inherit;
+  z-index: 0;
 }
 
 table.kv tr {
@@ -292,7 +292,7 @@ footer p {
 
 @media (max-width: 600px) {
   :root {
-    --label-col: 11ch;
+    --label-col: 16ch;
   }
   .main-container,
   nav,
@@ -306,9 +306,5 @@ footer p {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-  }
-
-  .cell-content {
-    padding: 0.5rem;
   }
 }
