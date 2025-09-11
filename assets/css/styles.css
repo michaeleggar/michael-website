@@ -88,6 +88,10 @@
   font-display: swap;
 }
 
+html {
+  height: 100%;
+}
+
 a {
   color: var(--primary);
 }
