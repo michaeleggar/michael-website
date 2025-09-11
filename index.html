@@ -25,46 +25,51 @@
           garden.
         </em>
       </p>
-      <table>
+      <table class="kv">
+        <colgroup>
+          <col class="kv-col-label" />
+          <col />
+        </colgroup>
         <thead>
           <tr>
-            <th><span class="cell-content">some stuff</span></th>
-            <th><span class="cell-content">some context</span></th>
+            <th scope="col"><span class="cell-content">some stuff</span></th>
+            <th scope="col"><span class="cell-content">some context</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><span class="cell-content">Art</span></td>
-            <td>
-              <span class="cell-content">MFA in Painting, Miami U</span>
-            </td>
+            <th scope="row"><span class="cell-content">Art</span></th>
+            <td><span class="cell-content">MFA in Painting, Miami U</span></td>
           </tr>
           <tr>
-            <td><span class="cell-content">Design</span></td>
-            <td>
-              <span class="cell-content">Sr. Digital Designer, KC</span>
-            </td>
+            <th scope="row"><span class="cell-content">Design</span></th>
+            <td><span class="cell-content">Sr. Digital Designer, KC</span></td>
           </tr>
           <tr>
-            <td><span class="cell-content">Development</span></td>
+            <th scope="row"><span class="cell-content">Development</span></th>
             <td><span class="cell-content">Frontend, JS, p5.js</span></td>
           </tr>
         </tbody>
       </table>
-      <table>
+
+      <table class="kv kv--secondary">
+        <colgroup>
+          <col class="kv-col-label" />
+          <col />
+        </colgroup>
         <thead>
           <tr>
-            <th><span class="cell-content">some stuff</span></th>
-            <th><span class="cell-content">some context</span></th>
+            <th scope="col"><span class="cell-content">some stuff</span></th>
+            <th scope="col"><span class="cell-content">some context</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><span class="cell-content">Interests</span></td>
+            <th scope="row"><span class="cell-content">Interests</span></th>
             <td><span class="cell-content">Sci-fi, Crochet, Sewing</span></td>
           </tr>
           <tr>
-            <td><span class="cell-content">Reading</span></td>
+            <th scope="row"><span class="cell-content">Reading</span></th>
             <td><span class="cell-content">"Matter" by Iain M. Banks</span></td>
           </tr>
         </tbody>
@@ -73,9 +78,9 @@
       <!-- <p>note: under construction; links not working yet</p> -->
     </div>
     <script src="/assets/js/util.js"></script>
+    <footer>
+      <p>© 2025 Michael Eggar. All Rights Reserved.</p>
+      <p>michael-eggar.com v.0.4 - under construction</p>
+    </footer>
   </body>
-  <footer>
-    <p>© 2025 Michael Eggar. All Rights Reserved.</p>
-    <p>michael-eggar.com v.0.4 - under construction</p>
-  </footer>
 </html>
