@@ -292,8 +292,14 @@ footer p {
 
 @media (max-width: 600px) {
   :root {
-    --label-col: 16ch;
+    --label-col: 11ch;
   }
+
+  table.kv th,
+  table.kv td {
+    padding: 0.9rem;
+  }
+
   .main-container,
   nav,
   footer,
@@ -303,6 +309,7 @@ footer p {
   }
 
   .main-container p {
+    width: 100%;
     text-wrap: pretty;
   }
 
