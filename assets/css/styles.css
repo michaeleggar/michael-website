@@ -299,7 +299,7 @@ footer p {
 
 @media (max-width: 600px) {
   :root {
-    --label-col: 11ch;
+    --label-col: 14ch;
   }
 
   table.kv th,
