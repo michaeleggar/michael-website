@@ -303,7 +303,7 @@ footer p {
   }
 
   .main-container p {
-    width: 100%;
+    text-wrap: pretty;
   }
 
   footer {
