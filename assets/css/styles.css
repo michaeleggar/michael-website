@@ -149,6 +149,7 @@ p {
 nav {
   display: flex;
   justify-content: space-between;
+  min-height: 40px;
 }
 
 nav ul {
@@ -291,6 +292,7 @@ footer {
   width: 100%;
   box-sizing: border-box;
   padding-top: 3rem;
+  min-height: 40px;
 }
 
 footer p {

@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <div id="nav-placeholder"></div>
+    <nav
+      id="nav-placeholder"
+      aria-label="primary"
+      data-include="/assets/partials/nav.html"
+    ></nav>
     <div class="main-container">
       <div>
         <h1>Hey there, I’m Michael</h1>
@@ -73,10 +77,8 @@
         </tbody>
       </table>
     </div>
-    <footer>
-      <p>© 2025 Michael Eggar. All Rights Reserved.</p>
-      <p>v.0.4 - under construction</p>
-    </footer>
-    <script src="/assets/js/nav.js"></script>
+    <footer data-include="/assets/partials/footer.html"></footer>
+
+    <script src="/assets/js/parts.js"></script>
   </body>
 </html>
