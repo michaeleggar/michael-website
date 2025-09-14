@@ -8,12 +8,10 @@ function loadPart(url, partEl) {
 
 function highlightNav() {
   const currentPath = window.location.pathname.replace(/\/index\.html$/, "/");
-
   document.querySelectorAll(".nav-link").forEach((link) => {
     const hrefPath = link.pathname
       .replace(/\/index\.html$/i, "/")
       .replace(/\/+$/, "/");
-
     if (hrefPath === currentPath) {
       link.classList.add("active-nav");
     }
