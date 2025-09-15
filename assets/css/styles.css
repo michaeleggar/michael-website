@@ -183,7 +183,6 @@ nav a {
 .active-nav:hover {
   background-color: var(--accent-two);
   color: var(--text-primary);
-  box-shadow: 0.2px 0.2px 0 rgba(0, 0, 0, 0.8), -0.2px -0.2px 0 var(--secondary);
 }
 
 .style-toggle {
@@ -240,7 +239,6 @@ table.kv {
   font-family: inherit;
   font-weight: inherit;
   z-index: 0;
-  box-shadow: 0.8px 0.8px 0 rgba(0, 0, 0, 0.8), -0.8px -0.8px 0 var(--secondary);
 }
 
 table.kv tr {
