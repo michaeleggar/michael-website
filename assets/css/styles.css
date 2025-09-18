@@ -409,11 +409,11 @@ footer p {
   border: 0;
   padding: 0;
   background: transparent;
+  height: 100vh;
 }
 #lightbox::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px);
-  height: 100vh;
 }
 #lightbox img {
   max-width: min(92vw, 1200px);
