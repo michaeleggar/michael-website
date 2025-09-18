@@ -353,6 +353,10 @@ footer p {
     align-items: flex-start;
     gap: 1rem;
   }
+
+  .main-container-artwork {
+    padding: 0 1rem;
+  }
 }
 
 /* below is art gallery stuff */
