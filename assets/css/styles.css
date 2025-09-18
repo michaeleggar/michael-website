@@ -328,11 +328,10 @@ footer p {
   }
 
   .main-container,
-  nav,
   footer,
   body {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .main-container {
@@ -352,10 +351,6 @@ footer p {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-  }
-
-  .main-container-artwork {
-    padding: 0 1rem;
   }
 }
 
@@ -418,6 +413,7 @@ footer p {
 #lightbox::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px);
+  height: 100vh;
 }
 #lightbox img {
   max-width: min(92vw, 1200px);
