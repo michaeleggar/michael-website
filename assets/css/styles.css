@@ -216,6 +216,15 @@ body {
   align-content: start;
 }
 
+.main-container-artwork {
+  max-width: 1200px;
+  margin: 4rem auto auto auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-content: start;
+}
+
 .main-container p {
   width: 100%;
   font-weight: 400;
@@ -344,4 +353,88 @@ footer p {
     align-items: flex-start;
     gap: 1rem;
   }
+}
+
+/* below is art gallery stuff */
+.masonry {
+  columns: 1 18rem;
+  gap: 1rem;
+}
+@media (min-width: 600px) {
+  .masonry {
+    columns: 2 18rem;
+  }
+}
+@media (min-width: 900px) {
+  .masonry {
+    columns: 3 18rem;
+  }
+}
+@media (min-width: 1200px) {
+  .masonry {
+    columns: 4 18rem;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin: 0 0 1rem;
+  width: 100%;
+}
+.masonry img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.masonry figcaption {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+@supports (grid-template-rows: masonry) {
+  .masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-template-rows: masonry;
+    gap: 1rem;
+    columns: initial;
+  }
+  .masonry-item {
+    margin: 0;
+  }
+}
+
+#lightbox {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+#lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+}
+#lightbox img {
+  max-width: min(92vw, 1200px);
+  max-height: 82vh;
+  display: block;
+  margin: auto;
+  border-radius: 3px;
+}
+#lightbox .lb-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  font: inherit;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
+}
+#lightbox p {
+  color: #ddd;
+  text-align: left;
+  margin-top: 0.8rem;
 }

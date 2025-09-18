@@ -12,9 +12,28 @@
       aria-label="primary"
       data-include="/assets/partials/nav.html"
     ></nav>
-    <div class="main-container">under construction</div>
-    <footer data-include="/assets/partials/footer.html"></footer>
+    <div class="main-container-artwork">
+      <section
+        id="art-gallery"
+        class="masonry"
+        aria-label="Artwork gallery"
+      ></section>
 
+      <dialog id="lightbox" aria-label="Artwork viewer" aria-modal="true">
+        <button class="lb-close" aria-label="Close">✕</button>
+        <img id="lb-img" alt="" />
+        <p id="lb-cap"></p>
+      </dialog>
+
+      <script type="module" src="/assets/js/gallery.js"></script>
+
+      <dialog id="lightbox" aria-label="Artwork viewer" aria-modal="true">
+        <button class="lb-close" aria-label="Close">✕</button>
+        <img id="lb-img" alt="" />
+        <p id="lb-cap"></p>
+      </dialog>
+    </div>
+    <footer data-include="/assets/partials/footer.html"></footer>
     <script src="/assets/js/parts.js"></script>
   </body>
 </html>
