@@ -408,6 +408,7 @@ footer p {
   border: 0;
   padding: 0;
   background: transparent;
+  height: 100dvh;
 }
 #lightbox::backdrop {
   background: rgba(0, 0, 0, 0.6);

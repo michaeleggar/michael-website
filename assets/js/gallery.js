@@ -82,7 +82,7 @@ async function init() {
     renderItems(data.artworks || []);
   } catch (err) {
     console.error("failed to load artworks manifest:", err);
-    galleryEl.innerHTML = "<p>Unable to load gallery right now.</p>";
+    galleryEl.innerHTML = "<p>gallery not loading</p>";
   }
 }
 
