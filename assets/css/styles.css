@@ -1,91 +1,9 @@
-:root {
-  --primary: #a4a093;
-  --accent: rgba(164, 160, 147, 0.9);
-  --accent-two: rgba(164, 160, 147, 0.2);
-  --secondary: #c9ceb0;
-  --bg: #242121;
-  --text-primary: #cecaba;
-  --text-secondary: rgb(206, 202, 186, 0.6);
-
-  --label-col: 15ch;
-}
+@import url("root.css");
+@import url("typography.css");
 
 ::selection {
   background-color: var(--secondary);
   color: var(--bg);
-}
-
-@font-face {
-  font-family: "Oddball";
-  src: url("../fonts/Oddball.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cascadia Mono";
-  src: url("../fonts/CascadiaMono-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cascadia Mono";
-  src: url("../fonts/CascadiaMono-Italic-VariableFont_wght.ttf")
-    format("truetype");
-  font-weight: 100 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-Italic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Mono";
-  src: url("/assets/fonts/DMMono-MediumItalic.ttf") format("truetype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
 }
 
 html {
@@ -117,40 +35,6 @@ a:hover {
 
 .nav-title:hover {
   color: var(--secondary);
-}
-
-h1 {
-  font-size: 3rem;
-  line-height: 1.4;
-  margin-bottom: 0.2rem;
-  font-family: "Oddball", "DM Mono", monospace;
-  letter-spacing: 0.3rem;
-  color: var(--secondary);
-  font-feature-settings: "calt" 1;
-  text-wrap: balance;
-  text-transform: lowercase;
-}
-
-h2 {
-  margin-top: 0.6rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-style: italic;
-}
-
-h3 {
-  font-size: 1.2rem;
-  line-height: 0.1rem;
-  margin-top: 1rem;
-  margin-bottom: 0.1rem;
-  font-family: "DM Mono", monospace;
-  color: var(--text-primary);
-  text-transform: lowercase;
-  font-weight: 800;
-}
-
-p {
-  color: var(--text-primary);
 }
 
 nav {
@@ -380,15 +264,9 @@ footer p {
   width: 100%;
 }
 .masonry img {
-  display: block;
   width: 100%;
   height: auto;
   border-radius: 3px;
-}
-.masonry figcaption {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-top: 0.4rem;
 }
 
 @supports (grid-template-rows: masonry) {
@@ -408,9 +286,8 @@ footer p {
   border: 0;
   padding: 0;
   background: transparent;
-  height: 100dvh;
-  min-height: -webkit-fill-available;
 }
+
 #lightbox::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px);
@@ -420,18 +297,18 @@ footer p {
   max-height: 82vh;
   display: block;
   margin: auto;
-  border-radius: 3px;
 }
 #lightbox .lb-close {
   position: fixed;
   top: 1rem;
   right: 1rem;
   font: inherit;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
+  background: var(--accent);
+  color: var(--bg);
   border: 0;
   border-radius: 0.5rem;
   padding: 0.5rem 0.7rem;
+  cursor: pointer;
 }
 #lightbox p {
   color: #ddd;
