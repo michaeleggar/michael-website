@@ -293,7 +293,7 @@ footer p {
   backdrop-filter: blur(20px);
 }
 #lightbox img {
-  max-width: min(92vw, 1200px);
+  max-width: 100%;
   max-height: 82vh;
   display: block;
   margin: auto;
