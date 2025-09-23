@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <nav
-      id="nav-placeholder"
-      aria-label="primary"
-      data-include="/assets/partials/nav.html"
-    ></nav>
     <div class="main-container">
+      <nav
+        id="nav-placeholder"
+        aria-label="primary"
+        data-include="/assets/partials/nav.html"
+      ></nav>
       <div>
-        <h1>Hey there, I’m Michael</h1>
-        <p>
-          I’m an artist, designer, and developer. Feel free to take a look at my
-          <a href="/work.html">work</a> or read some of my thoughts in the
-          <a href="/garden.html">garden</a>.
-        </p>
+        <h1>Hey there, I'm Michael</h1>
+        <p>Artist, designer, front-end developer.</p>
       </div>
+
       <table class="kv">
         <colgroup>
           <col class="kv-col-label" />
@@ -33,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="link-row" onclick="window.location.href='/art.html'">
             <th scope="row"><span class="cell-content">Art</span></th>
             <td>
               <span class="cell-content"
@@ -76,8 +73,8 @@
           </tr>
         </tbody>
       </table>
+      <footer data-include="/assets/partials/footer.html"></footer>
     </div>
-    <footer data-include="/assets/partials/footer.html"></footer>
     <script src="/assets/js/parts.js"></script>
   </body>
 </html>
