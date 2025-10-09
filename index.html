@@ -3,77 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Eggar | Artist, Designer, and Developer</title>
+    <title>Michael Eggar | Artist, Designer, and Front-end Developer</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <div class="main-container">
       <nav
+        class="padded"
         id="nav-placeholder"
         aria-label="primary"
         data-include="/assets/partials/nav.html"
       ></nav>
-      <div>
-        <h1>Hey there, I'm Michael</h1>
-        <p>Artist, designer, front-end developer.</p>
+
+      <div class="content-section">
+        <h1 class="padded">Hey there, I'm Michael</h1>
+        <p class="ruled-dashed">
+          I’m an artist, designer and front-end developer with an MFA in
+          painting. I approach all my work with thoughtful craft. These days,
+          I’m focused on front-end development.
+        </p>
       </div>
 
-      <table class="kv">
-        <colgroup>
-          <col class="kv-col-label" />
-          <col />
-        </colgroup>
-        <thead>
-          <tr>
-            <th scope="col"><span class="cell-content">Things</span></th>
-            <th scope="col"><span class="cell-content">Context</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="link-row" onclick="window.location.href='/art.html'">
-            <th scope="row"><span class="cell-content">Art</span></th>
-            <td>
-              <span class="cell-content"
-                >MFA in Painting, Miami University</span
-              >
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cell-content">Design</span></th>
-            <td>
-              <span class="cell-content">Sr. Digital Designer, Koch Comm</span>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cell-content">Development</span></th>
-            <td><span class="cell-content">Frontend, JS, p5.js</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <section class="chip-board">
+        <div class="chip-rows">
+          <div class="chip-group">
+            <span class="chip chip-label">Interests</span>
+            <div class="chip-list">
+              <span class="chip">JavaScript</span>
+              <span class="chip">Painting</span>
+              <span class="chip">Sci-fi</span>
+              <span class="chip">Crochet</span>
+            </div>
+          </div>
 
-      <table class="kv kv--secondary">
-        <colgroup>
-          <col class="kv-col-label" />
-          <col />
-        </colgroup>
-        <thead>
-          <tr>
-            <th scope="col"><span class="cell-content">Things</span></th>
-            <th scope="col"><span class="cell-content">Context</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"><span class="cell-content">Likes</span></th>
-            <td><span class="cell-content">Sci-fi, Crochet, Climbing</span></td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="cell-content">Reading</span></th>
-            <td><span class="cell-content">"Matter" by Iain M. Banks</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <footer data-include="/assets/partials/footer.html"></footer>
+          <div class="chip-group">
+            <span class="chip chip-label">Reading</span>
+            <div class="chip-list">
+              <span class="chip"><em>Matter</em>&nbsp;by Iain M. Banks</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="content-section padded">
+        <img
+          class="padded"
+          src="/assets/images/artwork/Home-Art.jpg"
+          alt="Home Art"
+        />
+      </div>
+      <footer
+        class="padded"
+        data-include="/assets/partials/footer.html"
+      ></footer>
     </div>
     <script src="/assets/js/parts.js"></script>
   </body>
