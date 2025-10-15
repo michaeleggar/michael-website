@@ -7,56 +7,66 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <div class="main-container">
+    <header class="site-header">
       <nav
-        class="padded"
         id="nav-placeholder"
         aria-label="primary"
         data-include="/assets/partials/nav.html"
       ></nav>
+    </header>
 
-      <div class="content-section">
-        <h1 class="padded">Hey there, I'm Michael</h1>
+    <main class="main-container">
+      <section class="content-section intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">Hey there, I'm Michael</h1>
         <p class="ruled-dashed">
           I’m an artist, designer and front-end developer with an MFA in
           painting. I approach all my work with thoughtful craft. These days,
           I’m focused on front-end development.
         </p>
-      </div>
+      </section>
 
-      <section class="chip-board">
+      <section
+        class="chip-board"
+        aria-labelledby="profile-highlights-title"
+      >
+        <h2 class="visually-hidden" id="profile-highlights-title">
+          Personal highlights
+        </h2>
         <div class="chip-rows">
           <div class="chip-group">
-            <span class="chip chip-label">Interests</span>
-            <div class="chip-list">
-              <span class="chip">JavaScript</span>
-              <span class="chip">Painting</span>
-              <span class="chip">Sci-fi</span>
-              <span class="chip">Crochet</span>
-            </div>
+            <h3 class="chip chip-label">Interests</h3>
+            <ul class="chip-list">
+              <li class="chip">JavaScript</li>
+              <li class="chip">Painting</li>
+              <li class="chip">Sci-fi</li>
+              <li class="chip">Crochet</li>
+            </ul>
           </div>
 
           <div class="chip-group">
-            <span class="chip chip-label">Reading</span>
-            <div class="chip-list">
-              <span class="chip"><em>Matter</em>&nbsp;by Iain M. Banks</span>
-            </div>
+            <h3 class="chip chip-label">Reading</h3>
+            <ul class="chip-list">
+              <li class="chip">
+                <em>Matter</em>&nbsp;by Iain M. Banks
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <div class="content-section padded">
-        <img
-          class="padded"
-          src="/assets/images/artwork/Home-Art.jpg"
-          alt="Home Art"
-        />
-      </div>
-      <footer
-        class="padded"
-        data-include="/assets/partials/footer.html"
-      ></footer>
-    </div>
+      <section class="content-section featured-art">
+        <figure class="featured-artwork">
+          <img
+            src="/assets/images/artwork/Home-Art.jpg"
+            alt="Home Art"
+          />
+        </figure>
+      </section>
+    </main>
+    <footer
+      class="site-footer"
+      data-include="/assets/partials/footer.html"
+    ></footer>
     <script src="/assets/js/parts.js"></script>
   </body>
 </html>
