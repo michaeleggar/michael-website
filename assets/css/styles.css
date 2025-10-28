@@ -133,6 +133,11 @@ footer {
 }
 
 /* navigation */
+
+.strike {
+  text-decoration: line-through;
+}
+
 nav {
   display: flex;
   flex-direction: row;
