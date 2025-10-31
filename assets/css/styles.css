@@ -135,7 +135,7 @@ footer {
 /* navigation */
 
 .strike {
-  text-decoration: line-through;
+  text-decoration: 2px line-through var(--secondary);
 }
 
 nav {
