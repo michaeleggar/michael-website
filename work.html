@@ -1,20 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Eggar | Artist, Designer, and Developer</title>
+    <title>Michael Eggar</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <nav
-      id="nav-placeholder"
-      aria-label="primary"
-      data-include="/assets/partials/nav.html"
-    ></nav>
-    <div class="main-container">under construction</div>
+    <header class="site-header">
+      <nav
+        id="nav-placeholder"
+        aria-label="primary"
+        data-include="/assets/partials/nav.html"
+      ></nav>
+    </header>
 
-    <footer data-include="/assets/partials/footer.html"></footer>
+    <main class="main-container">
+      <section class="content-section intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">ductworx</h1>
+        <p class="ruled-dashed">
+          DuctWorx is a custom ducting company based in Oklahoma City. They
+          needed a website that could showcase their new branding and highlight
+          their fabrication capabilities, while also being easy for
+          non-technical staff to update after launch. </p>
+        <p class="ruled-dashed">I designed the site to
+          align with their recently established brand identity, then built it
+          using reusable custom sections in Elementor on WordPress so the client
+          could manage content on their own going forward.</p>
+        </p>
+      </section>
+      <section class="content-section featured-art">
+        <figure class="featured-artwork">
+          <img
+            class="work-example"
+            src="/assets/images/ductworx-full-home.png"
+            alt="Home Art"
+          />
+        </figure>
+      </section>
+    </main>
+    <footer
+      class="site-footer"
+      data-include="/assets/partials/footer.html"
+    ></footer>
     <script src="/assets/js/parts.js"></script>
   </body>
 </html>

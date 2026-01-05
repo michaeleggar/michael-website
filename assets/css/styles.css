@@ -15,7 +15,7 @@
 
 @font-face {
   font-family: "Oddball";
-  src: url("../fonts/Oddball.woff2") format("woff2");
+  src: url("/assets/fonts/Oddball.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -156,8 +156,8 @@ nav ul {
 nav a {
   text-decoration: none;
   font-weight: 500;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
   background-color: transparent;
   font-size: 0.9rem;
   text-transform: capitalize;
@@ -264,7 +264,12 @@ a:hover {
 .content-section img {
   max-width: 100%;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 6px;
+}
+
+.work-example {
+  position: relative;
+  box-shadow: 0 0 0 2px var(--text-underline);
 }
 
 .content-section p {
