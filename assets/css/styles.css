@@ -82,7 +82,7 @@ html {
 body {
   margin: 0;
   font-size: 16px;
-  padding: var(--space-md);
+  padding: 0;
   font-family: "DM Mono", monospace;
   font-weight: 500;
   color: var(--text-primary);
@@ -130,6 +130,23 @@ footer {
 
 .site-header {
   padding-inline: var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: linear-gradient(
+    hsl(0, 4.35%, 13.53%) 0%,
+    hsla(0, 4.35%, 13.53%, 0.987) 35%,
+    hsla(0, 4.35%, 13.53%, 0.951) 50%,
+    hsla(0, 4.35%, 13.53%, 0.896) 60%,
+    hsla(0, 4.35%, 13.53%, 0.825) 67%,
+    hsla(0, 4.35%, 13.53%, 0.741) 73%,
+    hsla(0, 4.35%, 13.53%, 0.541) 80%,
+    hsla(0, 4.35%, 13.53%, 0.382) 85%,
+    hsla(0, 4.35%, 13.53%, 0.194) 91%,
+    hsla(0, 4.35%, 13.53%, 0.075) 95%,
+    hsla(0, 4.35%, 13.53%, 0) 100%
+  );
+  padding-top: var(--space-sm);
 }
 
 /* navigation */
@@ -210,20 +227,25 @@ h1 {
 }
 
 h2 {
-  margin-block-start: 0.6rem;
+  color: var(--secondary);
+  margin-inline: var(--space-lg);
   font-size: 1.1rem;
-  font-weight: 600;
+  margin-block: 1rem 0.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
   font-style: italic;
+  text-transform: lowercase;
 }
 
 h3 {
-  font-size: 1.2rem;
+  margin-inline: var(--space-lg);
+  font-size: 1rem;
   line-height: 1.2;
-  margin-block: 1rem 0.1rem;
-  font-family: "DM Mono", monospace;
+  margin-block: 1rem 0.3rem;
   color: var(--text-primary);
+  font-weight: 500;
   text-transform: lowercase;
-  font-weight: 800;
+  font-style: italic;
 }
 
 /* links */
@@ -349,9 +371,52 @@ a:hover {
 
 .chip-rows {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--chip-gap);
+  display: grid;
+  grid-template-columns: minmax(10ch, max-content) 1fr;
+  column-gap: 0.875rem;
+  row-gap: var(--chip-gap);
+  align-items: start;
+}
+
+.chip-group {
+  position: relative;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(10ch, max-content) 1fr;
+  grid-template-columns: subgrid;
+  column-gap: inherit;
+  align-items: start;
+  z-index: 1;
+}
+
+.chip-group:not(:first-child)::before {
+  content: "";
+  grid-column: 1 / -1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--text-underline) 0 4px,
+    transparent 4px 8px
+  );
+  opacity: var(--line-opacity);
+  margin-top: calc(-0.5 * var(--chip-gap));
+  margin-bottom: calc(0.5 * var(--chip-gap) - 1px);
+  pointer-events: none;
+}
+
+.chip.chip-label {
+  grid-column: 1;
+  padding: 0.4rem 0;
+  padding-right: 1rem;
+  background: none;
+  margin: 0;
+  text-transform: none;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  hyphens: auto;
+  position: relative;
 }
 
 .chip-rows::after {
@@ -359,7 +424,7 @@ a:hover {
   position: absolute;
   top: -1rem;
   bottom: -1rem;
-  left: calc(var(--label-col) - 0.5rem);
+  left: var(--separator-left, 12ch);
   width: 1px;
   background: repeating-linear-gradient(
     to bottom,
@@ -370,49 +435,12 @@ a:hover {
   pointer-events: none;
 }
 
-.chip-group {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  column-gap: 1rem;
-  row-gap: 0.75rem;
-  z-index: 1;
-}
-
-.chip-group + .chip-group::before {
-  content: "";
-  position: absolute;
-  top: calc(-0.5 * var(--chip-gap));
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--text-underline) 0 4px,
-    transparent 4px 8px
-  );
-  opacity: var(--line-opacity);
-  pointer-events: none;
-}
-
-.chip.chip-label {
-  flex: 0 0 var(--label-col);
-  justify-content: flex-start;
-  padding: 0.4rem 0;
-  background: none;
-  margin: 0;
-  text-transform: none;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
 .chip-list {
-  flex: 1 1 min(22rem, 100%);
+  grid-column: 2;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  align-content: start;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -425,6 +453,9 @@ a:hover {
   border-radius: 4px;
   background: var(--accent-two);
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 600px) {
@@ -442,20 +473,24 @@ a:hover {
     padding-inline: var(--space-sm);
   }
 
-  .chip.chip-label {
-    flex-basis: 100%;
-    justify-content: flex-start;
-    padding-right: 0;
-    margin: 0;
-  }
-
-  .chip-list {
-    flex-basis: 100%;
-    padding: 0;
+  .chip-rows {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
   }
 
   .chip-group {
-    column-gap: 0.75rem;
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+  }
+
+  .chip-label {
+    grid-column: 1;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--text-underline);
+  }
+
+  .chip-list {
+    grid-column: 1;
   }
 
   .intro h1 {

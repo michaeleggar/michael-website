@@ -30,8 +30,22 @@ function hydrateAllIncludes() {
   return Promise.all(targets.map(hydrateInclude));
 }
 
+function positionChipSeparators() {
+  const chipBoards = document.querySelectorAll(".chip-rows");
+  chipBoards.forEach((board) => {
+    const firstLabel = board.querySelector(".chip-label");
+    if (firstLabel) {
+      const labelWidth = firstLabel.offsetWidth;
+      board.style.setProperty("--separator-left", `${labelWidth}px`);
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   hydrateAllIncludes().then(() => {
     highlightNav();
+    positionChipSeparators();
   });
 });
+
+window.addEventListener("resize", positionChipSeparators);
