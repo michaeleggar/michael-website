@@ -406,7 +406,7 @@ a:hover {
 
 .chip.chip-label {
   grid-column: 1;
-  padding: 0.4rem 0;
+  padding: 0.2rem 0;
   padding-right: 1rem;
   background: none;
   margin: 0;
@@ -417,6 +417,7 @@ a:hover {
   word-wrap: break-word;
   hyphens: auto;
   position: relative;
+  border-radius: 0;
 }
 
 .chip-rows::after {
@@ -449,13 +450,18 @@ a:hover {
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
   background: var(--accent-two);
+  color: var(--text-primary);
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.chip.light {
+  background-color: var(--text-underline);
 }
 
 @media (max-width: 600px) {
@@ -483,10 +489,24 @@ a:hover {
     row-gap: 0.75rem;
   }
 
-  .chip-label {
+  .chip.chip-label {
     grid-column: 1;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px dashed var(--text-underline);
+    padding-bottom: 0.5rem;
+    position: relative;
+  }
+
+  .chip.chip-label::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--text-underline) 0 4px,
+      transparent 4px 8px
+    );
   }
 
   .chip-list {
