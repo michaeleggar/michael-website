@@ -7,12 +7,13 @@ function loadPart(url, partEl) {
 }
 
 function highlightNav() {
-  const currentPath = window.location.pathname.replace(/\/index\.html$/, "/");
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    if (link.getAttribute("href")?.endsWith("index.html")) {
-      if (currentPath.endsWith("index.html") || currentPath === "/") {
-        link.classList.add("active-nav");
-      }
+  const currentPath = window.location.pathname;
+  const links = document.querySelectorAll(".nav-link");
+  links.forEach((link) => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active-nav");
+    } else if (currentPath === "/") {
+      links[0].classList.add("active-nav");
     }
   });
 }

@@ -160,6 +160,8 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   min-height: 40px;
+  align-items: center;
+  padding-bottom: var(--space-lg);
 }
 
 nav ul {
@@ -173,8 +175,8 @@ nav ul {
 nav a {
   text-decoration: none;
   font-weight: 500;
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
   background-color: transparent;
   font-size: 0.9rem;
   text-transform: capitalize;
@@ -298,6 +300,16 @@ a:hover {
   margin-block-start: 0;
   line-height: 1.6rem;
   position: relative;
+}
+
+.work-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.work-grid .work-example:hover {
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 .featured-art {
