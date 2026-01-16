@@ -1,0 +1,39 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname;
+
+  const normalizePath = (path) => {
+    const name = path.split("/").pop();
+    if (name === "" || name === "index.html") return "index";
+    return name.replace(".html", "");
+  };
+
+  const normalizedCurrent = normalizePath(currentPath);
+
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href === "#") return;
+    if (normalizePath(href) === normalizedCurrent) {
+      link.classList.add("active-nav");
+    }
+  });
+
+  positionChipSeparators();
+});
+
+function positionChipSeparators() {
+  document.querySelectorAll(".chip-rows").forEach((board) => {
+    const label = board.querySelector(".chip-label");
+    if (label)
+      board.style.setProperty("--separator-left", `${label.offsetWidth}px`);
+  });
+}
+
+function debounce(fn, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+window.addEventListener("resize", debounce(positionChipSeparators, 100));

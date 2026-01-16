@@ -1,6 +1,6 @@
 "use strict";
 
-const MANIFEST_URL = "/assets/data/artwork.json";
+const MANIFEST_URL = "assets/data/artwork.json";
 const gallery = document.getElementById("art-gallery");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lb-img");
@@ -36,43 +36,33 @@ function closeLightbox() {
   document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
 
-  if (lastFocusedTrigger) {
+  if (lastFocusedTrigger && document.contains(lastFocusedTrigger)) {
     lastFocusedTrigger.focus();
   }
+  lastFocusedTrigger = null;
 }
 
 function renderGallery(items) {
-  var fragment = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < items.length; i++) {
-    var art = items[i];
+  for (let i = 0; i < items.length; i++) {
+    const art = items[i];
 
-    var figure = document.createElement("figure");
+    const figure = document.createElement("figure");
     figure.className = "masonry-item";
 
-    var link = document.createElement("a");
+    const link = document.createElement("a");
     link.setAttribute("href", art.src_large);
     link.setAttribute("data-full", art.src_large);
     if (art.caption) {
       link.setAttribute("data-caption", art.caption);
     }
 
-    var img = document.createElement("img");
+    const img = document.createElement("img");
     img.setAttribute("loading", "lazy");
-    if (art.src_thumb) {
-      img.setAttribute("src", art.src_thumb);
-    } else {
-      img.setAttribute("src", art.src_large);
-    }
+    img.setAttribute("src", art.src_thumb || art.src_large);
 
-    var altText = "";
-    if (art.alt) {
-      altText = art.alt;
-    } else if (art.title) {
-      altText = art.title;
-    } else {
-      altText = "";
-    }
+    const altText = art.alt || art.title || "";
     img.setAttribute("alt", altText);
 
     link.appendChild(img);
@@ -85,7 +75,7 @@ function renderGallery(items) {
 }
 
 gallery.addEventListener("click", function (event) {
-  var el = event.target;
+  let el = event.target;
   while (el && el !== gallery && el.tagName !== "A") {
     el = el.parentElement;
   }
@@ -97,14 +87,10 @@ gallery.addEventListener("click", function (event) {
   if (el.hasAttribute("data-full")) {
     event.preventDefault();
 
-    var fullSrc = el.getAttribute("data-full");
-    var captionText = el.getAttribute("data-caption") || "";
-
-    var imgEl = el.querySelector("img");
-    var altText = "";
-    if (imgEl) {
-      altText = imgEl.getAttribute("alt") || "";
-    }
+    const fullSrc = el.getAttribute("data-full");
+    const captionText = el.getAttribute("data-caption") || "";
+    const imgEl = el.querySelector("img");
+    const altText = imgEl ? imgEl.getAttribute("alt") || "" : "";
 
     openLightbox(fullSrc, altText, captionText, el);
   }
@@ -136,16 +122,11 @@ function loadManifest() {
 function init() {
   loadManifest()
     .then(function (data) {
-      var items;
-      if (Array.isArray(data.artwork)) {
-        items = data.artwork.slice();
-      } else {
-        items = [];
-      }
+      const items = Array.isArray(data.artwork) ? data.artwork.slice() : [];
 
       items.sort(function (a, b) {
-        var ao = typeof a.order === "number" ? a.order : 0;
-        var bo = typeof b.order === "number" ? b.order : 0;
+        const ao = typeof a.order === "number" ? a.order : 0;
+        const bo = typeof b.order === "number" ? b.order : 0;
         return ao - bo;
       });
 
@@ -153,7 +134,10 @@ function init() {
     })
     .catch(function (error) {
       console.error("Failed to load artwork manifest:", error);
-      gallery.innerHTML = "<p>Sorry, the gallery did not load.</p>";
+      gallery.textContent = "";
+      const errorMsg = document.createElement("p");
+      errorMsg.textContent = "Sorry, the gallery did not load.";
+      gallery.appendChild(errorMsg);
     });
 }
 

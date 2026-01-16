@@ -110,6 +110,26 @@ body {
   border: 0;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background: var(--secondary);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 0 0 6px 6px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 footer {
   font-size: 0.8rem;
   display: flex;
@@ -552,51 +572,7 @@ a:hover {
   }
 }
 
-/* below is art gallery stuff */
-/* .masonry {
-  columns: 1 18rem;
-  gap: 1rem;
-}
-@media (min-width: 600px) {
-  .masonry {
-    columns: 2 18rem;
-  }
-}
-@media (min-width: 900px) {
-  .masonry {
-    columns: 3 18rem;
-  }
-}
-@media (min-width: 1200px) {
-  .masonry {
-    columns: 4 18rem;
-  }
-}
-
-.masonry-item {
-  break-inside: avoid;
-  margin: 0 0 1rem;
-  width: 100%;
-}
-.masonry img {
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
-}
-
-@supports (grid-template-rows: masonry) {
-  .masonry {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    grid-template-rows: masonry;
-    gap: 1rem;
-    columns: initial;
-  }
-  .masonry-item {
-    margin: 0;
-  }
-}
-
+/* art gallery lightbox */
 #lightbox {
   border: 0;
   padding: 0;
@@ -607,12 +583,14 @@ a:hover {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px);
 }
+
 #lightbox img {
   max-width: 100%;
   max-height: 82vh;
   display: block;
   margin: auto;
 }
+
 #lightbox .lb-close {
   position: fixed;
   top: 1rem;
@@ -625,8 +603,9 @@ a:hover {
   padding: 0.5rem 0.7rem;
   cursor: pointer;
 }
+
 #lightbox p {
   color: #ddd;
   text-align: left;
   margin-top: 0.8rem;
-} */
+}

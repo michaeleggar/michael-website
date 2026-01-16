@@ -1,0 +1,6 @@
+{
+  "name": "michael-website",
+  "scripts": {
+    "build": "node assets/scripts/build.js"
+  }
+}

@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- include:head.html -->
     <title>Michael Eggar</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <header class="site-header">
-      <nav
-        id="nav-placeholder"
-        aria-label="primary"
-        data-include="/assets/partials/nav.html"
-      ></nav>
+      <nav id="nav-placeholder" aria-label="primary">
+        <!-- include:nav.html -->
+      </nav>
     </header>
 
-    <main class="main-container">
+    <main id="main-content" class="main-container">
       <section class="content-section intro" aria-labelledby="intro-title">
         <h1 id="intro-title">Ductworx Website</h1>
         <p class="ruled-dashed">
@@ -63,8 +59,8 @@
         <figure class="featured-artwork">
           <img
             class="work-example"
-            src="/assets/images/ductworx/ductworx-home-above-fold.jpg"
-            alt="Home Art"
+            src="assets/images/ductworx/ductworx-home-above-fold.jpg"
+            alt="DuctWorx website screenshot"
           />
         </figure>
       </section>
@@ -86,16 +82,15 @@
         <figure class="featured-artwork">
           <img
             class="work-example"
-            src="/assets/images/ductworx/ductworx-products.jpg"
-            alt="Home Art"
+            src="assets/images/ductworx/ductworx-products.jpg"
+            alt="DuctWorx website screenshot"
           />
         </figure>
       </section>
     </main>
-    <footer
-      class="site-footer"
-      data-include="/assets/partials/footer.html"
-    ></footer>
-    <script src="/assets/js/parts.js"></script>
+    <footer class="site-footer">
+      <!-- include:footer.html -->
+    </footer>
+    <script src="assets/scripts/parts.js"></script>
   </body>
 </html>
