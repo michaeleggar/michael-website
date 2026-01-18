@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
 
   const normalizePath = (path) => {
-    const name = path.split("/").pop();
-    if (name === "" || name === "index.html") return "index";
-    return name.replace(".html", "");
+    let normalized = path.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    if (normalized !== "/" && !normalized.endsWith("/")) normalized += "/";
+    return normalized || "/";
   };
 
   const normalizedCurrent = normalizePath(currentPath);
@@ -12,7 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".nav-link").forEach((link) => {
     const href = link.getAttribute("href");
     if (href === "#") return;
-    if (normalizePath(href) === normalizedCurrent) {
+    const normalizedHref = normalizePath(href);
+    if (
+      normalizedHref === normalizedCurrent ||
+      (normalizedHref !== "/" && normalizedCurrent.startsWith(normalizedHref))
+    ) {
       link.classList.add("active-nav");
     }
   });

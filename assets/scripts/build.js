@@ -26,6 +26,19 @@ function copyDir(src, dest) {
   }
 }
 
+function findHtmlFiles(dir, baseDir = dir) {
+  const results = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...findHtmlFiles(fullPath, baseDir));
+    } else if (entry.name.endsWith(".html")) {
+      results.push(path.relative(baseDir, fullPath));
+    }
+  }
+  return results;
+}
+
 try {
   // Clean dist directory
   if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true });
@@ -36,13 +49,16 @@ try {
   console.log(`Partials: ${Object.keys(partials).join(", ")}`);
 
   // Process HTML files
-  for (const file of fs.readdirSync(SRC).filter((f) => f.endsWith(".html"))) {
-    const html = fs.readFileSync(path.join(SRC, file), "utf-8");
+  for (const file of findHtmlFiles(SRC)) {
+    const srcPath = path.join(SRC, file);
+    const destPath = path.join(DIST, file);
+    fs.mkdirSync(path.dirname(destPath), { recursive: true });
+    const html = fs.readFileSync(srcPath, "utf-8");
     const processed = html.replace(
       /<!--\s*include:(\S+)\s*-->/g,
       (_, name) => partials[name] || ""
     );
-    fs.writeFileSync(path.join(DIST, file), processed);
+    fs.writeFileSync(destPath, processed);
     console.log(`Built: ${file}`);
   }
 

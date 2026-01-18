@@ -2,6 +2,7 @@
   --primary: #a4a093;
   --accent: rgba(164, 160, 147, 0.9);
   --accent-two: rgba(164, 160, 147, 0.2);
+  --accent-three: rgba(164, 160, 147, 0.1);
   --secondary: #c9ceb0;
   --bg: #242121;
   --text-primary: #cecaba;
@@ -71,6 +72,7 @@
 
 html {
   height: 100%;
+  scrollbar-gutter: stable;
 }
 
 *,
@@ -116,7 +118,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   padding: 0.5rem 1rem;
-  background: var(--secondary);
+  background: var(--accent);
   color: var(--bg);
   text-decoration: none;
   border-radius: 0 0 6px 6px;
@@ -170,7 +172,6 @@ footer {
 }
 
 /* navigation */
-
 .strike {
   text-decoration: 2px line-through var(--secondary);
 }
@@ -200,6 +201,10 @@ nav a {
   background-color: transparent;
   font-size: 0.9rem;
   text-transform: capitalize;
+}
+
+nav li a:hover {
+  background-color: var(--accent-three);
 }
 
 .active-nav,
@@ -330,6 +335,10 @@ a:hover {
 
 .work-grid .work-example:hover {
   box-shadow: 0 0 0 2px var(--primary);
+}
+
+.work-grid .work-example:active {
+  transform: scale(0.99);
 }
 
 .featured-art {
