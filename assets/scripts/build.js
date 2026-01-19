@@ -56,7 +56,7 @@ try {
     const html = fs.readFileSync(srcPath, "utf-8");
     const processed = html.replace(
       /<!--\s*include:(\S+)\s*-->/g,
-      (_, name) => partials[name] || ""
+      (_, name) => partials[name] || "",
     );
     fs.writeFileSync(destPath, processed);
     console.log(`Built: ${file}`);
@@ -64,9 +64,10 @@ try {
 
   // Copy assets
   copyDir("assets", path.join(DIST, "assets"));
-  if (fs.existsSync("CNAME")) fs.copyFileSync("CNAME", path.join(DIST, "CNAME"));
+  if (fs.existsSync("CNAME"))
+    fs.copyFileSync("CNAME", path.join(DIST, "CNAME"));
 
-  console.log("Build completed successfully");
+  console.log("Done! All good.");
 } catch (error) {
   console.error("Build failed:", error.message);
   process.exit(1);
