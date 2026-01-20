@@ -31,13 +31,3 @@ function positionChipSeparators() {
       board.style.setProperty("--separator-left", `${label.offsetWidth}px`);
   });
 }
-
-function debounce(fn, delay) {
-  let timeoutId;
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
-
-window.addEventListener("resize", debounce(positionChipSeparators, 100));
