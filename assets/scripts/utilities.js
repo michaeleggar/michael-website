@@ -31,3 +31,12 @@ function positionChipSeparators() {
       board.style.setProperty("--separator-left", `${label.offsetWidth}px`);
   });
 }
+
+const mq = window.matchMedia("(min-width: 780px)");
+function handleBreakpoint(e) {
+  if (e.matches) {
+    positionChipSeparators();
+  }
+}
+
+mq.addEventListener("change", handleBreakpoint);
