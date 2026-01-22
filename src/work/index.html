@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- include:head.html -->
@@ -17,22 +17,33 @@
         <h1 id="intro-title">Some of my work</h1>
       </section>
       <section class="content-section featured-art work-grid">
-        <figure class="featured-artwork">
-          <a href="ductworx/"
-            ><img
-              class="work-example"
-              src="/assets/images/ductworx/ductworx-home-above-fold.jpg"
-              alt="DuctWorx website homepage design"
-          /></a>
-        </figure>
-        <figure class="featured-artwork">
-          <a href="retirementpath/"
-            ><img
-              class="work-example"
-              src="/assets/images/ria/ria-feature.png"
-              alt="The Retirement Investment Advisors website homepage screenshot"
-          /></a>
-        </figure>
+        <article
+          class="work-card"
+          style="
+            background-image: url(&quot;/assets/images/ductworx/duc-mock-2.jpg&quot;);
+          "
+        >
+          <a href="ductworx/" aria-label="View DuctWorx project">
+            <div class="card-info">
+              <h2>DuctWorx Website</h2>
+              <p class="ruled-dashed">
+                A new, industrial website for custom ducting fabricators.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
+          class="work-card"
+          style="
+            background-image: url(&quot;/assets/images/ria/ria-feature.png&quot;);
+          "
+        >
+          <a href="retirementpath/" aria-label="View Retirement Path project">
+            <div class="card-info">
+              <h2>Retirement Website</h2>
+            </div>
+          </a>
+        </article>
       </section>
     </main>
     <footer class="site-footer">
