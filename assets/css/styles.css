@@ -411,7 +411,7 @@ a:hover {
 }
 
 .card-info p.ruled-dashed::before {
-  inset: 0.2rem 0 0 0;
+  inset: 0.4rem 0 0 0;
 }
 
 .work-card:hover .card-info h2 {
