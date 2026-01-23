@@ -502,11 +502,10 @@ a:hover {
   --thickness: 1px;
   --dash: 4px;
   --gap: 4px;
-  --lh: 1.6rem;
-  --offset: 0.07em;
+  --baseline-offset: 0.72lh; /* Position line at 72% of line-height */
 
   position: relative;
-  line-height: var(--lh);
+  line-height: 1.6rem;
   padding-inline: var(--space-lg);
 }
 
@@ -521,7 +520,7 @@ a:hover {
       var(--line-color) 0 var(--thickness),
       transparent 0
     )
-    left calc(1em + var(--offset)) / 100% var(--lh) repeat-y;
+    left var(--baseline-offset) / 100% 1lh repeat-y;
 
   -webkit-mask: repeating-linear-gradient(
     90deg,
