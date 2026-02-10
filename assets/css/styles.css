@@ -303,15 +303,6 @@ a:hover {
   padding-top: var(--space-md);
 }
 
-.main-container-artwork {
-  max-width: 1200px;
-  margin: 4rem auto auto auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-content: start;
-}
-
 .main-container p {
   font-weight: 400;
 }
@@ -738,5 +729,29 @@ a:hover {
     flex: none;
     width: 100%;
     min-height: 250px;
+    overflow: visible;
+  }
+
+  .work-card a {
+    display: block;
+    height: auto;
+    padding-top: 250px;
+  }
+
+  .card-info {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    transition: none;
+    padding: 5px;
+  }
+
+  .card-info h2,
+  .card-info p {
+    transform: none;
+    transition: none;
+    isolation: isolate;
   }
 }

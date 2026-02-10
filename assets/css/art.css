@@ -1,0 +1,133 @@
+/* Art page layout */
+.art-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem var(--space-lg) var(--space-xl);
+}
+
+/* Masonry grid */
+.art-masonry {
+  columns: 3;
+  column-gap: var(--space-sm);
+}
+
+/* Individual artwork items */
+.art-item {
+  break-inside: avoid;
+  margin: 0 0 var(--space-sm);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition:
+    box-shadow 500ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.1s ease;
+}
+
+.art-item:hover {
+  box-shadow: 0 0 0 2px var(--text-secondary);
+}
+
+.art-item:active {
+  transform: scale(0.99);
+}
+
+.art-item button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.art-item img {
+  display: block;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.art-masonry.loaded .art-item img {
+  opacity: 1;
+}
+
+/* Modal */
+#art-modal {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: visible;
+}
+
+#art-modal::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.modal-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modal-img {
+  max-width: 90vw;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+}
+
+.modal-info {
+  text-align: center;
+  padding-top: var(--space-sm);
+}
+
+.modal-info h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.modal-info p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+  .art-page {
+    padding-inline: var(--space-sm);
+  }
+
+  .art-masonry {
+    columns: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .art-masonry {
+    columns: 1;
+  }
+}

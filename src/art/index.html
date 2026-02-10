@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include:head.html -->
+    <link rel="stylesheet" href="/assets/css/art.css" />
+    <title>Michael Eggar | Art</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav id="nav-placeholder" aria-label="primary">
+        <!-- include:nav.html -->
+      </nav>
+    </header>
+
+    <main id="main-content" class="art-page">
+      <section
+        id="art-gallery"
+        class="art-masonry"
+        aria-label="Artwork gallery"
+      >
+        <!-- include:artwork -->
+      </section>
+
+      <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <div class="modal-content">
+          <img id="modal-img" alt="" />
+          <div class="modal-info">
+            <h2 id="modal-title"></h2>
+            <p id="modal-details"></p>
+          </div>
+        </div>
+      </dialog>
+    </main>
+
+    <footer class="site-footer">
+      <!-- include:footer.html -->
+    </footer>
+
+    <script src="/assets/scripts/artwork.js"></script>
+    <script src="/assets/scripts/utilities.js"></script>
+  </body>
+</html>

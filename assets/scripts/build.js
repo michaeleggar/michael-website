@@ -4,6 +4,49 @@ const path = require("path");
 const SRC = "src";
 const DIST = "dist";
 const PARTIALS = "assets/partials";
+const ARTWORK_JSON = "assets/data/artwork.json";
+
+function escAttr(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function buildGalleryHtml() {
+  const data = JSON.parse(fs.readFileSync(ARTWORK_JSON, "utf-8"));
+  const items = Array.isArray(data.artwork) ? data.artwork.slice() : [];
+
+  items.sort((a, b) => {
+    const ao = typeof a.order === "number" ? a.order : 0;
+    const bo = typeof b.order === "number" ? b.order : 0;
+    return ao - bo;
+  });
+
+  return items
+    .map((art) => {
+      const thumbSrc = art.src_thumb || art.src_large;
+      const altText = art.alt || art.title || "";
+      const ariaLabel = "View " + (art.title || "artwork");
+
+      return [
+        '<figure class="art-item">',
+        '  <button type="button"',
+        `    aria-label="${escAttr(ariaLabel)}"`,
+        `    data-src-large="${escAttr(art.src_large)}"`,
+        `    data-title="${escAttr(art.title)}"`,
+        `    data-year="${escAttr(art.year)}"`,
+        `    data-medium="${escAttr(art.medium)}"`,
+        `    data-dimensions="${escAttr(art.dimensions_text)}">`,
+        `    <img loading="lazy" src="${escAttr(thumbSrc)}" alt="${escAttr(altText)}" />`,
+        "  </button>",
+        "</figure>",
+      ].join("\n");
+    })
+    .join("\n");
+}
 
 function loadPartials() {
   const partials = {};
@@ -56,7 +99,10 @@ try {
     const html = fs.readFileSync(srcPath, "utf-8");
     const processed = html.replace(
       /<!--\s*include:(\S+)\s*-->/g,
-      (_, name) => partials[name] || "",
+      (_, name) => {
+        if (name === "artwork") return buildGalleryHtml();
+        return partials[name] || "";
+      },
     );
     fs.writeFileSync(destPath, processed);
     console.log(`Built: ${file}`);
