@@ -155,7 +155,6 @@ footer {
   min-height: 40px;
 }
 
-.site-header,
 .site-footer {
   max-width: 760px;
   width: 100%;
@@ -189,6 +188,8 @@ footer {
 }
 
 nav {
+  max-width: 760px;
+  margin-inline: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
