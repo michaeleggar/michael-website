@@ -64,7 +64,7 @@
 }
 
 #art-modal::backdrop {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.87);
 }
 
 .modal-close {
@@ -76,7 +76,7 @@
   color: var(--text-secondary);
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
+  padding: 0;
   line-height: 1;
   transition: color 0.15s ease;
 }
@@ -88,7 +88,7 @@
 .modal-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
 }
 
 #modal-img {
@@ -99,7 +99,7 @@
 }
 
 .modal-info {
-  text-align: center;
+  text-align: left;
   padding-top: var(--space-sm);
 }
 
@@ -115,7 +115,6 @@
   color: var(--text-secondary);
 }
 
-/* Responsive */
 @media (max-width: 780px) {
   .art-page {
     padding-inline: var(--space-sm);
