@@ -6,7 +6,7 @@ const path = require("path");
 
 const ARTWORK_DIR = path.join(__dirname, "..", "images", "artwork");
 const THUMBS_DIR = path.join(ARTWORK_DIR, "thumbs");
-const JSON_PATH = path.join(__dirname, "..", "data", "artwork.json");
+const JSON_PATH = path.join(__dirname, "..", "data", "art.json");
 
 const THUMB_WIDTH = 600;
 const JPEG_QUALITY = 80;
@@ -58,7 +58,7 @@ async function run() {
   }
 
   fs.writeFileSync(JSON_PATH, JSON.stringify(manifest, null, 2) + "\n");
-  console.log("\nUpdated artwork.json with thumbnail paths.");
+  console.log("\nUpdated art.json with thumbnail paths.");
   console.log("Done!");
 }
 

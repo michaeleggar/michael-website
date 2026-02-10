@@ -4,7 +4,7 @@ const path = require("path");
 const SRC = "src";
 const DIST = "dist";
 const PARTIALS = "assets/partials";
-const ARTWORK_JSON = "assets/data/artwork.json";
+const ARTWORK_JSON = "assets/data/art.json";
 
 function escAttr(str) {
   if (!str) return "";
@@ -18,12 +18,6 @@ function escAttr(str) {
 function buildGalleryHtml() {
   const data = JSON.parse(fs.readFileSync(ARTWORK_JSON, "utf-8"));
   const items = Array.isArray(data.artwork) ? data.artwork.slice() : [];
-
-  items.sort((a, b) => {
-    const ao = typeof a.order === "number" ? a.order : 0;
-    const bo = typeof b.order === "number" ? b.order : 0;
-    return ao - bo;
-  });
 
   return items
     .map((art) => {

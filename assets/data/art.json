@@ -12,8 +12,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/01%20Spiderweb.jpg",
       "src_large": "/assets/images/artwork/01%20Spiderweb.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 1
+      "height_large": null
     },
     {
       "id": "hey",
@@ -27,8 +26,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/02%20Hey!.jpg",
       "src_large": "/assets/images/artwork/02%20Hey!.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 2
+      "height_large": null
     },
     {
       "id": "breakfast",
@@ -42,8 +40,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/03%20Breakfast.jpg",
       "src_large": "/assets/images/artwork/03%20Breakfast.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 3
+      "height_large": null
     },
     {
       "id": "night-walk",
@@ -57,8 +54,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/04%20Night%20Walk.jpg",
       "src_large": "/assets/images/artwork/04%20Night%20Walk.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 4
+      "height_large": null
     },
     {
       "id": "night-spiral",
@@ -72,8 +68,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/05%20Night%20Spiral.jpg",
       "src_large": "/assets/images/artwork/05%20Night%20Spiral.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 5
+      "height_large": null
     },
     {
       "id": "dreaming",
@@ -87,8 +82,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/06%20Dreaming.jpg",
       "src_large": "/assets/images/artwork/06%20Dreaming.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 6
+      "height_large": null
     },
     {
       "id": "under-a-tree-with-remi",
@@ -102,8 +96,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/07%20Under%20a%20Tree%20With%20Remi.jpg",
       "src_large": "/assets/images/artwork/07%20Under%20a%20Tree%20With%20Remi.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 7
+      "height_large": null
     },
     {
       "id": "open-your-mind-fill-it-with-bullshit",
@@ -117,8 +110,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/08%20Open%20Your%20Mind%20Fill%20It%20With%20Bullshit.jpg",
       "src_large": "/assets/images/artwork/08%20Open%20Your%20Mind%20Fill%20It%20With%20Bullshit.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 8
+      "height_large": null
     },
     {
       "id": "another-morning",
@@ -132,23 +124,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/09%20Another%20Morning.jpg",
       "src_large": "/assets/images/artwork/09%20Another%20Morning.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 9
-    },
-    {
-      "id": "reading-all-night",
-      "title": "Reading All Night",
-      "year": "2020",
-      "medium": "mixed media on canvas",
-      "dimensions_text": "24\" x 18\"",
-      "tags": [],
-      "alt": "Reading All Night",
-      "caption": "Reading All Night",
-      "src_thumb": "/assets/images/artwork/thumbs/10%20Reading%20All%20Night.jpg",
-      "src_large": "/assets/images/artwork/10%20Reading%20All%20Night.jpg",
-      "width_large": null,
-      "height_large": null,
-      "order": 10
+      "height_large": null
     },
     {
       "id": "fingers",
@@ -162,8 +138,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/11%20Fingers.jpg",
       "src_large": "/assets/images/artwork/11%20Fingers.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 11
+      "height_large": null
     },
     {
       "id": "hot-sauce",
@@ -177,8 +152,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/12%20Hot%20Sauce.jpg",
       "src_large": "/assets/images/artwork/12%20Hot%20Sauce.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 12
+      "height_large": null
     },
     {
       "id": "coffee-reflection",
@@ -192,8 +166,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/13%20Coffee%20Reflection.jpg",
       "src_large": "/assets/images/artwork/13%20Coffee%20Reflection.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 13
+      "height_large": null
     },
     {
       "id": "interview",
@@ -207,8 +180,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/14%20Interview.jpg",
       "src_large": "/assets/images/artwork/14%20Interview.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 14
+      "height_large": null
     },
     {
       "id": "in-bed",
@@ -222,8 +194,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/15%20In%20Bed.jpg",
       "src_large": "/assets/images/artwork/15%20In%20Bed.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 15
+      "height_large": null
     },
     {
       "id": "interior-mind",
@@ -237,8 +208,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/14%20Interior%20Mind.jpg",
       "src_large": "/assets/images/artwork/14%20Interior%20Mind.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 16
+      "height_large": null
     },
     {
       "id": "forest-flowers",
@@ -252,8 +222,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/17%20Forest%20Flowers.jpg",
       "src_large": "/assets/images/artwork/17%20Forest%20Flowers.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 17
+      "height_large": null
     },
     {
       "id": "car-ride",
@@ -267,8 +236,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/18%20Car%20Ride.jpg",
       "src_large": "/assets/images/artwork/18%20Car%20Ride.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 18
+      "height_large": null
     },
     {
       "id": "distance",
@@ -282,8 +250,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/19%20Distance.jpg",
       "src_large": "/assets/images/artwork/19%20Distance.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 19
+      "height_large": null
     },
     {
       "id": "spiral-watch",
@@ -297,8 +264,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/20%20Spiral%20Watch.jpg",
       "src_large": "/assets/images/artwork/20%20Spiral%20Watch.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 20
+      "height_large": null
     },
     {
       "id": "lets-table-that",
@@ -312,8 +278,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/21%20Let's%20Table%20That.jpg",
       "src_large": "/assets/images/artwork/21%20Let's%20Table%20That.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 21
+      "height_large": null
     },
     {
       "id": "thank-you-buddy",
@@ -327,8 +292,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/23%20Thank%20You,%20Buddy.jpg",
       "src_large": "/assets/images/artwork/23%20Thank%20You,%20Buddy.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 23
+      "height_large": null
     },
     {
       "id": "projection",
@@ -342,8 +306,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/24%20Projection.jpg",
       "src_large": "/assets/images/artwork/24%20Projection.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 24
+      "height_large": null
     },
     {
       "id": "summer-heat",
@@ -357,23 +320,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/25%20Summer%20Heat.jpg",
       "src_large": "/assets/images/artwork/25%20Summer%20Heat.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 25
-    },
-    {
-      "id": "inside-again",
-      "title": "Inside Again",
-      "year": "2021",
-      "medium": "acrylic on canvas",
-      "dimensions_text": "12\" x 12\"",
-      "tags": [],
-      "alt": "Inside Again",
-      "caption": "Inside Again",
-      "src_thumb": "/assets/images/artwork/thumbs/26%20Inside%20Again.jpg",
-      "src_large": "/assets/images/artwork/26%20Inside%20Again.jpg",
-      "width_large": null,
-      "height_large": null,
-      "order": 26
+      "height_large": null
     },
     {
       "id": "lying-awake",
@@ -387,8 +334,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/27%20Lying%20Awake.jpg",
       "src_large": "/assets/images/artwork/27%20Lying%20Awake.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 27
+      "height_large": null
     },
     {
       "id": "still-me-no-matter-where-i-go",
@@ -402,8 +348,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/28%20Still%20Me%20No%20Matter%20Where%20I%20Go.jpg",
       "src_large": "/assets/images/artwork/28%20Still%20Me%20No%20Matter%20Where%20I%20Go.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 28
+      "height_large": null
     },
     {
       "id": "opt-cmd-e",
@@ -417,8 +362,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/29%20Opt%20Cmd%20E.jpg",
       "src_large": "/assets/images/artwork/29%20Opt%20Cmd%20E.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 29
+      "height_large": null
     },
     {
       "id": "holy-shit",
@@ -432,8 +376,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/30%20Holy%20Shit!.jpg",
       "src_large": "/assets/images/artwork/30%20Holy%20Shit!.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 30
+      "height_large": null
     },
     {
       "id": "sleepy-reading",
@@ -447,8 +390,7 @@
       "src_thumb": "/assets/images/artwork/thumbs/31%20Sleepy%20Reading.jpg",
       "src_large": "/assets/images/artwork/31%20Sleepy%20Reading.jpg",
       "width_large": null,
-      "height_large": null,
-      "order": 31
+      "height_large": null
     }
   ]
 }
