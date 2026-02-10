@@ -95,7 +95,7 @@
   max-width: 90vw;
   max-height: 75vh;
   object-fit: contain;
-  border-radius: var(--border-radius);
+  border-radius: 3px;
 }
 
 .modal-info {
