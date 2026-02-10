@@ -196,6 +196,10 @@ nav a {
   text-transform: capitalize;
 }
 
+nav a:last-child {
+  margin-right: -0.7rem;
+}
+
 nav li a:hover {
   background-color: var(--accent-three);
 }
