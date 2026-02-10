@@ -196,7 +196,7 @@ nav a {
   text-transform: capitalize;
 }
 
-nav a:last-child {
+nav li:last-child a {
   margin-right: -0.7rem;
 }
 
