@@ -124,26 +124,6 @@ body {
   border: 0;
 }
 
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.5rem 1rem;
-  background: var(--accent);
-  color: var(--bg);
-  text-decoration: none;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  z-index: 100;
-  transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-  top: 0;
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
 footer {
   font-size: 0.8rem;
   display: flex;

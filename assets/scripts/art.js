@@ -1,13 +1,13 @@
 "use strict";
 
-var gallery = document.getElementById("art-gallery");
-var modal = document.getElementById("art-modal");
-var modalImg = document.getElementById("modal-img");
-var modalTitle = document.getElementById("modal-title");
-var modalDetails = document.getElementById("modal-details");
-var closeBtn = modal.querySelector(".modal-close");
+const gallery = document.getElementById("art-gallery");
+const modal = document.getElementById("art-modal");
+const modalImg = document.getElementById("modal-img");
+const modalTitle = document.getElementById("modal-title");
+const modalDetails = document.getElementById("modal-details");
+const closeBtn = modal.querySelector(".modal-close");
 
-var lastFocusedEl = null;
+let lastFocusedEl = null;
 
 function openModal(btn) {
   modalImg.src = btn.getAttribute("data-src-large") || "";
@@ -15,7 +15,7 @@ function openModal(btn) {
 
   modalTitle.textContent = btn.getAttribute("data-title") || "";
 
-  var details = [
+  const details = [
     btn.getAttribute("data-year"),
     btn.getAttribute("data-medium"),
     btn.getAttribute("data-dimensions"),
@@ -44,7 +44,7 @@ function closeModal() {
 }
 
 gallery.addEventListener("click", function (event) {
-  var btn = event.target.closest("button[data-src-large]");
+  const btn = event.target.closest("button[data-src-large]");
   if (!btn) return;
 
   lastFocusedEl = btn;
@@ -66,9 +66,9 @@ document.addEventListener("keydown", function (event) {
 });
 
 (function () {
-  var images = gallery.querySelectorAll("img");
-  var total = images.length;
-  var loaded = 0;
+  const images = gallery.querySelectorAll("img");
+  const total = images.length;
+  let loaded = 0;
 
   function check() {
     loaded++;
@@ -77,7 +77,7 @@ document.addEventListener("keydown", function (event) {
     }
   }
 
-  for (var j = 0; j < images.length; j++) {
+  for (let j = 0; j < images.length; j++) {
     images[j].onload = images[j].onerror = check;
     if (images[j].complete) {
       loaded++;
