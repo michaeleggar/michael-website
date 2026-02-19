@@ -138,11 +138,19 @@ footer {
   padding-block-start: var(--space-sm);
 }
 
-/* navigation */
-.strike {
-  text-decoration: 2px line-through var(--secondary);
+/* skip navigation */
+.skip-nav {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  z-index: 100;
+}
+.skip-nav:focus {
+  left: 0;
+  top: 0;
 }
 
+/* navigation */
 nav {
   max-width: 760px;
   margin-inline: auto;
