@@ -670,6 +670,10 @@ a:hover {
     padding-top: 250px;
   }
 
+  .work-card-wide .card-info {
+    transform: none;
+  }
+
   .card-info {
     position: relative;
     bottom: auto;
