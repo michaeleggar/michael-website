@@ -667,15 +667,14 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
-  .work-card {
-    min-height: 250px;
-    overflow: visible;
-  }
-
   .work-card a {
     display: block;
     height: auto;
-    padding-top: 250px;
+    padding-top: 180px;
+  }
+
+  .work-card-wide {
+    height: auto;
   }
 
   .work-card-wide .card-info {
