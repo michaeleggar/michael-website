@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include:head.html -->
+    <title>Michael Eggar | Film Production Chat App</title>
+  </head>
+  <body>
+    <a class="skip-nav" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <nav id="nav-placeholder" aria-label="primary">
+        <!-- include:nav.html -->
+      </nav>
+    </header>
+
+    <main id="main-content" class="main-container">
+      <section class="content-section intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">Film Production Chat App</h1>
+        <p class="ruled-dashed">
+          A custom Electron app commissioned for a feature film shoot, designed
+          to display real-time chat conversations on an actor's laptop as an
+          on-screen prop. I am now independently rebulding with React and Vite.
+        </p>
+      </section>
+      <section class="chip-board" aria-labelledby="profile-highlights-title">
+        <h2 class="visually-hidden" id="profile-highlights-title">
+          About the Project
+        </h2>
+        <div class="chip-rows">
+          <div class="chip-group">
+            <h3 class="chip chip-label">Role</h3>
+            <ul class="chip-list">
+              <li class="chip light">Design</li>
+              <li class="chip light">Development</li>
+            </ul>
+          </div>
+          <div class="chip-group">
+            <h3 class="chip chip-label">Stack</h3>
+            <ul class="chip-list">
+              <li class="chip light">React</li>
+              <li class="chip light">Vite</li>
+              <li class="chip light">Electron</li>
+              <li class="chip light">JavaScript</li>
+              <li class="chip light">CSS</li>
+            </ul>
+          </div>
+          <div class="chip-group">
+            <h3 class="chip chip-label">Status</h3>
+            <ul class="chip-list">
+              <li class="chip light">Refactor in progress</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section featured-art">
+        <figure class="featured-artwork">
+          <img
+            class="work-example"
+            src="/assets/images/chatapp/chat-app-1.png"
+            alt="Chat app crew control interface showing user list and message input"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+
+      <section class="content-section">
+        <h3>Two interfaces</h3>
+        <p class="ruled-dashed">
+          The on-camera view lets the actor type and send messages, and the
+          logged-in user can be swapped to show the conversation from different
+          characters' perspectives. The crew interface handles everything else:
+          adding and editing users, changing online status, sending messages as
+          other users, saving templated messages for reshoots, and switching the
+          screen between direct messages and video chats.
+        </p>
+        <h3>Iterating on set</h3>
+        <p class="ruled-dashed">
+          After the first shoot day, the crew needed a way to reshoot without
+          manually retyping the script. They also needed the ability to reorder
+          and edit messages sent in the chat. I added a template system that
+          posts pre-written messages with a configurable typing-indicator delay
+          and implemented a custom right click menu for editing messages in the
+          chat.
+        </p>
+        <h3>React and Vite migration</h3>
+        <p class="ruled-dashed">
+          The original codebase grew organically under production pressure. The
+          ongoing refactor introduces component-based architecture, a slide-out
+          settings panel, and cleaner separation between the two interfaces.
+        </p>
+      </section>
+
+      <section class="content-section featured-art">
+        <figure class="featured-artwork">
+          <img
+            class="work-example"
+            src="/assets/images/chatapp/chat-onset-1.jpeg"
+            alt="On-set camera monitor showing an actor using the chat app on a laptop during filming"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+
+      <section class="content-section featured-art">
+        <figure class="featured-artwork">
+          <img
+            class="work-example"
+            src="/assets/images/chatapp/chat-onset-2.jpeg"
+            alt="Camera monitor close-up showing the chat app interface visible within the film frame"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <!-- include:footer.html -->
+    </footer>
+    <script src="/assets/scripts/utilities.js"></script>
+  </body>
+</html>
