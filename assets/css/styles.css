@@ -309,6 +309,10 @@ a:hover {
   height: 310px;
 }
 
+article.work-card-wide {
+  background-position: center;
+}
+
 .work-card-wide .card-info {
   transform: translateY(calc(2.4rem + 5px));
 }
