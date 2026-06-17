@@ -73,7 +73,7 @@
   right: 0;
   background: none;
   border: none;
-  color: var(--text-secondary);
+  color: rgb(206 202 186 / 0.75);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -82,7 +82,7 @@
 }
 
 .modal-close:hover {
-  color: var(--text-primary);
+  color: #cecaba;
 }
 
 .modal-content {
@@ -104,6 +104,7 @@
 }
 
 .modal-info h2 {
+  color: #cecaba;
   font-size: 1rem;
   margin: 0;
 }
@@ -112,7 +113,7 @@
   margin: 0.25rem 0 0;
   font-size: 0.85rem;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: rgb(206 202 186 / 0.75);
 }
 
 @media (max-width: 780px) {
