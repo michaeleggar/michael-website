@@ -68,10 +68,10 @@
 }
 
 @font-face {
-  font-family: "Oddball";
-  src: url("/assets/fonts/Oddball.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
+  font-family: "Vollkorn";
+  src: url("/assets/fonts/Vollkorn-Italic-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
   font-display: swap;
 }
 
