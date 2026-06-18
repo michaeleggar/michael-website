@@ -69,8 +69,8 @@
 
 @font-face {
   font-family: "Vollkorn";
-  src: url("/assets/fonts/Vollkorn-Italic-500.woff2") format("woff2");
-  font-weight: 500;
+  src: url("/assets/fonts/Vollkorn-Italic-400.woff2") format("woff2");
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
@@ -308,7 +308,7 @@ footer p {
 h1 {
   font-family: var(--font-display);
   font-size: 1.95rem;
-  font-weight: 500;
+  font-weight: 400;
   font-style: italic;
   line-height: 1.15;
   margin-block-end: 0.5rem;
