@@ -169,68 +169,39 @@ footer {
 }
 
 .theme-toggle {
-  appearance: none;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  position: relative;
-  isolation: isolate;
-  border: 1px solid var(--text-underline);
-  border-radius: 999px;
-  background: transparent;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
   color: var(--text-secondary);
+  margin-inline-start: auto;
+}
+
+.theme-toggle-option {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
   cursor: pointer;
   font: inherit;
-  line-height: 1.2;
-  margin-inline-start: auto;
-  min-width: calc(12ch + 1.2rem);
-  padding: 0.2rem;
-  text-align: center;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.theme-toggle::before {
-  content: "";
-  position: absolute;
-  inset: 0.2rem auto 0.2rem 0.2rem;
-  width: calc(50% - 0.2rem);
-  border-radius: 999px;
-  background: var(--accent-two);
-  transform: translateX(0);
-  transition:
-    background-color 0.15s ease,
-    transform 0.18s ease;
-  z-index: -1;
-}
-
-.theme-toggle[data-current-theme="light"]::before {
-  transform: translateX(100%);
-}
-
-.theme-toggle-label {
-  display: block;
-  padding: 0.25rem 0.5rem;
+  padding: 0;
+  text-align: inherit;
   transition: color 0.15s ease;
 }
 
-.theme-toggle[data-current-theme="dark"] [data-theme-option="dark"],
-.theme-toggle[data-current-theme="light"] [data-theme-option="light"] {
+.theme-toggle-option[aria-pressed="true"] {
   color: var(--text-primary);
 }
 
-.theme-toggle:hover {
-  background-color: var(--accent-three);
-  border-color: var(--primary);
+.theme-toggle-option:hover,
+.theme-toggle-option:focus-visible {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: var(--text-underline);
+  text-underline-offset: 0.2em;
 }
 
-.theme-toggle:hover::before {
-  background: var(--text-underline);
-}
-
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--secondary);
-  outline-offset: 3px;
+.theme-toggle-option:focus-visible {
+  outline: 0;
 }
 
 .site-header {

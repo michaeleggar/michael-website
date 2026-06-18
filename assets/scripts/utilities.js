@@ -12,10 +12,16 @@ function getSavedTheme() {
   return memoryThemeOverride;
 }
 
-function saveTheme(theme) {
-  memoryThemeOverride = theme;
+function saveThemePreference(preference) {
+  memoryThemeOverride =
+    preference === "light" || preference === "dark" ? preference : null;
+
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    if (memoryThemeOverride) {
+      localStorage.setItem(THEME_STORAGE_KEY, memoryThemeOverride);
+    } else {
+      localStorage.removeItem(THEME_STORAGE_KEY);
+    }
   } catch (error) {}
 }
 
@@ -23,44 +29,58 @@ function getSystemTheme() {
   return themeMedia.matches ? "dark" : "light";
 }
 
-function getCurrentTheme() {
-  return getSavedTheme() || getSystemTheme();
+function getThemePreference() {
+  return getSavedTheme() || "system";
 }
 
-function applyTheme(theme, isSavedOverride) {
-  if (isSavedOverride) {
-    document.documentElement.dataset.theme = theme;
+function applyTheme(preference) {
+  const currentTheme = preference === "system" ? getSystemTheme() : preference;
+
+  if (preference === "light" || preference === "dark") {
+    document.documentElement.dataset.theme = preference;
   } else {
     delete document.documentElement.dataset.theme;
   }
-  updateThemeToggle(theme);
+
+  updateThemeToggle(preference, currentTheme);
 }
 
-function updateThemeToggle(currentTheme) {
+function updateThemeToggle(currentPreference, currentTheme) {
   const toggle = document.querySelector("[data-theme-toggle]");
   if (!toggle) return;
 
   toggle.dataset.currentTheme = currentTheme;
-  toggle.setAttribute("aria-checked", String(currentTheme === "dark"));
-  toggle.setAttribute("aria-label", "Dark mode");
+  toggle.dataset.currentPreference = currentPreference;
+
+  toggle.querySelectorAll("[data-theme-option]").forEach((option) => {
+    const isActive = option.dataset.themeOption === currentPreference;
+    option.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function initThemeToggle() {
   const toggle = document.querySelector("[data-theme-toggle]");
   if (!toggle) return;
 
-  applyTheme(getCurrentTheme(), Boolean(getSavedTheme()));
+  applyTheme(getThemePreference());
 
-  toggle.addEventListener("click", () => {
-    const nextTheme = getCurrentTheme() === "dark" ? "light" : "dark";
-    saveTheme(nextTheme);
-    applyTheme(nextTheme, true);
+  toggle.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const option = event.target.closest("[data-theme-option]");
+    if (!option || !toggle.contains(option)) return;
+
+    const preference = option.dataset.themeOption;
+    if (!["light", "dark", "system"].includes(preference)) return;
+
+    saveThemePreference(preference);
+    applyTheme(preference);
   });
 }
 
 function handleThemePreferenceChange() {
   if (!getSavedTheme()) {
-    applyTheme(getSystemTheme(), false);
+    applyTheme("system");
   }
 }
 
