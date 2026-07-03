@@ -5,7 +5,9 @@ let memoryThemeOverride = null;
 function getSavedTheme() {
   try {
     const theme = localStorage.getItem(THEME_STORAGE_KEY);
-    if (theme === "light" || theme === "dark") return theme;
+    if (theme === "light" || theme === "dark" || theme === "system") {
+      return theme;
+    }
   } catch (error) {
     return memoryThemeOverride;
   }
@@ -13,8 +15,9 @@ function getSavedTheme() {
 }
 
 function saveThemePreference(preference) {
-  memoryThemeOverride =
-    preference === "light" || preference === "dark" ? preference : null;
+  memoryThemeOverride = ["light", "dark", "system"].includes(preference)
+    ? preference
+    : null;
 
   try {
     if (memoryThemeOverride) {
@@ -30,13 +33,13 @@ function getSystemTheme() {
 }
 
 function getThemePreference() {
-  return getSavedTheme() || "system";
+  return getSavedTheme() || "dark";
 }
 
 function applyTheme(preference) {
   const currentTheme = preference === "system" ? getSystemTheme() : preference;
 
-  if (preference === "light" || preference === "dark") {
+  if (preference === "light" || preference === "dark" || preference === "system") {
     document.documentElement.dataset.theme = preference;
   } else {
     delete document.documentElement.dataset.theme;
@@ -79,7 +82,7 @@ function initThemeToggle() {
 }
 
 function handleThemePreferenceChange() {
-  if (!getSavedTheme()) {
+  if (getSavedTheme() === "system") {
     applyTheme("system");
   }
 }

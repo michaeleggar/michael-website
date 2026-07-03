@@ -30,7 +30,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
+  :root[data-theme="system"] {
     --primary: #6f695d;
     --accent-rgb: 111 105 93;
     --secondary: #59613f;

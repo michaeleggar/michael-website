@@ -11,7 +11,7 @@
 <script>
   try {
     const theme = localStorage.getItem("michael-theme");
-    if (theme === "light" || theme === "dark") {
+    if (theme === "light" || theme === "dark" || theme === "system") {
       document.documentElement.dataset.theme = theme;
     }
   } catch (error) {}
