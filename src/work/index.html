@@ -13,9 +13,37 @@
     </header>
 
     <main id="main-content" class="main-container">
-      <section class="content-section featured-art work-grid">
+      <section class="work-filters" aria-label="Work filters">
+        <button
+          class="work-filter is-active"
+          type="button"
+          data-work-filter="all"
+          aria-pressed="true"
+        >
+          All
+        </button>
+        <button
+          class="work-filter"
+          type="button"
+          data-work-filter="development"
+          aria-pressed="false"
+        >
+          Development
+        </button>
+        <button
+          class="work-filter"
+          type="button"
+          data-work-filter="design"
+          aria-pressed="false"
+        >
+          Design
+        </button>
+      </section>
+      <section class="content-section featured-art work-grid" aria-live="polite">
         <article
           class="work-card work-card-wide"
+          data-categories="development design"
+          data-featured="true"
           style="
             background-image: url(&quot;/assets/images/chatapp/chat-onset-2b.jpg&quot;);
           "
@@ -31,7 +59,26 @@
           </a>
         </article>
         <article
+          class="work-card work-card-color"
+          data-categories="development design"
+          data-featured="true"
+          style="--work-card-color: oklch(52% 0.08 42);"
+        >
+          <a
+            href="cow-boys/"
+            aria-label="View Cow-Boys Collab Website project"
+          >
+            <div class="card-info">
+              <h2>Cow-Boys Collab Website</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
           class="work-card"
+          data-categories="development design"
           style="
             background-image: url(&quot;/assets/images/ria/ria-website.jpg&quot;);
           "
@@ -47,6 +94,7 @@
         </article>
         <article
           class="work-card"
+          data-categories="development design"
           style="
             background-image: url(&quot;/assets/images/ductworx/duc-mock-2.jpg&quot;);
           "
@@ -61,7 +109,78 @@
           </a>
         </article>
         <article
+          class="work-card work-card-color"
+          data-categories="design"
+          data-featured="true"
+          style="--work-card-color: oklch(46% 0.08 248);"
+        >
+          <a
+            href="design-project-one/"
+            aria-label="View Design Project One"
+          >
+            <div class="card-info">
+              <h2>Design Project One</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
+          class="work-card work-card-color"
+          data-categories="design"
+          style="--work-card-color: oklch(56% 0.07 165);"
+        >
+          <a
+            href="design-project-two/"
+            aria-label="View Design Project Two"
+          >
+            <div class="card-info">
+              <h2>Design Project Two</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
+          class="work-card work-card-color"
+          data-categories="design"
+          style="--work-card-color: oklch(58% 0.09 318);"
+        >
+          <a
+            href="design-project-three/"
+            aria-label="View Design Project Three"
+          >
+            <div class="card-info">
+              <h2>Design Project Three</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
+          class="work-card work-card-color"
+          data-categories="design"
+          style="--work-card-color: oklch(62% 0.08 92);"
+        >
+          <a
+            href="design-project-four/"
+            aria-label="View Design Project Four"
+          >
+            <div class="card-info">
+              <h2>Design Project Four</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article
           class="work-card work-card-wide"
+          data-categories="development"
+          data-featured="true"
           style="
             background-image: url(&quot;/assets/images/kochcomm/kc-website-1.jpg&quot;);
           "

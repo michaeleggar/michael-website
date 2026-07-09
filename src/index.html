@@ -15,13 +15,120 @@
     <main id="main-content" class="main-container">
       <section class="content-section intro" aria-labelledby="intro-title">
         <h1 id="intro-title">
-          Hey there, I'm Michael. I'm a developer, designer, and artist in
+          Hey, I’m Michael, a front-end developer, designer, and artist in
           Oklahoma City.
         </h1>
         <p>
-          I’m a developer, designer, and artist in Oklahoma City. <br />I make
-          websites, interfaces, visual systems, and other digital things.
+          I’m a Senior Front-end Developer at Koch Comm and co-founder of
+          cow-boys collab. My background moves through development, digital
+          design, teaching, and painting.
         </p>
+        <p>
+          These days I mostly build websites and interfaces, but you might also
+          find me up on a ladder painting a mural or at a sewing machine making
+          something by hand.
+        </p>
+        <p>
+          I’m currently reading <cite>The Hydrogen Sonata</cite> by Iain M.
+          Banks.
+        </p>
+      </section>
+
+      <section
+        class="content-section home-featured-work"
+        aria-labelledby="featured-work-title"
+      >
+        <div class="home-featured-work-header">
+          <h2 id="featured-work-title">Selected Work</h2>
+          <a class="button-link" href="/work/">
+            View All
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </a>
+        </div>
+        <div class="work-grid">
+          <article
+            class="work-card"
+            data-categories="development design"
+            data-featured="true"
+            style="
+              background-image: url(&quot;/assets/images/chatapp/chat-onset-2b.jpg&quot;);
+            "
+          >
+            <a
+              href="/work/chatapp/"
+              aria-label="View Film Production Chat App project"
+            >
+              <div class="card-info">
+                <h2>Film Chat App</h2>
+                <p>
+                  A dual-interface Electron app built for on-set use in a
+                  feature film.
+                </p>
+              </div>
+            </a>
+          </article>
+          <article
+            class="work-card work-card-color"
+            data-categories="development design"
+            data-featured="true"
+            style="--work-card-color: oklch(52% 0.08 42)"
+          >
+            <a
+              href="/work/cow-boys/"
+              aria-label="View Cow-Boys Collab Website project"
+            >
+              <div class="card-info">
+                <h2>Cow-Boys Collab Website</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </a>
+          </article>
+          <article
+            class="work-card work-card-color"
+            data-categories="design"
+            data-featured="true"
+            style="--work-card-color: oklch(46% 0.08 248)"
+          >
+            <a
+              href="/work/design-project-one/"
+              aria-label="View Design Project One"
+            >
+              <div class="card-info">
+                <h2>Design Project One</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </a>
+          </article>
+          <article
+            class="work-card"
+            data-categories="development"
+            data-featured="true"
+            style="
+              background-image: url(&quot;/assets/images/kochcomm/kc-website-1.jpg&quot;);
+            "
+          >
+            <a href="/work/kochcomm/" aria-label="View Koch Comm project">
+              <div class="card-info">
+                <h2>Koch Comm Website</h2>
+                <p>A WordPress site for an OKC advertising agency.</p>
+              </div>
+            </a>
+          </article>
+        </div>
       </section>
 
       <!-- <section class="chip-board" aria-labelledby="profile-highlights-title">
@@ -82,6 +189,7 @@
     <footer class="site-footer">
       <!-- include:footer.html -->
     </footer>
+    <script src="/assets/scripts/work.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>
