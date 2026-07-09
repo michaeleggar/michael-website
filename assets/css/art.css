@@ -45,18 +45,12 @@
 .art-item img {
   display: block;
   width: 100%;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.art-masonry.loaded .art-item img {
-  opacity: 1;
 }
 
 /* Modal */
 #art-modal {
   border: none;
-  background: transparent;
+  background: var(--bg);
   padding: 0;
   max-width: 90vw;
   max-height: 90vh;
@@ -64,7 +58,7 @@
 }
 
 #art-modal::backdrop {
-  background: rgba(0, 0, 0, 0.87);
+  background: var(--modal-backdrop);
 }
 
 .modal-close {
@@ -73,7 +67,7 @@
   right: 0;
   background: none;
   border: none;
-  color: rgb(206 202 186 / 0.75);
+  color: var(--modal-muted);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -82,7 +76,7 @@
 }
 
 .modal-close:hover {
-  color: #cecaba;
+  color: var(--text-primary);
 }
 
 .modal-content {
@@ -104,7 +98,7 @@
 }
 
 .modal-info h2 {
-  color: #cecaba;
+  color: var(--text-primary);
   font-size: 1rem;
   margin: 0;
 }
@@ -113,7 +107,7 @@
   margin: 0.25rem 0 0;
   font-size: 0.85rem;
   font-weight: 400;
-  color: rgb(206 202 186 / 0.75);
+  color: var(--modal-muted);
 }
 
 @media (max-width: 780px) {
