@@ -13,93 +13,88 @@
     </header>
 
     <main id="main-content" class="main-container">
-      <section class="content-section intro" aria-labelledby="intro-title">
+      <section class="content-section project-intro" aria-labelledby="intro-title">
         <h1 id="intro-title">DuctWorx website</h1>
-        <p>
+        <p class="project-deck">
           DuctWorx, a ductwork fabrication company in Oklahoma City, needed a
-          website that matched their new brand identity and allowed their team
-          to handle updates without developer involvement. The challenge was
-          building something flexible enough for non-technical editors but
-          structured enough to stay visually consistent.
+          website that matched its new brand identity and allowed the team to
+          handle updates without developer involvement. The challenge was
+          building something flexible for nontechnical editors but structured
+          enough to stay visually consistent.
         </p>
       </section>
-      <section class="chip-board" aria-labelledby="profile-highlights-title">
-        <h2 class="visually-hidden" id="profile-highlights-title">
-          About the Project
-        </h2>
-        <div class="chip-rows">
-          <div class="chip-group">
-            <h3 class="chip chip-label">Role</h3>
-            <ul class="chip-list">
-              <li class="chip light">Design</li>
-              <li class="chip light">Development</li>
-            </ul>
+
+      <section class="project-meta" aria-label="Project details">
+        <dl>
+          <div class="project-meta-row">
+            <dt>Role</dt>
+            <dd><span>Design</span><span>Development</span></dd>
           </div>
-          <div class="chip-group">
-            <h3 class="chip chip-label">Stack</h3>
-            <ul class="chip-list">
-              <li class="chip light">WordPress</li>
-              <li class="chip light">Elementor</li>
-              <li class="chip light">ACF</li>
-              <li class="chip light">JavaScript</li>
-              <li class="chip light">CSS</li>
-            </ul>
+          <div class="project-meta-row">
+            <dt>Stack</dt>
+            <dd>
+              <span>WordPress</span><span>Elementor</span><span>ACF</span
+              ><span>JavaScript</span><span>CSS</span>
+            </dd>
           </div>
-          <div class="chip-group">
-            <h3 class="chip chip-label">Link</h3>
-            <ul class="chip-list">
-              <li class="chip">
-                <a target="_blank" href="https://www.ductworxokc.com"
-                  >ductworxokc.com</a
-                >
-              </li>
-            </ul>
+          <div class="project-meta-row">
+            <dt>Website</dt>
+            <dd>
+              <a
+                href="https://www.ductworxokc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                >ductworxokc.com</a
+              >
+            </dd>
           </div>
-        </div>
+        </dl>
       </section>
 
-      <section class="content-section featured-art">
-        <figure class="featured-artwork">
-          <img
-            class="work-example"
-            src="/assets/images/ductworx/duc-mock-1.jpg"
-            alt="DuctWorx website screenshot"
-            loading="lazy"
-          />
-        </figure>
-      </section>
+      <figure class="project-media">
+        <img
+          src="/assets/images/ductworx/duc-mock-1.jpg"
+          alt="DuctWorx website shown on a laptop"
+          loading="lazy"
+        />
+        <figcaption>
+          A modular site built around the company’s industrial photography and
+          new visual identity.
+        </figcaption>
+      </figure>
 
-      <section class="content-section">
-        <h3>Modular ACF System</h3>
+      <section class="content-section project-story" aria-label="Project story">
+        <h2>Modular ACF system</h2>
         <p>
           I built a library of reusable sections with ACF, each with its own
           content structure and display options. The client can assemble pages
-          by choosing and populating sections without needing to touch any code.
+          by choosing and populating sections without needing to touch code.
         </p>
-        <h3>Industrial Visual Design</h3>
+
+        <h2>Industrial visual design</h2>
         <p>
-          The site leans into their industrial photography and bold color
-          palette. I kept the layout clean and scannable so the products and
-          team stay front and center.
+          The site leans into the company’s industrial photography and bold
+          color palette. I kept the layout clean and scannable so the products
+          and team stay front and center.
         </p>
-        <h3>Self Sufficient Architecture</h3>
+
+        <h2>Self-sufficient architecture</h2>
         <p>
           Everything from content to navigation is editable through WordPress.
           The goal was zero ongoing developer dependency for day-to-day updates.
         </p>
       </section>
 
-      <section class="content-section featured-art">
-        <figure class="featured-artwork">
-          <img
-            class="work-example"
-            src="/assets/images/ductworx/duc-mock-2.jpg"
-            alt="DuctWorx website screenshot"
-            loading="lazy"
-          />
-        </figure>
-      </section>
+      <figure class="project-media">
+        <img
+          src="/assets/images/ductworx/duc-mock-2.jpg"
+          alt="DuctWorx website detail"
+          loading="lazy"
+        />
+        <figcaption>Product and service content within the finished system.</figcaption>
+      </figure>
     </main>
+
     <footer class="site-footer">
       <!-- include:footer.html -->
     </footer>

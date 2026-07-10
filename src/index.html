@@ -18,7 +18,7 @@
           Hey, I’m Michael, a front-end developer, designer, and artist in
           Oklahoma City.
         </h1>
-        <p>
+        <p class="intro-lede">
           I’m a Senior Front-end Developer at Koch Comm and co-founder of
           cow-boys collab. My background moves through development, digital
           design, teaching, and painting.
@@ -28,9 +28,9 @@
           find me up on a ladder painting a mural or at a sewing machine making
           something by hand.
         </p>
-        <p>
-          I’m currently reading <cite>The Hydrogen Sonata</cite> by Iain M.
-          Banks.
+        <p class="current-note">
+          <span class="current-label">Currently reading</span>
+          <cite>The Hydrogen Sonata</cite> by Iain M. Banks.
         </p>
       </section>
 
@@ -64,52 +64,62 @@
             class="work-card"
             data-categories="development design"
             data-featured="true"
-            style="
-              background-image: url(&quot;/assets/images/chatapp/chat-onset-2b.jpg&quot;);
-            "
           >
             <a
               href="/work/chatapp/"
               aria-label="View Film Production Chat App project"
             >
+              <div class="work-card-media">
+                <img
+                  src="/assets/images/chatapp/chat-onset-2b.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
               <div class="card-info">
-                <h2>Film Chat App</h2>
-                <p>
-                  A dual-interface Electron app built for on-set use in a
-                  feature film.
-                </p>
+                <h3>Film production chat app</h3>
               </div>
             </a>
           </article>
           <article
-            class="work-card work-card-color"
+            class="work-card"
             data-categories="development design"
             data-featured="true"
-            style="--work-card-color: oklch(52% 0.08 42)"
           >
             <a
-              href="/work/cow-boys/"
-              aria-label="View Cow-Boys Collab Website project"
+              href="/work/retirementpath/"
+              aria-label="View Retirement Investment Advisors website project"
             >
+              <div class="work-card-media">
+                <img
+                  src="/assets/images/ria/ria-website.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
               <div class="card-info">
-                <h2>Cow-Boys Collab Website</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3>Retirement investment advisors</h3>
               </div>
             </a>
           </article>
           <article
-            class="work-card work-card-color"
-            data-categories="design"
+            class="work-card"
+            data-categories="development design"
             data-featured="true"
-            style="--work-card-color: oklch(46% 0.08 248)"
           >
             <a
-              href="/work/design-project-one/"
-              aria-label="View Design Project One"
+              href="/work/ductworx/"
+              aria-label="View DuctWorx website project"
             >
+              <div class="work-card-media">
+                <img
+                  src="/assets/images/ductworx/duc-mock-2.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
               <div class="card-info">
-                <h2>Design Project One</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3>DuctWorx website</h3>
               </div>
             </a>
           </article>
@@ -117,14 +127,17 @@
             class="work-card"
             data-categories="development"
             data-featured="true"
-            style="
-              background-image: url(&quot;/assets/images/kochcomm/kc-website-1.jpg&quot;);
-            "
           >
             <a href="/work/kochcomm/" aria-label="View Koch Comm project">
+              <div class="work-card-media">
+                <img
+                  src="/assets/images/kochcomm/kc-website-1.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
               <div class="card-info">
-                <h2>Koch Comm Website</h2>
-                <p>A WordPress site for an OKC advertising agency.</p>
+                <h3>Koch Comm website</h3>
               </div>
             </a>
           </article>
