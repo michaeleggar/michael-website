@@ -1,9 +1,13 @@
 {
   "name": "michael-website",
   "scripts": {
-    "build": "node assets/scripts/build.js"
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && eleventy",
+    "dev": "npm run clean && eleventy --serve",
+    "thumbs": "node assets/scripts/generate-thumbs.js"
   },
-  "dependencies": {
-    "sharp": "^0.34.5"
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "sharp": "^0.35.3"
   }
 }

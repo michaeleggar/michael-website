@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- include:head.html -->
+    {% include "head.html" %}
     <link rel="stylesheet" href="/assets/css/art.css" />
     <title>Michael Eggar | Art</title>
   </head>
@@ -9,7 +9,7 @@
     <a class="skip-nav" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <nav id="nav-placeholder" aria-label="primary">
-        <!-- include:nav.html -->
+        {% include "nav.html" %}
       </nav>
     </header>
 
@@ -26,7 +26,25 @@
         class="art-masonry"
         aria-label="Artwork gallery"
       >
-        <!-- include:artwork -->
+        {% for artwork in art.artwork %}
+        <figure class="art-item">
+          <button
+            type="button"
+            aria-label="View {{ (artwork.title or 'artwork') | escape }}"
+            data-src-large="{{ artwork.src_large | escape }}"
+            data-title="{{ artwork.title | escape }}"
+            data-year="{{ artwork.year | escape }}"
+            data-medium="{{ artwork.medium | escape }}"
+            data-dimensions="{{ artwork.dimensions_text | escape }}"
+          >
+            <img
+              loading="lazy"
+              src="{{ (artwork.src_thumb or artwork.src_large) | escape }}"
+              alt="{{ (artwork.alt or artwork.title) | escape }}"
+            />
+          </button>
+        </figure>
+        {% endfor %}
       </section>
 
       <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
@@ -42,7 +60,7 @@
     </main>
 
     <footer class="site-footer">
-      <!-- include:footer.html -->
+      {% include "footer.html" %}
     </footer>
 
     <script src="/assets/scripts/art.js"></script>
