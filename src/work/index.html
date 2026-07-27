@@ -2,124 +2,105 @@
 <html lang="en">
   <head>
     {% include "head.html" %}
+    <link rel="stylesheet" href="/assets/css/portfolio.css" />
     <title>Michael Eggar | Work</title>
   </head>
-  <body>
+  <body class="portfolio-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
+
     <header class="site-header">
       <nav id="nav-placeholder" aria-label="primary">
         {% include "nav.html" %}
       </nav>
     </header>
 
-    <main id="main-content" class="main-container">
-      <header class="work-index-header">
-        <div>
-          <p class="eyebrow">Selected projects</p>
-          <h1>Work</h1>
-        </div>
-        <p class="work-index-copy">
+    <main id="main-content" class="portfolio-main portfolio-work-index">
+      <header class="portfolio-work-index-header">
+        <h1>Work</h1>
+        <p>
           Websites and interfaces shaped through design, front-end development,
           and close collaboration.
         </p>
       </header>
 
-      <section class="work-filters" aria-label="Work filters">
-        <button
-          class="work-filter is-active"
-          type="button"
-          data-work-filter="all"
-          aria-pressed="true"
-        >
-          All
-        </button>
-        <button
-          class="work-filter"
-          type="button"
-          data-work-filter="development"
-          aria-pressed="false"
-        >
-          Development
-        </button>
-        <button
-          class="work-filter"
-          type="button"
-          data-work-filter="design"
-          aria-pressed="false"
-        >
-          Design
-        </button>
-      </section>
-
-      <section class="work-grid" aria-live="polite" aria-label="Projects">
-        <article
-          class="work-card work-card-wide"
-          data-categories="development design"
-          data-featured="true"
-        >
-          <a href="chatapp/" aria-label="View Film Production Chat App project">
-            <div class="work-card-media">
-              <img
-                src="/assets/images/chatapp/chat-onset-2b.jpg"
-                alt=""
-                loading="lazy"
-              />
-            </div>
-            <div class="card-info">
-              <h2>Film production chat app</h2>
-            </div>
-          </a>
-        </article>
-
-        <article class="work-card" data-categories="development design">
+      <section class="portfolio-work-grid" aria-label="Selected projects">
+        <article class="portfolio-project-card">
           <a
-            href="retirementpath/"
-            aria-label="View Retirement Investment Advisors website project"
+            href="/work/ductworx/"
+            aria-label="View DuctWorx website case study"
           >
-            <div class="work-card-media">
-              <img
-                src="/assets/images/ria/ria-website.jpg"
-                alt=""
-                loading="lazy"
-              />
-            </div>
-            <div class="card-info">
-              <h2>Retirement investment advisors</h2>
-            </div>
-          </a>
-        </article>
-
-        <article class="work-card" data-categories="development design">
-          <a href="ductworx/" aria-label="View DuctWorx website project">
-            <div class="work-card-media">
+            <div class="portfolio-project-image">
               <img
                 src="/assets/images/ductworx/duc-mock-2.jpg"
-                alt=""
+                alt="DuctWorx website displayed across laptop and desktop screens"
                 loading="lazy"
               />
             </div>
-            <div class="card-info">
-              <h2>DuctWorx website</h2>
-            </div>
+            <h2>DuctWorx website</h2>
+            <p>
+              A modular WordPress system the client can manage without ongoing
+              developer support.
+            </p>
           </a>
         </article>
 
-        <article
-          class="work-card work-card-wide"
-          data-categories="development"
-          data-featured="true"
-        >
-          <a href="kochcomm/" aria-label="View Koch Comm website project">
-            <div class="work-card-media">
+        <article class="portfolio-project-card">
+          <a
+            href="/work/chatapp/"
+            aria-label="View Film production chat app case study"
+          >
+            <div class="portfolio-project-image">
               <img
-                src="/assets/images/kochcomm/kc-website-1.jpg"
-                alt=""
+                src="/assets/images/chatapp/chat-onset-2b.jpg"
+                alt="Chat interface appearing on an actor’s laptop during filming"
                 loading="lazy"
               />
             </div>
-            <div class="card-info">
-              <h2>Koch Comm website</h2>
+            <h2>Film production chat app</h2>
+            <p>
+              A two-sided Electron app built and adapted under the pressure of
+              a live film shoot.
+            </p>
+          </a>
+        </article>
+
+        <article class="portfolio-project-card">
+          <a
+            href="/work/retirementpath/"
+            aria-label="View Retirement Investment Advisors case study"
+          >
+            <div class="portfolio-project-image">
+              <img
+                src="/assets/images/ria/ria-website.jpg"
+                alt="Retirement Investment Advisors website displayed on a laptop"
+                loading="lazy"
+              />
             </div>
+            <h2>Retirement Investment Advisors</h2>
+            <p>
+              A taxonomy-driven resource library built for a nontechnical
+              publishing team.
+            </p>
+          </a>
+        </article>
+
+        <article class="portfolio-project-card">
+          <a
+            href="/work/kochcomm/"
+            aria-label="View Koch Comm website case study"
+          >
+            <div class="portfolio-project-image">
+              <img
+                src="/assets/images/kochcomm/kc-website-1.jpg"
+                alt="Koch Comm website displayed on a laptop"
+                loading="lazy"
+              />
+            </div>
+            <h2>Koch Comm website</h2>
+            <p>
+              An evolving agency site with custom content types, filtering, and
+              flexible templates.
+            </p>
           </a>
         </article>
       </section>
@@ -128,7 +109,6 @@
     <footer class="site-footer">
       {% include "footer.html" %}
     </footer>
-    <script src="/assets/scripts/work.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>

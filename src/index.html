@@ -2,207 +2,326 @@
 <html lang="en">
   <head>
     {% include "head.html" %}
+    <link rel="stylesheet" href="/assets/css/portfolio.css" />
     <title>Michael Eggar</title>
   </head>
-  <body>
+  <body class="portfolio-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
+
     <header class="site-header">
       <nav id="nav-placeholder" aria-label="primary">
         {% include "nav.html" %}
       </nav>
     </header>
 
-    <main id="main-content" class="main-container">
-      <section class="content-section intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">
-          Hey, I’m Michael, a front-end developer, designer, and artist in
-          Oklahoma City.
+    <main id="main-content" class="portfolio-main">
+      <section class="portfolio-intro" aria-labelledby="portfolio-intro-title">
+        <h1 id="portfolio-intro-title">
+          I’m a front-end developer, designer, and artist in Oklahoma City.
         </h1>
-        <p class="intro-lede">
-          I’m a Senior Front-end Developer at Koch Comm and co-founder of
-          cow-boys collab. My background moves through development, digital
-          design, teaching, and painting.
+        <p class="portfolio-intro-lede">
+          I build websites and interfaces that make complicated systems easier
+          to understand and maintain.
         </p>
         <p>
-          These days I mostly build websites and interfaces, but you might also
-          find me up on a ladder painting a mural or at a sewing machine making
-          something by hand.
-        </p>
-        <p class="current-note">
-          <span class="current-label">Currently reading</span>
-          <cite>The Hydrogen Sonata</cite> by Iain M. Banks.
+          I’m currently a Senior Front-end Developer at
+          <a href="https://www.kochcomm.com">Koch Comm</a> and co-founder of
+          cow-boys collab. My background moves through development, digital
+          design, teaching, and painting.
         </p>
       </section>
 
       <section
-        class="content-section home-featured-work"
-        aria-labelledby="featured-work-title"
+        id="selected-work"
+        class="portfolio-work-section"
+        aria-labelledby="portfolio-work-title"
       >
-        <div class="home-featured-work-header">
-          <h2 id="featured-work-title">Selected Work</h2>
-          <a class="button-link" href="/work/">
-            View All
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-              aria-hidden="true"
+        <div class="portfolio-section-heading">
+          <h2 id="portfolio-work-title">Selected work</h2>
+          <div
+            class="portfolio-carousel-controls"
+            aria-label="Project carousel controls"
+          >
+            <button
+              type="button"
+              class="portfolio-carousel-button"
+              data-carousel-previous
+              aria-label="Show previous project"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-              />
-            </svg>
-          </a>
+              <svg
+                class="portfolio-carousel-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M14 8a.75.75 0 0 1-.75.75H4.56l1.22 1.22a.75.75 0 1 1-1.06 1.06l-2.5-2.5a.75.75 0 0 1 0-1.06l2.5-2.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <span
+              class="portfolio-carousel-status"
+              data-carousel-status
+              aria-live="polite"
+              >1 / 4</span
+            >
+            <button
+              type="button"
+              class="portfolio-carousel-button portfolio-carousel-button--next"
+              data-carousel-next
+              aria-label="Show next project"
+            >
+              <svg
+                class="portfolio-carousel-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M14 8a.75.75 0 0 1-.75.75H4.56l1.22 1.22a.75.75 0 1 1-1.06 1.06l-2.5-2.5a.75.75 0 0 1 0-1.06l2.5-2.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="work-grid">
-          <article
-            class="work-card"
-            data-categories="development design"
-            data-featured="true"
+
+        <div class="portfolio-carousel-bleed">
+          <div
+            class="portfolio-project-rail"
+            data-project-carousel
+            tabindex="0"
+            aria-label="Selected projects. Drag or scroll horizontally to browse."
           >
-            <a
-              href="/work/chatapp/"
-              aria-label="View Film Production Chat App project"
-            >
-              <div class="work-card-media">
-                <img
-                  src="/assets/images/chatapp/chat-onset-2b.jpg"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-info">
-                <h3>Film production chat app</h3>
-              </div>
-            </a>
-          </article>
-          <article
-            class="work-card"
-            data-categories="development design"
-            data-featured="true"
-          >
-            <a
-              href="/work/retirementpath/"
-              aria-label="View Retirement Investment Advisors website project"
-            >
-              <div class="work-card-media">
-                <img
-                  src="/assets/images/ria/ria-website.jpg"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-info">
-                <h3>Retirement investment advisors</h3>
-              </div>
-            </a>
-          </article>
-          <article
-            class="work-card"
-            data-categories="development design"
-            data-featured="true"
-          >
-            <a
-              href="/work/ductworx/"
-              aria-label="View DuctWorx website project"
-            >
-              <div class="work-card-media">
-                <img
-                  src="/assets/images/ductworx/duc-mock-2.jpg"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-info">
+            <article class="portfolio-project-card" data-carousel-slide>
+              <a
+                href="/work/ductworx/"
+                aria-label="View DuctWorx website case study"
+              >
+                <div class="portfolio-project-image">
+                  <img
+                    src="/assets/images/ductworx/duc-mock-2.jpg"
+                    alt="DuctWorx website displayed across laptop and desktop screens"
+                    draggable="false"
+                  />
+                </div>
                 <h3>DuctWorx website</h3>
-              </div>
-            </a>
-          </article>
-          <article
-            class="work-card"
-            data-categories="development"
-            data-featured="true"
-          >
-            <a href="/work/kochcomm/" aria-label="View Koch Comm project">
-              <div class="work-card-media">
-                <img
-                  src="/assets/images/kochcomm/kc-website-1.jpg"
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-              <div class="card-info">
+                <p>
+                  A modular WordPress system the client can manage without
+                  ongoing developer support.
+                </p>
+              </a>
+            </article>
+
+            <article class="portfolio-project-card" data-carousel-slide>
+              <a
+                href="/work/chatapp/"
+                aria-label="View Film production chat app case study"
+              >
+                <div class="portfolio-project-image">
+                  <img
+                    src="/assets/images/chatapp/chat-onset-2b.jpg"
+                    alt="Chat interface appearing on an actor’s laptop during filming"
+                    draggable="false"
+                  />
+                </div>
+                <h3>Film production chat app</h3>
+                <p>
+                  A two-sided Electron app built and adapted under the pressure
+                  of a live film shoot.
+                </p>
+              </a>
+            </article>
+
+            <article class="portfolio-project-card" data-carousel-slide>
+              <a
+                href="/work/retirementpath/"
+                aria-label="View Retirement Investment Advisors case study"
+              >
+                <div class="portfolio-project-image">
+                  <img
+                    src="/assets/images/ria/ria-website.jpg"
+                    alt="Retirement Investment Advisors website displayed on a laptop"
+                    draggable="false"
+                  />
+                </div>
+                <h3>Retirement Investment Advisors</h3>
+                <p>
+                  A taxonomy-driven resource library built for a nontechnical
+                  publishing team.
+                </p>
+              </a>
+            </article>
+
+            <article class="portfolio-project-card" data-carousel-slide>
+              <a
+                href="/work/kochcomm/"
+                aria-label="View Koch Comm website case study"
+              >
+                <div class="portfolio-project-image">
+                  <img
+                    src="/assets/images/kochcomm/kc-website-1.jpg"
+                    alt="Koch Comm website displayed on a laptop"
+                    draggable="false"
+                  />
+                </div>
                 <h3>Koch Comm website</h3>
-              </div>
-            </a>
+                <p>
+                  An evolving agency site with custom content types, filtering,
+                  and flexible templates.
+                </p>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="portfolio-list-section" aria-labelledby="portfolio-experience-title">
+        <h2 id="portfolio-experience-title">Experience</h2>
+        <div class="portfolio-entry-list">
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">Current</p>
+            <div class="portfolio-entry-body">
+              <h3>
+                Senior Front-end Developer —
+                <a
+                  href="https://www.kochcomm.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Koch Comm</a
+                >
+              </h3>
+              <p>
+                Building and maintaining websites, interfaces, and flexible
+                publishing systems for agency clients.
+              </p>
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2023-05">2023</time> –
+              <time datetime="2025-10">2025</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>
+                Senior Digital Designer —
+                <a
+                  href="https://www.kochcomm.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Koch Comm</a
+                >
+              </h3>
+              <p>
+                Designed websites, campaigns, and digital systems for agency
+                clients.
+              </p>
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2022-04">2022</time> –
+              <time datetime="2023-05">2023</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>
+                Graphic Designer —
+                <a
+                  href="https://www.kochcomm.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Koch Comm</a
+                >
+              </h3>
+              <p>
+                Created brand, campaign, and web design across a range of client
+                work.
+              </p>
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2021-03">2021</time> –
+              <time datetime="2022-04">2022</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>
+                Adjunct Professor —
+                <a
+                  href="https://usao.edu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >University of Science and Arts of Oklahoma</a
+                >
+              </h3>
+              <p>
+                Taught Digital Photography I–III, Graphic Design II, and
+                Computer Illustration I.
+              </p>
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2020-03">2020</time> –
+              <time datetime="2022-04">2022</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>
+                Graphic Designer &amp; Creative Services Coordinator —
+                <a
+                  href="https://usao.edu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >University of Science and Arts of Oklahoma</a
+                >
+              </h3>
+              <p>
+                Created institutional design work and coordinated creative
+                services across campus.
+              </p>
+            </div>
           </article>
         </div>
       </section>
 
-      <!-- <section class="chip-board" aria-labelledby="profile-highlights-title">
-        <h2 class="visually-hidden" id="profile-highlights-title">About Me</h2>
-        <div class="chip-rows">
-          <div class="chip-group">
-            <h3 class="chip chip-label">Development</h3>
-            <ul class="chip-list">
-              <li class="chip light">React</li>
-              <li class="chip light">JavaScript</li>
-              <li class="chip light">HTML/CSS</li>
-              <li class="chip light">PHP</li>
-              <li class="chip light">Git</li>
+      <section class="portfolio-chip-board" aria-labelledby="portfolio-personal-title">
+        <h2 class="visually-hidden" id="portfolio-personal-title">
+          Interests and reading
+        </h2>
+        <div class="portfolio-chip-rows">
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Interests</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">Painting</li>
+              <li class="portfolio-chip">Sci-fi</li>
+              <li class="portfolio-chip">Crochet</li>
+              <li class="portfolio-chip">Sewing</li>
+              <li class="portfolio-chip">p5.js</li>
             </ul>
           </div>
-          <div class="chip-group">
-            <h3 class="chip chip-label">Design</h3>
-            <ul class="chip-list">
-              <li class="chip light">Figma</li>
-              <li class="chip light">Design Systems</li>
-              <li class="chip light">Typography</li>
-              <li class="chip light">Layout</li>
-            </ul>
-          </div>
-          <div class="chip-group">
-            <h3 class="chip chip-label">Interests</h3>
-            <ul class="chip-list">
-              <li class="chip">Painting</li>
-              <li class="chip">Sci-fi</li>
-              <li class="chip">Crochet</li>
-              <li class="chip">Sewing</li>
-              <li class="chip">p5.js</li>
-            </ul>
-          </div>
-          <div class="chip-group">
-            <h3 class="chip chip-label">Reading</h3>
-            <ul class="chip-list">
-              <li>
-                <a
-                  class="chip"
-                  href="https://www.goodreads.com/book/show/7937744-surface-detail"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  ><em>Surface Detail</em></a
-                >
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Reading</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">
+                <cite>The Hydrogen Sonata</cite>&nbsp;· Iain M. Banks
               </li>
             </ul>
           </div>
         </div>
       </section>
-
-      <section class="content-section featured-art">
-        <figure class="featured-artwork">
-          <img src="/assets/images/artwork/Home-Art.jpg" alt="Home Art" />
-        </figure>
-      </section> -->
     </main>
+
     <footer class="site-footer">
       {% include "footer.html" %}
     </footer>
-    <script src="/assets/scripts/work.js"></script>
+    <script src="/assets/scripts/project-carousel.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>
