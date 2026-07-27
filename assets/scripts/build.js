@@ -104,8 +104,6 @@ try {
 
   // Copy assets
   copyDir("assets", path.join(DIST, "assets"));
-  if (fs.existsSync("CNAME"))
-    fs.copyFileSync("CNAME", path.join(DIST, "CNAME"));
 
   console.log("Done! All good.");
 } catch (error) {
