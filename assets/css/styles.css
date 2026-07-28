@@ -148,10 +148,10 @@
   --accent: oklch(66.344% 0.0166 90.29);
   --accent-two: oklch(35.181% 0.0066 48.53);
   --accent-three: oklch(30.36% 0.0056 56.18);
-  --secondary: oklch(83.952% 0.0409 114.97);
   --bg: oklch(25.107% 0.0046 17.46);
-  --text-primary: oklch(83.781% 0.0222 95.33);
-  --text-secondary: oklch(62.083% 0.0141 86.86);
+  --text-primary: oklch(92% 0.018 95);
+  --text-secondary: oklch(70% 0.014 87);
+  --text-muted: oklch(58% 0.01 85);
   --text-underline: oklch(44.709% 0.0089 80.7);
   --modal-backdrop: oklch(10.889% 0.003 17.62 / 0.9);
   --modal-muted: oklch(70.565% 0.0177 91.61);
@@ -169,16 +169,18 @@
   --font-body: "Lato", sans-serif;
   --font-display: var(--font-body);
   --font-meta: var(--font-body);
-  --type-xs: 0.9375rem;
-  --type-sm: 1rem;
-  --type-base: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
-  --type-md: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
-  --type-lg: clamp(1.25rem, 1.16rem + 0.35vw, 1.5rem);
-  --type-xl: clamp(2rem, 1.8rem + 0.5vw, 2.375rem);
-  --line-tight: 1.12;
-  --line-title: 1.25;
-  --line-snug: 1.4;
-  --line-body: 1.65;
+  --type-meta: 0.8125rem;
+  --type-ui: 0.9rem;
+  --type-xs: 0.875rem;
+  --type-sm: 0.9375rem;
+  --type-base: 1rem;
+  --type-md: 1.2rem;
+  --type-lg: 1.75rem;
+  --type-xl: 2.25rem;
+  --line-tight: 1.15;
+  --line-title: 1.2;
+  --line-snug: 1.45;
+  --line-body: 1.55;
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
   --dashed-line-horizontal: repeating-linear-gradient(
     to right,
@@ -195,14 +197,14 @@
 @media (prefers-color-scheme: light) {
   :root[data-theme="system"] {
     --primary: oklch(52.267% 0.0198 84.59);
-    --primary-hover: oklch(47.626% 0.0524 119.2);
+    --primary-hover: oklch(44.5% 0.025 90);
     --accent: oklch(57.013% 0.019 88.06);
-    --accent-two: oklch(87.287% 0.0126 91.53);
-    --accent-three: oklch(91.49% 0.0123 96.43);
-    --secondary: oklch(47.626% 0.0524 119.2);
-    --bg: oklch(95.448% 0.0108 95.17);
-    --text-primary: oklch(29.298% 0.0061 34.3);
-    --text-secondary: oklch(54.659% 0.0072 75.37);
+    --accent-two: oklch(91.5% 0.01 92);
+    --accent-three: oklch(94.5% 0.008 96);
+    --bg: oklch(99.668% 0.0054 95.1);
+    --text-primary: oklch(20% 0.006 34);
+    --text-secondary: oklch(44% 0.007 75);
+    --text-muted: oklch(58% 0.006 80);
     --text-underline: oklch(82.305% 0.0099 93.59);
     color-scheme: light;
   }
@@ -210,14 +212,14 @@
 
 :root[data-theme="light"] {
   --primary: oklch(52.267% 0.0198 84.59);
-  --primary-hover: oklch(47.626% 0.0524 119.2);
+  --primary-hover: oklch(44.5% 0.025 90);
   --accent: oklch(57.013% 0.019 88.06);
-  --accent-two: oklch(87.287% 0.0126 91.53);
-  --accent-three: oklch(91.49% 0.0123 96.43);
-  --secondary: oklch(47.626% 0.0524 119.2);
-  --bg: oklch(95.448% 0.0108 95.17);
-  --text-primary: oklch(29.298% 0.0061 34.3);
-  --text-secondary: oklch(54.659% 0.0072 75.37);
+  --accent-two: oklch(91.5% 0.01 92);
+  --accent-three: oklch(94.5% 0.008 96);
+  --bg: oklch(99.668% 0.0054 95.1);
+  --text-primary: oklch(20% 0.006 34);
+  --text-secondary: oklch(44% 0.007 75);
+  --text-muted: oklch(58% 0.006 80);
   --text-underline: oklch(82.305% 0.0099 93.59);
   color-scheme: light;
 }
@@ -228,10 +230,10 @@
   --accent: oklch(66.344% 0.0166 90.29);
   --accent-two: oklch(35.181% 0.0066 48.53);
   --accent-three: oklch(30.36% 0.0056 56.18);
-  --secondary: oklch(83.952% 0.0409 114.97);
   --bg: oklch(25.107% 0.0046 17.46);
-  --text-primary: oklch(83.781% 0.0222 95.33);
-  --text-secondary: oklch(62.083% 0.0141 86.86);
+  --text-primary: oklch(92% 0.018 95);
+  --text-secondary: oklch(70% 0.014 87);
+  --text-muted: oklch(58% 0.01 85);
   --text-underline: oklch(44.709% 0.0089 80.7);
   color-scheme: dark;
 }
@@ -262,7 +264,7 @@ body {
 }
 
 ::selection {
-  background: var(--secondary);
+  background: var(--primary-hover);
   color: var(--bg);
 }
 
@@ -309,13 +311,16 @@ img {
 a {
   color: var(--primary);
   text-decoration-color: var(--text-underline);
-  text-underline-offset: 0.18em;
-  transition: color 140ms ease, text-decoration-color 140ms ease;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: auto;
+  transition:
+    color 140ms ease,
+    text-decoration-color 140ms ease;
 }
 
 a:hover {
   color: var(--primary-hover);
-  text-decoration-color: currentColor;
+  text-decoration-color: var(--text-underline);
 }
 
 .site-header {
@@ -323,24 +328,15 @@ a:hover {
   top: 0;
   z-index: 100;
   padding-inline: var(--space-lg);
-  padding-block-start: var(--space-sm);
-  background: linear-gradient(
-    to bottom,
-    var(--bg) 0%,
-    var(--bg) 52%,
-    color-mix(in oklch, var(--bg) 95%, transparent) 68%,
-    color-mix(in oklch, var(--bg) 76%, transparent) 80%,
-    color-mix(in oklch, var(--bg) 36%, transparent) 92%,
-    transparent 100%
-  );
+  padding-block: 0.75rem;
+  background: var(--bg);
 }
 
 nav {
   width: 100%;
   max-width: var(--frame);
-  min-height: 60px;
+  min-height: 2.35rem;
   margin-inline: auto;
-  padding-block-end: 1.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -362,12 +358,15 @@ nav a {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  color: var(--primary);
-  font-size: var(--type-sm);
+  color: var(--text-muted);
+  font-size: var(--type-ui);
   font-weight: 500;
   line-height: var(--line-snug);
   text-decoration: none;
-  transition: color 140ms ease, background-color 140ms ease, transform 120ms ease;
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    transform 120ms ease;
 }
 
 nav li:last-child a {
@@ -389,16 +388,18 @@ nav li a:hover {
   min-height: 2.35rem;
   padding: 0;
   justify-content: flex-start;
-  color: var(--primary);
+  color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: var(--type-sm);
+  font-size: var(--type-base);
   font-weight: 500;
+  line-height: var(--line-body);
+  letter-spacing: 0;
   text-transform: none;
   user-select: none;
 }
 
 .nav-title:hover {
-  color: var(--secondary);
+  color: var(--primary-hover);
   background: transparent;
 }
 
@@ -439,14 +440,14 @@ p {
 .project-meta dt,
 .art-count {
   font-family: var(--font-body);
-  font-size: var(--type-xs);
+  font-size: var(--type-meta);
   font-weight: 400;
   line-height: var(--line-snug);
 }
 
 .eyebrow {
   margin-block: 0 0.7rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .main-container,
@@ -492,7 +493,7 @@ p {
 
 .current-label {
   margin-inline-end: 0.25rem;
-  color: var(--secondary);
+  color: var(--primary-hover);
   font-family: var(--font-body);
   font-size: inherit;
 }
@@ -529,7 +530,9 @@ p {
   font-size: var(--type-sm);
   line-height: var(--line-snug);
   text-decoration: none;
-  transition: color 140ms ease, background-color 140ms ease;
+  transition:
+    color 140ms ease,
+    background-color 140ms ease;
 }
 
 .button-link:hover {
@@ -601,7 +604,9 @@ p {
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform 220ms var(--ease-out), opacity 160ms ease;
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 160ms ease;
 }
 
 .card-info {
@@ -644,6 +649,7 @@ p {
 .art-header h1 {
   margin-block-end: 0.5rem;
   font-size: var(--type-lg);
+  font-weight: 600;
   line-height: var(--line-title);
 }
 
@@ -671,7 +677,10 @@ p {
   color: var(--primary);
   cursor: pointer;
   font: 500 var(--type-sm) / var(--line-snug) var(--font-body);
-  transition: color 140ms ease, background-color 140ms ease, transform 120ms ease;
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    transform 120ms ease;
 }
 
 .work-filter:hover,
@@ -730,8 +739,8 @@ p {
 }
 
 .project-meta dt {
-  color: var(--text-secondary);
-  font-size: var(--type-sm);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
 }
 
 .project-meta dd {
@@ -762,9 +771,9 @@ p {
 
 .project-media figcaption {
   margin-block-start: 0.6rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-family: var(--font-body);
-  font-size: var(--type-sm);
+  font-size: var(--type-meta);
   line-height: var(--line-snug);
 }
 
@@ -846,8 +855,8 @@ p {
   width: min(calc(100% - (2 * var(--gutter))), var(--frame));
   margin-inline: auto;
   padding-block: var(--space-xl);
-  color: var(--text-secondary);
-  font-size: var(--type-xs);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
   line-height: var(--line-snug);
 }
 
@@ -906,7 +915,6 @@ p {
   .work-card a:hover .card-info {
     transform: translateY(-2px);
   }
-
 }
 
 .work-card:active,

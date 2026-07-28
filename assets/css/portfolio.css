@@ -38,8 +38,8 @@
 .portfolio-intro h1,
 .portfolio-intro p {
   max-width: 37.5rem;
-  font-size: clamp(0.98rem, 0.96rem + 0.08vw, 1.04rem);
-  line-height: 1.68;
+  font-size: var(--type-base);
+  line-height: var(--line-body);
 }
 
 .portfolio-intro h1 {
@@ -80,58 +80,9 @@
 .portfolio-list-section > h2 {
   margin: 0;
   font-family: var(--portfolio-heading-font);
-  font-size: var(--type-sm);
-  font-weight: 700;
-  line-height: var(--line-snug);
-}
-
-.portfolio-carousel-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.portfolio-carousel-button {
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--primary);
-  cursor: pointer;
-  font: 400 1.05rem / 1 var(--portfolio-body-font);
-  transition:
-    color 140ms ease,
-    transform 140ms ease,
-    opacity 140ms ease;
-}
-
-.portfolio-carousel-button:hover {
-  color: var(--text-primary);
-}
-
-.portfolio-carousel-button:active {
-  transform: scale(0.94);
-}
-
-.portfolio-carousel-icon {
-  width: 1rem;
-  height: 1rem;
-  margin-inline: auto;
-  display: block;
-}
-
-.portfolio-carousel-button--next .portfolio-carousel-icon {
-  transform: rotate(180deg);
-}
-
-.portfolio-carousel-status {
-  min-width: 3rem;
-  color: var(--text-secondary);
-  font: 400 var(--type-xs) / 1 var(--portfolio-body-font);
-  font-family: "Geist Mono", "Geist Sans", "Geist", monospace;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
+  font-size: var(--type-base);
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .portfolio-carousel-bleed {
@@ -185,7 +136,7 @@
 .portfolio-project-image {
   aspect-ratio: 1.45 / 1;
   overflow: hidden;
-  border-radius: calc(var(--border-radius) + 2px);
+  border-radius: 10px;
   background: var(--portfolio-image-background);
 }
 
@@ -205,7 +156,7 @@
 .portfolio-project-card h3 {
   margin: var(--space-sm) 0 0.25rem;
   font-size: var(--type-sm);
-  font-weight: 700;
+  font-weight: 500;
   line-height: var(--line-snug);
 }
 
@@ -213,9 +164,9 @@
   max-width: 28rem;
   margin: 0;
   color: var(--text-secondary);
-  font-size: var(--type-sm);
+  font-size: var(--type-xs);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
 .portfolio-work-index {
@@ -228,18 +179,18 @@
 
 .portfolio-work-index-header h1 {
   margin: 0;
-  font-size: var(--type-sm);
-  font-weight: 700;
-  line-height: var(--line-snug);
+  font-size: var(--type-md);
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .portfolio-work-index-header p {
   max-width: 32rem;
   margin: var(--space-md) 0 0;
   color: var(--text-secondary);
-  font-size: clamp(0.98rem, 0.96rem + 0.08vw, 1.04rem);
+  font-size: var(--type-base);
   font-weight: 400;
-  line-height: 1.68;
+  line-height: var(--line-body);
 }
 
 .portfolio-work-grid {
@@ -276,8 +227,8 @@
 
 .portfolio-entry-kicker {
   margin: 0;
-  color: var(--text-secondary);
-  font: 400 var(--type-xs) / 1.5 var(--portfolio-body-font);
+  color: var(--text-muted);
+  font: 400 var(--type-meta) / 1.5 var(--portfolio-body-font);
   font-family: "Geist Mono", "Geist Sans", "Geist", monospace;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -290,16 +241,16 @@
 .portfolio-entry h3 {
   margin: 0 0 0.25rem;
   font-size: var(--type-sm);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.45;
 }
 
 .portfolio-entry-body p {
   margin: 0;
   color: var(--text-secondary);
-  font-size: var(--type-sm);
+  font-size: var(--type-xs);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
 .portfolio-chip-board {
@@ -364,8 +315,8 @@
   grid-column: 1;
   margin: 0;
   padding: 0.25rem 0;
-  color: var(--text-secondary);
-  font-size: var(--type-xs);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
   font-weight: 400;
   line-height: 1.4;
 }
@@ -414,10 +365,10 @@
 .portfolio-project-intro h1 {
   max-width: 14em;
   margin-block-end: var(--space-md);
-  font-size: clamp(2.5rem, 2.05rem + 1.8vw, 4rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1;
+  font-size: clamp(2.25rem, 2rem + 0.6vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
 }
 
 .portfolio-project-deck {
@@ -425,7 +376,7 @@
   margin: 0;
   color: var(--text-secondary);
   font-size: var(--type-base);
-  line-height: 1.62;
+  line-height: var(--line-body);
 }
 
 .portfolio-project-hero {
@@ -467,14 +418,14 @@
 
 .portfolio-project-facts dt,
 .portfolio-credits dt {
-  color: var(--text-secondary);
-  font: 400 var(--type-xs) / 1.5 var(--portfolio-body-font);
+  color: var(--text-muted);
+  font: 400 var(--type-meta) / 1.5 var(--portfolio-body-font);
 }
 
 .portfolio-project-facts dd,
 .portfolio-credits dd {
   margin: 0;
-  font-size: var(--type-sm);
+  font-size: var(--type-xs);
   line-height: 1.5;
 }
 
@@ -482,7 +433,7 @@
   margin: 0;
   color: var(--text-primary);
   font-size: var(--type-base);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .portfolio-credits {
@@ -492,7 +443,7 @@
 .portfolio-credits h2 {
   margin: 0 0 var(--space-md);
   font-size: var(--type-sm);
-  font-weight: 700;
+  font-weight: 600;
   line-height: var(--line-snug);
 }
 
@@ -505,8 +456,8 @@
 
 .portfolio-story-block h2 {
   margin: 0;
-  font-size: var(--type-base);
-  font-weight: 700;
+  font-size: var(--type-sm);
+  font-weight: 600;
   line-height: 1.45;
 }
 
@@ -514,7 +465,7 @@
   margin: 0;
   color: var(--text-secondary);
   font-size: var(--type-base);
-  line-height: 1.72;
+  line-height: 1.6;
 }
 
 .portfolio-story-block p + p {
@@ -529,8 +480,8 @@
 .portfolio-wide-media figcaption,
 .portfolio-screen-pair figcaption {
   margin-block-start: 0.7rem;
-  color: var(--text-secondary);
-  font-size: var(--type-xs);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
   line-height: var(--line-snug);
 }
 
@@ -559,8 +510,8 @@
 
 .portfolio-next-project p {
   margin: 0 0 var(--space-lg);
-  color: var(--text-secondary);
-  font-size: var(--type-xs);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
 }
 
 .portfolio-next-project a {
@@ -569,7 +520,7 @@
   justify-content: space-between;
   gap: var(--space-lg);
   color: var(--text-primary);
-  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 2rem);
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.75rem);
   font-weight: 500;
   line-height: 1.2;
   text-decoration: none;
@@ -624,14 +575,9 @@
   .portfolio-project-summary {
     order: -1;
   }
-
 }
 
 @media (max-width: 560px) {
-  .portfolio-carousel-status {
-    display: none;
-  }
-
   .portfolio-entry {
     grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: var(--space-sm);
@@ -687,11 +633,9 @@
   .portfolio-next-project a {
     align-items: flex-end;
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .portfolio-carousel-button,
   .portfolio-project-rail,
   .portfolio-project-image img {
     transition: none;

@@ -7,21 +7,13 @@
   const originals = Array.from(
     carousel.querySelectorAll("[data-carousel-slide]"),
   );
-  const previousButton = document.querySelector("[data-carousel-previous]");
-  const nextButton = document.querySelector("[data-carousel-next]");
   const status = document.querySelector("[data-carousel-status]");
   const heading = document.querySelector(".portfolio-section-heading");
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   );
 
-  if (
-    !previousButton ||
-    !nextButton ||
-    !status ||
-    !heading ||
-    originals.length === 0
-  ) {
+  if (!status || !heading || originals.length === 0) {
     return;
   }
 
@@ -133,9 +125,6 @@
     goToSlide(target, reducedMotion.matches ? "auto" : "smooth");
     if (reducedMotion.matches) settleCarousel();
   }
-
-  previousButton.addEventListener("click", () => move(-1));
-  nextButton.addEventListener("click", () => move(1));
 
   function recordPointerSample(event) {
     if (!dragState || !Number.isFinite(event.clientX)) return;
