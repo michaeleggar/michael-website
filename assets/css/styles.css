@@ -324,9 +324,6 @@ a:hover {
 }
 
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
   padding-inline: var(--space-lg);
   padding-block: 0.75rem;
   background: var(--bg);
@@ -353,7 +350,7 @@ nav ul {
 }
 
 nav a {
-  padding: 0.3rem 0.7rem;
+  padding: calc(0.2rem + 1px) 0.7rem calc(0.2rem - 1px);
   display: inline-flex;
   align-items: center;
   justify-content: center;

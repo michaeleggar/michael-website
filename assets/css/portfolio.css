@@ -27,8 +27,12 @@
 .portfolio-main {
   width: min(calc(100% - (2 * var(--gutter))), var(--frame));
   margin-inline: auto;
-  padding-block: clamp(3.25rem, 7vw, 6rem) var(--space-xl);
+  padding-block: 3.75rem var(--space-xl);
   flex: 1 1 auto;
+}
+
+.portfolio-home {
+  padding-block-start: 7.5rem;
 }
 
 .portfolio-intro {
@@ -68,6 +72,10 @@
   margin-block-start: clamp(4rem, 8vw, 6.5rem);
 }
 
+.portfolio-intro + .portfolio-work-section {
+  margin-block-start: clamp(6.5rem, 10vw, 8rem);
+}
+
 .portfolio-section-heading {
   margin-block-end: var(--space-md);
   display: flex;
@@ -76,6 +84,7 @@
   gap: var(--space-sm);
 }
 
+.portfolio-section-heading h1,
 .portfolio-section-heading h2,
 .portfolio-list-section > h2 {
   margin: 0;
@@ -83,6 +92,23 @@
   font-size: var(--type-base);
   font-weight: 600;
   line-height: 1.35;
+}
+
+.portfolio-work-grid-experiment .portfolio-section-heading {
+  justify-content: flex-start;
+  margin-block-end: clamp(2rem, 3vw, 2.5rem);
+}
+
+.portfolio-all-work-link {
+  color: color-mix(in oklch, var(--text-secondary) 75%, var(--bg));
+  font-size: var(--type-base);
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.portfolio-all-work-link:hover {
+  color: var(--text-primary);
 }
 
 .portfolio-carousel-bleed {
@@ -136,7 +162,7 @@
 .portfolio-project-image {
   aspect-ratio: 1.45 / 1;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 2px;
   background: var(--portfolio-image-background);
 }
 
@@ -167,6 +193,20 @@
   font-size: var(--type-xs);
   font-weight: 400;
   line-height: 1.5;
+}
+
+.portfolio-selected-work-grid {
+  width: min(calc(100vw - (2 * var(--gutter))), 60rem);
+  margin-inline-start: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 2.5vw, 2rem);
+  row-gap: clamp(3rem, 5vw, 4rem);
+  transform: translateX(-50%);
+}
+
+.portfolio-selected-work-grid .portfolio-project-card {
+  width: auto;
 }
 
 .portfolio-work-index {
@@ -215,7 +255,23 @@
   margin-block-start: var(--space-lg);
 }
 
+.portfolio-entry-list::after {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  bottom: -1rem;
+  left: 7.3rem;
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--text-underline) 0 4px,
+    transparent 4px 8px
+  );
+  pointer-events: none;
+}
+
 .portfolio-entry {
+  position: relative;
   display: grid;
   grid-template-columns: 6.5rem minmax(0, 1fr);
   gap: var(--space-md);
@@ -223,6 +279,21 @@
 
 .portfolio-entry + .portfolio-entry {
   margin-block-start: var(--space-lg);
+}
+
+.portfolio-entry + .portfolio-entry::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.5 * var(--space-lg));
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--text-underline) 0 4px,
+    transparent 4px 8px
+  );
+  pointer-events: none;
 }
 
 .portfolio-entry-kicker {
@@ -550,12 +621,20 @@
     padding-inline: var(--gutter);
   }
 
-  .portfolio-main {
+  .portfolio-work-index {
     padding-block-start: clamp(2.75rem, 11vw, 4.5rem);
   }
 
   .portfolio-project-card {
     width: min(82vw, 28rem);
+  }
+
+  .portfolio-selected-work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-selected-work-grid .portfolio-project-card {
+    width: auto;
   }
 
   .portfolio-work-grid {
@@ -581,6 +660,10 @@
   .portfolio-entry {
     grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: var(--space-sm);
+  }
+
+  .portfolio-entry-list::after {
+    left: 7rem;
   }
 
   .portfolio-chip-rows {

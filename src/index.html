@@ -14,7 +14,7 @@
       </nav>
     </header>
 
-    <main id="main-content" class="portfolio-main">
+    <main id="main-content" class="portfolio-main portfolio-home">
       <section class="portfolio-intro" aria-labelledby="portfolio-intro-title">
         <p>Hey there,</p>
         <h1 id="portfolio-intro-title">
@@ -29,107 +29,92 @@
       </section>
 
       <section
-        id="selected-work"
-        class="portfolio-work-section"
-        aria-labelledby="portfolio-work-title"
+        class="portfolio-work-section portfolio-work-grid-experiment"
+        aria-labelledby="portfolio-work-grid-title"
       >
         <div class="portfolio-section-heading">
-          <h2 id="portfolio-work-title">Selected work</h2>
-          <span
-            class="portfolio-carousel-status visually-hidden"
-            data-carousel-status
-            aria-live="polite"
-            >1 / 4</span
-          >
+          <h2 id="portfolio-work-grid-title">Selected work</h2>
+          <a class="portfolio-all-work-link" href="/work/">All work</a>
         </div>
 
-        <div class="portfolio-carousel-bleed">
-          <div
-            class="portfolio-project-rail"
-            data-project-carousel
-            tabindex="0"
-            aria-label="Selected projects. Scroll, drag, or use the left and right arrow keys to browse."
-          >
-            <article class="portfolio-project-card" data-carousel-slide>
-              <a
-                href="/work/ductworx/"
-                aria-label="View DuctWorx website case study"
-              >
-                <div class="portfolio-project-image">
-                  <img
-                    src="/assets/images/ductworx/duc-mock-2.jpg"
-                    alt="DuctWorx website displayed across laptop and desktop screens"
-                    draggable="false"
-                  />
-                </div>
-                <h3>DuctWorx website</h3>
-                <p>
-                  A modular WordPress system the client can manage without
-                  ongoing developer support.
-                </p>
-              </a>
-            </article>
+        <div class="portfolio-selected-work-grid">
+          <article class="portfolio-project-card">
+            <a
+              href="/work/ductworx/"
+              aria-label="View DuctWorx website case study"
+            >
+              <div class="portfolio-project-image">
+                <img
+                  src="/assets/images/ductworx/duc-mock-2.jpg"
+                  alt="DuctWorx website displayed across laptop and desktop screens"
+                />
+              </div>
+              <h3>DuctWorx website</h3>
+              <p>
+                A modular WordPress system the client can manage without
+                ongoing developer support.
+              </p>
+            </a>
+          </article>
 
-            <article class="portfolio-project-card" data-carousel-slide>
-              <a
-                href="/work/chatapp/"
-                aria-label="View Film production chat app case study"
-              >
-                <div class="portfolio-project-image">
-                  <img
-                    src="/assets/images/chatapp/chat-onset-2b.jpg"
-                    alt="Chat interface appearing on an actor’s laptop during filming"
-                    draggable="false"
-                  />
-                </div>
-                <h3>Film production chat app</h3>
-                <p>
-                  A two-sided Electron app built and adapted under the pressure
-                  of a live film shoot.
-                </p>
-              </a>
-            </article>
+          <article class="portfolio-project-card">
+            <a
+              href="/work/chatapp/"
+              aria-label="View Film production chat app case study"
+            >
+              <div class="portfolio-project-image">
+                <img
+                  src="/assets/images/chatapp/chat-onset-2b.jpg"
+                  alt="Chat interface appearing on an actor’s laptop during filming"
+                />
+              </div>
+              <h3>Film production chat app</h3>
+              <p>
+                A two-sided Electron app built and adapted under the pressure
+                of a live film shoot.
+              </p>
+            </a>
+          </article>
 
-            <article class="portfolio-project-card" data-carousel-slide>
-              <a
-                href="/work/retirementpath/"
-                aria-label="View Retirement Investment Advisors case study"
-              >
-                <div class="portfolio-project-image">
-                  <img
-                    src="/assets/images/ria/ria-website.jpg"
-                    alt="Retirement Investment Advisors website displayed on a laptop"
-                    draggable="false"
-                  />
-                </div>
-                <h3>Retirement Investment Advisors</h3>
-                <p>
-                  A taxonomy-driven resource library built for a nontechnical
-                  publishing team.
-                </p>
-              </a>
-            </article>
+          <article class="portfolio-project-card">
+            <a
+              href="/work/retirementpath/"
+              aria-label="View Retirement Investment Advisors case study"
+            >
+              <div class="portfolio-project-image">
+                <img
+                  src="/assets/images/ria/ria-website.jpg"
+                  alt="Retirement Investment Advisors website displayed on a laptop"
+                  loading="lazy"
+                />
+              </div>
+              <h3>Retirement Investment Advisors</h3>
+              <p>
+                A taxonomy-driven resource library built for a nontechnical
+                publishing team.
+              </p>
+            </a>
+          </article>
 
-            <article class="portfolio-project-card" data-carousel-slide>
-              <a
-                href="/work/kochcomm/"
-                aria-label="View Koch Comm website case study"
-              >
-                <div class="portfolio-project-image">
-                  <img
-                    src="/assets/images/kochcomm/kc-website-1.jpg"
-                    alt="Koch Comm website displayed on a laptop"
-                    draggable="false"
-                  />
-                </div>
-                <h3>Koch Comm website</h3>
-                <p>
-                  An evolving agency site with custom content types, filtering,
-                  and flexible templates.
-                </p>
-              </a>
-            </article>
-          </div>
+          <article class="portfolio-project-card">
+            <a
+              href="/work/kochcomm/"
+              aria-label="View Koch Comm website case study"
+            >
+              <div class="portfolio-project-image">
+                <img
+                  src="/assets/images/kochcomm/kc-website-1.jpg"
+                  alt="Koch Comm website displayed on a laptop"
+                  loading="lazy"
+                />
+              </div>
+              <h3>Koch Comm website</h3>
+              <p>
+                An evolving agency site with custom content types, filtering,
+                and flexible templates.
+              </p>
+            </a>
+          </article>
         </div>
       </section>
 
@@ -241,37 +226,11 @@
         </div>
       </section>
 
-      <section class="portfolio-chip-board" aria-labelledby="portfolio-personal-title">
-        <h2 class="visually-hidden" id="portfolio-personal-title">
-          Interests and reading
-        </h2>
-        <div class="portfolio-chip-rows">
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Interests</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">Painting</li>
-              <li class="portfolio-chip">Sci-fi</li>
-              <li class="portfolio-chip">Crochet</li>
-              <li class="portfolio-chip">Sewing</li>
-              <li class="portfolio-chip">p5.js</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Reading</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">
-                <cite>The Hydrogen Sonata</cite>&nbsp;· Iain M. Banks
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
       {% include "footer.html" %}
     </footer>
-    <script src="/assets/scripts/project-carousel.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>
