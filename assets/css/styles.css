@@ -241,6 +241,33 @@
 html {
   min-height: 100%;
   scrollbar-gutter: stable;
+  scrollbar-color: var(--text-underline) var(--bg);
+  scrollbar-width: thin;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+
+  html::-webkit-scrollbar {
+    width: 0.75rem;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border: 0.2rem solid var(--bg);
+    border-radius: 999px;
+    background: var(--text-underline);
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
 }
 
 *,

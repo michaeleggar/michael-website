@@ -32,7 +32,7 @@
 }
 
 .portfolio-home {
-  padding-block-start: 6rem;
+  padding-block-start: 5rem;
 }
 
 .portfolio-intro {
@@ -44,6 +44,7 @@
   max-width: 37.5rem;
   font-size: var(--type-base);
   line-height: var(--line-body);
+  text-wrap: balance;
 }
 
 .portfolio-intro h1 {
@@ -61,10 +62,6 @@
 
 .portfolio-intro .portfolio-intro-lede {
   color: var(--text-secondary);
-}
-
-.portfolio-intro > p:first-child + h1 {
-  margin-block-start: var(--space-md);
 }
 
 .portfolio-intro h1 + p,
@@ -101,6 +98,11 @@
 .portfolio-work-grid-experiment .portfolio-section-heading {
   justify-content: flex-start;
   margin-block-end: 2rem;
+}
+
+.portfolio-work-grid-experiment .portfolio-section-heading h2,
+.portfolio-work-grid-experiment .portfolio-all-work-link {
+  font-size: var(--type-ui);
 }
 
 .portfolio-all-work-link {
