@@ -32,7 +32,7 @@
 }
 
 .portfolio-home {
-  padding-block-start: 7.5rem;
+  padding-block-start: 6rem;
 }
 
 .portfolio-intro {
@@ -63,6 +63,10 @@
   color: var(--text-secondary);
 }
 
+.portfolio-intro > p:first-child + h1 {
+  margin-block-start: var(--space-md);
+}
+
 .portfolio-intro h1 + p,
 .portfolio-intro p + p {
   margin-block-start: var(--space-md);
@@ -73,7 +77,7 @@
 }
 
 .portfolio-intro + .portfolio-work-section {
-  margin-block-start: clamp(6.5rem, 10vw, 8rem);
+  margin-block-start: 5rem;
 }
 
 .portfolio-section-heading {
@@ -96,7 +100,7 @@
 
 .portfolio-work-grid-experiment .portfolio-section-heading {
   justify-content: flex-start;
-  margin-block-end: clamp(2rem, 3vw, 2.5rem);
+  margin-block-end: 2rem;
 }
 
 .portfolio-all-work-link {
@@ -186,6 +190,27 @@
   line-height: var(--line-snug);
 }
 
+.portfolio-project-title-row {
+  margin-block-start: var(--space-sm);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.portfolio-project-title-row h2,
+.portfolio-project-title-row h3 {
+  margin: 0;
+}
+
+.portfolio-project-title-row time {
+  color: var(--text-muted);
+  font-family: "Geist Mono", "Geist Sans", "Geist", monospace;
+  font-size: var(--type-meta);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-snug);
+}
+
 .portfolio-project-card p {
   max-width: 28rem;
   margin: 0;
@@ -196,17 +221,22 @@
 }
 
 .portfolio-selected-work-grid {
-  width: min(calc(100vw - (2 * var(--gutter))), 60rem);
+  width: min(calc(100vw - (2 * var(--gutter))), 55rem);
   margin-inline-start: 50%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 2.5vw, 2rem);
+  column-gap: 2.5rem;
   row-gap: clamp(3rem, 5vw, 4rem);
   transform: translateX(-50%);
 }
 
 .portfolio-selected-work-grid .portfolio-project-card {
   width: auto;
+}
+
+.portfolio-selected-work-grid .portfolio-project-image,
+.portfolio-work-grid .portfolio-project-image {
+  aspect-ratio: 16 / 10;
 }
 
 .portfolio-work-index {
@@ -251,53 +281,19 @@
 }
 
 .portfolio-entry-list {
-  position: relative;
-  margin-block-start: var(--space-lg);
-}
-
-.portfolio-entry-list::after {
-  content: "";
-  position: absolute;
-  top: -1rem;
-  bottom: -1rem;
-  left: 7.3rem;
-  width: 1px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--text-underline) 0 4px,
-    transparent 4px 8px
-  );
-  pointer-events: none;
+  margin-block-start: var(--space-md);
 }
 
 .portfolio-entry {
-  position: relative;
-  display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  gap: var(--space-md);
+  display: block;
 }
 
 .portfolio-entry + .portfolio-entry {
-  margin-block-start: var(--space-lg);
-}
-
-.portfolio-entry + .portfolio-entry::before {
-  content: "";
-  position: absolute;
-  top: calc(-0.5 * var(--space-lg));
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--text-underline) 0 4px,
-    transparent 4px 8px
-  );
-  pointer-events: none;
+  margin-block-start: var(--space-md);
 }
 
 .portfolio-entry-kicker {
-  margin: 0;
+  margin: 0 0 0.3rem;
   color: var(--text-muted);
   font: 400 var(--type-meta) / 1.5 var(--portfolio-body-font);
   font-family: "Geist Mono", "Geist Sans", "Geist", monospace;
@@ -316,8 +312,8 @@
   line-height: 1.45;
 }
 
-.portfolio-entry-body p {
-  margin: 0;
+.portfolio-entry-company {
+  display: inline-block;
   color: var(--text-secondary);
   font-size: var(--type-xs);
   font-weight: 400;
@@ -657,15 +653,6 @@
 }
 
 @media (max-width: 560px) {
-  .portfolio-entry {
-    grid-template-columns: 6.5rem minmax(0, 1fr);
-    gap: var(--space-sm);
-  }
-
-  .portfolio-entry-list::after {
-    left: 7rem;
-  }
-
   .portfolio-chip-rows {
     grid-template-columns: 1fr;
     row-gap: 1.5rem;

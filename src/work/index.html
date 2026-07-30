@@ -1,4 +1,5 @@
 <!doctype html>
+{% from "project-card.njk" import projectCard %}
 <html lang="en">
   <head>
     {% include "head.html" %}
@@ -24,85 +25,9 @@
       </header>
 
       <section class="portfolio-work-grid" aria-label="Selected projects">
-        <article class="portfolio-project-card">
-          <a
-            href="/work/ductworx/"
-            aria-label="View DuctWorx website case study"
-          >
-            <div class="portfolio-project-image">
-              <img
-                src="/assets/images/ductworx/duc-mock-2.jpg"
-                alt="DuctWorx website displayed across laptop and desktop screens"
-                loading="lazy"
-              />
-            </div>
-            <h2>DuctWorx website</h2>
-            <p>
-              A modular WordPress system the client can manage without ongoing
-              developer support.
-            </p>
-          </a>
-        </article>
-
-        <article class="portfolio-project-card">
-          <a
-            href="/work/chatapp/"
-            aria-label="View Film production chat app case study"
-          >
-            <div class="portfolio-project-image">
-              <img
-                src="/assets/images/chatapp/chat-onset-2b.jpg"
-                alt="Chat interface appearing on an actor’s laptop during filming"
-                loading="lazy"
-              />
-            </div>
-            <h2>Film production chat app</h2>
-            <p>
-              A two-sided Electron app built and adapted under the pressure of
-              a live film shoot.
-            </p>
-          </a>
-        </article>
-
-        <article class="portfolio-project-card">
-          <a
-            href="/work/retirementpath/"
-            aria-label="View Retirement Investment Advisors case study"
-          >
-            <div class="portfolio-project-image">
-              <img
-                src="/assets/images/ria/ria-website.jpg"
-                alt="Retirement Investment Advisors website displayed on a laptop"
-                loading="lazy"
-              />
-            </div>
-            <h2>Retirement Investment Advisors</h2>
-            <p>
-              A taxonomy-driven resource library built for a nontechnical
-              publishing team.
-            </p>
-          </a>
-        </article>
-
-        <article class="portfolio-project-card">
-          <a
-            href="/work/kochcomm/"
-            aria-label="View Koch Comm website case study"
-          >
-            <div class="portfolio-project-image">
-              <img
-                src="/assets/images/kochcomm/kc-website-1.jpg"
-                alt="Koch Comm website displayed on a laptop"
-                loading="lazy"
-              />
-            </div>
-            <h2>Koch Comm website</h2>
-            <p>
-              An evolving agency site with custom content types, filtering, and
-              flexible templates.
-            </p>
-          </a>
-        </article>
+        {% for project in portfolioProjects %}
+          {{ projectCard(project, 2, true, false) }}
+        {% endfor %}
       </section>
     </main>
 

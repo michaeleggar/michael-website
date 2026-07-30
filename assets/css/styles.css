@@ -157,7 +157,7 @@
   --modal-muted: oklch(70.565% 0.0177 91.61);
   color-scheme: dark;
 
-  --frame: 760px;
+  --frame: 40rem;
   --measure: 68ch;
   --gutter: 1rem;
   --space-xs: 0.5rem;
@@ -865,8 +865,23 @@ p {
   gap: var(--space-sm);
 }
 
-.footer-copy {
+.footer-links {
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.footer-links a {
+  color: inherit;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-link-separator {
+  color: var(--text-underline);
 }
 
 .theme-toggle {

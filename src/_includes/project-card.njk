@@ -1,0 +1,25 @@
+{% macro projectCard(project, headingLevel, shouldLazyLoad, isCarousel) %}
+  <article
+    class="portfolio-project-card"
+    {% if isCarousel %}data-carousel-slide{% endif %}
+  >
+    <a href="{{ project.url }}" aria-label="{{ project.ariaLabel }}">
+      <div class="portfolio-project-image">
+        <img
+          src="{{ project.image }}"
+          alt="{{ project.imageAlt }}"
+          {% if shouldLazyLoad %}loading="lazy"{% endif %}
+          {% if isCarousel %}draggable="false"{% endif %}
+        />
+      </div>
+      <div class="portfolio-project-title-row">
+        {% if headingLevel == 3 %}
+          <h3>{{ project.title }}</h3>
+        {% else %}
+          <h2>{{ project.title }}</h2>
+        {% endif %}
+        <time datetime="{{ project.year }}">{{ project.year }}</time>
+      </div>
+    </a>
+  </article>
+{% endmacro %}
