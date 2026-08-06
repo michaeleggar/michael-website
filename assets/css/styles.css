@@ -1,4 +1,12 @@
 @font-face {
+  font-family: "Oddball";
+  src: url("/assets/fonts/Oddball.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Lato";
   src: url("/assets/fonts/LatoLatin-Hairline.woff2") format("woff2");
   font-style: normal;
@@ -169,6 +177,7 @@
   --font-body: "Lato", sans-serif;
   --font-display: var(--font-body);
   --font-meta: var(--font-body);
+  --font-oddball: "Oddball", var(--font-body);
   --type-meta: 0.8125rem;
   --type-ui: 0.9rem;
   --type-xs: 0.875rem;
@@ -453,6 +462,21 @@ h3 {
   margin-block-end: 0.7rem;
   font-size: var(--type-md);
   line-height: var(--line-title);
+}
+
+/* Opt-in revival of the site's original Oddball h1 treatment. */
+.heading-oddball[class] {
+  --font-display: var(--font-oddball);
+  --portfolio-heading-font: var(--font-oddball);
+  margin-block-end: 0.5rem;
+  color: var(--primary);
+  font-family: var(--font-oddball);
+  font-feature-settings: "calt" 1;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.3rem;
+  line-height: 1.5;
+  text-transform: lowercase;
 }
 
 p {

@@ -17,20 +17,19 @@
 
     <main id="main-content" class="portfolio-main portfolio-home">
       <section class="portfolio-intro" aria-labelledby="portfolio-intro-title">
-        <h1 id="portfolio-intro-title">
-          Hey there, I’m Michael. I’m a front-end developer, designer, and
-          artist based in Oklahoma City.
+        <h1 id="portfolio-intro-title" class="heading-oddball">
+          Hey there, I’m Michael.
         </h1>
         <p>
-          I’m currently the senior front-end developer at
+          I’m a front-end developer, designer, and artist based in Oklahoma
+          City. I’m currently the senior front-end developer at
           <a href="https://www.kochcomm.com">Koch Comm</a>, where I&nbsp;design
           and build websites for a wide range of organizations.
         </p>
         <p>
           Outside of work, I make <a href="/art/">art</a>, crochet, sew, and
-          co-run
-          <a href="https://cow-boys-collab.com">cow-boys collab</a>. I&nbsp;love
-          science fiction, and I’m currently reading
+          co-run <a href="https://cow-boys-collab.com">cow-boys collab</a>.
+          I&nbsp;love science fiction, and I’m currently reading
           <a
             href="https://www.goodreads.com/en/book/show/13497991-the-hydrogen-sonata"
             target="_blank"
@@ -50,19 +49,13 @@
         </div>
 
         <div class="portfolio-selected-work-grid">
-          {% for project in portfolioProjects %}
-            {% if loop.index <= 2 %}
-              {{ projectCard(project, 3, false, false) }}
-            {% endif %}
-          {% endfor %}
+          {% for project in portfolioProjects %} {% if loop.index <= 2 %} {{
+          projectCard(project, 3, false, false) }} {% endif %} {% endfor %}
         </div>
       </section>
-
     </main>
 
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
+    <footer class="site-footer">{% include "footer.html" %}</footer>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>
