@@ -9,20 +9,12 @@
   <body class="portfolio-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
     <main id="main-content" class="portfolio-main portfolio-home">
       <section class="portfolio-intro" aria-labelledby="portfolio-intro-title">
-        <h1 id="portfolio-intro-title" class="heading-oddball">
-          Hey there, I’m Michael.
-        </h1>
+        <h1 id="portfolio-intro-title">Michael Eggar</h1>
         <p>
-          I’m a front-end developer, designer, and artist based in Oklahoma
-          City. I’m currently the senior front-end developer at
+          Hey there, I’m a front-end developer, designer, and artist based in
+          Oklahoma City. I’m currently the senior front-end developer at
           <a href="https://www.kochcomm.com">Koch Comm</a>, where I&nbsp;design
           and build websites for a wide range of organizations.
         </p>
@@ -40,22 +32,91 @@
       </section>
 
       <section
-        class="portfolio-work-section portfolio-work-grid-experiment"
-        aria-labelledby="portfolio-work-grid-title"
+        class="portfolio-work-section"
+        aria-labelledby="portfolio-carousel-title"
       >
         <div class="portfolio-section-heading">
-          <h2 id="portfolio-work-grid-title">Selected work</h2>
-          <a class="portfolio-all-work-link" href="/work/">All work</a>
+          <h2 id="portfolio-carousel-title">Selected work carousel</h2>
+          <span
+            class="portfolio-carousel-status visually-hidden"
+            data-carousel-status
+            aria-live="polite"
+            >1 / 4</span
+          >
         </div>
 
-        <div class="portfolio-selected-work-grid">
-          {% for project in portfolioProjects %} {% if loop.index <= 2 %} {{
-          projectCard(project, 3, false, false) }} {% endif %} {% endfor %}
+        <div class="portfolio-carousel-bleed">
+          <div
+            class="portfolio-project-rail"
+            data-project-carousel
+            tabindex="0"
+            aria-label="Selected projects. Scroll, drag, or use the left and right arrow keys to browse."
+          >
+            {% for project in portfolioProjects %} {{ projectCard(project, 3,
+            false, true) }} {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="portfolio-list-section"
+        aria-labelledby="portfolio-experience-title"
+      >
+        <h2 id="portfolio-experience-title">Experience</h2>
+        <div class="portfolio-entry-list">
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2022-04">2022</time> – Now
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>Senior Front-end Developer</h3>
+              <a
+                class="portfolio-entry-company"
+                href="https://www.kochcomm.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Koch Comm</a
+              >
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2021-03">2021</time> –
+              <time datetime="2022-04">2022</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>Adjunct Professor</h3>
+              <a
+                class="portfolio-entry-company"
+                href="https://usao.edu"
+                target="_blank"
+                rel="noopener noreferrer"
+                >University of Science and Arts of Oklahoma</a
+              >
+            </div>
+          </article>
+          <article class="portfolio-entry">
+            <p class="portfolio-entry-kicker">
+              <time datetime="2020-03">2020</time> –
+              <time datetime="2022-04">2022</time>
+            </p>
+            <div class="portfolio-entry-body">
+              <h3>Graphic Designer &amp; Creative Services Coordinator</h3>
+              <a
+                class="portfolio-entry-company"
+                href="https://usao.edu"
+                target="_blank"
+                rel="noopener noreferrer"
+                >University of Science and Arts of Oklahoma</a
+              >
+            </div>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">{% include "footer.html" %}</footer>
+    <script src="/assets/scripts/project-carousel.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>

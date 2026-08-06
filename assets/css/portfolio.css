@@ -13,7 +13,6 @@
   font-family: var(--portfolio-body-font);
 }
 
-.portfolio-page h1,
 .portfolio-page h2,
 .portfolio-page h3 {
   font-family: var(--portfolio-heading-font);
@@ -39,19 +38,11 @@
   width: min(100%, var(--portfolio-reading-width));
 }
 
-.portfolio-intro h1,
 .portfolio-intro p {
   max-width: 37.5rem;
   font-size: var(--type-base);
   line-height: var(--line-body);
-  text-wrap: balance;
-}
-
-.portfolio-intro h1 {
-  margin: 0;
-  color: var(--text-primary);
-  font-weight: 500;
-  letter-spacing: 0;
+  text-wrap: pretty;
 }
 
 .portfolio-intro p {
@@ -85,7 +76,6 @@
   gap: var(--space-sm);
 }
 
-.portfolio-section-heading h1,
 .portfolio-section-heading h2,
 .portfolio-list-section > h2 {
   margin: 0;
@@ -126,7 +116,7 @@
   display: flex;
   gap: clamp(1rem, 2vw, 1.5rem);
   overflow-x: auto;
-  padding-block: 0 var(--space-md);
+  padding: 0 0 var(--space-md) var(--portfolio-carousel-anchor, var(--gutter));
   cursor: grab;
   scroll-padding-inline-start: var(--portfolio-carousel-anchor, var(--gutter));
   scroll-snap-type: x mandatory;
@@ -247,13 +237,6 @@
 
 .portfolio-work-index-header {
   width: min(100%, var(--portfolio-reading-width));
-}
-
-.portfolio-work-index-header h1 {
-  margin: 0;
-  font-size: var(--type-md);
-  font-weight: 600;
-  line-height: 1.35;
 }
 
 .portfolio-work-index-header p {
@@ -433,11 +416,6 @@
 
 .portfolio-project-intro h1 {
   max-width: 14em;
-  margin-block-end: var(--space-md);
-  font-size: clamp(2.25rem, 2rem + 0.6vw, 2.75rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
 }
 
 .portfolio-project-deck {

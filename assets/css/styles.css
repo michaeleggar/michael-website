@@ -156,7 +156,7 @@
   --accent: oklch(66.344% 0.0166 90.29);
   --accent-two: oklch(35.181% 0.0066 48.53);
   --accent-three: oklch(30.36% 0.0056 56.18);
-  --bg: oklch(25.107% 0.0046 17.46);
+  --bg: oklch(17% 0.0046 17.46);
   --text-primary: oklch(92% 0.018 95);
   --text-secondary: oklch(70% 0.014 87);
   --text-muted: oklch(58% 0.01 85);
@@ -239,7 +239,7 @@
   --accent: oklch(66.344% 0.0166 90.29);
   --accent-two: oklch(35.181% 0.0066 48.53);
   --accent-three: oklch(30.36% 0.0056 56.18);
-  --bg: oklch(25.107% 0.0046 17.46);
+  --bg: oklch(17% 0.0046 17.46);
   --text-primary: oklch(92% 0.018 95);
   --text-secondary: oklch(70% 0.014 87);
   --text-muted: oklch(58% 0.01 85);
@@ -447,9 +447,15 @@ h3 {
 }
 
 h1 {
-  margin-block-end: clamp(1rem, 0.9rem + 0.3vw, 1.25rem);
-  font-size: var(--type-xl);
-  line-height: var(--line-tight);
+  margin-block-end: 0.5rem;
+  color: var(--text-primary);
+  font-family: var(--font-oddball);
+  font-feature-settings: "calt" 1;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.25rem;
+  line-height: 1.5;
+  text-transform: lowercase;
 }
 
 h2 {
@@ -462,21 +468,6 @@ h3 {
   margin-block-end: 0.7rem;
   font-size: var(--type-md);
   line-height: var(--line-title);
-}
-
-/* Opt-in revival of the site's original Oddball h1 treatment. */
-.heading-oddball[class] {
-  --font-display: var(--font-oddball);
-  --portfolio-heading-font: var(--font-oddball);
-  margin-block-end: 0.5rem;
-  color: var(--primary);
-  font-family: var(--font-oddball);
-  font-feature-settings: "calt" 1;
-  font-size: 1.4rem;
-  font-weight: 400;
-  letter-spacing: 0.3rem;
-  line-height: 1.5;
-  text-transform: lowercase;
 }
 
 p {
@@ -691,14 +682,6 @@ p {
 
 .work-index-header .eyebrow {
   display: none;
-}
-
-.work-index-header h1,
-.art-header h1 {
-  margin-block-end: 0.5rem;
-  font-size: var(--type-lg);
-  font-weight: 600;
-  line-height: var(--line-title);
 }
 
 .work-index-copy {

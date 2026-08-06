@@ -31,15 +31,12 @@
     return clone;
   }
 
-  const leadingClones = document.createDocumentFragment();
   const trailingClones = document.createDocumentFragment();
 
   originals.forEach((slide) => {
-    leadingClones.append(makeClone(slide));
     trailingClones.append(makeClone(slide));
   });
 
-  carousel.insertBefore(leadingClones, originals[0]);
   carousel.append(trailingClones);
 
   const slides = Array.from(
@@ -119,7 +116,14 @@
   function move(direction) {
     const nearestSlide = getNearestSlide();
     const position = slides.indexOf(nearestSlide);
-    const target = slides[position + direction];
+    let target = slides[position + direction];
+
+    if (!target && direction < 0) {
+      const firstTrailingClone = slides[originals.length];
+      goToSlide(firstTrailingClone, "auto");
+      target = slides[originals.length - 1];
+    }
+
     if (!target) return;
 
     goToSlide(target, reducedMotion.matches ? "auto" : "smooth");
