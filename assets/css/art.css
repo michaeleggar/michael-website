@@ -51,6 +51,12 @@
   background: transparent;
   color: inherit;
   cursor: zoom-in;
+  transform: scale(1);
+  transition: transform 150ms var(--ease-out-quad);
+}
+
+.art-item button:active:not(:focus-visible) {
+  transform: scale(0.99);
 }
 
 .art-item button:focus-visible {
@@ -60,9 +66,7 @@
 .art-item img {
   width: 100%;
   display: block;
-  transition:
-    transform 240ms var(--ease-out),
-    opacity 180ms ease;
+  transition: transform 150ms var(--ease-out-expo);
 }
 
 #art-modal {
@@ -77,15 +81,26 @@
   opacity: 0;
   transform: scale(0.985);
   transition:
-    opacity 180ms var(--ease-out),
-    transform 180ms var(--ease-out),
-    overlay 180ms var(--ease-out) allow-discrete,
-    display 180ms var(--ease-out) allow-discrete;
+    opacity 180ms var(--ease-out-expo),
+    transform 180ms var(--ease-out-expo),
+    overlay 180ms var(--ease-out-expo) allow-discrete,
+    display 180ms var(--ease-out-expo) allow-discrete;
 }
 
 #art-modal[open] {
   opacity: 1;
   transform: scale(1);
+}
+
+#art-modal[open].is-closing {
+  opacity: 0;
+  transform: scale(0.985);
+  transition-duration: 140ms;
+}
+
+#art-modal.is-instant,
+#art-modal.is-instant::backdrop {
+  transition: none;
 }
 
 @starting-style {
@@ -99,13 +114,18 @@
   background: var(--modal-backdrop);
   opacity: 0;
   transition:
-    opacity 180ms var(--ease-out),
-    overlay 180ms var(--ease-out) allow-discrete,
-    display 180ms var(--ease-out) allow-discrete;
+    opacity 180ms var(--ease-out-expo),
+    overlay 180ms var(--ease-out-expo) allow-discrete,
+    display 180ms var(--ease-out-expo) allow-discrete;
 }
 
 #art-modal[open]::backdrop {
   opacity: 1;
+}
+
+#art-modal[open].is-closing::backdrop {
+  opacity: 0;
+  transition-duration: 140ms;
 }
 
 @starting-style {
@@ -118,8 +138,8 @@
   position: absolute;
   top: -2.5rem;
   right: 0;
-  min-width: 2.35rem;
-  min-height: 2.35rem;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   display: grid;
   place-items: center;
@@ -129,12 +149,15 @@
   color: var(--modal-muted);
   cursor: pointer;
   font: 400 1.5rem / 1 var(--font-body);
-  transition: color 140ms ease, background-color 140ms ease;
+  transform: scale(1);
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    transform 150ms var(--ease-out-quad);
 }
 
-.modal-close:hover {
-  color: var(--text-primary);
-  background: var(--accent-three);
+.modal-close:active:not(:focus-visible) {
+  transform: scale(0.97);
 }
 
 .modal-content {
@@ -180,6 +203,11 @@
   .art-item button:hover img {
     transform: scale(1.012);
   }
+
+  .modal-close:hover {
+    color: var(--text-primary);
+    background: var(--accent-three);
+  }
 }
 
 @media (max-width: 780px) {
@@ -212,10 +240,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   .art-item,
+  .art-item button,
   .art-item img,
   #art-modal,
   #art-modal::backdrop,
   .modal-close {
     transition: none;
+  }
+
+  .art-item button:active:not(:focus-visible),
+  .modal-close:active:not(:focus-visible) {
+    transform: none;
   }
 }
