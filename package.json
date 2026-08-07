@@ -4,7 +4,8 @@
     "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && eleventy",
     "dev": "npm run clean && eleventy --serve",
-    "thumbs": "node assets/scripts/generate-thumbs.js"
+    "thumbs": "node assets/scripts/generate-thumbs.js",
+    "verify": "npm run build && node scripts/check-build.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",

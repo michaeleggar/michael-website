@@ -1,39 +1,17 @@
+---
+title: Work — Michael Eggar
+description: Selected websites and interfaces designed and developed by Michael Eggar.
+socialImage: /assets/images/ductworx/duc-mock-2.jpg
+socialImageAlt: DuctWorx website displayed across laptop and desktop screens
+---
 <!doctype html>
-{% from "project-card.njk" import projectCard %}
 <html lang="en">
   <head>
     {% include "head.html" %}
-    <link rel="stylesheet" href="/assets/css/portfolio.css" />
-    <title>Michael Eggar | Work</title>
+    <meta http-equiv="refresh" content="0; url=/#work" />
+    <script>window.location.replace("/#work");</script>
   </head>
-  <body class="portfolio-page">
-    <a class="skip-nav" href="#main-content">Skip to main content</a>
-
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
-    <main id="main-content" class="portfolio-main portfolio-work-index">
-      <header class="portfolio-work-index-header">
-        <h1>Work</h1>
-        <p>
-          Websites and interfaces shaped through design, front-end development,
-          and close collaboration.
-        </p>
-      </header>
-
-      <section class="portfolio-work-grid" aria-label="Selected projects">
-        {% for project in portfolioProjects %}
-          {{ projectCard(project, 2, true, false) }}
-        {% endfor %}
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
-    <script src="/assets/scripts/utilities.js"></script>
+  <body>
+    <p><a href="/#work">View work on Michael Eggar’s home page</a>.</p>
   </body>
 </html>

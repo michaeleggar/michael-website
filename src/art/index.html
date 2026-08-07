@@ -1,69 +1,17 @@
+---
+title: Art — Michael Eggar
+description: A studio archive of paintings and drawings by Michael Eggar, made between 2020 and 2023.
+socialImage: /assets/images/artwork/Home-Art.jpg
+socialImageAlt: A selection of paintings and drawings from Michael Eggar’s studio archive
+---
 <!doctype html>
 <html lang="en">
   <head>
     {% include "head.html" %}
-    <link rel="stylesheet" href="/assets/css/art.css" />
-    <title>Michael Eggar | Art</title>
+    <meta http-equiv="refresh" content="0; url=/#art" />
+    <script>window.location.replace("/#art");</script>
   </head>
   <body>
-    <a class="skip-nav" href="#main-content">Skip to main content</a>
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
-    <main id="main-content" class="art-page">
-      <header class="art-header">
-        <div class="art-header-copy">
-          <p class="eyebrow">Studio archive</p>
-          <h1>Paintings &amp; drawings</h1>
-        </div>
-        <p class="art-count">28 works · 2020–2023</p>
-      </header>
-      <section
-        id="art-gallery"
-        class="art-masonry"
-        aria-label="Artwork gallery"
-      >
-        {% for artwork in art.artwork %}
-        <figure class="art-item">
-          <button
-            type="button"
-            aria-label="View {{ (artwork.title or 'artwork') | escape }}"
-            data-src-large="{{ artwork.src_large | escape }}"
-            data-title="{{ artwork.title | escape }}"
-            data-year="{{ artwork.year | escape }}"
-            data-medium="{{ artwork.medium | escape }}"
-            data-dimensions="{{ artwork.dimensions_text | escape }}"
-          >
-            <img
-              loading="lazy"
-              src="{{ (artwork.src_thumb or artwork.src_large) | escape }}"
-              alt="{{ (artwork.alt or artwork.title) | escape }}"
-            />
-          </button>
-        </figure>
-        {% endfor %}
-      </section>
-
-      <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
-        <button class="modal-close" aria-label="Close">&times;</button>
-        <div class="modal-content">
-          <img id="modal-img" alt="" />
-          <div class="modal-info">
-            <h2 id="modal-title"></h2>
-            <p id="modal-details"></p>
-          </div>
-        </div>
-      </dialog>
-    </main>
-
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
-
-    <script src="/assets/scripts/art.js"></script>
-    <script src="/assets/scripts/utilities.js"></script>
+    <p><a href="/#art">View art on Michael Eggar’s home page</a>.</p>
   </body>
 </html>

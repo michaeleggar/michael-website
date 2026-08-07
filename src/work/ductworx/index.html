@@ -1,9 +1,14 @@
+---
+title: DuctWorx Website — Michael Eggar
+description: A case study of a modular WordPress website designed and developed for DuctWorx.
+socialImage: /assets/images/ductworx/duc-mock-2.jpg
+socialImageAlt: DuctWorx website displayed across laptop and desktop screens
+---
 <!doctype html>
 <html lang="en">
   <head>
     {% include "head.html" %}
     <link rel="stylesheet" href="/assets/css/portfolio.css" />
-    <title>Michael Eggar | DuctWorx Case Study</title>
   </head>
   <body class="portfolio-page portfolio-case-study-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
@@ -24,10 +29,7 @@
       </header>
 
       <figure class="portfolio-project-hero">
-        <img
-          src="/assets/images/ductworx/ductworx-home-above-fold.jpg"
-          alt="DuctWorx homepage with industrial photography and bold white typography"
-        />
+        {% responsiveImage "/assets/images/ductworx/ductworx-home-above-fold.jpg", "DuctWorx homepage with industrial photography and bold white typography", "(max-width: 1216px) calc(100vw - 2rem), 1184px", "", "eager", "high" %}
       </figure>
 
       <section class="portfolio-project-overview" aria-label="Project overview">
@@ -103,11 +105,7 @@
       </section>
 
       <figure class="portfolio-wide-media">
-        <img
-          src="/assets/images/ductworx/duc-mock-3.jpg"
-          alt="DuctWorx website shown across desktop and mobile devices"
-          loading="lazy"
-        />
+        {% responsiveImage "/assets/images/ductworx/duc-mock-3.jpg", "DuctWorx website shown across desktop and mobile devices", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
         <figcaption>
           The restrained page system keeps the industrial photography and
           product information in the foreground.
@@ -134,29 +132,17 @@
 
       <section class="portfolio-screen-pair" aria-label="Selected website screens">
         <figure>
-          <img
-            src="/assets/images/ductworx/ductworx-home.jpg"
-            alt="Full DuctWorx homepage"
-            loading="lazy"
-          />
+          {% responsiveImage "/assets/images/ductworx/ductworx-home.jpg", "Full DuctWorx homepage", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
           <figcaption>Homepage</figcaption>
         </figure>
         <figure>
-          <img
-            src="/assets/images/ductworx/ductworx-products.jpg"
-            alt="Full DuctWorx products page"
-            loading="lazy"
-          />
+          {% responsiveImage "/assets/images/ductworx/ductworx-products.jpg", "Full DuctWorx products page", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
           <figcaption>Products and capabilities</figcaption>
         </figure>
       </section>
 
       <figure class="portfolio-wide-media">
-        <img
-          src="/assets/images/ductworx/duc-mock-2.jpg"
-          alt="DuctWorx website interface details"
-          loading="lazy"
-        />
+        {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website interface details", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
         <figcaption>
           A flexible content system expressed through a consistent visual
           language.
@@ -165,8 +151,8 @@
 
       <nav class="portfolio-next-project" aria-label="Next project">
         <p>Next project</p>
-        <a href="/work/retirementpath/">
-          <span>Retirement Investment Advisors</span>
+        <a href="/work/chatapp/">
+          <span>Film production chat app</span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>

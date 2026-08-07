@@ -1,27 +1,69 @@
+---
+title: Michael Eggar — Front-end Developer, Designer & Artist
+description: Portfolio of Michael Eggar, a front-end developer, designer, and artist based in Oklahoma City.
+socialImage: /assets/images/ductworx/duc-mock-2.jpg
+socialImageAlt: DuctWorx website displayed across laptop and desktop screens
+---
+
 <!doctype html>
 {% from "project-card.njk" import projectCard %}
 <html lang="en">
   <head>
     {% include "head.html" %}
     <link rel="stylesheet" href="/assets/css/portfolio.css" />
-    <title>Michael Eggar</title>
+    <link rel="stylesheet" href="/assets/css/art.css" />
   </head>
   <body class="portfolio-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
     <main id="main-content" class="portfolio-main portfolio-home">
-      <section class="portfolio-intro" aria-labelledby="portfolio-intro-title">
-        <h1 id="portfolio-intro-title">Michael Eggar</h1>
-        <p>
+      <section class="portfolio-intro" aria-label="Introduction">
+        <div class="portfolio-home-title-row">
+          <h1 class="portfolio-home-title">Michael Eggar</h1>
+          <button
+            type="button"
+            class="theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg
+              class="theme-toggle-icon theme-toggle-icon-sun"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
+            </svg>
+            <svg
+              class="theme-toggle-icon theme-toggle-icon-moon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.455 2.004a.75.75 0 0 1 .26.77 7 7 0 0 0 9.958 7.967.75.75 0 0 1 1.067.853A8.5 8.5 0 1 1 6.647 1.921a.75.75 0 0 1 .808.083Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+        <p class="portfolio-intro-lede">
           Hey there, I’m a front-end developer, designer, and artist based in
-          Oklahoma City. I’m currently the senior front-end developer at
-          <a href="https://www.kochcomm.com">Koch Comm</a>, where I&nbsp;design
-          and build websites for a wide range of organizations.
+          Oklahoma City.
         </p>
         <p>
-          Outside of work, I make <a href="/art/">art</a>, crochet, sew, and
-          co-run <a href="https://cow-boys-collab.com">cow-boys collab</a>.
-          I&nbsp;love science fiction, and I’m currently reading
+          I’m currently the senior front-end developer at
+          <a href="https://www.kochcomm.com">Koch Comm</a>, where I design and
+          build websites for a wide range of organizations.
+        </p>
+        <p>
+          Outside of work, I make <a href="/#art">art</a>, crochet, sew, and
+          co-run <a href="https://cow-boys-collab.com">cow-boys collab</a>. I
+          love science fiction, and I’m currently reading
           <a
             href="https://www.goodreads.com/en/book/show/13497991-the-hydrogen-sonata"
             target="_blank"
@@ -32,91 +74,84 @@
       </section>
 
       <section
-        class="portfolio-work-section"
-        aria-labelledby="portfolio-carousel-title"
+        class="portfolio-work-section portfolio-work-grid-experiment"
+        aria-label="Portfolio"
       >
-        <div class="portfolio-section-heading">
-          <h2 id="portfolio-carousel-title">Selected work carousel</h2>
-          <span
-            class="portfolio-carousel-status visually-hidden"
-            data-carousel-status
-            aria-live="polite"
-            >1 / 4</span
+        <div class="portfolio-filter-controls" aria-label="Portfolio view">
+          <button
+            type="button"
+            class="portfolio-filter-button"
+            data-portfolio-filter="work"
+            aria-pressed="true"
           >
+            Work
+          </button>
+          <button
+            type="button"
+            class="portfolio-filter-button"
+            data-portfolio-filter="art"
+            aria-pressed="false"
+          >
+            Art
+          </button>
         </div>
 
-        <div class="portfolio-carousel-bleed">
-          <div
-            class="portfolio-project-rail"
-            data-project-carousel
-            tabindex="0"
-            aria-label="Selected projects. Scroll, drag, or use the left and right arrow keys to browse."
-          >
-            {% for project in portfolioProjects %} {{ projectCard(project, 3,
-            false, true) }} {% endfor %}
+        <div class="portfolio-filter-panel" data-portfolio-panel="work">
+          <div class="portfolio-selected-work-grid">
+            {% for project in portfolioProjects %}
+              {% if loop.index <= 4 %}
+                {{ projectCard(project, 3, false, false, loop.index == 1, "(max-width: 780px) calc(100vw - 2rem), 450px") }}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div
+          class="portfolio-filter-panel"
+          data-portfolio-panel="art"
+          hidden
+        >
+          <div id="art-gallery" class="art-masonry" aria-label="Artwork gallery">
+            {% for artwork in art.artwork %}
+              <figure class="art-item">
+                <button
+                  type="button"
+                  aria-label="View {{ (artwork.title or 'artwork') | escape }}"
+                  data-src-large="{{ artwork.src_large | escape }}"
+                  data-alt="{{ (artwork.alt or artwork.title) | escape }}"
+                  data-title="{{ artwork.title | escape }}"
+                  data-year="{{ artwork.year | escape }}"
+                  data-medium="{{ artwork.medium | escape }}"
+                  data-dimensions="{{ artwork.dimensions_text | escape }}"
+                >
+                  <img
+                    loading="lazy"
+                    src="{{ (artwork.src_thumb or artwork.src_large) | escape }}"
+                    alt="{{ (artwork.alt or artwork.title) | escape }}"
+                  />
+                </button>
+              </figure>
+            {% endfor %}
           </div>
         </div>
       </section>
 
-      <section
-        class="portfolio-list-section"
-        aria-labelledby="portfolio-experience-title"
-      >
-        <h2 id="portfolio-experience-title">Experience</h2>
-        <div class="portfolio-entry-list">
-          <article class="portfolio-entry">
-            <p class="portfolio-entry-kicker">
-              <time datetime="2022-04">2022</time> – Now
-            </p>
-            <div class="portfolio-entry-body">
-              <h3>Senior Front-end Developer</h3>
-              <a
-                class="portfolio-entry-company"
-                href="https://www.kochcomm.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Koch Comm</a
-              >
-            </div>
-          </article>
-          <article class="portfolio-entry">
-            <p class="portfolio-entry-kicker">
-              <time datetime="2021-03">2021</time> –
-              <time datetime="2022-04">2022</time>
-            </p>
-            <div class="portfolio-entry-body">
-              <h3>Adjunct Professor</h3>
-              <a
-                class="portfolio-entry-company"
-                href="https://usao.edu"
-                target="_blank"
-                rel="noopener noreferrer"
-                >University of Science and Arts of Oklahoma</a
-              >
-            </div>
-          </article>
-          <article class="portfolio-entry">
-            <p class="portfolio-entry-kicker">
-              <time datetime="2020-03">2020</time> –
-              <time datetime="2022-04">2022</time>
-            </p>
-            <div class="portfolio-entry-body">
-              <h3>Graphic Designer &amp; Creative Services Coordinator</h3>
-              <a
-                class="portfolio-entry-company"
-                href="https://usao.edu"
-                target="_blank"
-                rel="noopener noreferrer"
-                >University of Science and Arts of Oklahoma</a
-              >
-            </div>
-          </article>
+      <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <div class="modal-content">
+          <img id="modal-img" alt="" />
+          <div class="modal-info">
+            <h2 id="modal-title"></h2>
+            <p id="modal-details"></p>
+          </div>
         </div>
-      </section>
+      </dialog>
+
     </main>
 
     <footer class="site-footer">{% include "footer.html" %}</footer>
-    <script src="/assets/scripts/project-carousel.js"></script>
     <script src="/assets/scripts/utilities.js"></script>
+    <script src="/assets/scripts/portfolio-filter.js"></script>
+    <script src="/assets/scripts/art.js"></script>
   </body>
 </html>

@@ -1,34 +1,56 @@
 [
   {
+    "kind": "work",
     "title": "DuctWorx website",
-    "year": "2025",
+    "discipline": "Design + development",
+    "meta": "2025",
+    "dateTime": "2025",
     "url": "/work/ductworx/",
     "ariaLabel": "View DuctWorx website case study",
     "image": "/assets/images/ductworx/duc-mock-2.jpg",
     "imageAlt": "DuctWorx website displayed across laptop and desktop screens"
   },
   {
+    "kind": "work",
     "title": "Film production chat app",
-    "year": "2026",
+    "discipline": "Product + development",
+    "meta": "2026",
+    "dateTime": "2026",
     "url": "/work/chatapp/",
     "ariaLabel": "View Film production chat app case study",
     "image": "/assets/images/chatapp/chat-onset-2b.jpg",
     "imageAlt": "Chat interface appearing on an actor’s laptop during filming"
   },
   {
+    "kind": "work",
     "title": "Retirement Investment Advisors",
-    "year": "2026",
+    "discipline": "Design + development",
+    "meta": "2026",
+    "dateTime": "2026",
     "url": "/work/retirementpath/",
     "ariaLabel": "View Retirement Investment Advisors case study",
     "image": "/assets/images/ria/ria-website.jpg",
     "imageAlt": "Retirement Investment Advisors website displayed on a laptop"
   },
   {
+    "kind": "work",
     "title": "Koch Comm website",
-    "year": "2025",
+    "discipline": "Front-end development",
+    "meta": "2025",
+    "dateTime": "2025",
     "url": "/work/kochcomm/",
     "ariaLabel": "View Koch Comm website case study",
     "image": "/assets/images/kochcomm/kc-website-1.jpg",
     "imageAlt": "Koch Comm website displayed on a laptop"
+  },
+  {
+    "kind": "art",
+    "title": "Studio archive",
+    "discipline": "Paintings + drawings",
+    "meta": "28 works",
+    "url": "/art/",
+    "ariaLabel": "View paintings and drawings in the studio archive",
+    "image": "/assets/images/artwork/Home-Art.jpg",
+    "imageAlt": "A selection of paintings and drawings from Michael Eggar’s studio archive"
   }
 ]

@@ -15,7 +15,7 @@ function getSavedTheme() {
 }
 
 function saveThemePreference(preference) {
-  memoryThemeOverride = ["light", "dark", "system"].includes(preference)
+  memoryThemeOverride = ["light", "dark"].includes(preference)
     ? preference
     : null;
 
@@ -33,7 +33,7 @@ function getSystemTheme() {
 }
 
 function getThemePreference() {
-  return getSavedTheme() || "dark";
+  return getSavedTheme() || "system";
 }
 
 function applyTheme(preference) {
@@ -54,11 +54,13 @@ function updateThemeToggle(currentPreference, currentTheme) {
 
   toggle.dataset.currentTheme = currentTheme;
   toggle.dataset.currentPreference = currentPreference;
-
-  toggle.querySelectorAll("[data-theme-option]").forEach((option) => {
-    const isActive = option.dataset.themeOption === currentPreference;
-    option.setAttribute("aria-pressed", String(isActive));
-  });
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
+  toggle.setAttribute(
+    "aria-label",
+    `${currentTheme === "dark" ? "Dark" : "Light"} theme active. ` +
+      `Switch to ${nextTheme} theme`,
+  );
+  toggle.title = `Switch to ${nextTheme} theme`;
 }
 
 function initThemeToggle() {
@@ -67,22 +69,15 @@ function initThemeToggle() {
 
   applyTheme(getThemePreference());
 
-  toggle.addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-
-    const option = event.target.closest("[data-theme-option]");
-    if (!option || !toggle.contains(option)) return;
-
-    const preference = option.dataset.themeOption;
-    if (!["light", "dark", "system"].includes(preference)) return;
-
-    saveThemePreference(preference);
-    applyTheme(preference);
+  toggle.addEventListener("click", () => {
+    const nextTheme = toggle.dataset.currentTheme === "dark" ? "light" : "dark";
+    saveThemePreference(nextTheme);
+    applyTheme(nextTheme);
   });
 }
 
 function handleThemePreferenceChange() {
-  if (getSavedTheme() === "system") {
+  if (getThemePreference() === "system") {
     applyTheme("system");
   }
 }
@@ -109,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (normalizedHref !== "/" && normalizedCurrent.startsWith(normalizedHref))
     ) {
       link.classList.add("active-nav");
+      link.setAttribute("aria-current", "page");
     }
   });
 

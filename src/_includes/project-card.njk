@@ -1,16 +1,28 @@
-{% macro projectCard(project, headingLevel, shouldLazyLoad, isCarousel) %}
+{% macro projectCard(project, headingLevel, shouldLazyLoad, isCarousel, isPriority, imageSizesOverride) %}
   <article
     class="portfolio-project-card"
     {% if isCarousel %}data-carousel-slide{% endif %}
   >
     <a href="{{ project.url }}" aria-label="{{ project.ariaLabel }}">
       <div class="portfolio-project-image">
-        <img
-          src="{{ project.image }}"
-          alt="{{ project.imageAlt }}"
-          {% if shouldLazyLoad %}loading="lazy"{% endif %}
-          {% if isCarousel %}draggable="false"{% endif %}
-        />
+        {% if imageSizesOverride %}
+          {% set imageSizes = imageSizesOverride %}
+        {% elseif isCarousel %}
+          {% set imageSizes = "(max-width: 780px) 82vw, min(36vw, 480px)" %}
+        {% else %}
+          {% set imageSizes = "(max-width: 780px) calc(100vw - 2rem), 420px" %}
+        {% endif %}
+        {% if shouldLazyLoad %}
+          {% set imageLoading = "lazy" %}
+        {% else %}
+          {% set imageLoading = "eager" %}
+        {% endif %}
+        {% if isPriority %}
+          {% set imagePriority = "high" %}
+        {% else %}
+          {% set imagePriority = "auto" %}
+        {% endif %}
+        {% responsiveImage project.image, project.imageAlt, imageSizes, "", imageLoading, imagePriority, isCarousel %}
       </div>
       <div class="portfolio-project-title-row">
         {% if headingLevel == 3 %}
@@ -18,8 +30,13 @@
         {% else %}
           <h2>{{ project.title }}</h2>
         {% endif %}
-        <time datetime="{{ project.year }}">{{ project.year }}</time>
+        {% if project.dateTime %}
+          <time datetime="{{ project.dateTime }}">{{ project.meta }}</time>
+        {% else %}
+          <span class="portfolio-project-meta">{{ project.meta }}</span>
+        {% endif %}
       </div>
+      <p class="portfolio-project-discipline">{{ project.discipline }}</p>
     </a>
   </article>
 {% endmacro %}
