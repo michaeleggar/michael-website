@@ -2,6 +2,8 @@
 
 const gallery = document.getElementById("art-gallery");
 const modal = document.getElementById("art-modal");
+const modalSourceAvif = document.getElementById("modal-source-avif");
+const modalSourceWebp = document.getElementById("modal-source-webp");
 const modalImg = document.getElementById("modal-img");
 const modalTitle = document.getElementById("modal-title");
 const modalDetails = document.getElementById("modal-details");
@@ -13,7 +15,13 @@ let modalCloseTimer = null;
 let isModalClosing = false;
 
 function openModal(btn, shouldAnimate) {
-  modalImg.src = btn.getAttribute("data-src-large") || "";
+  modalSourceAvif.srcset = btn.getAttribute("data-modal-avif-srcset") || "";
+  modalSourceAvif.sizes = "90vw";
+  modalSourceWebp.srcset = btn.getAttribute("data-modal-webp-srcset") || "";
+  modalSourceWebp.sizes = "90vw";
+  modalImg.src = btn.getAttribute("data-modal-src") || "";
+  modalImg.srcset = btn.getAttribute("data-modal-srcset") || "";
+  modalImg.sizes = "90vw";
   modalImg.alt =
     btn.getAttribute("data-alt") || btn.getAttribute("data-title") || "";
 
@@ -55,7 +63,13 @@ function finishModalClose({ shouldBeInstant = false } = {}) {
   isModalClosing = false;
 
   if (modal.open) modal.close();
+  modalSourceAvif.removeAttribute("srcset");
+  modalSourceAvif.removeAttribute("sizes");
+  modalSourceWebp.removeAttribute("srcset");
+  modalSourceWebp.removeAttribute("sizes");
   modalImg.removeAttribute("src");
+  modalImg.removeAttribute("srcset");
+  modalImg.removeAttribute("sizes");
 
   document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
@@ -104,7 +118,7 @@ function closeModal({ shouldAnimate = true } = {}) {
 }
 
 gallery.addEventListener("click", function (event) {
-  const btn = event.target.closest("button[data-src-large]");
+  const btn = event.target.closest("button[data-modal-src]");
   if (!btn) return;
 
   lastFocusedEl = btn;

@@ -37,6 +37,7 @@
 
 .art-item img {
   width: 100%;
+  height: auto;
   display: block;
   transition: transform 150ms var(--ease-out-expo);
 }
@@ -146,6 +147,10 @@
   display: block;
   object-fit: contain;
   border-radius: calc(var(--border-radius) / 2);
+}
+
+#modal-picture {
+  display: block;
 }
 
 .modal-info {
