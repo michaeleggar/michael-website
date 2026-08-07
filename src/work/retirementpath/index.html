@@ -13,97 +13,80 @@ socialImageAlt: Retirement Investment Advisors website displayed on a laptop
   <body class="portfolio-page portfolio-case-study-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="Primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
     <main id="main-content" class="portfolio-case-study">
+      {% include "work-back-link.html" %}
+
       <header class="portfolio-project-intro">
         <h1>Retirement Investment Advisors website</h1>
         <p class="portfolio-project-deck">
-          A redesign that organizes a growing library of resources, financial
-          tools, and market commentary for an Oklahoma City fiduciary firm.
+          Retirement Investment Advisors is a fiduciary firm based in Oklahoma
+          City. It needed a redesign that could organize a growing library of
+          resources, financial tools, and market commentary, all managed by
+          staff with no technical background.
         </p>
       </header>
 
-      <figure class="portfolio-project-hero">
-        {% responsiveImage "/assets/images/ria/ria-feature.png", "Retirement Investment Advisors website screenshot", "(max-width: 1216px) calc(100vw - 2rem), 1184px", "", "eager", "high" %}
+      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
+        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
+        <div class="portfolio-chip-rows">
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Role</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">Design</li>
+              <li class="portfolio-chip">Development</li>
+            </ul>
+          </div>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Stack</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">WordPress</li>
+              <li class="portfolio-chip">Elementor</li>
+              <li class="portfolio-chip">ACF</li>
+              <li class="portfolio-chip">JavaScript</li>
+              <li class="portfolio-chip">CSS</li>
+            </ul>
+          </div>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Link</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">
+                <a href="https://www.theretirementpath.com" target="_blank" rel="noopener noreferrer">theretirementpath.com</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <figure class="portfolio-wide-media portfolio-first-media">
+        {% responsiveImage "/assets/images/ria/ria-feature.png", "Retirement Investment Advisors website screenshot", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
       </figure>
 
-      <section class="portfolio-project-overview" aria-label="Project overview">
-        <dl class="portfolio-project-facts">
-          <div>
-            <dt>Client</dt>
-            <dd>Retirement Investment Advisors</dd>
-          </div>
-          <div>
-            <dt>Role</dt>
-            <dd>Design and development</dd>
-          </div>
-          <div>
-            <dt>Platform</dt>
-            <dd>WordPress, Elementor, ACF</dd>
-          </div>
-          <div>
-            <dt>Live site</dt>
-            <dd>
-              <a href="https://www.theretirementpath.com" target="_blank" rel="noopener noreferrer">theretirementpath.com ↗</a>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="portfolio-project-summary">
-          <p>
-            The firm needed a clearer site that staff with no technical
-            background could manage. I designed the visual refresh and built a
-            reusable system that keeps resources and commentary organized as
-            the library grows.
-          </p>
-        </div>
-      </section>
-
-      <section class="portfolio-story-block" aria-labelledby="ria-content-title">
-        <h2 id="ria-content-title">Content system</h2>
-        <div>
-          <p>
-            I built a resource library using custom post types and
-            taxonomy-driven fields through ACF. New content gets tagged and
-            featured across the site automatically. Financial briefs and
-            market commentary work the same way.
-          </p>
-          <p>
-            I applied that approach at the page level, creating reusable
-            sections so the team can build and update pages independently
-            without needing a developer.
-          </p>
-        </div>
-      </section>
-
-      <section class="portfolio-story-block" aria-labelledby="ria-visual-title">
-        <h2 id="ria-visual-title">Visual refresh</h2>
-        <div>
-          <p>
-            The firm’s branding elements have held steady for nearly a decade.
-            I kept the classic navy and gold while opening the site up with warm
-            photography, more white space, and a refreshed type system.
-          </p>
-        </div>
+      <section class="portfolio-project-copy">
+        <h2>Taxonomy system</h2>
+        <p>
+          I built a resource library using custom post types and
+          taxonomy-driven fields through ACF. New content gets tagged and
+          featured across the site automatically. Financial briefs and market
+          commentary work the same way, so staff can add content and the rest
+          is handled for them.
+        </p>
+        <h2>Reusable content</h2>
+        <p>
+          I applied the same approach at the page level, creating reusable
+          sections so the team can build and update pages independently without
+          needing a developer.
+        </p>
+        <h2>Visual refresh</h2>
+        <p>
+          The firm’s branding elements have held steady for nearly a decade. I
+          kept the classic navy and gold while opening the site up with warm
+          photography, more white space, and a refreshed type system.
+        </p>
       </section>
 
       <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/ria/ria-tablet.jpg", "Retirement Investment Advisors website shown on a tablet", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
-        <figcaption>The content system carried through to smaller screens.</figcaption>
+        {% responsiveImage "/assets/images/ria/ria-tablet.jpg", "Retirement Investment Advisors website shown on a tablet", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
       </figure>
-
-      <nav class="portfolio-next-project" aria-label="Next project">
-        <p>Next project</p>
-        <a href="/work/kochcomm/">
-          <span>Koch Comm website</span>
-          <span aria-hidden="true">→</span>
-        </a>
-      </nav>
     </main>
 
     <footer class="site-footer">

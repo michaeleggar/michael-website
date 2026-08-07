@@ -916,6 +916,8 @@ p {
 .footer-links {
   margin: 0;
   display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.45rem;
 }
@@ -930,6 +932,11 @@ p {
 
 .footer-link-separator {
   color: var(--text-underline);
+}
+
+.site-footer .theme-toggle-icon {
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .theme-toggle {
@@ -1006,7 +1013,8 @@ nav .theme-toggle-icon {
   }
 
   nav .theme-toggle:hover,
-  .portfolio-home-header .theme-toggle:hover {
+  .portfolio-home-header .theme-toggle:hover,
+  .site-footer .theme-toggle:hover {
     background: transparent;
   }
 
@@ -1090,12 +1098,12 @@ nav a:active {
   }
 
   .footer-inner {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
   }
 
-  .theme-toggle {
-    margin-inline-start: -0.55rem;
+  .footer-inner .theme-toggle {
+    margin-inline-start: auto;
   }
 }
 

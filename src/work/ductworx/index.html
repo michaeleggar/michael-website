@@ -13,149 +13,78 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
   <body class="portfolio-page portfolio-case-study-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
     <main id="main-content" class="portfolio-case-study">
+      {% include "work-back-link.html" %}
+
       <header class="portfolio-project-intro">
         <h1>DuctWorx website</h1>
         <p class="portfolio-project-deck">
-          A modular website that carries DuctWorx’s industrial identity while
-          giving its internal team control over everyday updates.
+          DuctWorx, a ductwork fabrication company in Oklahoma City, needed a
+          website that matched its new brand identity and allowed its team to
+          handle updates without developer involvement. The challenge was
+          building something flexible for nontechnical editors but structured
+          enough to stay visually consistent.
         </p>
       </header>
 
-      <figure class="portfolio-project-hero">
-        {% responsiveImage "/assets/images/ductworx/ductworx-home-above-fold.jpg", "DuctWorx homepage with industrial photography and bold white typography", "(max-width: 1216px) calc(100vw - 2rem), 1184px", "", "eager", "high" %}
-      </figure>
-
-      <section class="portfolio-project-overview" aria-label="Project overview">
-        <dl class="portfolio-project-facts">
-          <div>
-            <dt>Client</dt>
-            <dd>DuctWorx</dd>
+      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
+        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
+        <div class="portfolio-chip-rows">
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Role</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">Design</li>
+              <li class="portfolio-chip">Development</li>
+            </ul>
           </div>
-          <div>
-            <dt>Role</dt>
-            <dd>Design and development</dd>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Stack</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">WordPress</li>
+              <li class="portfolio-chip">Elementor</li>
+              <li class="portfolio-chip">ACF</li>
+              <li class="portfolio-chip">JavaScript</li>
+              <li class="portfolio-chip">CSS</li>
+            </ul>
           </div>
-          <div>
-            <dt>Platform</dt>
-            <dd>WordPress</dd>
-          </div>
-          <div>
-            <dt>Live site</dt>
-            <dd>
-              <a
-                href="https://www.ductworxokc.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                >ductworxokc.com ↗</a
-              >
-            </dd>
-          </div>
-        </dl>
-
-        <div class="portfolio-project-summary">
-          <p>
-            DuctWorx needed a website that matched its new brand identity and
-            allowed a nontechnical team to build and update pages without
-            losing visual consistency. I designed the site and developed a
-            reusable content system around the company’s products, people, and
-            industrial photography.
-          </p>
-
-          <div class="portfolio-credits">
-            <h2>Credits</h2>
-            <dl>
-              <div>
-                <dt>Site design</dt>
-                <dd>Michael Eggar</dd>
-              </div>
-              <div>
-                <dt>Development</dt>
-                <dd>Michael Eggar</dd>
-              </div>
-              <div>
-                <dt>Brand identity</dt>
-                <dd>Client team</dd>
-              </div>
-            </dl>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Link</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">
+                <a href="https://www.ductworxokc.com" target="_blank" rel="noopener noreferrer">ductworxokc.com</a>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="portfolio-story-block" aria-labelledby="portfolio-challenge-title">
-        <h2 id="portfolio-challenge-title">Challenge</h2>
-        <div>
-          <p>
-            The site needed to feel as direct and capable as the company
-            itself, while remaining flexible enough for people who do not work
-            in code. An entirely open page builder would make updates easy, but
-            could quickly produce inconsistent pages.
-          </p>
-          <p>
-            The design therefore had to work as both a visual system and a set
-            of useful constraints.
-          </p>
-        </div>
+      <figure class="portfolio-wide-media portfolio-first-media">
+        {% responsiveImage "/assets/images/ductworx/duc-mock-1.jpg", "DuctWorx website displayed on a desktop monitor", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+      </figure>
+
+      <section class="portfolio-project-copy">
+        <h2>Modular ACF system</h2>
+        <p>
+          I built a library of reusable sections with ACF, each with its own
+          content structure and display options. The client can assemble pages
+          by choosing and populating sections without needing to touch code.
+        </p>
+        <h2>Industrial visual design</h2>
+        <p>
+          The site leans into the company’s industrial photography and bold
+          color palette. I kept the layout clean and scannable so the products
+          and team stay front and center.
+        </p>
+        <h2>Self-sufficient architecture</h2>
+        <p>
+          Everything from content to navigation is editable through WordPress.
+          The goal was zero ongoing developer dependency for day-to-day updates.
+        </p>
       </section>
 
       <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/ductworx/duc-mock-3.jpg", "DuctWorx website shown across desktop and mobile devices", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
-        <figcaption>
-          The restrained page system keeps the industrial photography and
-          product information in the foreground.
-        </figcaption>
+        {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website displayed across laptop and desktop screens", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
       </figure>
-
-      <section class="portfolio-story-block" aria-labelledby="portfolio-built-title">
-        <h2 id="portfolio-built-title">What I built</h2>
-        <div>
-          <p>
-            I created a library of reusable ACF sections, each with a defined
-            content structure and a small set of display options. The team can
-            assemble new pages and reorder content without touching code, while
-            the system preserves typography, spacing, and responsive behavior.
-          </p>
-          <p>
-            Navigation, product information, team content, and calls to action
-            are all editable through WordPress. The result is a site the client
-            can operate independently without turning every update into a
-            development request.
-          </p>
-        </div>
-      </section>
-
-      <section class="portfolio-screen-pair" aria-label="Selected website screens">
-        <figure>
-          {% responsiveImage "/assets/images/ductworx/ductworx-home.jpg", "Full DuctWorx homepage", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
-          <figcaption>Homepage</figcaption>
-        </figure>
-        <figure>
-          {% responsiveImage "/assets/images/ductworx/ductworx-products.jpg", "Full DuctWorx products page", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
-          <figcaption>Products and capabilities</figcaption>
-        </figure>
-      </section>
-
-      <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website interface details", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
-        <figcaption>
-          A flexible content system expressed through a consistent visual
-          language.
-        </figcaption>
-      </figure>
-
-      <nav class="portfolio-next-project" aria-label="Next project">
-        <p>Next project</p>
-        <a href="/work/chatapp/">
-          <span>Film production chat app</span>
-          <span aria-hidden="true">→</span>
-        </a>
-      </nav>
     </main>
 
     <footer class="site-footer">

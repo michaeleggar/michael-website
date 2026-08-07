@@ -8,6 +8,7 @@ const preparedImages = new Map();
 const portfolioProjects = require("./src/_data/portfolioProjects.json");
 const responsiveImageSources = [
   ...portfolioProjects.map((project) => project.image),
+  "/assets/images/ductworx/duc-mock-1.jpg",
   "/assets/images/ductworx/ductworx-home-above-fold.jpg",
   "/assets/images/ductworx/duc-mock-3.jpg",
   "/assets/images/ductworx/ductworx-home.jpg",

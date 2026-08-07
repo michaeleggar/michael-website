@@ -13,13 +13,9 @@ socialImageAlt: Chat interface appearing on an actor’s laptop during filming
   <body class="portfolio-page portfolio-case-study-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <nav id="nav-placeholder" aria-label="Primary">
-        {% include "nav.html" %}
-      </nav>
-    </header>
-
     <main id="main-content" class="portfolio-case-study">
+      {% include "work-back-link.html" %}
+
       <header class="portfolio-project-intro">
         <h1>Film production chat app</h1>
         <p class="portfolio-project-deck">
@@ -30,110 +26,72 @@ socialImageAlt: Chat interface appearing on an actor’s laptop during filming
         </p>
       </header>
 
-      <figure class="portfolio-project-hero">
-        {% responsiveImage "/assets/images/chatapp/chat-onset-2b.jpg", "Chat interface appearing on an actor’s laptop during filming", "(max-width: 1216px) calc(100vw - 2rem), 1184px", "", "eager", "high" %}
-      </figure>
-
-      <section class="portfolio-project-overview" aria-label="Project overview">
-        <dl class="portfolio-project-facts">
-          <div>
-            <dt>Project</dt>
-            <dd>On-screen film prop</dd>
+      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
+        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
+        <div class="portfolio-chip-rows">
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Role</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">Design</li>
+              <li class="portfolio-chip">Development</li>
+            </ul>
           </div>
-          <div>
-            <dt>Role</dt>
-            <dd>Design and development</dd>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Stack</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">React</li>
+              <li class="portfolio-chip">Vite</li>
+              <li class="portfolio-chip">Electron</li>
+              <li class="portfolio-chip">JavaScript</li>
+              <li class="portfolio-chip">CSS</li>
+            </ul>
           </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>React, Vite, Electron, JavaScript, CSS</dd>
+          <div class="portfolio-chip-group">
+            <h3 class="portfolio-chip-label">Status</h3>
+            <ul class="portfolio-chip-list">
+              <li class="portfolio-chip">Refactor in progress</li>
+            </ul>
           </div>
-          <div>
-            <dt>Status</dt>
-            <dd>Refactor in progress</dd>
-          </div>
-        </dl>
-
-        <div class="portfolio-project-summary">
-          <p>
-            The app had to work as a convincing interface for the actor while
-            giving the crew precise control over conversations, user states,
-            and repeatable takes during production.
-          </p>
         </div>
       </section>
 
-      <section class="portfolio-story-block" aria-labelledby="chat-constraint-title">
-        <h2 id="chat-constraint-title">Production constraint</h2>
-        <div>
-          <p>
-            The on-camera view lets the actor type and send messages, and the
-            logged-in user can be swapped to show the conversation from
-            different characters’ perspectives.
-          </p>
-          <p>
-            A separate crew interface handles everything else: adding and
-            editing users, changing online status, sending messages as other
-            users, saving templated messages for reshoots, and switching the
-            screen between direct messages and video chats.
-          </p>
-        </div>
+      <figure class="portfolio-wide-media portfolio-first-media">
+        {% responsiveImage "/assets/images/chatapp/chat-app-1.png", "Chat app crew control interface showing user list and message input", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+      </figure>
+
+      <section class="portfolio-project-copy">
+        <h2>Two interfaces</h2>
+        <p>
+          The on-camera view lets the actor type and send messages, and the
+          logged-in user can be swapped to show the conversation from different
+          characters’ perspectives. A separate crew interface handles
+          everything else: adding and editing users, changing online status,
+          sending messages as other users, saving templated messages for
+          reshoots, and switching between direct messages and video chats.
+        </p>
+        <h2>Iterating on set</h2>
+        <p>
+          After the first shoot day, the crew needed a way to reshoot without
+          manually retyping the script. They also needed the ability to reorder
+          and edit messages already sent in the chat. I added a template system
+          with a configurable typing-indicator delay and a custom right-click
+          menu for editing messages.
+        </p>
+        <h2>React and Vite migration</h2>
+        <p>
+          The original codebase grew organically under production pressure. The
+          ongoing refactor introduces component-based architecture, a slide-out
+          settings panel, and cleaner separation between the two interfaces.
+        </p>
       </section>
 
       <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/chatapp/chat-app-1.png", "Chat app crew control interface showing user list and message input", "(max-width: 1216px) calc(100vw - 2rem), 1184px" %}
-        <figcaption>
-          The crew control interface for managing users, messages, and
-          on-camera states.
-        </figcaption>
+        {% responsiveImage "/assets/images/chatapp/chat-onset-1.jpeg", "On-set camera monitor showing an actor using the chat app on a laptop during filming", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
       </figure>
 
-      <section class="portfolio-story-block" aria-labelledby="chat-iteration-title">
-        <h2 id="chat-iteration-title">Iterating on set</h2>
-        <div>
-          <p>
-            After the first shoot day, the crew needed a way to reshoot without
-            manually retyping the script. They also needed the ability to
-            reorder and edit messages sent in the chat.
-          </p>
-          <p>
-            I added a template system that posts pre-written messages with a
-            configurable typing-indicator delay and implemented a custom
-            right-click menu for editing messages in the chat.
-          </p>
-        </div>
-      </section>
-
-      <section class="portfolio-screen-pair" aria-label="Chat app in use during filming">
-        <figure>
-          {% responsiveImage "/assets/images/chatapp/chat-onset-1.jpeg", "On-set camera monitor showing an actor using the chat app on a laptop during filming", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
-          <figcaption>The chat app in use during filming.</figcaption>
-        </figure>
-        <figure>
-          {% responsiveImage "/assets/images/chatapp/chat-onset-2.jpeg", "Camera monitor close-up showing the chat app interface visible within the film frame", "(max-width: 560px) calc(100vw - 2rem), (max-width: 1216px) calc((100vw - 3rem) / 2), 576px" %}
-          <figcaption>The interface as it appeared within the film frame.</figcaption>
-        </figure>
-      </section>
-
-      <section class="portfolio-story-block" aria-labelledby="chat-rebuild-title">
-        <h2 id="chat-rebuild-title">Rebuilding the app</h2>
-        <div>
-          <p>
-            The original codebase grew organically under production pressure.
-            The ongoing refactor introduces component-based architecture, a
-            slide-out settings panel, and cleaner separation between the two
-            interfaces.
-          </p>
-        </div>
-      </section>
-
-      <nav class="portfolio-next-project" aria-label="Next project">
-        <p>Next project</p>
-        <a href="/work/retirementpath/">
-          <span>Retirement Investment Advisors</span>
-          <span aria-hidden="true">→</span>
-        </a>
-      </nav>
+      <figure class="portfolio-wide-media">
+        {% responsiveImage "/assets/images/chatapp/chat-onset-2.jpeg", "Camera monitor close-up showing the chat app interface visible within the film frame", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+      </figure>
     </main>
 
     <footer class="site-footer">
