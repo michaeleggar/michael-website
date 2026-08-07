@@ -82,49 +82,5 @@ function handleThemePreferenceChange() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initThemeToggle();
-
-  const currentPath = window.location.pathname;
-
-  const normalizePath = (path) => {
-    let normalized = path.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
-    if (normalized !== "/" && !normalized.endsWith("/")) normalized += "/";
-    return normalized || "/";
-  };
-
-  const normalizedCurrent = normalizePath(currentPath);
-
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    const href = link.getAttribute("href");
-    if (href === "#") return;
-    const normalizedHref = normalizePath(href);
-    if (
-      normalizedHref === normalizedCurrent ||
-      (normalizedHref !== "/" && normalizedCurrent.startsWith(normalizedHref))
-    ) {
-      link.classList.add("active-nav");
-      link.setAttribute("aria-current", "page");
-    }
-  });
-
-  positionChipSeparators();
-});
-
-function positionChipSeparators() {
-  document.querySelectorAll(".chip-rows").forEach((board) => {
-    const label = board.querySelector(".chip-label");
-    if (label)
-      board.style.setProperty("--separator-left", `${label.offsetWidth}px`);
-  });
-}
-
-const mq = window.matchMedia("(min-width: 780px)");
-function handleBreakpoint(e) {
-  if (e.matches) {
-    positionChipSeparators();
-  }
-}
-
-mq.addEventListener("change", handleBreakpoint);
+document.addEventListener("DOMContentLoaded", initThemeToggle);
 themeMedia.addEventListener("change", handleThemePreferenceChange);

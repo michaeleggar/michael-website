@@ -71,9 +71,7 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
         <div class="portfolio-filter-panel" data-portfolio-panel="work">
           <div class="portfolio-selected-work-grid">
             {% for project in portfolioProjects %}
-              {% if loop.index <= 4 %}
-                {{ projectCard(project, 3, false, false, loop.index == 1, "(max-width: 780px) calc(100vw - 2rem), 450px") }}
-              {% endif %}
+              {{ projectCard(project, loop.index == 1) }}
             {% endfor %}
           </div>
         </div>

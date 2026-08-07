@@ -211,10 +211,6 @@
   gap: var(--space-sm);
 }
 
-.portfolio-showcase .portfolio-project-discipline {
-  display: none;
-}
-
 /* Project metadata */
 
 .portfolio-chip-board {

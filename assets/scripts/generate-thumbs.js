@@ -10,8 +10,6 @@ const JSON_PATH = path.join(__dirname, "..", "data", "art.json");
 
 const THUMB_WIDTH = 600;
 const JPEG_QUALITY = 80;
-const SKIP = new Set(["Home-Art.jpg"]);
-
 async function run() {
   if (!fs.existsSync(THUMBS_DIR)) {
     fs.mkdirSync(THUMBS_DIR, { recursive: true });
@@ -21,7 +19,8 @@ async function run() {
     .readdirSync(ARTWORK_DIR)
     .filter(
       (f) =>
-        /\.jpe?g$/i.test(f) && !SKIP.has(f) && !fs.statSync(path.join(ARTWORK_DIR, f)).isDirectory()
+        /\.jpe?g$/i.test(f) &&
+        !fs.statSync(path.join(ARTWORK_DIR, f)).isDirectory()
     );
 
   console.log(`Found ${files.length} images to process.`);

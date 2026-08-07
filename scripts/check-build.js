@@ -123,19 +123,6 @@ for (const htmlPath of htmlFiles) {
   }
 }
 
-for (const draftRoute of [
-  "work/design-project-one",
-  "work/design-project-two",
-  "work/design-project-three",
-  "work/design-project-four",
-  "work/cow-boys",
-  "work-carousel",
-]) {
-  if (fs.existsSync(path.join(outputRoot, draftRoute))) {
-    errors.push(`Excluded draft route was emitted: /${draftRoute}/`);
-  }
-}
-
 if (errors.length > 0) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));
   process.exitCode = 1;

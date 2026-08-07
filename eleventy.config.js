@@ -9,10 +9,6 @@ const portfolioProjects = require("./src/_data/portfolioProjects.json");
 const responsiveImageSources = [
   ...portfolioProjects.map((project) => project.image),
   "/assets/images/ductworx/duc-mock-1.jpg",
-  "/assets/images/ductworx/ductworx-home-above-fold.jpg",
-  "/assets/images/ductworx/duc-mock-3.jpg",
-  "/assets/images/ductworx/ductworx-home.jpg",
-  "/assets/images/ductworx/ductworx-products.jpg",
   "/assets/images/chatapp/chat-app-1.png",
   "/assets/images/chatapp/chat-onset-1.jpeg",
   "/assets/images/chatapp/chat-onset-2.jpeg",
@@ -165,15 +161,6 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addShortcode("responsiveImage", responsiveImage);
-
-  [
-    "src/work/design-project-one/**",
-    "src/work/design-project-two/**",
-    "src/work/design-project-three/**",
-    "src/work/design-project-four/**",
-    "src/work/cow-boys/**",
-    "src/work-carousel/**",
-  ].forEach((draftPath) => eleventyConfig.ignores.add(draftPath));
 
   return {
     dir: {
