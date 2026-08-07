@@ -1,32 +1,4 @@
-.art-page {
-  padding-block-start: var(--space-md);
-}
-
-.art-header {
-  margin-block-end: var(--space-lg);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-lg);
-}
-
-.art-header-copy {
-  max-width: var(--measure);
-}
-
-.art-header .eyebrow {
-  display: none;
-}
-
-.art-header h1 {
-  margin: 0;
-}
-
-.art-count {
-  margin: 0;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
+/* Artwork grid */
 
 .art-masonry {
   columns: 3;
@@ -68,6 +40,8 @@
   display: block;
   transition: transform 150ms var(--ease-out-expo);
 }
+
+/* Artwork dialog */
 
 #art-modal {
   max-width: 90vw;
@@ -199,6 +173,8 @@
   font-size: var(--type-meta);
 }
 
+/* Interaction and responsive preferences */
+
 @media (hover: hover) and (pointer: fine) {
   .art-item button:hover img {
     transform: scale(1.012);
@@ -211,24 +187,12 @@
 }
 
 @media (max-width: 780px) {
-  .art-page {
-    padding-inline: 0;
-  }
-
   .art-masonry {
     columns: 2;
   }
 }
 
 @media (max-width: 480px) {
-  .art-header {
-    display: block;
-  }
-
-  .art-count {
-    margin-block-start: 0.35rem;
-  }
-
   .modal-info {
     display: block;
   }
