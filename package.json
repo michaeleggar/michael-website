@@ -3,7 +3,7 @@
   "scripts": {
     "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && eleventy",
-    "dev": "npm run clean && eleventy --serve",
+    "dev": "eleventy --serve",
     "verify": "npm run build && node scripts/check-build.js"
   },
   "devDependencies": {
