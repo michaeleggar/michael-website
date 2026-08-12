@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include "head.html" %}
+    <link rel="stylesheet" href="/assets/css/portfolio.css" />
+  </head>
+  <body class="portfolio-page portfolio-case-study-page">
+    <a class="skip-nav" href="#main-content">Skip to main content</a>
+
+    <main id="main-content" class="portfolio-case-study">
+      {% include "work-back-link.html" %}
+
+      <header class="portfolio-project-intro">
+        <h1>{{ heading or cardTitle }}</h1>
+        <p class="portfolio-project-deck">{{ deck }}</p>
+      </header>
+
+      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
+        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
+        <div class="portfolio-chip-rows">
+          {% for group in projectDetails %}
+            <div class="portfolio-chip-group">
+              <h3 class="portfolio-chip-label">{{ group.label }}</h3>
+              <ul class="portfolio-chip-list">
+                {% for item in group.items %}
+                  <li class="portfolio-chip">
+                    {% if item.href %}
+                      <a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>
+                    {% else %}
+                      {{ item.label or item }}
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+      {% include "footer.html" %}
+    </footer>
+    <script src="/assets/scripts/utilities.js"></script>
+  </body>
+</html>

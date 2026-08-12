@@ -31,6 +31,12 @@ module.exports = function (eleventyConfig) {
     JSON.parse(fs.readFileSync("assets/data/art.json", "utf8")),
   );
 
+  eleventyConfig.addCollection("workProjects", (collectionApi) =>
+    collectionApi
+      .getFilteredByGlob("src/work/*/index.html")
+      .sort((first, second) => first.data.cardOrder - second.data.cardOrder),
+  );
+
   eleventyConfig.addNunjucksAsyncShortcode(
     "responsiveImage",
     responsiveImage,

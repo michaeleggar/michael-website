@@ -1,102 +1,67 @@
 ---
+layout: layouts/work-case-study.njk
 title: Film Production Chat App — Michael Eggar
 description: A case study of a custom Electron chat app built as an interactive on-screen prop for a feature film shoot.
-socialImage: /assets/images/chatapp/chat-onset-2b.jpg
-socialImageAlt: Chat interface appearing on an actor’s laptop during filming
+cardOrder: 2
+cardTitle: Film production chat app
+year: "2026"
+cardImage: /assets/images/chatapp/chat-onset-2b.jpg
+cardImageAlt: Chat interface appearing on an actor’s laptop during filming
+deck: >-
+  A custom Electron app commissioned for a feature film shoot, designed to display
+  real-time chat conversations on an actor’s laptop as an on-screen prop. I’m now
+  independently rebuilding it with React and Vite.
+projectDetails:
+  - label: Role
+    items:
+      - Design
+      - Development
+  - label: Stack
+    items:
+      - React
+      - Vite
+      - Electron
+      - JavaScript
+      - CSS
+  - label: Status
+    items:
+      - Refactor in progress
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    {% include "head.html" %}
-    <link rel="stylesheet" href="/assets/css/portfolio.css" />
-  </head>
-  <body class="portfolio-page portfolio-case-study-page">
-    <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <main id="main-content" class="portfolio-case-study">
-      {% include "work-back-link.html" %}
+<figure class="portfolio-wide-media portfolio-first-media">
+  {% responsiveImage "/assets/images/chatapp/chat-app-1.png", "Chat app crew control interface showing user list and message input", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+</figure>
 
-      <header class="portfolio-project-intro">
-        <h1>Film production chat app</h1>
-        <p class="portfolio-project-deck">
-          A custom Electron app commissioned for a feature film shoot, designed
-          to display real-time chat conversations on an actor’s laptop as an
-          on-screen prop. I’m now independently rebuilding it with React and
-          Vite.
-        </p>
-      </header>
+<section class="portfolio-project-copy">
+  <h2>Two interfaces</h2>
+  <p>
+    The on-camera view lets the actor type and send messages, and the
+    logged-in user can be swapped to show the conversation from different
+    characters’ perspectives. A separate crew interface handles
+    everything else: adding and editing users, changing online status,
+    sending messages as other users, saving templated messages for
+    reshoots, and switching between direct messages and video chats.
+  </p>
+  <h2>Iterating on set</h2>
+  <p>
+    After the first shoot day, the crew needed a way to reshoot without
+    manually retyping the script. They also needed the ability to reorder
+    and edit messages already sent in the chat. I added a template system
+    with a configurable typing-indicator delay and a custom right-click
+    menu for editing messages.
+  </p>
+  <h2>React and Vite migration</h2>
+  <p>
+    The original codebase grew organically under production pressure. The
+    ongoing refactor introduces component-based architecture, a slide-out
+    settings panel, and cleaner separation between the two interfaces.
+  </p>
+</section>
 
-      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
-        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
-        <div class="portfolio-chip-rows">
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Role</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">Design</li>
-              <li class="portfolio-chip">Development</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Stack</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">React</li>
-              <li class="portfolio-chip">Vite</li>
-              <li class="portfolio-chip">Electron</li>
-              <li class="portfolio-chip">JavaScript</li>
-              <li class="portfolio-chip">CSS</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Status</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">Refactor in progress</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<figure class="portfolio-wide-media">
+  {% responsiveImage "/assets/images/chatapp/chat-onset-1.jpeg", "On-set camera monitor showing an actor using the chat app on a laptop during filming", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+</figure>
 
-      <figure class="portfolio-wide-media portfolio-first-media">
-        {% responsiveImage "/assets/images/chatapp/chat-app-1.png", "Chat app crew control interface showing user list and message input", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
-      </figure>
-
-      <section class="portfolio-project-copy">
-        <h2>Two interfaces</h2>
-        <p>
-          The on-camera view lets the actor type and send messages, and the
-          logged-in user can be swapped to show the conversation from different
-          characters’ perspectives. A separate crew interface handles
-          everything else: adding and editing users, changing online status,
-          sending messages as other users, saving templated messages for
-          reshoots, and switching between direct messages and video chats.
-        </p>
-        <h2>Iterating on set</h2>
-        <p>
-          After the first shoot day, the crew needed a way to reshoot without
-          manually retyping the script. They also needed the ability to reorder
-          and edit messages already sent in the chat. I added a template system
-          with a configurable typing-indicator delay and a custom right-click
-          menu for editing messages.
-        </p>
-        <h2>React and Vite migration</h2>
-        <p>
-          The original codebase grew organically under production pressure. The
-          ongoing refactor introduces component-based architecture, a slide-out
-          settings panel, and cleaner separation between the two interfaces.
-        </p>
-      </section>
-
-      <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/chatapp/chat-onset-1.jpeg", "On-set camera monitor showing an actor using the chat app on a laptop during filming", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
-      </figure>
-
-      <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/chatapp/chat-onset-2.jpeg", "Camera monitor close-up showing the chat app interface visible within the film frame", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
-      </figure>
-    </main>
-
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
-    <script src="/assets/scripts/utilities.js"></script>
-  </body>
-</html>
+<figure class="portfolio-wide-media">
+  {% responsiveImage "/assets/images/chatapp/chat-onset-2.jpeg", "Camera monitor close-up showing the chat app interface visible within the film frame", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+</figure>

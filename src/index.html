@@ -44,11 +44,7 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
         class="portfolio-showcase"
         aria-label="Portfolio"
       >
-        <div
-          class="portfolio-filter-controls"
-          aria-label="Portfolio view"
-          data-portfolio-controls
-        >
+        <div class="portfolio-filter-controls" aria-label="Portfolio view">
           <button
             type="button"
             class="portfolio-filter-button"
@@ -69,20 +65,20 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
 
         <div class="portfolio-filter-panel" data-portfolio-panel="work">
           <div class="portfolio-selected-work-grid">
-            {% for project in portfolioProjects %}
+            {% for project in collections.workProjects %}
               <article class="portfolio-project-card">
-                <a href="{{ project.url }}" aria-label="{{ project.ariaLabel }}">
+                <a href="{{ project.url }}" aria-label="View {{ project.data.cardTitle }} case study">
                   <div class="portfolio-project-image">
                     {% if loop.index == 1 %}
                       {% set imagePriority = "high" %}
                     {% else %}
                       {% set imagePriority = "auto" %}
                     {% endif %}
-                    {% responsiveImage project.image, project.imageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
+                    {% responsiveImage project.data.cardImage, project.data.cardImageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
                   </div>
                   <div class="portfolio-project-title-row">
-                    <h3>{{ project.title }}</h3>
-                    <time datetime="{{ project.dateTime }}">{{ project.meta }}</time>
+                    <h3>{{ project.data.cardTitle }}</h3>
+                    <time datetime="{{ project.data.year }}">{{ project.data.year }}</time>
                   </div>
                 </a>
               </article>

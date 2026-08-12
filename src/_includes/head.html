@@ -2,8 +2,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {% set metaTitle = title or site.name %}
 {% set metaDescription = description or site.defaultDescription %}
-{% set metaImage = socialImage or site.defaultSocialImage %}
-{% set metaImageAlt = socialImageAlt or site.defaultSocialImageAlt %}
+{% set metaImage = socialImage or cardImage or site.defaultSocialImage %}
+{% set metaImageAlt = socialImageAlt or cardImageAlt or site.defaultSocialImageAlt %}
 <title>{{ metaTitle }}</title>
 <meta name="description" content="{{ metaDescription }}" />
 <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
@@ -34,11 +34,10 @@
 />
 <link rel="manifest" href="/assets/favicon/site.webmanifest" />
 <script>
-  document.documentElement.dataset.theme = "system";
   try {
-    const theme = localStorage.getItem("michael-theme");
-    if (theme === "light" || theme === "dark") {
-      document.documentElement.dataset.theme = theme;
+    const savedTheme = localStorage.getItem("michael-theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      document.documentElement.dataset.theme = savedTheme;
     }
   } catch (error) {}
 </script>

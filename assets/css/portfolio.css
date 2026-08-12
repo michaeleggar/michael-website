@@ -106,45 +106,6 @@
   outline-offset: -2px;
 }
 
-.portfolio-filter-controls.is-switch-instant .portfolio-filter-button {
-  transition: none;
-}
-
-.portfolio-filter-panel {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  transition:
-    opacity 180ms var(--ease-out-expo),
-    transform 180ms var(--ease-out-expo);
-}
-
-.portfolio-filter-panel.is-leaving {
-  opacity: 0;
-  transition-duration: 90ms;
-}
-
-.portfolio-filter-panel.is-leaving[data-portfolio-direction="forward"] {
-  transform: translate3d(-0.5rem, 0, 0);
-}
-
-.portfolio-filter-panel.is-leaving[data-portfolio-direction="backward"] {
-  transform: translate3d(0.5rem, 0, 0);
-}
-
-.portfolio-filter-panel.is-entering[data-portfolio-direction="forward"] {
-  opacity: 0;
-  transform: translate3d(0.5rem, 0, 0);
-}
-
-.portfolio-filter-panel.is-entering[data-portfolio-direction="backward"] {
-  opacity: 0;
-  transform: translate3d(-0.5rem, 0, 0);
-}
-
-.portfolio-filter-panel[hidden] {
-  display: none;
-}
-
 /* Project grid */
 
 .portfolio-project-card a {
@@ -484,17 +445,4 @@
     transform: none;
   }
 
-  .portfolio-filter-panel {
-    transform: none;
-    transition: opacity 120ms ease;
-  }
-
-  .portfolio-filter-panel.is-leaving {
-    transition-duration: 80ms;
-  }
-
-  .portfolio-filter-panel.is-leaving,
-  .portfolio-filter-panel.is-entering {
-    transform: none;
-  }
 }

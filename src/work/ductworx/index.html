@@ -1,95 +1,59 @@
 ---
+layout: layouts/work-case-study.njk
 title: DuctWorx Website — Michael Eggar
 description: A case study of a modular WordPress website designed and developed for DuctWorx.
-socialImage: /assets/images/ductworx/duc-mock-2.jpg
-socialImageAlt: DuctWorx website displayed across laptop and desktop screens
+cardOrder: 1
+cardTitle: DuctWorx website
+year: "2025"
+cardImage: /assets/images/ductworx/duc-mock-2.jpg
+cardImageAlt: DuctWorx website displayed across laptop and desktop screens
+deck: >-
+  DuctWorx, a ductwork fabrication company in Oklahoma City, needed a website
+  that matched its new brand identity and allowed its team to handle updates
+  without developer involvement. The challenge was building something flexible
+  for nontechnical editors but structured enough to stay visually consistent.
+projectDetails:
+  - label: Role
+    items:
+      - Design
+      - Development
+  - label: Stack
+    items:
+      - WordPress
+      - Elementor
+      - ACF
+      - JavaScript
+      - CSS
+  - label: Link
+    items:
+      - label: ductworxokc.com
+        href: https://www.ductworxokc.com
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    {% include "head.html" %}
-    <link rel="stylesheet" href="/assets/css/portfolio.css" />
-  </head>
-  <body class="portfolio-page portfolio-case-study-page">
-    <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <main id="main-content" class="portfolio-case-study">
-      {% include "work-back-link.html" %}
+<figure class="portfolio-wide-media portfolio-first-media">
+  {% responsiveImage "/assets/images/ductworx/duc-mock-1.jpg", "DuctWorx website displayed on a desktop monitor", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+</figure>
 
-      <header class="portfolio-project-intro">
-        <h1>DuctWorx website</h1>
-        <p class="portfolio-project-deck">
-          DuctWorx, a ductwork fabrication company in Oklahoma City, needed a
-          website that matched its new brand identity and allowed its team to
-          handle updates without developer involvement. The challenge was
-          building something flexible for nontechnical editors but structured
-          enough to stay visually consistent.
-        </p>
-      </header>
+<section class="portfolio-project-copy">
+  <h2>Modular ACF system</h2>
+  <p>
+    I built a library of reusable sections with ACF, each with its own
+    content structure and display options. The client can assemble pages
+    by choosing and populating sections without needing to touch code.
+  </p>
+  <h2>Industrial visual design</h2>
+  <p>
+    The site leans into the company’s industrial photography and bold
+    color palette. I kept the layout clean and scannable so the products
+    and team stay front and center.
+  </p>
+  <h2>Self-sufficient architecture</h2>
+  <p>
+    Everything from content to navigation is editable through WordPress.
+    The goal was zero ongoing developer dependency for day-to-day updates.
+  </p>
+</section>
 
-      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
-        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
-        <div class="portfolio-chip-rows">
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Role</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">Design</li>
-              <li class="portfolio-chip">Development</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Stack</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">WordPress</li>
-              <li class="portfolio-chip">Elementor</li>
-              <li class="portfolio-chip">ACF</li>
-              <li class="portfolio-chip">JavaScript</li>
-              <li class="portfolio-chip">CSS</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Link</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">
-                <a href="https://www.ductworxokc.com" target="_blank" rel="noopener noreferrer">ductworxokc.com</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <figure class="portfolio-wide-media portfolio-first-media">
-        {% responsiveImage "/assets/images/ductworx/duc-mock-1.jpg", "DuctWorx website displayed on a desktop monitor", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
-      </figure>
-
-      <section class="portfolio-project-copy">
-        <h2>Modular ACF system</h2>
-        <p>
-          I built a library of reusable sections with ACF, each with its own
-          content structure and display options. The client can assemble pages
-          by choosing and populating sections without needing to touch code.
-        </p>
-        <h2>Industrial visual design</h2>
-        <p>
-          The site leans into the company’s industrial photography and bold
-          color palette. I kept the layout clean and scannable so the products
-          and team stay front and center.
-        </p>
-        <h2>Self-sufficient architecture</h2>
-        <p>
-          Everything from content to navigation is editable through WordPress.
-          The goal was zero ongoing developer dependency for day-to-day updates.
-        </p>
-      </section>
-
-      <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website displayed across laptop and desktop screens", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
-      </figure>
-    </main>
-
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
-    <script src="/assets/scripts/utilities.js"></script>
-  </body>
-</html>
+<figure class="portfolio-wide-media">
+  {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website displayed across laptop and desktop screens", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+</figure>

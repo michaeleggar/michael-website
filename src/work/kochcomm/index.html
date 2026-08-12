@@ -1,96 +1,61 @@
 ---
+layout: layouts/work-case-study.njk
 title: Koch Comm Website — Michael Eggar
 description: A project note about the front-end development of Koch Comm’s WordPress website and its flexible content system.
-socialImage: /assets/images/kochcomm/kc-website-1.jpg
-socialImageAlt: Koch Comm website displayed on a laptop
+cardOrder: 4
+cardTitle: Koch Comm website
+year: "2025"
+cardImage: /assets/images/kochcomm/kc-website-1.jpg
+cardImageAlt: Koch Comm website displayed on a laptop
+deck: >-
+  Koch Comm is a full-service marketing and advertising agency in Oklahoma City.
+  The team was ready for a site that better reflected the agency and did more to
+  showcase its work and services.
+projectDetails:
+  - label: Role
+    items:
+      - Development
+  - label: Stack
+    items:
+      - WordPress
+      - Elementor
+      - PHP
+      - JavaScript
+      - CSS
+  - label: Link
+    items:
+      - label: kochcomm.com
+        href: https://www.kochcomm.com
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    {% include "head.html" %}
-    <link rel="stylesheet" href="/assets/css/portfolio.css" />
-  </head>
-  <body class="portfolio-page portfolio-case-study-page">
-    <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <main id="main-content" class="portfolio-case-study">
-      {% include "work-back-link.html" %}
+<figure class="portfolio-wide-media portfolio-first-media">
+  {% responsiveImage "/assets/images/kochcomm/kc-website-1.jpg", "Koch Comm website shown on a laptop", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+</figure>
 
-      <header class="portfolio-project-intro">
-        <h1>Koch Comm website</h1>
-        <p class="portfolio-project-deck">
-          Koch Comm is a full-service marketing and advertising agency in
-          Oklahoma City. The team was ready for a site that better reflected the
-          agency and did more to showcase its work and services.
-        </p>
-      </header>
+<section class="portfolio-project-copy">
+  <h2>Custom post types and filtering</h2>
+  <p>
+    I built custom post types for services, work, team members, and job
+    openings, each with its own templates and custom fields. The work
+    archive includes category-based filtering so users can browse projects
+    by service and industry.
+  </p>
+  <h2>Designer collaboration</h2>
+  <p>
+    I worked closely with the designer throughout the build. The comps
+    left room for interpretation, especially around interaction and
+    responsive behavior, so a large part of my role was making decisions
+    in those gaps and checking back in to keep the implementation aligned.
+  </p>
+  <h2>Continued development</h2>
+  <p>
+    The site has kept evolving since launch. As the team’s front-end
+    developer, I’ve handled ongoing requests including new case studies,
+    SEO work, and a custom timeline page for the company’s 20th
+    anniversary.
+  </p>
+</section>
 
-      <section class="portfolio-chip-board" aria-labelledby="project-details-title">
-        <h2 class="visually-hidden" id="project-details-title">About the project</h2>
-        <div class="portfolio-chip-rows">
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Role</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">Development</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Stack</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">WordPress</li>
-              <li class="portfolio-chip">Elementor</li>
-              <li class="portfolio-chip">PHP</li>
-              <li class="portfolio-chip">JavaScript</li>
-              <li class="portfolio-chip">CSS</li>
-            </ul>
-          </div>
-          <div class="portfolio-chip-group">
-            <h3 class="portfolio-chip-label">Link</h3>
-            <ul class="portfolio-chip-list">
-              <li class="portfolio-chip">
-                <a href="https://www.kochcomm.com" target="_blank" rel="noopener noreferrer">kochcomm.com</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <figure class="portfolio-wide-media portfolio-first-media">
-        {% responsiveImage "/assets/images/kochcomm/kc-website-1.jpg", "Koch Comm website shown on a laptop", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
-      </figure>
-
-      <section class="portfolio-project-copy">
-        <h2>Custom post types and filtering</h2>
-        <p>
-          I built custom post types for services, work, team members, and job
-          openings, each with its own templates and custom fields. The work
-          archive includes category-based filtering so users can browse projects
-          by service and industry.
-        </p>
-        <h2>Designer collaboration</h2>
-        <p>
-          I worked closely with the designer throughout the build. The comps
-          left room for interpretation, especially around interaction and
-          responsive behavior, so a large part of my role was making decisions
-          in those gaps and checking back in to keep the implementation aligned.
-        </p>
-        <h2>Continued development</h2>
-        <p>
-          The site has kept evolving since launch. As the team’s front-end
-          developer, I’ve handled ongoing requests including new case studies,
-          SEO work, and a custom timeline page for the company’s 20th
-          anniversary.
-        </p>
-      </section>
-
-      <figure class="portfolio-wide-media">
-        {% responsiveImage "/assets/images/kochcomm/kc-website-2.jpg", "Koch Comm website detail", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
-      </figure>
-    </main>
-
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
-    <script src="/assets/scripts/utilities.js"></script>
-  </body>
-</html>
+<figure class="portfolio-wide-media">
+  {% responsiveImage "/assets/images/kochcomm/kc-website-2.jpg", "Koch Comm website detail", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+</figure>

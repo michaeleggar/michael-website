@@ -84,7 +84,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root[data-theme="system"] {
+  :root:not([data-theme]) {
     --primary: oklch(52.267% 0.0198 84.59);
     --primary-hover: oklch(44.5% 0.025 90);
     --accent-two: oklch(91.5% 0.01 92);
@@ -371,14 +371,14 @@ p {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root[data-theme="system"] .theme-toggle-icon-moon {
+  :root:not([data-theme]) .theme-toggle-icon-moon {
     opacity: 1;
     transform: scale(1);
   }
 }
 
 @media (prefers-color-scheme: light) {
-  :root[data-theme="system"] .theme-toggle-icon-sun {
+  :root:not([data-theme]) .theme-toggle-icon-sun {
     opacity: 1;
     transform: scale(1);
   }
