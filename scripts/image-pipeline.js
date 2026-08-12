@@ -169,6 +169,19 @@ async function createVariant(source, profile, width, format) {
     const job = (async () => {
       await fs.promises.mkdir(outputDirectory, { recursive: true });
 
+      try {
+        const existingVariant = await fs.promises.stat(outputPath);
+
+        if (existingVariant.isFile() && existingVariant.size > 0) {
+          return {
+            width,
+            url: path.posix.join(publicDirectory, fileName),
+          };
+        }
+      } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+      }
+
       const image = sharp(source.sourcePath).rotate().resize({
         width,
         withoutEnlargement: true,
