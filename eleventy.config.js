@@ -18,6 +18,7 @@ module.exports = function (eleventyConfig) {
     "assets/scripts/art.js",
     "assets/scripts/portfolio-filter.js",
     "assets/scripts/utilities.js",
+    "assets/scripts/work-drawer.js",
   ].forEach((assetPath) => eleventyConfig.addPassthroughCopy(assetPath));
 
   eleventyConfig.addWatchTarget("assets/data");

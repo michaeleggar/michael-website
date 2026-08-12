@@ -15,7 +15,8 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
   <body class="portfolio-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-    <main id="main-content" class="portfolio-main portfolio-home">
+    <div class="portfolio-drawer-background">
+      <main id="main-content" class="portfolio-main portfolio-home">
       <section class="portfolio-intro" aria-label="Introduction">
         <h1 class="portfolio-home-title">Michael Eggar</h1>
         <p class="portfolio-intro-lede">
@@ -67,38 +68,40 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
           </button>
         </div>
 
-        <div class="portfolio-filter-panel" data-portfolio-panel="work">
-          <div class="portfolio-selected-work-grid">
-            {% for project in portfolioProjects %}
-              <article class="portfolio-project-card">
-                <a href="{{ project.url }}" aria-label="{{ project.ariaLabel }}">
-                  <div class="portfolio-project-image">
-                    {% if loop.index == 1 %}
-                      {% set imagePriority = "high" %}
-                    {% else %}
-                      {% set imagePriority = "auto" %}
-                    {% endif %}
-                    {% responsiveImage project.image, project.imageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
-                  </div>
-                  <div class="portfolio-project-title-row">
-                    <h3>{{ project.title }}</h3>
-                    <time datetime="{{ project.dateTime }}">{{ project.meta }}</time>
-                  </div>
-                </a>
-              </article>
-            {% endfor %}
+        <div class="portfolio-filter-stage">
+          <div class="portfolio-filter-panel" data-portfolio-panel="work">
+            <div class="portfolio-selected-work-grid">
+              {% for project in portfolioProjects %}
+                <article class="portfolio-project-card">
+                  <a href="{{ project.url }}" aria-label="{{ project.ariaLabel }}">
+                    <div class="portfolio-project-image">
+                      {% if loop.index == 1 %}
+                        {% set imagePriority = "high" %}
+                      {% else %}
+                        {% set imagePriority = "auto" %}
+                      {% endif %}
+                      {% responsiveImage project.image, project.imageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
+                    </div>
+                    <div class="portfolio-project-title-row">
+                      <h3>{{ project.title }}</h3>
+                      <time datetime="{{ project.dateTime }}">{{ project.meta }}</time>
+                    </div>
+                  </a>
+                </article>
+              {% endfor %}
+            </div>
           </div>
-        </div>
 
-        <div
-          class="portfolio-filter-panel"
-          data-portfolio-panel="art"
-          hidden
-        >
-          <div id="art-gallery" class="art-masonry" aria-label="Artwork gallery">
-            {% for artwork in art.artwork %}
-              {% artworkCard artwork %}
-            {% endfor %}
+          <div
+            class="portfolio-filter-panel"
+            data-portfolio-panel="art"
+            hidden
+          >
+            <div id="art-gallery" class="art-masonry" aria-label="Artwork gallery">
+              {% for artwork in art.artwork %}
+                {% artworkCard artwork %}
+              {% endfor %}
+            </div>
           </div>
         </div>
       </section>
@@ -118,11 +121,15 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
         </div>
       </dialog>
 
-    </main>
+      </main>
 
-    <footer class="site-footer">{% include "footer.html" %}</footer>
+      <footer class="site-footer">{% include "footer.html" %}</footer>
+    </div>
+
+    {% include "work-drawer.html" %}
     <script src="/assets/scripts/utilities.js"></script>
     <script src="/assets/scripts/portfolio-filter.js"></script>
     <script src="/assets/scripts/art.js"></script>
+    <script src="/assets/scripts/work-drawer.js"></script>
   </body>
 </html>

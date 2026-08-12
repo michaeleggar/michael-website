@@ -46,36 +46,13 @@ function updatePortfolioControls(view, shouldAnimateIndicator = true) {
   }
 }
 
-function getPortfolioDirection(fromView, toView) {
-  const fromIndex = portfolioFilters.findIndex(
-    (filter) => filter.dataset.portfolioFilter === fromView,
-  );
-  const toIndex = portfolioFilters.findIndex(
-    (filter) => filter.dataset.portfolioFilter === toView,
-  );
-  return toIndex >= fromIndex ? "forward" : "backward";
-}
-
-function finishPortfolioSwitch(view, shouldAnimate, direction = "forward") {
+function finishPortfolioSwitch(view) {
   portfolioPanels.forEach((panel) => {
     panel.classList.remove("is-leaving", "is-entering");
-    delete panel.dataset.portfolioDirection;
+    panel.removeAttribute("aria-hidden");
+    panel.inert = false;
     panel.hidden = panel.dataset.portfolioPanel !== view;
   });
-
-  const incomingPanel = portfolioPanels.find(
-    (panel) => panel.dataset.portfolioPanel === view,
-  );
-
-  if (shouldAnimate && incomingPanel) {
-    incomingPanel.dataset.portfolioDirection = direction;
-    incomingPanel.classList.add("is-entering");
-    portfolioTransitionFrame = window.requestAnimationFrame(() => {
-      portfolioTransitionFrame = window.requestAnimationFrame(() => {
-        incomingPanel.classList.remove("is-entering");
-      });
-    });
-  }
 
   activePortfolioView = view;
   pendingPortfolioView = null;
@@ -86,9 +63,6 @@ function showPortfolioView(view, options = {}) {
   if (!portfolioPanels.some((panel) => panel.dataset.portfolioPanel === view)) {
     return;
   }
-
-  const shouldAnimate = animate && activePortfolioView !== view;
-  updatePortfolioControls(view, shouldAnimate);
 
   if (updateHistory && window.location.hash.toLowerCase() !== `#${view}`) {
     window.history.pushState(null, "", `#${view}`);
@@ -105,30 +79,50 @@ function showPortfolioView(view, options = {}) {
     portfolioTransitionFrame = null;
   }
 
+  if (pendingPortfolioView) {
+    finishPortfolioSwitch(pendingPortfolioView);
+  }
+
   const outgoingPanel = portfolioPanels.find((panel) => !panel.hidden);
   const outgoingView = outgoingPanel?.dataset.portfolioPanel;
+  const shouldAnimate = animate && outgoingView !== view;
+  updatePortfolioControls(view, shouldAnimate);
 
   if (!outgoingPanel || !shouldAnimate || outgoingView === view) {
-    finishPortfolioSwitch(view, false);
+    finishPortfolioSwitch(view);
     return;
   }
 
+  const incomingPanel = portfolioPanels.find(
+    (panel) => panel.dataset.portfolioPanel === view,
+  );
   pendingPortfolioView = view;
-  const direction = getPortfolioDirection(outgoingView, view);
 
   portfolioPanels.forEach((panel) => {
     panel.classList.remove("is-leaving", "is-entering");
-    delete panel.dataset.portfolioDirection;
+    panel.removeAttribute("aria-hidden");
+    panel.inert = false;
   });
-  outgoingPanel.dataset.portfolioDirection = direction;
+
+  incomingPanel.hidden = false;
+  incomingPanel.classList.add("is-entering");
   outgoingPanel.classList.add("is-leaving");
+  outgoingPanel.setAttribute("aria-hidden", "true");
+  outgoingPanel.inert = true;
+
+  portfolioTransitionFrame = window.requestAnimationFrame(() => {
+    portfolioTransitionFrame = window.requestAnimationFrame(() => {
+      portfolioTransitionFrame = null;
+      incomingPanel.classList.remove("is-entering");
+    });
+  });
 
   portfolioTransitionTimer = window.setTimeout(
     () => {
       portfolioTransitionTimer = null;
-      finishPortfolioSwitch(view, true, direction);
+      finishPortfolioSwitch(view);
     },
-    reducePortfolioMotion.matches ? 80 : 90,
+    reducePortfolioMotion.matches ? 130 : 280,
   );
 }
 
@@ -158,5 +152,5 @@ document.addEventListener("click", (event) => {
 });
 
 activePortfolioView = getPortfolioViewFromHash("work");
-finishPortfolioSwitch(activePortfolioView, false);
+finishPortfolioSwitch(activePortfolioView);
 updatePortfolioControls(activePortfolioView, false);
