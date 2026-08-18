@@ -1,8 +1,8 @@
 /* Portfolio foundation */
 
 .portfolio-page {
-  --portfolio-reading-width: 37.5rem;
-  --portfolio-wide-width: 56.25rem;
+  --portfolio-card-radius: 2px;
+  --portfolio-grid-card-radius: 12px;
   --portfolio-image-background: color-mix(
     in oklch,
     var(--accent-three) 76%,
@@ -17,8 +17,11 @@
 }
 
 .portfolio-main {
-  width: min(calc(100% - (2 * var(--gutter))), var(--portfolio-wide-width));
-  margin-inline: auto;
+  width: min(
+    calc(100% - var(--page-inset) - var(--gutter)),
+    var(--layout-width)
+  );
+  margin-inline: var(--page-inset) auto;
   padding-block: 3.75rem var(--space-xl);
   flex: 1 1 auto;
 }
@@ -28,22 +31,28 @@
   display: flex;
   flex-direction: column;
   transform: translate3d(0, 0, 0) scale(1);
-  transform-origin: top center;
+  transform-origin: right center;
   transition: transform 420ms var(--ease-vaul);
 }
 
 html.work-drawer-visible .portfolio-drawer-background {
-  transform: translate3d(0, 0.4rem, 0) scale(0.985);
+  transform: translate3d(0.4rem, 0, 0) scale(0.985);
 }
 
 /* Homepage introduction and view switcher */
 
 .portfolio-home {
-  padding-block-start: 5rem;
+  --page-inset: 28px;
+  padding-block-start: 56px;
+}
+
+.portfolio-page:not(.portfolio-case-study-page) .site-footer {
+  width: min(calc(100% - 28px - var(--gutter)), var(--content-width));
+  margin-inline: 28px auto;
 }
 
 .portfolio-intro {
-  width: min(100%, var(--portfolio-reading-width));
+  width: min(100%, var(--content-width));
 }
 
 .portfolio-home-title {
@@ -175,7 +184,7 @@ html.work-drawer-visible .portfolio-drawer-background {
 .portfolio-project-image {
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-radius: var(--border-radius);
+  border-radius: var(--portfolio-grid-card-radius);
   background: var(--portfolio-image-background);
 }
 
@@ -238,7 +247,7 @@ html.work-drawer-visible .portfolio-drawer-background {
     var(--text-underline) 0 4px,
     transparent 4px 8px
   );
-  width: min(100%, var(--portfolio-reading-width));
+  width: min(100%, var(--content-width));
   margin-block-start: clamp(5rem, 10vw, 7.5rem);
   color: var(--text-secondary);
 }
@@ -323,10 +332,7 @@ html.work-drawer-visible .portfolio-drawer-background {
 /* Case studies */
 
 .portfolio-case-study {
-  --portfolio-content-left: max(
-    var(--gutter),
-    calc((100% - var(--portfolio-wide-width)) / 2)
-  );
+  --portfolio-content-left: var(--page-inset);
   padding-block: 5rem var(--space-xl);
   flex: 1 1 auto;
 }
@@ -334,7 +340,7 @@ html.work-drawer-visible .portfolio-drawer-background {
 .portfolio-back-link,
 .portfolio-project-intro,
 .portfolio-project-copy {
-  width: min(calc(100% - (2 * var(--gutter))), var(--frame));
+  width: min(calc(100% - (2 * var(--gutter))), var(--content-width));
   margin-inline: var(--portfolio-content-left) auto;
 }
 
@@ -382,12 +388,15 @@ html.work-drawer-visible .portfolio-drawer-background {
 }
 
 .portfolio-wide-media {
-  width: min(calc(100% - (2 * var(--gutter))), var(--portfolio-wide-width));
-  margin: clamp(4rem, 9vw, 7rem) auto 0;
+  width: min(
+    calc(100% - var(--page-inset) - var(--gutter)),
+    var(--layout-width)
+  );
+  margin: clamp(4rem, 9vw, 7rem) auto 0 var(--portfolio-content-left);
 }
 
 .portfolio-case-study .portfolio-chip-board {
-  width: min(calc(100% - (2 * var(--gutter))), var(--frame));
+  width: min(calc(100% - (2 * var(--gutter))), var(--content-width));
   margin-inline: var(--portfolio-content-left) auto;
   margin-block-start: var(--space-xl);
 }
@@ -419,22 +428,21 @@ html.work-drawer-visible .portfolio-drawer-background {
 /* Work drawer */
 
 .work-drawer {
-  --work-drawer-inset: max(1rem, calc(100dvh - min(90dvh, 60rem)));
-  inset: auto 0 0;
-  width: calc(100% - (2 * var(--work-drawer-inset)));
+  inset: 0 auto 0 0;
+  width: 60%;
   max-width: none;
-  height: calc(100dvh - var(--work-drawer-inset));
+  height: 100dvh;
   max-height: none;
-  margin: auto auto 0;
+  margin: 0 auto 0 0;
   padding: 0;
   overflow: clip;
   border: 0;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-radius: 0 var(--portfolio-card-radius) var(--portfolio-card-radius) 0;
   background: var(--bg);
-  box-shadow: 0 -1.5rem 4rem rgb(0 0 0 / 0.2);
+  box-shadow: 1.5rem 0 4rem rgb(0 0 0 / 0.2);
   color: var(--text-primary);
   opacity: 0;
-  transform: translate3d(0, calc(100% + 1rem), 0);
+  transform: translate3d(calc(-100% - 1rem), 0, 0);
   transition:
     opacity 180ms ease,
     transform 420ms var(--ease-vaul);
@@ -452,7 +460,7 @@ html.work-drawer-visible .portfolio-drawer-background {
 }
 
 .work-drawer.is-open::backdrop {
-  opacity: 0.62;
+  opacity: 0.14;
 }
 
 .work-drawer.is-closing {
@@ -477,6 +485,7 @@ html.work-drawer-instant .portfolio-drawer-background {
   height: 100%;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   scrollbar-color: var(--text-underline) transparent;
   scrollbar-width: thin;
@@ -520,7 +529,7 @@ html.work-drawer-instant .portfolio-drawer-background {
 }
 
 .work-drawer-loading {
-  width: min(calc(100% - (2 * var(--gutter))), var(--frame));
+  width: min(calc(100% - (2 * var(--gutter))), var(--content-width));
   margin: 0 auto;
   padding-block: var(--space-xl);
   color: var(--text-muted);
@@ -531,7 +540,34 @@ html.work-drawer-instant .portfolio-drawer-background {
 }
 
 .work-drawer .portfolio-case-study {
-  padding-block-start: var(--space-lg);
+  width: 100%;
+  max-width: 100%;
+  padding-inline: var(--page-inset);
+  padding-block-start: 5rem;
+}
+
+.work-drawer [data-work-drawer-content] {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.work-drawer .portfolio-back-link,
+.work-drawer .portfolio-project-intro,
+.work-drawer .portfolio-project-copy,
+.work-drawer .portfolio-chip-board {
+  width: min(100%, var(--content-width));
+  min-width: 0;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.work-drawer .portfolio-wide-media {
+  width: min(100%, var(--layout-width));
+  min-width: 0;
+  max-width: 100%;
+  margin-inline: auto;
 }
 
 .work-drawer .portfolio-project-intro {
@@ -556,6 +592,7 @@ html.work-drawer-instant .portfolio-drawer-background {
 
 @media (max-width: 780px) {
   .portfolio-page {
+    --page-inset: var(--gutter);
     padding-inline: 0;
   }
 
@@ -572,17 +609,11 @@ html.work-drawer-instant .portfolio-drawer-background {
   }
 
   .work-drawer {
-    --work-drawer-inset: 1rem;
+    width: calc(100% - 1rem);
   }
 
   html.work-drawer-visible .portfolio-drawer-background {
-    transform: translate3d(0, 0.35rem, 0) scale(0.97);
-  }
-}
-
-@media (max-aspect-ratio: 1 / 1) {
-  .work-drawer {
-    --work-drawer-inset: 1rem;
+    transform: translate3d(0.35rem, 0, 0) scale(0.97);
   }
 }
 

@@ -9,7 +9,7 @@
   margin: 0 0 var(--space-sm);
   break-inside: avoid;
   overflow: hidden;
-  border-radius: var(--border-radius);
+  border-radius: var(--portfolio-grid-card-radius);
   background: var(--accent-three);
 }
 

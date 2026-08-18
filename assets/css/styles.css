@@ -56,8 +56,10 @@
   --modal-muted: oklch(70.565% 0.0177 91.61);
   color-scheme: dark;
 
-  --frame: 37.5rem;
+  --content-width: 37.5rem;
+  --layout-width: 56.25rem;
   --gutter: 1rem;
+  --page-inset: 5rem;
   --space-sm: 1rem;
   --space-md: 1.6rem;
   --space-lg: 2rem;
@@ -285,8 +287,11 @@ p {
 /* Footer and theme control */
 
 .site-footer {
-  width: min(calc(100% - (2 * var(--gutter))), var(--frame));
-  margin-inline: auto;
+  width: min(
+    calc(100% - var(--page-inset) - var(--gutter)),
+    var(--content-width)
+  );
+  margin-inline: var(--page-inset) auto;
   padding-block: var(--space-xl);
   color: var(--text-muted);
   font-size: var(--type-meta);
@@ -401,17 +406,6 @@ p {
 @media (max-width: 780px) {
   body {
     padding-inline: var(--gutter);
-  }
-}
-
-@media (max-width: 460px) {
-  .footer-inner {
-    align-items: center;
-    flex-direction: row;
-  }
-
-  .footer-inner .theme-toggle {
-    margin-inline-start: auto;
   }
 }
 
