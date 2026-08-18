@@ -33,12 +33,4 @@
   href="/assets/favicon/apple-touch-icon.png"
 />
 <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-<script>
-  try {
-    const savedTheme = localStorage.getItem("michael-theme");
-    if (savedTheme === "light" || savedTheme === "dark") {
-      document.documentElement.dataset.theme = savedTheme;
-    }
-  } catch (error) {}
-</script>
 <link rel="stylesheet" href="/assets/css/styles.css" />

@@ -1,0 +1,32 @@
+<header class="site-header">
+  <div class="site-header-inner">
+    <nav class="site-nav-actions" aria-label="Primary">
+      <ul class="site-nav-links" data-portfolio-controls>
+        <li>
+          <a
+            class="site-nav-link"
+            href="/#hey"
+            data-portfolio-filter="hey"
+            {% if page.url == "/" %}aria-current="page"{% endif %}
+          >Hey</a>
+        </li>
+        <li>
+          <a
+            class="site-nav-link"
+            href="/#work"
+            data-portfolio-filter="work"
+            {% if "/work/" in page.url %}aria-current="page"{% endif %}
+          >Work</a>
+        </li>
+        <li>
+          <a
+            class="site-nav-link"
+            href="/#art"
+            data-portfolio-filter="art"
+          >Art</a>
+        </li>
+      </ul>
+    </nav>
+    {% include "header-contact.html" %}
+  </div>
+</header>

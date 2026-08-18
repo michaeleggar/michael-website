@@ -16,114 +16,160 @@ socialImageAlt: DuctWorx website displayed across laptop and desktop screens
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
     <div class="portfolio-drawer-background">
+      {% include "site-header.html" %}
+
       <main id="main-content" class="portfolio-main portfolio-home">
-      <section class="portfolio-intro" aria-label="Introduction">
-        <h1 class="portfolio-home-title">Michael Eggar</h1>
-        <p class="portfolio-intro-lede">
-          Hey there, I’m a front-end developer, designer, and artist based in
-          Oklahoma City.
-        </p>
-        <p>
-          I’m currently the senior front-end developer at
-          <a href="https://www.kochcomm.com">Koch Comm</a>, where I design and
-          build websites for a wide range of organizations.
-        </p>
-        <p>
-          Outside of work, I make <a href="/#art">art</a>, crochet, sew, and
-          co-run <a href="https://cow-boys-collab.com">cow-boys collab</a>. I
-          love science fiction, and I’m currently reading
-          <a
-            href="https://www.goodreads.com/en/book/show/13497991-the-hydrogen-sonata"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><cite>The Hydrogen Sonata</cite></a
-          >.
-        </p>
-      </section>
-
-      <section
-        class="portfolio-showcase"
-        aria-label="Portfolio"
-      >
-        <div
-          class="portfolio-filter-controls"
-          aria-label="Portfolio view"
-          data-portfolio-controls
-        >
-          <button
-            type="button"
-            class="portfolio-filter-button"
-            data-portfolio-filter="work"
-            aria-pressed="true"
-          >
-            Work
-          </button>
-          <button
-            type="button"
-            class="portfolio-filter-button"
-            data-portfolio-filter="art"
-            aria-pressed="false"
-          >
-            Art
-          </button>
-        </div>
-
-        <div class="portfolio-filter-stage">
-          <div class="portfolio-filter-panel" data-portfolio-panel="work">
-            <div class="portfolio-selected-work-grid">
-              {% for project in collections.workProjects %}
-                <article class="portfolio-project-card">
-                  <a href="{{ project.url }}" aria-label="View {{ project.data.cardTitle }} case study">
-                    <div class="portfolio-project-image">
-                      {% if loop.index == 1 %}
-                        {% set imagePriority = "high" %}
-                      {% else %}
-                        {% set imagePriority = "auto" %}
-                      {% endif %}
-                      {% responsiveImage project.data.cardImage, project.data.cardImageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
-                    </div>
-                    <div class="portfolio-project-title-row">
-                      <h3>{{ project.data.cardTitle }}</h3>
-                      <time datetime="{{ project.data.year }}">{{ project.data.year }}</time>
-                    </div>
-                  </a>
-                </article>
-              {% endfor %}
-            </div>
-          </div>
-
-          <div
+        <div class="portfolio-filter-stage portfolio-view-stage">
+          <section
             class="portfolio-filter-panel"
-            data-portfolio-panel="art"
+            data-portfolio-panel="hey"
+            aria-labelledby="hey-title"
+          >
+            <div class="portfolio-intro">
+              <h1 id="hey-title" class="portfolio-home-title">Michael Eggar</h1>
+              <p class="portfolio-intro-lede">
+                Hey there, I’m a front-end developer, designer, and artist.
+              </p>
+              <p>
+                I’m currently the senior front-end developer at
+                <a href="https://www.kochcomm.com">Koch Comm</a>, where I design
+                and build websites for a wide range of organizations.
+              </p>
+              <p>
+                Outside of work, I make <a href="/#art">art</a>, crochet, sew,
+                and co-run
+                <a href="https://cow-boys-collab.com">cow-boys collab</a>. I love
+                science fiction, and I’m currently reading
+                <a
+                  href="https://www.goodreads.com/en/book/show/13497991-the-hydrogen-sonata"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><cite>The Hydrogen Sonata</cite></a
+                >.
+              </p>
+            </div>
+
+            <section
+              class="portfolio-showcase portfolio-selected-work-preview"
+              aria-labelledby="selected-work-title"
+            >
+              <h2 id="selected-work-title" class="portfolio-showcase-title">
+                Selected work
+              </h2>
+              <div class="portfolio-selected-work-grid">
+                {% for project in collections.workProjects %}
+                  {% if loop.index <= 2 %}
+                    <article class="portfolio-project-card">
+                      <a href="{{ project.url }}" aria-label="View {{ project.data.cardTitle }} case study">
+                        <div class="portfolio-project-image">
+                          {% if loop.index == 1 %}
+                            {% set imagePriority = "high" %}
+                          {% else %}
+                            {% set imagePriority = "auto" %}
+                          {% endif %}
+                          {% responsiveImage project.data.cardImage, project.data.cardImageAlt, "(max-width: 780px) calc(100vw - 2rem), 342px", "", "eager", imagePriority %}
+                        </div>
+                        <div class="portfolio-project-title-row">
+                          <h3>{{ project.data.cardTitle }}</h3>
+                          <time datetime="{{ project.data.year }}">{{ project.data.year }}</time>
+                        </div>
+                      </a>
+                    </article>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </section>
+          </section>
+
+          <section
+            class="portfolio-filter-panel"
+            data-portfolio-panel="work"
+            aria-labelledby="work-title"
             hidden
           >
-            <div id="art-gallery" class="art-masonry" aria-label="Artwork gallery">
-              {% for artwork in art.artwork %}
-                {% artworkCard artwork %}
-              {% endfor %}
+            <div class="portfolio-intro portfolio-view-intro">
+              <h1 id="work-title">Work</h1>
+              <p class="portfolio-intro-lede">
+                I design and build websites for a wide range of organizations.
+              </p>
+              <p>
+                I’m currently the senior front-end developer at
+                <a href="https://www.kochcomm.com">Koch Comm</a>.
+              </p>
+            </div>
+
+            <section class="portfolio-showcase" aria-label="Selected work">
+              <div class="portfolio-selected-work-grid">
+                {% for project in collections.workProjects %}
+                  <article class="portfolio-project-card">
+                    <a href="{{ project.url }}" aria-label="View {{ project.data.cardTitle }} case study">
+                      <div class="portfolio-project-image">
+                        {% if loop.index == 1 %}
+                          {% set imagePriority = "high" %}
+                        {% else %}
+                          {% set imagePriority = "auto" %}
+                        {% endif %}
+                        {% responsiveImage project.data.cardImage, project.data.cardImageAlt, "(max-width: 780px) calc(100vw - 2rem), 450px", "", "eager", imagePriority %}
+                      </div>
+                      <div class="portfolio-project-title-row">
+                        <h3>{{ project.data.cardTitle }}</h3>
+                        <time datetime="{{ project.data.year }}">{{ project.data.year }}</time>
+                      </div>
+                    </a>
+                  </article>
+                {% endfor %}
+              </div>
+            </section>
+          </section>
+
+          <section
+            class="portfolio-filter-panel"
+            data-portfolio-panel="art"
+            aria-labelledby="art-title"
+            hidden
+          >
+            <div class="portfolio-intro portfolio-view-intro">
+              <h1 id="art-title">Art</h1>
+              <p class="portfolio-intro-lede">
+                Outside of work, I make art in Oklahoma City.
+              </p>
+              <p>
+                This is a selection of paintings and drawings from the past few
+                years.
+              </p>
+            </div>
+
+            <section class="portfolio-showcase" aria-label="Artwork">
+              <div
+                id="art-gallery"
+                class="art-masonry"
+                aria-label="Artwork gallery"
+              >
+                {% for artwork in art.artwork %}
+                  {% artworkCard artwork %}
+                {% endfor %}
+              </div>
+            </section>
+          </section>
+        </div>
+
+        <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
+          <button class="modal-close" aria-label="Close">&times;</button>
+          <div class="modal-content">
+            <picture id="modal-picture">
+              <source id="modal-source-avif" type="image/avif" />
+              <source id="modal-source-webp" type="image/webp" />
+              <img id="modal-img" alt="" />
+            </picture>
+            <div class="modal-info">
+              <h2 id="modal-title"></h2>
+              <p id="modal-details"></p>
             </div>
           </div>
-        </div>
-      </section>
-
-      <dialog id="art-modal" aria-label="Artwork detail" aria-modal="true">
-        <button class="modal-close" aria-label="Close">&times;</button>
-        <div class="modal-content">
-          <picture id="modal-picture">
-            <source id="modal-source-avif" type="image/avif" />
-            <source id="modal-source-webp" type="image/webp" />
-            <img id="modal-img" alt="" />
-          </picture>
-          <div class="modal-info">
-            <h2 id="modal-title"></h2>
-            <p id="modal-details"></p>
-          </div>
-        </div>
-      </dialog>
+        </dialog>
 
       </main>
 
-      <footer class="site-footer">{% include "footer.html" %}</footer>
     </div>
 
     {% include "work-drawer.html" %}

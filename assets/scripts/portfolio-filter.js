@@ -11,7 +11,7 @@ const reducePortfolioMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 );
 
-let activePortfolioView = "work";
+let activePortfolioView = "hey";
 let pendingPortfolioView = null;
 let portfolioTransitionTimer = null;
 let portfolioTransitionFrame = null;
@@ -19,6 +19,7 @@ let hashNavigationShouldAnimate = true;
 
 function getPortfolioViewFromHash(fallback = activePortfolioView) {
   const hash = window.location.hash.toLowerCase();
+  if (hash === "#hey" || hash === "#hello") return "hey";
   if (hash === "#art") return "art";
   if (hash === "#work") return "work";
   return fallback;
@@ -33,10 +34,15 @@ function updatePortfolioControls(view, shouldAnimateIndicator = true) {
   }
 
   portfolioFilters.forEach((filter) => {
-    filter.setAttribute(
-      "aria-pressed",
-      String(filter.dataset.portfolioFilter === view),
-    );
+    const isActive = filter.dataset.portfolioFilter === view;
+
+    if (filter instanceof HTMLButtonElement) {
+      filter.setAttribute("aria-pressed", String(isActive));
+    } else if (isActive) {
+      filter.setAttribute("aria-current", "page");
+    } else {
+      filter.removeAttribute("aria-current");
+    }
   });
 
   if (portfolioControls && shouldSwitchInstantly) {
@@ -128,6 +134,8 @@ function showPortfolioView(view, options = {}) {
 
 portfolioFilters.forEach((filter) => {
   filter.addEventListener("click", (event) => {
+    if (filter instanceof HTMLAnchorElement) event.preventDefault();
+
     showPortfolioView(filter.dataset.portfolioFilter, {
       animate: event.detail !== 0,
       updateHistory: true,
@@ -147,10 +155,12 @@ window.addEventListener("hashchange", () => {
 });
 
 document.addEventListener("click", (event) => {
-  const link = event.target.closest('a[href$="#work"], a[href$="#art"]');
+  const link = event.target.closest(
+    'a[href$="#hey"], a[href$="#hello"], a[href$="#work"], a[href$="#art"]',
+  );
   if (link) hashNavigationShouldAnimate = event.detail !== 0;
 });
 
-activePortfolioView = getPortfolioViewFromHash("work");
+activePortfolioView = getPortfolioViewFromHash("hey");
 finishPortfolioSwitch(activePortfolioView);
 updatePortfolioControls(activePortfolioView, false);

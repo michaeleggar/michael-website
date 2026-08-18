@@ -7,6 +7,8 @@
   <body class="portfolio-page portfolio-case-study-page">
     <a class="skip-nav" href="#main-content">Skip to main content</a>
 
+    {% include "site-header.html" %}
+
     <main id="main-content" class="portfolio-case-study">
       {% include "work-back-link.html" %}
 
@@ -40,9 +42,6 @@
       {{ content | safe }}
     </main>
 
-    <footer class="site-footer">
-      {% include "footer.html" %}
-    </footer>
     <script src="/assets/scripts/utilities.js"></script>
   </body>
 </html>
