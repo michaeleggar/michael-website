@@ -5,7 +5,12 @@ description: A project note about the redesigned Retirement Investment Advisors 
 cardOrder: 3
 cardTitle: Retirement Investment Advisors
 year: "2026"
-cardImage: /assets/images/ria/ria-website.jpg
+cardImage:
+  image: /assets/images/optimized/ria/ria-website
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/ria/ria-website-social.jpg
 cardImageAlt: Retirement Investment Advisors website displayed on a laptop
 heading: Retirement Investment Advisors website
 deck: >-
@@ -31,7 +36,17 @@ projectDetails:
 ---
 
 <figure class="portfolio-wide-media portfolio-first-media">
-  {% responsiveImage "/assets/images/ria/ria-feature.png", "Retirement Investment Advisors website screenshot", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+  <img
+    src="/assets/images/optimized/ria/ria-feature-large.webp"
+    srcset="/assets/images/optimized/ria/ria-feature-thumb.webp 600w, /assets/images/optimized/ria/ria-feature-large.webp 1430w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1430"
+    height="944"
+    alt="Retirement Investment Advisors website screenshot"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
 </figure>
 
 <section class="portfolio-project-copy">
@@ -58,5 +73,14 @@ projectDetails:
 </section>
 
 <figure class="portfolio-wide-media">
-  {% responsiveImage "/assets/images/ria/ria-tablet.jpg", "Retirement Investment Advisors website shown on a tablet", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+  <img
+    src="/assets/images/optimized/ria/ria-tablet-large.webp"
+    srcset="/assets/images/optimized/ria/ria-tablet-thumb.webp 600w, /assets/images/optimized/ria/ria-tablet-large.webp 1500w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1500"
+    height="944"
+    alt="Retirement Investment Advisors website shown on a tablet"
+    loading="lazy"
+    decoding="async"
+  />
 </figure>

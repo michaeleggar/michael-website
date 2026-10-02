@@ -1,0 +1,117 @@
+/* Case-study pages: introduction, copy, media, and project details. */
+
+.portfolio-case-study {
+  padding-block-start: 5rem;
+}
+
+.portfolio-back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-muted);
+  font-size: var(--type-xs);
+  line-height: var(--line-snug);
+  text-decoration: none;
+}
+
+.portfolio-back-link svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.portfolio-project-intro {
+  margin-block-start: var(--space-xl);
+}
+
+.portfolio-project-intro h1 {
+  max-width: 14em;
+  font-size: var(--type-md);
+}
+
+.portfolio-project-deck {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.portfolio-wide-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: calc(var(--border-radius) + 2px);
+}
+
+.portfolio-wide-media {
+  margin: clamp(4rem, 9vw, 7rem) 0 0;
+}
+
+.portfolio-first-media {
+  margin-block-start: clamp(4rem, 8vw, 5rem);
+}
+
+.portfolio-project-copy {
+  margin-block-start: clamp(4rem, 9vw, 6rem);
+}
+
+.portfolio-project-copy h2 {
+  margin: 2.25rem 0 0.7rem;
+  font-size: 1.1rem;
+}
+
+.portfolio-project-copy h2:first-child {
+  margin-block-start: 0;
+}
+
+.portfolio-project-copy p {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Project details use ordinary label/value rows. */
+
+.project-details {
+  margin: var(--space-xl) 0 0;
+  border-top: 1px solid var(--text-underline);
+  font-size: var(--type-sm);
+}
+
+.project-details > div {
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  gap: var(--space-md);
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--text-underline);
+}
+
+.project-details dt {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.project-details dd {
+  margin: 0;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-back-link:hover {
+    color: var(--text-primary);
+  }
+}
+
+@media (max-width: 780px) {
+  .portfolio-case-study {
+    padding-block-start: clamp(3rem, 12vw, 4.5rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .project-details > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}

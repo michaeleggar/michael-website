@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include "head.html" %}
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    {% for stylesheet in stylesheets %}
+      <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css" />
+    {% endfor %}
+  </head>
+  <body>
+    <a class="skip-nav" href="#main-content">Skip to main content</a>
+    {% include "site-header.html" %}
+    {{ content | safe }}
+    {% for script in scripts %}
+      <script src="/assets/scripts/{{ script }}.js"></script>
+    {% endfor %}
+  </body>
+</html>

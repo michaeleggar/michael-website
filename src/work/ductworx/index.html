@@ -5,7 +5,12 @@ description: A case study of a modular WordPress website designed and developed 
 cardOrder: 1
 cardTitle: DuctWorx website
 year: "2025"
-cardImage: /assets/images/ductworx/duc-mock-2.jpg
+cardImage:
+  image: /assets/images/optimized/ductworx/duc-mock-2
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/ductworx/duc-mock-2-social.jpg
 cardImageAlt: DuctWorx website displayed across laptop and desktop screens
 deck: >-
   DuctWorx, a ductwork fabrication company in Oklahoma City, needed a website
@@ -31,7 +36,17 @@ projectDetails:
 ---
 
 <figure class="portfolio-wide-media portfolio-first-media">
-  {% responsiveImage "/assets/images/ductworx/duc-mock-1.jpg", "DuctWorx website displayed on a desktop monitor", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+  <img
+    src="/assets/images/optimized/ductworx/duc-mock-1-large.webp"
+    srcset="/assets/images/optimized/ductworx/duc-mock-1-thumb.webp 600w, /assets/images/optimized/ductworx/duc-mock-1-large.webp 1500w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1500"
+    height="944"
+    alt="DuctWorx website displayed on a desktop monitor"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
 </figure>
 
 <section class="portfolio-project-copy">
@@ -55,5 +70,14 @@ projectDetails:
 </section>
 
 <figure class="portfolio-wide-media">
-  {% responsiveImage "/assets/images/ductworx/duc-mock-2.jpg", "DuctWorx website displayed across laptop and desktop screens", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+  <img
+    src="/assets/images/optimized/ductworx/duc-mock-2-large.webp"
+    srcset="/assets/images/optimized/ductworx/duc-mock-2-thumb.webp 600w, /assets/images/optimized/ductworx/duc-mock-2-large.webp 1500w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1500"
+    height="944"
+    alt="DuctWorx website displayed across laptop and desktop screens"
+    loading="lazy"
+    decoding="async"
+  />
 </figure>

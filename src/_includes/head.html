@@ -1,8 +1,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" href="/assets/fonts/LatoLatin-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/LatoLatin-Medium.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/LatoLatin-Semibold.woff2" as="font" type="font/woff2" crossorigin />
+{% if page.url == "/" %}
+<link rel="preload" href="/assets/fonts/LatoLatin-Italic.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/Oddball.woff2" as="font" type="font/woff2" crossorigin />
+{% endif %}
 {% set metaTitle = title or site.name %}
 {% set metaDescription = description or site.defaultDescription %}
-{% set metaImage = socialImage or cardImage or site.defaultSocialImage %}
+{% set metaImage = socialImage or site.defaultSocialImage %}
 {% set metaImageAlt = socialImageAlt or cardImageAlt or site.defaultSocialImageAlt %}
 <title>{{ metaTitle }}</title>
 <meta name="description" content="{{ metaDescription }}" />
@@ -12,12 +19,12 @@
 <meta property="og:title" content="{{ metaTitle }}" />
 <meta property="og:description" content="{{ metaDescription }}" />
 <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
-<meta property="og:image" content="{{ site.url }}{% socialImageUrl metaImage %}" />
+<meta property="og:image" content="{{ site.url }}{{ metaImage }}" />
 <meta property="og:image:alt" content="{{ metaImageAlt }}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ metaTitle }}" />
 <meta name="twitter:description" content="{{ metaDescription }}" />
-<meta name="twitter:image" content="{{ site.url }}{% socialImageUrl metaImage %}" />
+<meta name="twitter:image" content="{{ site.url }}{{ metaImage }}" />
 <meta name="twitter:image:alt" content="{{ metaImageAlt }}" />
 <link
   rel="icon"
@@ -33,4 +40,3 @@
   href="/assets/favicon/apple-touch-icon.png"
 />
 <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-<link rel="stylesheet" href="/assets/css/styles.css" />

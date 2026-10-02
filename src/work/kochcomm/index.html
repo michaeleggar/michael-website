@@ -5,7 +5,12 @@ description: A project note about the front-end development of Koch Comm’s Wor
 cardOrder: 4
 cardTitle: Koch Comm website
 year: "2025"
-cardImage: /assets/images/kochcomm/kc-website-1.jpg
+cardImage:
+  image: /assets/images/optimized/kochcomm/kc-website-1
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/kochcomm/kc-website-1-social.jpg
 cardImageAlt: Koch Comm website displayed on a laptop
 deck: >-
   Koch Comm is a full-service marketing and advertising agency in Oklahoma City.
@@ -29,7 +34,17 @@ projectDetails:
 ---
 
 <figure class="portfolio-wide-media portfolio-first-media">
-  {% responsiveImage "/assets/images/kochcomm/kc-website-1.jpg", "Koch Comm website shown on a laptop", "(max-width: 932px) calc(100vw - 2rem), 900px", "", "eager", "high" %}
+  <img
+    src="/assets/images/optimized/kochcomm/kc-website-1-large.webp"
+    srcset="/assets/images/optimized/kochcomm/kc-website-1-thumb.webp 600w, /assets/images/optimized/kochcomm/kc-website-1-large.webp 1500w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1500"
+    height="944"
+    alt="Koch Comm website shown on a laptop"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
 </figure>
 
 <section class="portfolio-project-copy">
@@ -57,5 +72,14 @@ projectDetails:
 </section>
 
 <figure class="portfolio-wide-media">
-  {% responsiveImage "/assets/images/kochcomm/kc-website-2.jpg", "Koch Comm website detail", "(max-width: 932px) calc(100vw - 2rem), 900px" %}
+  <img
+    src="/assets/images/optimized/kochcomm/kc-website-2-large.webp"
+    srcset="/assets/images/optimized/kochcomm/kc-website-2-thumb.webp 600w, /assets/images/optimized/kochcomm/kc-website-2-large.webp 1500w"
+    sizes="(max-width: 732px) calc(100vw - 2rem), 700px"
+    width="1500"
+    height="944"
+    alt="Koch Comm website detail"
+    loading="lazy"
+    decoding="async"
+  />
 </figure>

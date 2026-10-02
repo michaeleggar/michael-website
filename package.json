@@ -1,6 +1,7 @@
 {
   "name": "michael-website",
   "scripts": {
+    "images": "node scripts/optimize-image.js",
     "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && eleventy",
     "dev": "eleventy --serve",

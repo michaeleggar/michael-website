@@ -1,0 +1,117 @@
+/* Site navigation */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-block-start: var(--space-sm);
+  padding-inline: var(--page-gutter);
+  background: linear-gradient(
+    to bottom,
+    var(--bg) 0%,
+    var(--bg) 48%,
+    color-mix(in oklch, var(--bg) 98.7%, transparent) 58%,
+    color-mix(in oklch, var(--bg) 95.1%, transparent) 66%,
+    color-mix(in oklch, var(--bg) 89.6%, transparent) 72%,
+    color-mix(in oklch, var(--bg) 82.5%, transparent) 77%,
+    color-mix(in oklch, var(--bg) 74.1%, transparent) 81%,
+    color-mix(in oklch, var(--bg) 54.1%, transparent) 87%,
+    color-mix(in oklch, var(--bg) 38.2%, transparent) 91%,
+    color-mix(in oklch, var(--bg) 19.4%, transparent) 95%,
+    color-mix(in oklch, var(--bg) 7.5%, transparent) 98%,
+    transparent 100%
+  );
+}
+
+.site-header-inner {
+  --nav-active-bg: oklch(35.181% 0.0066 48.53);
+  --nav-active-text: oklch(83.781% 0.0222 95.33);
+  min-height: 3.75rem;
+  padding-block-end: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+@media (prefers-color-scheme: light) {
+  .site-header-inner {
+    --nav-active-bg: oklch(87.287% 0.0126 91.53);
+    --nav-active-text: oklch(29.298% 0.0061 34.3);
+  }
+}
+
+.site-nav-links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.site-nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  padding: calc(0.3rem + 1px) 0.7rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: normal;
+  transition: none;
+}
+
+.site-nav-link:hover,
+.site-nav-link[aria-current="page"] {
+  color: var(--nav-active-text);
+}
+
+.site-nav-link[aria-current="page"] {
+  background: var(--nav-active-bg);
+}
+
+.site-header-contact {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.header-contact-link {
+  padding: calc(0.25rem + 1px) 0.5rem;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.header-contact-link:hover {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 460px) {
+  .site-header-inner {
+    gap: 0.5rem;
+  }
+
+  .site-nav-links {
+    gap: 0;
+  }
+
+  .site-nav-links .site-nav-link {
+    padding-inline: 0.55rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header-inner {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .site-header-contact {
+    width: 100%;
+    padding-block-start: 0.35rem;
+    justify-content: flex-end;
+  }
+}

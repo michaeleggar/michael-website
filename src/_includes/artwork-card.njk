@@ -1,0 +1,21 @@
+<figure class="art-item">
+  <button
+    type="button"
+    aria-label="View {{ artwork.title | escape }}"
+    data-modal-src="{{ artwork.image }}-large.webp"
+    data-alt="{{ artwork.alt | escape }}"
+    data-title="{{ artwork.title | escape }}"
+    data-year="{{ artwork.year | escape }}"
+    data-medium="{{ artwork.medium | escape }}"
+    data-dimensions="{{ artwork.dimensions_text | escape }}"
+  >
+    <img
+      src="{{ artwork.image }}-thumb.webp"
+      width="{{ artwork.width }}"
+      height="{{ artwork.height }}"
+      loading="lazy"
+      decoding="async"
+      alt="{{ artwork.alt | escape }}"
+    />
+  </button>
+</figure>
