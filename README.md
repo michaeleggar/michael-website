@@ -14,7 +14,21 @@ An Eleventy static site with Nunjucks templates, plain CSS, and a small browser 
 
 Keep each feature's responsive and reduced-motion rules in its own stylesheet. Shared tokens belong in `styles.css`; feature-specific tokens belong beside the component that uses them. The `.page-content` class sets the common content width and gutters.
 
-The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the files listed in the page or layout's `stylesheets` frontmatter. Add browser scripts through the `scripts` frontmatter. Case studies only load CSS.
+The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the files listed in the page or layout's `stylesheets` frontmatter. Add browser scripts through the `scripts` frontmatter. Case studies only load CSS in the published site.
+
+## Navigation tuning
+
+During a local Eleventy serve session, add `?dialkit` to any page URL to open Josh Puckett's DialKit panel. For example: `http://localhost:8080/work/ductworx/?dialkit`.
+
+The current site defaults use the finalized solid navigation surface with a subtle rim and shadow, 27px visible pills, and 6px outer insets. These styles live in `assets/css/header.css` and work without the tuning panel. DialKit starts with the same desktop geometry and surface settings; narrower layouts retain their responsive spacing.
+
+**Navigation Colors** switches the whole preview between System, Light, and Dark. Each mode stores its own surface, rim, and divider colors, plus independent text, hover, active-pill, and focus colors for the primary and contact groups. Divider controls include visibility, solid/dashed/dotted/faded styles, opacity, height, thickness, rounding, and position. Color settings combine with Navigation Surface's opacity and lighting controls and remain local to `?dialkit`.
+
+**Navigation** adjusts spacing, visible pill height, typography, and native squircle curvature. **Navigation Surface** explores opacity, blur, saturation, brightness, refraction, chromatic aberration, rim lighting, sheen, and shadow. **Inner Bevel** shares one curved surface between refraction and directional edge lighting: choose Rounded, Squircle, or Soft, then adjust Depth, Highlight, Shade, Light Angle, and Light Spread. **Optics → Edge Width** sets the shared bevel's width. The center stays transparent, independent of the face sheen. Start with the clear, frosted, liquid, or solid presets, then tune the sliders. **Page Edges** adjusts the shared top/bottom progressive blur's height and strength so you can see the material in context. Surface presets preserve geometry and page-edge settings.
+
+Both panels retain values and versions in this browser. Use their reset buttons to return to the defaults configured in `assets/scripts/navigation-tuner.js`, or **Copy parameters** to copy settings for applying to the site. Preview changes do not write source files. The lens uses a simplified Snell refraction model with a refractive index of 1.5, a grazing-angle transmission fade, and a reflection map generated from the same surface normals. RGB dispersion scales with the lens strength. Maps match the rail's dimensions and corners, are cached between parameter changes, and regenerate at most once per animation frame. Labels remain unfiltered. Live SVG backdrop refraction is enabled in Chromium; other engines keep ordinary blur and the bevel lighting. Set Refraction to zero to preview that material without lens distortion. The old decorative inset/width controls are replaced by the shared profile and depth controls.
+
+The vanilla adapter is pinned as a development dependency. Eleventy exposes its JavaScript, CSS, and MIT license only in serve mode; production pages do not load the tuner. The tuning panel also requires a local hostname and the explicit query parameter.
 
 ## Content and behavior
 

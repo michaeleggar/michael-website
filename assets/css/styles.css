@@ -37,15 +37,15 @@
 /* Theme and design tokens */
 
 :root {
-  --primary: oklch(70.537% 0.0191 92.75);
-  --primary-hover: oklch(83.952% 0.0409 114.97);
-  --accent-two: oklch(35.181% 0.0066 48.53);
-  --accent-three: oklch(30.36% 0.0056 56.18);
-  --bg: oklch(23% 0.0046 17.46);
-  --text-primary: oklch(92% 0.018 95);
-  --text-secondary: oklch(70% 0.014 87);
-  --text-muted: oklch(62% 0.01 85);
-  --text-underline: oklch(44.709% 0.0089 80.7);
+  --primary: light-dark(oklch(52.267% 0.0198 84.59), oklch(70.537% 0.0191 92.75));
+  --primary-hover: light-dark(oklch(44.5% 0.025 90), oklch(83.952% 0.0409 114.97));
+  --accent-two: light-dark(oklch(91.5% 0.01 92), oklch(35.181% 0.0066 48.53));
+  --accent-three: light-dark(oklch(94.5% 0.008 96), oklch(30.36% 0.0056 56.18));
+  --bg: light-dark(oklch(99.668% 0.0054 95.1), oklch(23% 0.0046 17.46));
+  --text-primary: light-dark(oklch(20% 0.006 34), oklch(92% 0.018 95));
+  --text-secondary: light-dark(oklch(44% 0.007 75), oklch(70% 0.014 87));
+  --text-muted: light-dark(oklch(54% 0.006 80), oklch(62% 0.01 85));
+  --text-underline: light-dark(oklch(82.305% 0.0099 93.59), oklch(44.709% 0.0089 80.7));
   color-scheme: dark;
 
   --content-width: 43.75rem;
@@ -72,15 +72,6 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --primary: oklch(52.267% 0.0198 84.59);
-    --primary-hover: oklch(44.5% 0.025 90);
-    --accent-two: oklch(91.5% 0.01 92);
-    --accent-three: oklch(94.5% 0.008 96);
-    --bg: oklch(99.668% 0.0054 95.1);
-    --text-primary: oklch(20% 0.006 34);
-    --text-secondary: oklch(44% 0.007 75);
-    --text-muted: oklch(54% 0.006 80);
-    --text-underline: oklch(82.305% 0.0099 93.59);
     color-scheme: light;
   }
 }

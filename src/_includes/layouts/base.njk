@@ -16,5 +16,8 @@
     {% for script in scripts %}
       <script src="/assets/scripts/{{ script }}.js"></script>
     {% endfor %}
+    {% if navigationTuningEnabled %}
+      <script type="module" src="/assets/scripts/navigation-tuner.js"></script>
+    {% endif %}
   </body>
 </html>

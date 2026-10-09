@@ -5,8 +5,9 @@
   top: 0;
   z-index: 50;
   padding-block-start: var(--space-sm);
+  padding-block-end: 1.125rem;
   padding-inline: var(--page-gutter);
-  background: var(--bg);
+  pointer-events: none;
 }
 
 /* The eight overlapping masks mirror at the viewport edges.
@@ -59,17 +60,6 @@
     display: block;
   }
 
-  .site-header {
-    background: transparent;
-  }
-
-  /* Protect the links over bright images without tinting the whole edge. */
-  .site-nav-links,
-  .site-header-contact {
-    background: color-mix(in oklch, var(--bg) 80%, transparent);
-    border-radius: 8px;
-  }
-
   /* Let the final content scroll above the bottom blur. */
   .page-content {
     padding-block-end: max(var(--space-xl), 100px);
@@ -77,21 +67,29 @@
 }
 
 .site-header-inner {
-  --nav-active-bg: oklch(35.181% 0.0066 48.53);
-  --nav-active-text: oklch(83.781% 0.0222 95.33);
-  min-height: 3.75rem;
-  padding-block-end: 1.75rem;
+  --nav-active-bg: var(--text-primary);
+  --nav-active-text: var(--bg);
+  --nav-ring: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+  --nav-item-gap: 5px;
+  --nav-item-padding: 11px;
+  --nav-group-gap: 14px;
+  --nav-pill-inset: 3.5px;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  /* The 27px visible pills have an even 6px inset inside the rail. */
+  padding: 2.5px 6px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-}
-
-@media (prefers-color-scheme: light) {
-  .site-header-inner {
-    --nav-active-bg: oklch(87.287% 0.0126 91.53);
-    --nav-active-text: oklch(29.298% 0.0061 34.3);
-  }
+  gap: var(--nav-group-gap);
+  border-radius: 16px;
+  corner-shape: superellipse(1.6);
+  background: var(--accent-three);
+  box-shadow:
+    inset 0 0 0 1px var(--nav-ring),
+    0 2px 4px rgb(0 0 0 / 0.12),
+    0 8px 24px -8px rgb(0 0 0 / 0.24);
+  pointer-events: auto;
 }
 
 .site-nav-links {
@@ -100,76 +98,132 @@
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--nav-item-gap);
   list-style: none;
 }
 
 .site-nav-link {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  min-height: 34px;
+  /* Lato's visible letters sit high in its line box; lower the labels 1px
+     while preserving the link height and the active pill's even inset. */
+  padding: calc(0.5rem + 1px) var(--nav-item-padding) calc(0.5rem - 1px);
+  border-radius: 11px;
+  corner-shape: superellipse(1.6);
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
-  letter-spacing: 0.09em;
-  padding: calc(0.3rem + 1px) 0.7rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  line-height: normal;
+  letter-spacing: 0.01em;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
   transition: none;
 }
 
-.site-nav-link:hover,
+/* Slim the visible pill without moving the label or shrinking its hit area. */
+.site-nav-link::before {
+  content: "";
+  position: absolute;
+  inset: var(--nav-pill-inset) 0;
+  z-index: -1;
+  border-radius: inherit;
+  corner-shape: inherit;
+  background: var(--nav-pill-bg, transparent);
+  pointer-events: none;
+}
+
+.site-nav-link:hover {
+  --nav-pill-bg: color-mix(in oklch, var(--text-primary) 6%, transparent);
+  color: var(--text-primary);
+}
+
 .site-nav-link[aria-current="page"] {
+  --nav-pill-bg: var(--nav-active-bg);
   color: var(--nav-active-text);
 }
 
-.site-nav-link[aria-current="page"] {
-  background: var(--nav-active-bg);
+.site-nav-link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.site-nav-link[aria-current="page"]:focus-visible {
+  outline-color: var(--nav-active-text);
+  outline-offset: -4px;
 }
 
 .site-header-contact {
-  margin-inline-start: auto;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: var(--nav-item-gap);
+}
+
+/* A short divider keeps both groups on the same optical center. */
+.site-header-contact::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--nav-group-gap) / -2 - 0.5px);
+  top: 50%;
+  height: 1rem;
+  border-inline-start: 1px solid var(--text-underline);
+  transform: translateY(-50%);
 }
 
 .header-contact-link {
-  padding: calc(0.25rem + 1px) 0.5rem;
-  color: var(--text-muted);
-  font-size: var(--type-meta);
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
 }
 
-.header-contact-link:hover {
-  color: var(--text-secondary);
-}
+@media (max-width: 440px) {
+  .site-header {
+    padding-inline: 0.75rem;
+  }
 
-@media (max-width: 460px) {
   .site-header-inner {
-    gap: 0.5rem;
+    --nav-item-gap: 0.25rem;
+    --nav-item-padding: 0.375rem;
+    --nav-group-gap: 0.75rem;
   }
 
-  .site-nav-links {
-    gap: 0;
-  }
-
-  .site-nav-links .site-nav-link {
-    padding-inline: 0.55rem;
+  .header-contact-link {
+    font-size: 0.75rem;
   }
 }
 
-@media (max-width: 430px) {
+/* Keep labels and spacing intact when a single row no longer fits. */
+@media (max-width: 359px) {
   .site-header-inner {
-    flex-wrap: wrap;
-    row-gap: 0;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.375rem calc(0.375rem + var(--nav-pill-inset));
+    border-radius: 1.5rem;
   }
 
   .site-header-inner nav {
-    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .site-nav-links {
+    width: 100%;
+  }
+
+  .site-nav-links li {
+    flex: 1;
   }
 
   .site-header-contact {
-    width: fit-content;
-    padding-block-start: 0.35rem;
-    justify-content: flex-end;
+    padding-block-start: 0.25rem;
+    border-block-start: 1px solid var(--text-underline);
+  }
+
+  .site-header-contact::before {
+    display: none;
   }
 }
