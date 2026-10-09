@@ -1,4 +1,4 @@
-/* Site navigation */
+/* Site navigation and viewport edge blur */
 
 .site-header {
   position: sticky;
@@ -6,21 +6,74 @@
   z-index: 50;
   padding-block-start: var(--space-sm);
   padding-inline: var(--page-gutter);
-  background: linear-gradient(
-    to bottom,
-    var(--bg) 0%,
-    var(--bg) 48%,
-    color-mix(in oklch, var(--bg) 98.7%, transparent) 58%,
-    color-mix(in oklch, var(--bg) 95.1%, transparent) 66%,
-    color-mix(in oklch, var(--bg) 89.6%, transparent) 72%,
-    color-mix(in oklch, var(--bg) 82.5%, transparent) 77%,
-    color-mix(in oklch, var(--bg) 74.1%, transparent) 81%,
-    color-mix(in oklch, var(--bg) 54.1%, transparent) 87%,
-    color-mix(in oklch, var(--bg) 38.2%, transparent) 91%,
-    color-mix(in oklch, var(--bg) 19.4%, transparent) 95%,
-    color-mix(in oklch, var(--bg) 7.5%, transparent) 98%,
-    transparent 100%
+  background: var(--bg);
+}
+
+/* The eight overlapping masks mirror at the viewport edges.
+   Both effects are decorative; navigation remains above them. */
+.site-edge-blur {
+  display: none;
+  position: fixed;
+  inset-inline: 0;
+  height: 100px;
+  z-index: 49;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.site-edge-blur-top {
+  --blur-direction: to top;
+  top: 0;
+}
+
+.site-edge-blur-bottom {
+  --blur-direction: to bottom;
+  bottom: 0;
+}
+
+.site-edge-blur-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(var(--blur-radius));
+  backdrop-filter: blur(var(--blur-radius));
+  -webkit-mask-image: linear-gradient(
+    var(--blur-direction),
+    transparent var(--blur-start),
+    black calc(var(--blur-start) + 12.5%),
+    black calc(var(--blur-start) + 25%),
+    transparent calc(var(--blur-start) + 37.5%)
   );
+  mask-image: linear-gradient(
+    var(--blur-direction),
+    transparent var(--blur-start),
+    black calc(var(--blur-start) + 12.5%),
+    black calc(var(--blur-start) + 25%),
+    transparent calc(var(--blur-start) + 37.5%)
+  );
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))
+  and ((mask-image: linear-gradient(black, transparent)) or (-webkit-mask-image: linear-gradient(black, transparent))) {
+  .site-edge-blur {
+    display: block;
+  }
+
+  .site-header {
+    background: transparent;
+  }
+
+  /* Protect the links over bright images without tinting the whole edge. */
+  .site-nav-links,
+  .site-header-contact {
+    background: color-mix(in oklch, var(--bg) 80%, transparent);
+    border-radius: 8px;
+  }
+
+  /* Let the final content scroll above the bottom blur. */
+  .page-content {
+    padding-block-end: max(var(--space-xl), 100px);
+  }
 }
 
 .site-header-inner {
@@ -42,6 +95,7 @@
 }
 
 .site-nav-links {
+  width: fit-content;
   margin: 0;
   padding: 0;
   display: flex;
@@ -109,8 +163,12 @@
     row-gap: 0;
   }
 
+  .site-header-inner nav {
+    flex-basis: 100%;
+  }
+
   .site-header-contact {
-    width: 100%;
+    width: fit-content;
     padding-block-start: 0.35rem;
     justify-content: flex-end;
   }

@@ -1,0 +1,10 @@
+{% for edge in ["top", "bottom"] %}
+  <div class="site-edge-blur site-edge-blur-{{ edge }}" aria-hidden="true">
+    {% for radius in [0.1953125, 0.390625, 0.78125, 1.5625, 3.125, 6.25, 12.5, 25] %}
+      <div
+        class="site-edge-blur-layer"
+        style="--blur-radius: {{ radius }}px; --blur-start: {{ loop.index0 * 12.5 }}%; z-index: {{ loop.index }};"
+      ></div>
+    {% endfor %}
+  </div>
+{% endfor %}

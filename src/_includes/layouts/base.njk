@@ -10,6 +10,7 @@
   </head>
   <body>
     <a class="skip-nav" href="#main-content">Skip to main content</a>
+    {% include "edge-blur.njk" %}
     {% include "site-header.html" %}
     {{ content | safe }}
     {% for script in scripts %}
