@@ -113,8 +113,6 @@
   }
 
   function startPlayback() {
-    // Keep the native widget visible during playback, including provider ads.
-    showSource(true);
     panel.removeAttribute('data-error');
     status.textContent = 'Loading audio…';
     play.setAttribute('aria-busy', 'true');
@@ -177,12 +175,7 @@
         if (pendingPlay) startPlayback();
       });
       bind(events.PLAY, () => {
-        if (source.hidden) {
-          widget.pause();
-          return;
-        }
         finished = false;
-        showSource(true);
         clearPlaybackStatus();
         setPlaying(true);
       });
@@ -235,7 +228,6 @@
       pausePlayback();
       return;
     }
-    showSource(true);
     if (!ready) {
       panel.removeAttribute('data-error');
       pendingPlay = true;
@@ -255,9 +247,9 @@
     dragging = false;
     lastProgressAt = Date.now();
   });
+  // The optional native player is independent of mini-player playback.
   sourceToggle.addEventListener('click', () => {
     if (!source.hidden) {
-      pausePlayback();
       showSource(false);
       return;
     }
@@ -265,7 +257,6 @@
     initialize();
   });
   panel.querySelector('[data-music-source-close]').addEventListener('click', () => {
-    pausePlayback();
     showSource(false);
     sourceToggle.focus();
   });
