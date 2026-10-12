@@ -1,0 +1,13 @@
+{% macro workCard(project, position, center) %}
+<a class="showcase-card" data-kind="work" data-year="{{ project.data.year }}" data-showcase-title="{{ project.data.cardTitle | escape }}" href="{{ project.url }}" aria-label="View {{ project.data.cardTitle | escape }} case study" style="--slot: {{ position - center }}; --order: {{ position }};">
+  <span class="showcase-photo"><img src="{{ project.data.cardImage.image }}-thumb.webp" width="{{ project.data.cardImage.width }}" height="{{ project.data.cardImage.height }}" alt="{{ project.data.cardImageAlt | escape }}" loading="eager" decoding="async" draggable="false" /></span>
+</a>
+{% endmacro %}
+
+{% macro artCard(artwork, position, center) %}
+{% set artScale = (artwork.width / artwork.height) * 0.87 %}
+{% if artScale > 1.15 %}{% set artScale = 1.15 %}{% endif %}
+<button type="button" class="showcase-card" data-kind="art" data-art-width="{{ artwork.width }}" data-art-height="{{ artwork.height }}" data-showcase-title="{{ artwork.title | escape }}" aria-label="View {{ artwork.title | escape }}" data-modal-src="{{ artwork.image }}-large.webp" data-alt="{{ artwork.alt | escape }}" data-title="{{ artwork.title | escape }}" data-year="{{ artwork.year | escape }}" data-medium="{{ artwork.medium | escape }}" data-dimensions="{{ artwork.dimensions_text | escape }}" style="--slot: {{ position - center }}; --order: {{ position }}; --art-ratio: {{ artwork.width }} / {{ artwork.height }}; --art-width-scale: {{ artScale }};">
+  <span class="showcase-photo"><img src="{{ artwork.image }}-thumb.webp" width="{{ artwork.width }}" height="{{ artwork.height }}" alt="{{ artwork.alt | escape }}" loading="eager" decoding="async" draggable="false" /></span>
+</button>
+{% endmacro %}

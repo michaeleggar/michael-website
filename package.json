@@ -5,11 +5,21 @@
     "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && eleventy",
     "dev": "eleventy --serve",
-    "verify": "npm run build && node scripts/check-build.js"
+    "verify": "npm run build && node scripts/check-build.js",
+    "bundle:contacts": "node scripts/bundle-contact-menu.js",
+    "prebuild": "npm run bundle:contacts",
+    "predev": "npm run bundle:contacts"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "dialkit": "2.0.2",
+    "esbuild": "^0.28.2",
     "sharp": "^0.35.3"
+  },
+  "dependencies": {
+    "bloom-menu": "^0.1.0",
+    "framer-motion": "^14.1.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   }
 }

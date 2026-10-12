@@ -10,7 +10,7 @@
   break-inside: avoid;
   overflow: hidden;
   border-radius: var(--card-radius);
-  background: var(--accent-three);
+  background: var(--surface);
 }
 
 .art-item button {
@@ -50,7 +50,7 @@
   padding: calc(var(--space-sm) / 2);
   overflow: hidden;
   border: 0;
-  background: var(--bg);
+  background: var(--background);
   color: var(--text-primary);
 }
 
@@ -75,7 +75,7 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: var(--modal-close);
+  color: var(--text-secondary);
   cursor: pointer;
   font: 400 1.5rem / 1 var(--font-body);
   transition:
@@ -134,7 +134,7 @@
 @media (hover: hover) and (pointer: fine) {
   .modal-close:hover {
     color: var(--text-primary);
-    background: var(--accent-three);
+    background: var(--surface);
   }
 }
 

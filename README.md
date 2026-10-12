@@ -6,9 +6,10 @@ An Eleventy static site with Nunjucks templates, plain CSS, and a small browser 
 
 | File | Owns |
 | --- | --- |
-| [styles.css](assets/css/styles.css) | Shared fonts, system light/dark themes, design tokens, typography, accessibility, page width, and introductions |
+| [styles.css](assets/css/styles.css) | Shared fonts, colors, design tokens, typography, accessibility, page width, and introductions |
 | [header.css](assets/css/header.css) | Site navigation and contact links |
-| [portfolio.css](assets/css/portfolio.css) | Homepage name treatment and the Home/Work project grids and cards |
+| [portfolio.css](assets/css/portfolio.css) | Homepage name treatment and the Work project grid and cards |
+| [showcase.css](assets/css/showcase.css) | Homepage work/art fan, photographic frames, and responsive presentation |
 | [case-study.css](assets/css/case-study.css) | Project introductions, details, copy, and images |
 | [art.css](assets/css/art.css) | Artwork gallery and image dialog |
 
@@ -16,26 +17,21 @@ Keep each feature's responsive and reduced-motion rules in its own stylesheet. S
 
 The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the files listed in the page or layout's `stylesheets` frontmatter. Add browser scripts through the `scripts` frontmatter. Case studies only load CSS in the published site.
 
-## Navigation tuning
+## Design tokens
 
-During a local Eleventy serve session, add `?dialkit` to any page URL to open Josh Puckett's DialKit panel. For example: `http://localhost:8080/work/ductworx/?dialkit`.
-
-The current site defaults use the finalized solid navigation surface with a subtle rim and shadow, 27px visible pills, and 6px outer insets. These styles live in `assets/css/header.css` and work without the tuning panel. DialKit starts with the same desktop geometry and surface settings; narrower layouts retain their responsive spacing.
-
-**Navigation Colors** switches the whole preview between System, Light, and Dark. Each mode stores its own surface, rim, and divider colors, plus independent text, hover, active-pill, and focus colors for the primary and contact groups. Divider controls include visibility, solid/dashed/dotted/faded styles, opacity, height, thickness, rounding, and position. Color settings combine with Navigation Surface's opacity and lighting controls and remain local to `?dialkit`.
-
-**Navigation** adjusts spacing, visible pill height, typography, and native squircle curvature. **Navigation Surface** explores opacity, blur, saturation, brightness, refraction, chromatic aberration, rim lighting, sheen, and shadow. **Inner Bevel** shares one curved surface between refraction and directional edge lighting: choose Rounded, Squircle, or Soft, then adjust Depth, Highlight, Shade, Light Angle, and Light Spread. **Optics → Edge Width** sets the shared bevel's width. The center stays transparent, independent of the face sheen. Start with the clear, frosted, liquid, or solid presets, then tune the sliders. **Page Edges** adjusts the shared top/bottom progressive blur's height and strength so you can see the material in context. Surface presets preserve geometry and page-edge settings.
-
-Both panels retain values and versions in this browser. Use their reset buttons to return to the defaults configured in `assets/scripts/navigation-tuner.js`, or **Copy parameters** to copy settings for applying to the site. Preview changes do not write source files. The lens uses a simplified Snell refraction model with a refractive index of 1.5, a grazing-angle transmission fade, and a reflection map generated from the same surface normals. RGB dispersion scales with the lens strength. Maps match the rail's dimensions and corners, are cached between parameter changes, and regenerate at most once per animation frame. Labels remain unfiltered. Live SVG backdrop refraction is enabled in Chromium; other engines keep ordinary blur and the bevel lighting. Set Refraction to zero to preview that material without lens distortion. The old decorative inset/width controls are replaced by the shared profile and depth controls.
-
-The vanilla adapter is pinned as a development dependency. Eleventy exposes its JavaScript, CSS, and MIT license only in serve mode; production pages do not load the tuner. The tuning panel also requires a local hostname and the explicit query parameter.
+Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation retains the same typography and row sizing. The Other Stuff menu uses Bloom, with its React source in `scripts/ui/contact-menu.jsx`. Run `npm run bundle:contacts` after changing that source; dev and production build commands also bundle it automatically. The generated `assets/scripts/contact-menu.js` is ignored by Git; the UI source and bundling script are the source of truth.
 
 ## Content and behavior
 
 - `src/index.html`, `src/work/index.html`, and `src/art/index.html` serve Hey, Work, and Art as separate pages with ordinary navigation links. The homepage has a small redirect for old `/#work` and `/#art` bookmarks; current navigation works without JavaScript.
 - `src/work/*/index.html` contains project content and card metadata. Project cards link directly to these pages.
-- `src/_includes/project-card.njk` renders both the homepage preview cards and the full Work grid.
-- `src/_data/art.json` supplies the artwork gallery through Eleventy's built-in data loading. `assets/scripts/art.js` is loaded only on the Art page and fills and opens its native dialog.
+- `src/_includes/project-card.njk` renders the Work grid.
+- `src/_includes/home-showcase.njk` mixes project photographs and artworks listed by image slug in `src/_data/site.json`. Artwork frames retain their original aspect ratios. `scripts/ui/showcase.js` handles pointer lift, keyboard browsing, and reduced motion, and is included in the shared browser bundle. Artwork opens the same native dialog used on the Art page.
+- The fan scales with available width. On mobile it centers one card with two neighboring previews; horizontal swipes snap through the selection. Tap a preview to center it, then tap the centered card to open it. Vertical scrolling remains available, and keyboard or reduced-motion browsing updates immediately.
+- Interface icons use Heroicons Micro, normally at 16px; the copy-confirmation heart is 12px.
+- `scripts/ui/showcase-settings.js` holds the saved fan defaults. The DialKit panel is off by default; start local development with `SHOWCASE_DIALKIT=1` to enable its controls and JSON export again. The panel and its vendor assets are excluded from production.
+- The saved typography and spacing live in the shared CSS tokens. Start local development with `TYPE_DIALKIT=1` to reopen the homepage Type & Spacing DialKit. Both tuners live in `scripts/dev/` and are copied into the preview only when enabled; their scripts and vendor assets are excluded from ordinary production builds. The type tuner preserves the mobile gutter and page spacing rules.
+- `src/_data/art.json` supplies the artwork gallery through Eleventy's built-in data loading. `assets/scripts/art.js` is loaded on the homepage and Art page and fills and opens their native dialogs.
 - Case-study project details use a definition list styled as label/value rows in `case-study.css`.
 - `assets/images/optimized/` contains the prepared WebP images and JPEG social previews. Eleventy copies this directory as-is.
 

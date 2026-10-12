@@ -1,8 +1,7 @@
 .music-player {
-  --accent-three: var(--active);
-  --text-primary: var(--bg);
-  --text-secondary: var(--bg);
-  --text-underline: color-mix(in oklch, var(--bg) 35%, var(--active));
+  --surface: var(--accent);
+  --text-primary: var(--background);
+  --text-secondary: var(--background);
   position: fixed;
   left: max(var(--page-gutter), env(safe-area-inset-left));
   bottom: max(var(--page-gutter), env(safe-area-inset-bottom));
@@ -16,7 +15,7 @@
   padding: 6px 10px;
   border-radius: 16px;
   corner-shape: superellipse(1.6);
-  background: var(--accent-three);
+  background: var(--surface);
   color: var(--text-primary);
   font-family: var(--font-body);
   text-align: center;
@@ -36,7 +35,7 @@
   height: 44px;
   padding: 1px;
   border-radius: 50%;
-  background: var(--text-underline);
+  background: currentColor;
   animation: music-disc-spin 8s linear;
   animation-iteration-count: infinite;
   animation-play-state: paused;
@@ -52,9 +51,9 @@
   content: "";
   position: absolute;
   inset: 37.5%;
-  border: 1px solid var(--text-underline);
+  border: 1px solid currentColor;
   border-radius: 50%;
-  background: var(--accent-three);
+  background: var(--surface);
   opacity: 0;
   transform: scale(0.8);
   transition:
@@ -108,9 +107,9 @@
 }
 .music-player-seek::-webkit-slider-runnable-track {
   height: 2px;
-  background: linear-gradient(to right, var(--text-secondary) var(--progress), var(--text-underline) var(--progress));
+  background: linear-gradient(to right, var(--text-secondary) var(--progress), currentColor var(--progress));
 }
-.music-player-seek::-moz-range-track { height: 2px; background: var(--text-underline); }
+.music-player-seek::-moz-range-track { height: 2px; background: currentColor; }
 .music-player-seek::-moz-range-progress { height: 2px; background: var(--text-secondary); }
 .music-player-seek::-webkit-slider-thumb {
   appearance: none;
@@ -134,7 +133,7 @@
   color: var(--text-secondary);
   cursor: pointer;
 }
-.music-player-controls svg { width: 17px; height: 17px; fill: currentColor; }
+.music-player-controls svg { width: 16px; height: 16px; fill: currentColor; }
 .music-player-controls button:disabled { opacity: .35; cursor: default; }
 .music-player-controls button:hover:enabled { background: color-mix(in oklch, var(--text-primary) 6%, transparent); }
 .music-player :focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
@@ -168,7 +167,7 @@
   padding: 8px;
   clip-path: none;
   border-radius: 8px;
-  background: var(--accent-three);
+  background: var(--surface);
 }
 .music-player-status:empty { display: none; }
 

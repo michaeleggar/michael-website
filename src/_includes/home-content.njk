@@ -1,7 +1,7 @@
   <div class="page-intro">
-    <h1 class="portfolio-home-title">Hey there, I’m Michael Eggar</h1>
+    <h1 class="portfolio-home-title">Michael Eggar</h1>
     <p class="page-lede">
-      I’m a developer, designer, and artist.
+      Hey there, I’m a developer, designer, and an artist.
     </p>
     <p>
       I’m currently the senior front-end developer at
@@ -22,15 +22,4 @@
     </p>
   </div>
 
-  <section
-    class="page-section"
-    aria-label="Selected work"
-  >
-    <div class="portfolio-selected-work-grid">
-      {% for project in collections.workProjects %}
-        {% if loop.index <= 2 %}
-          {% include "project-card.njk" %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  </section>
+  {% include "home-showcase.njk" %}

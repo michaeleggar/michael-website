@@ -1,0 +1,75 @@
+/* A mixed fan of photographs, with distinct work and art silhouettes. */
+.home-showcase {
+  --showcase-work-radius: 14px;
+  --showcase-art-radius: 7px;
+  --showcase-card-width: var(--showcase-desktop-width, 271px);
+  width: min(calc(100vw - 2 * var(--page-gutter)), var(--showcase-max-width, 1600px));
+  margin-inline-start: 50%;
+  transform: translateX(-50%);
+}
+.showcase-stage {
+  position: relative;
+  height: var(--showcase-stage-height, 410px);
+  isolation: isolate;
+  overflow: clip;
+  overflow-clip-margin: 32px;
+  touch-action: pan-y pinch-zoom;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.showcase-card {
+  position: absolute;
+  left: 50%;
+  top: var(--showcase-card-top, 38px);
+  width: var(--showcase-card-width);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transform: translateX(calc(-50% + var(--slot) * 105px)) translateY(calc(105px - var(--slot) * var(--slot) * 6px)) rotate(calc(var(--slot) * -5deg));
+  transform-origin: center;
+  z-index: calc(10 + var(--order));
+  -webkit-tap-highlight-color: transparent;
+}
+.showcase-photo {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--showcase-work-aspect, 1.45);
+  border-radius: var(--showcase-work-radius);
+  corner-shape: superellipse(1.6);
+  background: var(--showcase-frame-color, var(--surface));
+  box-shadow: var(--showcase-shadow, 0 12px 24px color-mix(in oklch, var(--background) 55%, transparent));
+  filter: blur(0);
+  transition: filter var(--showcase-blur-duration, 120ms) ease-out;
+}
+.showcase-stage[data-has-active] .showcase-card:not([data-active]) .showcase-photo { filter: blur(var(--showcase-inactive-blur, 0px)); }
+.showcase-card[data-kind="art"] { width: calc(var(--showcase-card-width) * var(--art-width-scale)); }
+.showcase-card[data-kind="art"] .showcase-photo { aspect-ratio: var(--art-ratio); border-radius: var(--showcase-art-radius); }
+.showcase-card[data-kind="art"] img { object-fit: contain; }
+.showcase-photo img { display: block; width: 100%; height: 100%; object-fit: var(--showcase-work-fit, cover); pointer-events: none; }
+.showcase-label { display: flex; justify-content: center; align-items: center; gap: 6px; min-height: calc(var(--showcase-label-size, var(--type-meta)) * var(--line-snug)); white-space: nowrap; margin-top: var(--showcase-label-gap, 12px); font-size: var(--showcase-label-size, var(--type-meta)); font-weight: 500; line-height: var(--line-snug); opacity: 0; transition: opacity 140ms ease; pointer-events: none; }
+.showcase-title { display: block; color: var(--text-primary); }
+.showcase-tag { display: block; flex: none; padding: 3px 7px; border-radius: calc(var(--control-radius) * 0.65); corner-shape: superellipse(1.6); background: color-mix(in oklch, var(--text-primary) 6%, transparent); white-space: nowrap; color: var(--text-primary); font-size: var(--showcase-detail-size, 11px); font-weight: 500; letter-spacing: 0.01em; line-height: 1.4; }
+.showcase-label[data-visible] { opacity: var(--showcase-label-opacity, 1); }
+.showcase-card:focus-visible { outline: none; }
+.showcase-card:focus-visible .showcase-photo { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 780px) {
+  .home-showcase { --showcase-card-width: var(--showcase-mobile-width, 210px); width: calc(100vw - 2rem); }
+  .showcase-stage { height: var(--showcase-mobile-height, 330px); overflow: clip; overflow-clip-margin: 12px; }
+  .showcase-card[data-mobile-hidden] { opacity: 0; pointer-events: none; }
+  .showcase-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase-label { transition: opacity 120ms ease; }
+  .showcase-photo { transition: none; }
+  .showcase-stage { cursor: auto; }
+}
+@supports not (transform: translateX(calc(1px * 1))) {
+  .showcase-card { transform: none; }
+}

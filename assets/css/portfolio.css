@@ -10,21 +10,14 @@
 
 .portfolio-home-title {
   margin: 0;
-  color: var(--active);
+  color: var(--accent);
   font-family: "Oddball", var(--font-body);
-  font-size: var(--type-lg);
+  font-size: var(--home-title-size);
   font-weight: 400;
   font-feature-settings: "calt" 1;
-  letter-spacing: 0.2rem;
-  line-height: var(--line-body);
+  letter-spacing: var(--home-title-tracking);
+  line-height: var(--home-title-line);
   text-transform: lowercase;
-}
-
-.portfolio-showcase-title {
-  margin: 0 0 var(--space-md);
-  font-size: var(--type-base);
-  font-weight: 500;
-  line-height: var(--line-snug);
 }
 
 /* Project grid */
@@ -68,7 +61,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--space-md);
+  gap: var(--project-meta-gap);
 }
 
 .portfolio-project-title-row time {

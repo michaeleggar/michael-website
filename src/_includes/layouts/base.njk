@@ -15,15 +15,17 @@
     {% include "site-header.html" %}
     {% include "music-player.html" %}
     {{ content | safe }}
-    <script src="/assets/scripts/copy-email.js" defer></script>
+    <script src="/assets/scripts/contact-menu.js" defer></script>
     <script src="/assets/scripts/music-player.js" defer></script>
     <script src="/assets/scripts/page-navigation.js" defer></script>
     {% for script in scripts %}
       <script src="/assets/scripts/{{ script }}.js" data-page-script></script>
     {% endfor %}
-    {% if navigationTuningEnabled %}
-      <script type="module" src="/assets/scripts/site-color-tuner.js"></script>
-      <script type="module" src="/assets/scripts/navigation-tuner.js"></script>
+    {% if showcaseTuningEnabled %}
+      <script type="module" src="/assets/scripts/showcase-tuner.js"></script>
+    {% endif %}
+    {% if page.url == "/" and eleventy.env.runMode == "serve" and typeTuningEnabled %}
+      <script type="module" src="/assets/scripts/type-spacing-tuner.js"></script>
     {% endif %}
   </body>
 </html>

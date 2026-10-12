@@ -37,7 +37,7 @@
         reject(new DOMException('Navigation canceled', 'AbortError'));
       };
       const cleanup = () => signal.removeEventListener('abort', abort);
-      link.onload = () => resolve(link);
+      link.onload = () => { cleanup(); resolve(link); };
       link.onerror = () => { cleanup(); link.remove(); reject(new Error('Page stylesheet failed to load')); };
       signal.addEventListener('abort', abort, { once: true });
       document.head.append(link);

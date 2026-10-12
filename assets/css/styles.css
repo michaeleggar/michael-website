@@ -37,27 +37,25 @@
 /* Theme and design tokens */
 
 :root {
-  --active: oklch(83.952% 0.055 114.97);
-  --primary: oklch(70.537% 0.0191 92.75);
-  --primary-hover: var(--active);
-  --accent-three: oklch(30.36% 0.0056 56.18);
-  --bg: oklch(23% 0.0046 17.46);
-  --text-primary: oklch(92% 0.018 95);
-  --text-secondary: oklch(70% 0.014 87);
-  --text-muted: oklch(62% 0.01 85);
-  --text-underline: oklch(44.709% 0.0089 80.7);
-  --modal-backdrop: oklch(10.889% 0.003 17.62 / 0.9);
-  --modal-close: var(--primary);
+  --accent: oklch(83.952% 0.055 114.97);
+  --text-secondary: oklch(70.537% 0.0234 73.87);
+  --surface: oklch(30.36% 0.0121 156.48);
+  --background: oklch(21.068% 0.0121 156.48);
+  --text-primary: oklch(90.093% 0.0234 73.87);
+  --text-muted: oklch(62% 0.0234 73.87);
+  --modal-backdrop: color-mix(in oklch, var(--background) 90%, transparent);
   color-scheme: dark;
 
-  --content-width: 43.75rem;
-  --page-gutter: 2rem;
-  --space-sm: 1rem;
+  --content-width: 38.75rem;
+  --page-gutter: 2.5rem;
+  --space-sm: 0.75rem;
   --space-md: 1.6rem;
   --space-lg: 2rem;
   --space-xl: 3rem;
   --border-radius: 6px;
-  --card-radius: 12px;
+  --surface-radius: 12px;
+  --control-radius: 11px;
+  --card-radius: var(--surface-radius);
   --font-body: "Lato", sans-serif;
   --type-meta: 0.8125rem;
   --type-xs: 0.875rem;
@@ -67,7 +65,24 @@
   --type-lg: 1.75rem;
   --line-title: 1.2;
   --line-snug: 1.45;
-  --line-body: 1.55;
+  --line-body: 1.5;
+  /* Shared layout and interface tokens. */
+  --home-title-size: 1rem;
+  --home-title-tracking: 0.2rem;
+  --home-title-line: 1.55;
+  --page-top-space: 3.25rem;
+  --paragraph-gap: 1.1875rem;
+  --section-gap: 0.75rem;
+  --project-meta-gap: var(--space-md);
+  --header-top-space: 1rem;
+  --nav-font-size: 14px;
+  --nav-height: 33px;
+  --nav-padding-inline: 11.5px;
+  --nav-gap: 10px;
+  --other-menu-min-width: 168px;
+  --other-menu-padding: 6px;
+  --other-menu-gap: 6px;
+  --other-note-size: calc(var(--type-meta) * 11 / 13);
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -85,7 +100,7 @@
 html {
   scroll-padding-block-start: 7rem;
   scrollbar-gutter: stable;
-  scrollbar-color: var(--text-underline) transparent;
+  scrollbar-color: currentColor transparent;
   scrollbar-width: thin;
 }
 
@@ -98,7 +113,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background: var(--bg);
+  background: var(--background);
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: var(--type-base);
@@ -107,12 +122,12 @@ body {
 }
 
 ::selection {
-  background: var(--primary-hover);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--background);
 }
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--text-secondary);
   outline-offset: 3px;
 }
 
@@ -142,7 +157,7 @@ img {
   padding: 0.45rem 0.7rem;
   border-radius: var(--border-radius);
   background: var(--text-primary);
-  color: var(--bg);
+  color: var(--background);
   text-decoration: none;
   transform: translateY(calc(-100% - 1.5rem));
 }
@@ -154,14 +169,14 @@ img {
 /* Typography and links */
 
 a {
-  color: var(--primary);
-  text-decoration-color: var(--text-underline);
+  color: var(--text-secondary);
+  text-decoration-color: currentColor;
   text-decoration-thickness: 0.1em;
   transition: color 140ms ease;
 }
 
 a:hover {
-  color: var(--primary-hover);
+  color: var(--accent);
 }
 
 h1,
@@ -202,11 +217,11 @@ p {
 .page-content {
   width: min(calc(100% - 2 * var(--page-gutter)), var(--content-width));
   margin-inline: auto;
-  padding-block: 2.5rem var(--space-xl);
+  padding-block: var(--page-top-space) var(--space-xl);
 }
 
 .page-intro {
-  max-width: 37.5rem;
+  max-width: var(--content-width);
 }
 
 .page-intro p {
@@ -221,11 +236,11 @@ p {
 
 .page-intro h1 + p,
 .page-intro p + p {
-  margin-block-start: var(--space-md);
+  margin-block-start: var(--paragraph-gap);
 }
 
 .page-section {
-  margin-block-start: 5rem;
+  margin-block-start: var(--section-gap);
 }
 
 @media (max-width: 780px) {

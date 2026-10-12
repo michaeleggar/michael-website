@@ -6,5 +6,6 @@ vendor
 .DS_Store
 node_modules/
 dist/
+assets/scripts/contact-menu.js
 notes.md
 .vscode
