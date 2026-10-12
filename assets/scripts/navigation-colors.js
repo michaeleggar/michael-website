@@ -1,43 +1,31 @@
-// Local DialKit preview; palettes stay independent when switching modes.
+// Local DialKit preview for the site's dark palette.
 export function createNavigationColors(DialKit, root) {
   const stylesheet = document.createElement("style");
   stylesheet.dataset.navigationColorTuner = "";
   document.head.append(stylesheet);
-  const systemTheme = matchMedia("(prefers-color-scheme: light)");
   const color = value => ({ type: "color", default: value });
-  const group = (text, background) => ({
+  const group = (text, background, activePill) => ({
     _collapsed: true,
     text: color(text),
     hoverText: color(text),
     hoverPill: color(text.replace(/\)$/, " / 0.06)")),
     activeText: color(background),
-    activePill: color(text),
+    activePill: color(activePill),
     focusRing: color(text),
   });
-  const palette = (text, background, surface, divider, rim) => ({
+  const palette = (text, background, surface, divider, rim, activePill) => ({
     _collapsed: true,
     surface: color(surface),
     rim: color(rim),
     divider: color(divider),
-    primary: group(text, background),
-    contact: group(text, background),
+    primary: group(text, background, activePill),
+    contact: { ...group(text, background, activePill), text: color(activePill) },
   });
 
   let kit;
   kit = DialKit.createDialKit("Navigation Colors", {
-    mode: {
-      type: "select",
-      options: [
-        { value: "system", label: "System" },
-        { value: "light", label: "Light" },
-        { value: "dark", label: "Dark" },
-      ],
-      default: "system",
-    },
-    light: palette("oklch(20% 0.006 34)", "oklch(99.668% 0.0054 95.1)",
-      "oklch(94.5% 0.008 96)", "oklch(82.305% 0.0099 93.59)", "#000000"),
     dark: palette("oklch(92% 0.018 95)", "oklch(23% 0.0046 17.46)",
-      "oklch(30.36% 0.0056 56.18)", "oklch(44.709% 0.0089 80.7)", "#ffffff"),
+      "oklch(30.36% 0.0056 56.18)", "oklch(44.709% 0.0089 80.7)", "oklch(100% 0 0)", "oklch(83.952% 0.055 114.97)"),
     divider: {
       visible: true,
       style: {
@@ -67,15 +55,13 @@ export function createNavigationColors(DialKit, root) {
   });
 
   const apply = values => {
-    const mode = values.mode === "system" ? (systemTheme.matches ? "light" : "dark") : values.mode;
-    root.element.dataset.theme = mode;
-    const { light, dark, divider } = values;
+    root.element.dataset.theme = "dark";
+    const { dark, divider } = values;
     const themed = (key, groupName) => {
-      const lightColor = groupName ? light[groupName][key] : light[key];
       const darkColor = groupName ? dark[groupName][key] : dark[key];
       // Ignore incomplete color entries rather than inserting invalid CSS.
       const valid = value => CSS.supports("color", value) && !/[;{}]/.test(value);
-      return valid(lightColor) && valid(darkColor) ? `light-dark(${lightColor}, ${darkColor})` : "";
+      return valid(darkColor) ? darkColor : "";
     };
     const declarations = (keys, groupName) => keys.map(key => {
       const value = themed(key, groupName);
@@ -101,7 +87,7 @@ export function createNavigationColors(DialKit, root) {
     const rim = themed("rim");
     const separator = themed("divider");
     stylesheet.textContent = `
-      :root { color-scheme: ${mode}; }
+      :root { color-scheme: dark; }
       .site-header-inner {
         ${surface ? `--nav-surface-color: ${surface};` : ""}
         ${rim ? `--nav-rim-color: ${rim};` : ""}
@@ -122,22 +108,19 @@ export function createNavigationColors(DialKit, root) {
           ? "background: linear-gradient(to bottom, transparent, var(--nav-divider-color) 30%, var(--nav-divider-color) 70%, transparent);"
           : `border-inline-start: ${divider.thickness}px ${divider.style} var(--nav-divider-color);`}
       }
-      @media (max-width: 359px) {
+      @media (max-width: 500px) {
         .site-header-contact {
           border-block-start: ${divider.visible ? divider.thickness : 0}px ${divider.style === "fade" ? "solid" : divider.style}
-            color-mix(in srgb, var(--nav-divider-color) ${divider.opacity}%, transparent);
+            color-mix(in oklch, var(--nav-divider-color) ${divider.opacity}%, transparent);
         }
         .site-header-contact::before { display: none; }
       }
     `;
   };
   const stop = kit.subscribe(apply);
-  const onSystemThemeChange = () => apply(kit.getValues());
-  systemTheme.addEventListener("change", onSystemThemeChange);
   return {
     destroy() {
       stop();
-      systemTheme.removeEventListener("change", onSystemThemeChange);
       kit.destroy();
       stylesheet.remove();
     },

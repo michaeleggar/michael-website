@@ -7,54 +7,6 @@ layout: layouts/base.njk
 stylesheets: [portfolio]
 ---
 
-<script>
-  // Support bookmarks from before Work and Art had their own pages.
-  function redirectLegacySection() {
-    const page = { "#work": "/work/", "#art": "/art/" }[location.hash.toLowerCase()];
-    if (page) location.replace(page + location.search);
-  }
-  window.addEventListener("hashchange", redirectLegacySection);
-  redirectLegacySection();
-</script>
-
 <main id="main-content" class="page-content">
-  <div class="page-intro">
-    <h1 class="portfolio-home-title">Michael Eggar</h1>
-    <p class="page-lede">
-      Hey there, I’m a front-end developer, designer, and artist.
-    </p>
-    <p>
-      I’m currently the senior front-end developer at
-      <a href="https://www.kochcomm.com">Koch Comm</a>, where I design
-      and build websites for a wide range of organizations.
-    </p>
-    <p>
-      Outside of work, I make <a href="/art/">art</a>, crochet, sew,
-      and co-run
-      <a href="https://cow-boys-collab.com">cow-boys collab</a>. I love
-      science fiction, and I’m currently reading
-      <a
-        href="https://www.goodreads.com/en/book/show/13497991-the-hydrogen-sonata"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><cite>The Hydrogen Sonata</cite></a
-      >.
-    </p>
-  </div>
-
-  <section
-    class="page-section"
-    aria-labelledby="selected-work-title"
-  >
-    <h2 id="selected-work-title" class="portfolio-showcase-title">
-      Selected work
-    </h2>
-    <div class="portfolio-selected-work-grid">
-      {% for project in collections.workProjects %}
-        {% if loop.index <= 2 %}
-          {% include "project-card.njk" %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  </section>
+  {% include "home-content.njk" %}
 </main>

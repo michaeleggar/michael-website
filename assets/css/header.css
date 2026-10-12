@@ -41,21 +41,21 @@
   -webkit-mask-image: linear-gradient(
     var(--blur-direction),
     transparent var(--blur-start),
-    black calc(var(--blur-start) + 12.5%),
-    black calc(var(--blur-start) + 25%),
+    oklch(0% 0 0) calc(var(--blur-start) + 12.5%),
+    oklch(0% 0 0) calc(var(--blur-start) + 25%),
     transparent calc(var(--blur-start) + 37.5%)
   );
   mask-image: linear-gradient(
     var(--blur-direction),
     transparent var(--blur-start),
-    black calc(var(--blur-start) + 12.5%),
-    black calc(var(--blur-start) + 25%),
+    oklch(0% 0 0) calc(var(--blur-start) + 12.5%),
+    oklch(0% 0 0) calc(var(--blur-start) + 25%),
     transparent calc(var(--blur-start) + 37.5%)
   );
 }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))
-  and ((mask-image: linear-gradient(black, transparent)) or (-webkit-mask-image: linear-gradient(black, transparent))) {
+  and ((mask-image: linear-gradient(oklch(0% 0 0), transparent)) or (-webkit-mask-image: linear-gradient(oklch(0% 0 0), transparent))) {
   .site-edge-blur {
     display: block;
   }
@@ -66,30 +66,54 @@
   }
 }
 
-.site-header-inner {
-  --nav-active-bg: var(--text-primary);
-  --nav-active-text: var(--bg);
-  --nav-ring: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+.site-header-group {
   --nav-item-gap: 5px;
   --nav-item-padding: 11px;
-  --nav-group-gap: 14px;
   --nav-pill-inset: 3.5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+.site-header-inner,
+.site-header-contact,
+.site-music {
+  border-radius: 16px;
+  corner-shape: superellipse(1.6);
+  pointer-events: auto;
+}
+
+.site-music {
+  background: var(--accent-three);
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 39px;
+  padding: 0 13px;
+  border: 0;
+  color: var(--text-secondary);
+  font: 400 13px / 1 var(--font-body);
+  opacity: 1;
+}
+
+.site-header-inner {
+  --nav-active-bg: var(--active);
+  --nav-active-text: var(--bg);
+  --nav-group-gap: 14px;
   width: max-content;
   max-width: 100%;
-  margin-inline: auto;
   /* The 27px visible pills have an even 6px inset inside the rail. */
   padding: 2.5px 6px;
   display: flex;
   align-items: center;
   gap: var(--nav-group-gap);
-  border-radius: 16px;
-  corner-shape: superellipse(1.6);
-  background: var(--accent-three);
-  box-shadow:
-    inset 0 0 0 1px var(--nav-ring),
-    0 2px 4px rgb(0 0 0 / 0.12),
-    0 8px 24px -8px rgb(0 0 0 / 0.24);
-  pointer-events: auto;
 }
 
 .site-nav-links {
@@ -110,9 +134,7 @@
   justify-content: center;
   height: 34px;
   min-height: 34px;
-  /* Lato's visible letters sit high in its line box; lower the labels 1px
-     while preserving the link height and the active pill's even inset. */
-  padding: calc(0.5rem + 1px) var(--nav-item-padding) calc(0.5rem - 1px);
+  padding: 0.5rem var(--nav-item-padding);
   border-radius: 11px;
   corner-shape: superellipse(1.6);
   color: var(--text-primary);
@@ -162,34 +184,85 @@
   display: flex;
   align-items: center;
   gap: var(--nav-item-gap);
-}
-
-/* A short divider keeps both groups on the same optical center. */
-.site-header-contact::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: calc(var(--nav-group-gap) / -2 - 0.5px);
-  top: 50%;
-  height: 1rem;
-  border-inline-start: 1px solid var(--text-underline);
-  transform: translateY(-50%);
+  max-width: 100%;
+  margin-inline-start: auto;
+  padding: 2.5px 6px;
 }
 
 .header-contact-link {
-  font-size: 14px;
+  gap: 4px;
+  /* Lower Lato's visible letters to the rail's optical center. */
+  padding-block: calc(0.5rem + 1px) calc(0.5rem - 1px);
+  color: var(--text-secondary);
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0;
 }
 
-@media (max-width: 440px) {
-  .site-header {
-    padding-inline: 0.75rem;
-  }
+.header-contact-link svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  /* Align the painted arrow with Lato's letterforms, not its SVG box. */
+  margin-inline: -2px;
+  transform: translateY(-1.5px);
+}
 
-  .site-header-inner {
+.header-email {
+  position: relative;
+}
+
+.header-email-copy {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.header-email-tooltip {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 10px);
+  left: 50%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--accent-three);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-4px) scale(0.96);
+  transform-origin: top center;
+  transition:
+    opacity 120ms ease,
+    transform 120ms var(--ease-out-expo);
+}
+
+.header-email[data-visible] .header-email-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition-duration: 160ms;
+}
+
+/* Keyboard confirmations appear immediately. */
+.header-email[data-instant] .header-email-tooltip {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-email .header-email-tooltip {
+    transform: translateX(-50%);
+    transition-property: opacity;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header-group {
     --nav-item-gap: 0.25rem;
     --nav-item-padding: 0.375rem;
-    --nav-group-gap: 0.75rem;
   }
 
   .header-contact-link {
@@ -197,33 +270,13 @@
   }
 }
 
-/* Keep labels and spacing intact when a single row no longer fits. */
 @media (max-width: 359px) {
-  .site-header-inner {
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.375rem calc(0.375rem + var(--nav-pill-inset));
-    border-radius: 1.5rem;
+  .site-music {
+    width: 39px;
+    padding: 0;
   }
 
-  .site-header-inner nav {
-    width: 100%;
-  }
-
-  .site-nav-links {
-    width: 100%;
-  }
-
-  .site-nav-links li {
-    flex: 1;
-  }
-
-  .site-header-contact {
-    padding-block-start: 0.25rem;
-    border-block-start: 1px solid var(--text-underline);
-  }
-
-  .site-header-contact::before {
+  .site-music-label {
     display: none;
   }
 }

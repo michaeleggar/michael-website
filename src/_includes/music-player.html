@@ -1,0 +1,25 @@
+<section id="music-player" class="music-player" aria-label="Music player">
+  <span class="music-player-disc" aria-hidden="true">
+    <img class="music-player-art" src="/assets/images/optimized/magdalena-bay-imaginal-disk.jpg" alt="" width="44" height="44" />
+  </span>
+  <div class="music-player-content">
+    <div class="music-player-heading">
+      <div class="music-player-meta">
+        <a class="music-player-title" href="https://soundcloud.com/magbae/angel-on-a-satellite" target="_blank" rel="noopener noreferrer">Angel on a Satellite</a>
+        <p class="music-player-artist">Magdalena Bay · <button type="button" data-music-source-toggle aria-label="Show SoundCloud player" aria-expanded="false" aria-controls="music-player-source" style="padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; cursor: pointer;">SoundCloud</button></p>
+      </div>
+    </div>
+    <input class="music-player-seek" type="range" min="0" max="243" value="0" step="1" aria-label="Seek through song" aria-valuetext="0:00 of 4:03" disabled />
+    <p class="music-player-status" role="status"></p>
+  </div>
+  <div class="music-player-controls">
+      <button type="button" data-music-play aria-label="Play Angel on a Satellite">
+        <svg class="music-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18l15-9z" /></svg>
+        <svg class="music-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h5v18H5zm9 0h5v18h-5z" /></svg>
+        <svg class="music-icon-loading" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" /></svg>
+      </button>
+  </div>
+  <div id="music-player-source" data-music-source hidden style="position: absolute; bottom: calc(100% + 8px); left: 0; width: 100%;">
+    <button type="button" data-music-source-close style="display: block; margin: 0 0 4px auto; padding: 4px 8px; border: 0; border-radius: 6px; background: var(--accent-three); color: var(--text-primary); font: inherit; font-size: 11px; cursor: pointer;">Close SoundCloud player</button>
+  </div>
+</section>

@@ -10,8 +10,9 @@
 
 .portfolio-home-title {
   margin: 0;
+  color: var(--active);
   font-family: "Oddball", var(--font-body);
-  font-size: 1rem;
+  font-size: var(--type-lg);
   font-weight: 400;
   font-feature-settings: "calt" 1;
   letter-spacing: 0.2rem;
@@ -43,7 +44,6 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: var(--card-radius);
-  background: color-mix(in oklch, var(--accent-three) 76%, var(--bg));
 }
 
 .portfolio-project-image img {

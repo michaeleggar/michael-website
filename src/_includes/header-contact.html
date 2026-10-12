@@ -4,18 +4,23 @@
     href="https://github.com/micha3l-e"
     target="_blank"
     rel="noopener noreferrer"
-    >GitHub</a
+    >GitHub {% include "icons/external-mini.svg" %}</a
   >
   <a
     class="site-nav-link header-contact-link"
     href="https://www.linkedin.com/in/michaeleggar"
     target="_blank"
     rel="noopener noreferrer"
-    >LinkedIn</a
+    >LinkedIn {% include "icons/external-mini.svg" %}</a
   >
-  <a
-    class="site-nav-link header-contact-link"
-    href="mailto:cmichaeleggar@gmail.com"
-    >Email me</a
-  >
+  <div class="header-email">
+    <button
+      class="site-nav-link header-contact-link header-email-copy"
+      type="button"
+      data-email="cmichaeleggar@gmail.com"
+      aria-label="Copy email address"
+    >Email</button>
+    <span class="header-email-tooltip" aria-hidden="true">Copied!</span>
+    <span class="visually-hidden header-email-status" role="status" aria-atomic="true"></span>
+  </div>
 </div>

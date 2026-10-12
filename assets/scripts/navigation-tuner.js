@@ -1,6 +1,7 @@
 // DialKit is an opt-in local design tool. Normal navigation needs no JavaScript.
 const localHost = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
-const tuningEnabled = localHost && new URLSearchParams(location.search).has("dialkit");
+const params = new URLSearchParams(location.search);
+const tuningEnabled = localHost && params.has("dialkit") && !params.has("colors");
 
 if (tuningEnabled) {
   startNavigationTuner().catch(error => {
@@ -22,7 +23,7 @@ function loadStylesheet(href) {
 async function startNavigationTuner() {
   const nav = document.querySelector(".site-header-inner");
   const primary = nav?.querySelector(".site-nav-links .site-nav-link");
-  const contact = nav?.querySelector(".header-contact-link");
+  const contact = document.querySelector(".site-header-contact .header-contact-link");
   if (!nav || !primary || !contact) return;
 
   await document.fonts.ready;
@@ -54,9 +55,9 @@ async function startNavigationTuner() {
     type: {
       _collapsed: true,
       primarySize: [14, 12, 18, 0.5],
-      contactSize: [14, 12, 18, 0.5],
+      contactSize: [13, 12, 18, 0.5],
       lineHeight: [1, 0.9, 1.4, 0.05],
-      verticalOffset: [1, -3, 3, 0.5],
+      verticalOffset: [0, -3, 3, 0.5],
     },
     corners: {
       _collapsed: true,
@@ -162,8 +163,8 @@ async function startNavigationTuner() {
 
   const root = DialKit.createDialRoot({ position: "bottom-right", theme: "system" });
   root.element.dataset.navigationControls = "";
-  const { createNavigationColors } = await import("/assets/scripts/navigation-colors.js");
-  const colors = createNavigationColors(DialKit, root);
+  const { createSiteColors } = await import("/assets/scripts/site-colors.js");
+  const colors = createSiteColors(DialKit, root);
 
   const stop = kit.subscribe(values => {
     const { spacing, type, corners } = values;
@@ -204,17 +205,17 @@ async function startNavigationTuner() {
     const useLens = lens.supported && optics.refraction !== 0;
     surfaceStyle.textContent = `
       .site-header-inner {
-        --nav-glass-rim-color: color-mix(in srgb, var(--nav-rim-color, light-dark(black, white)) ${lighting.rim}%, transparent);
+        --nav-glass-rim-color: color-mix(in oklch, var(--nav-rim-color, oklch(100% 0 0)) ${lighting.rim}%, transparent);
         position: relative;
         background: color-mix(in oklch, var(--nav-surface-color, var(--accent-three)) ${glass.opacity}%, transparent);
         -webkit-backdrop-filter: ${backdrop};
         backdrop-filter: ${backdrop};
         box-shadow:
           inset 0 0 0 1px var(--nav-glass-rim-color),
-          inset 0 1px 0 rgb(255 255 255 / ${lighting.sheen / 100}),
-          inset 0 -1px 0 rgb(255 255 255 / ${lighting.sheen / 400}),
-          0 2px 4px rgb(0 0 0 / ${lighting.shadow / 200}),
-          0 8px ${lighting.shadowBlur}px -8px rgb(0 0 0 / ${lighting.shadow / 100});
+          inset 0 1px 0 oklch(100% 0 0 / ${lighting.sheen / 100}),
+          inset 0 -1px 0 oklch(100% 0 0 / ${lighting.sheen / 400}),
+          0 2px 4px oklch(0% 0 0 / ${lighting.shadow / 200}),
+          0 8px ${lighting.shadowBlur}px -8px oklch(0% 0 0 / ${lighting.shadow / 100});
       }
       ${useLens ? `@supports (backdrop-filter: url("#navigation-glass-lens")) {
         .site-header-inner { backdrop-filter: ${refractedBackdrop}; }
@@ -239,10 +240,10 @@ async function startNavigationTuner() {
         border-radius: inherit;
         corner-shape: inherit;
         background: linear-gradient(160deg,
-          rgb(255 255 255 / ${lighting.sheen / 200}),
-          rgb(255 255 255 / ${lighting.sheen / 1200}) 45%,
+          oklch(100% 0 0 / ${lighting.sheen / 200}),
+          oklch(100% 0 0 / ${lighting.sheen / 1200}) 45%,
           transparent 60%,
-          rgb(255 255 255 / ${lighting.sheen / 800}));
+          oklch(100% 0 0 / ${lighting.sheen / 800}));
         pointer-events: none;
       }
       .site-header-inner > nav,

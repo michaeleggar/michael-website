@@ -60,7 +60,7 @@
 }
 
 #art-modal::backdrop {
-  background: oklch(10.889% 0.003 17.62 / 0.9);
+  background: var(--modal-backdrop);
 }
 
 .modal-close {
@@ -75,7 +75,7 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: oklch(70.565% 0.0177 91.61);
+  color: var(--modal-close);
   cursor: pointer;
   font: 400 1.5rem / 1 var(--font-body);
   transition:
