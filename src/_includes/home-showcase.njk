@@ -10,7 +10,9 @@
       {% if loop.index0 < selectedArt.length %}{{ artCard(selectedArt[loop.index0], loop.index0 * 2 + 1, fanCenter) }}{% endif %}
     {% endfor %}
   </div>
-  <div class="showcase-label" data-showcase-caption aria-hidden="true"><span class="showcase-title"></span> <span class="showcase-tag showcase-category"></span> <span class="showcase-tag showcase-year"></span></div>
+  <div class="showcase-label" data-showcase-caption aria-hidden="true">
+    <span class="showcase-tags"><span class="showcase-tag showcase-category"></span> <span class="showcase-tag showcase-year"></span></span>
+    <span class="showcase-title"></span>
+  </div>
   <span class="visually-hidden" data-showcase-status role="status" aria-live="polite"></span>
-  {% include "art-dialog.njk" %}
 </section>

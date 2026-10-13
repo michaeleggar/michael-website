@@ -1,6 +1,7 @@
 <figure class="art-item">
   <button
     type="button"
+    id="{{ artwork | artworkSlug }}"
     aria-label="View {{ artwork.title | escape }}"
     data-modal-src="{{ artwork.image }}-large.webp"
     data-alt="{{ artwork.alt | escape }}"

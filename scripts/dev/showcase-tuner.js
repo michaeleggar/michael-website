@@ -15,11 +15,22 @@ async function startShowcaseTuner() {
   const slider = (group, key, min, max, step = 1) => [d[group][key], min, max, step];
   const action = label => ({ type: 'action', label });
   const config = {
+    sizing: {
+      growth: slider('sizing', 'growth', 1, 1.8, 0.01),
+      textClearance: slider('sizing', 'textClearance', 0, 100),
+      bottomAnchored: d.sizing.bottomAnchored,
+      fitToWindow: d.sizing.fitToWindow,
+      protectTextOnHover: d.sizing.protectTextOnHover,
+      matchCaptionToNav: d.sizing.matchCaptionToNav,
+      captionBottomGap: slider('sizing', 'captionBottomGap', 0, 80),
+    },
     motion: {
+      _collapsed: true,
       spring: d.motion.spring,
       reducedMotionPreview: false,
     },
     hover: {
+      _collapsed: true,
       ripple: true,
       reach: slider('hover', 'reach', 0.5, 4, 0.05),
       lift: slider('hover', 'lift', 0, 80),

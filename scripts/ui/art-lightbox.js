@@ -1,12 +1,9 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Stepper } from 'pasito/react';
-
 function initializeGallery() {
   const gallery = document.getElementById('art-gallery');
   const modal = document.getElementById('art-modal');
-  if (!gallery || !modal || gallery.dataset.initialized) return;
+  if (!gallery || !modal || gallery.hasAttribute('data-initialized')) return;
   gallery.dataset.initialized = '';
+  const galleryPath = location.pathname;
   const artworks = [...gallery.querySelectorAll('button[data-modal-src]')];
   const image = modal.querySelector('#modal-img');
   const title = modal.querySelector('#modal-title');
@@ -14,8 +11,12 @@ function initializeGallery() {
   const close = modal.querySelector('.modal-close');
   const previous = modal.querySelector('.modal-previous');
   const next = modal.querySelector('.modal-next');
+  const content = modal.querySelector('.modal-content');
+  const header = modal.querySelector('.modal-header');
+  const browser = modal.querySelector('.modal-browser');
+  const navigation = modal.querySelector('.modal-navigation');
   const status = modal.querySelector('[data-art-viewer-status]');
-  const pagination = createRoot(modal.querySelector('.modal-pagination'));
+  const count = modal.querySelector('[data-art-viewer-count]');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let active = 0;
   let request = 0;
@@ -23,29 +24,33 @@ function initializeGallery() {
   let transition;
   let touchStart;
 
-  function alignCaption() {
-    if (!modal.open || !image.naturalWidth || !image.naturalHeight) return;
-    const box = image.getBoundingClientRect();
-    const width = Math.min(box.width, box.height * image.naturalWidth / image.naturalHeight);
-    modal.style.setProperty('--art-caption-width', `${width}px`);
+  function updateArtworkUrl(button) {
+    if (!gallery.isConnected || location.pathname !== galleryPath || modal.hasAttribute('data-art-tuning-preview')) return;
+    const url = new URL(location.href);
+    url.hash = button?.id || '';
+    history.replaceState(history.state, '', url.href);
   }
-  const observer = new ResizeObserver(alignCaption);
-  observer.observe(image);
-  image.addEventListener('load', alignCaption);
+
+  function fitArtwork() {
+    if (!modal.open || !image.naturalWidth || !image.naturalHeight) return;
+    const ratio = image.naturalWidth / image.naturalHeight;
+    const imageHeightLimit = parseFloat(getComputedStyle(image).maxHeight);
+    const availableHeight = Math.max(0, Math.min(imageHeightLimit, browser.getBoundingClientRect().height));
+    const width = Math.min(content.clientWidth, availableHeight * ratio);
+    image.style.width = `${width}px`;
+    image.style.height = `${width / ratio}px`;
+  }
+  const observer = new ResizeObserver(fitArtwork);
+  observer.observe(browser);
+  observer.observe(header);
+  observer.observe(navigation);
+  image.addEventListener('load', fitArtwork);
 
   function neighbor(button, index) {
     const data = artworks[index]?.dataset;
+    const label = `${button === previous ? 'Previous' : 'Next'} artwork`;
     button.disabled = !data;
-    button.querySelector('img').hidden = !data;
-    if (!data) return;
-    button.querySelector('img').src = data.modalSrc.replace('-large.webp', '-thumb.webp');
-    button.setAttribute('aria-label', `${button === previous ? 'Previous' : 'Next'} artwork: ${data.title}`);
-  }
-
-  function renderStepper(instant) {
-    pagination.render(<Stepper count={artworks.length} active={active} maxVisible={7}
-      transitionDuration={instant || reducedMotion.matches ? 0 : 180}
-      onStepClick={index => showArtwork(index)} className="art-stepper" />);
+    button.setAttribute('aria-label', data ? `${label}: ${data.title}` : label);
   }
 
   async function showArtwork(index, { instant = false } = {}) {
@@ -54,9 +59,10 @@ function initializeGallery() {
     active = index;
     const version = ++request;
     const data = artworks[index].dataset;
+    updateArtworkUrl(artworks[index]);
     neighbor(previous, index - 1);
     neighbor(next, index + 1);
-    renderStepper(instant);
+    count.textContent = `${index + 1} / ${artworks.length}`;
     status.textContent = `Loading ${data.title}…`;
     const loaded = new Image();
     loaded.src = data.modalSrc;
@@ -72,7 +78,7 @@ function initializeGallery() {
     title.textContent = data.title || 'Artwork';
     details.textContent = [data.year, data.medium, data.dimensions].filter(Boolean).join(' / ');
     details.hidden = !details.textContent;
-    alignCaption();
+    fitArtwork();
     if (!instant && !reducedMotion.matches) {
       transition = image.animate([
         { opacity: 0.65, transform: `translateX(${direction * 8}px)` },
@@ -105,7 +111,8 @@ function initializeGallery() {
   next.addEventListener('click', () => showArtwork(active + 1));
   close.addEventListener('click', () => modal.close());
   modal.addEventListener('click', event => {
-    if (event.target === modal || event.target.classList.contains('modal-browser')) modal.close();
+    const content = event.target.closest('#modal-img, #modal-title, #modal-details, button, .modal-count');
+    if (!content) modal.close();
   });
   modal.addEventListener('keydown', event => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
@@ -128,23 +135,37 @@ function initializeGallery() {
     if (modal.open) return;
     request++;
     transition?.cancel();
+    const preview = modal.hasAttribute('data-art-tuning-preview');
     delete modal.dataset.artTuningPreview;
-    document.documentElement.style.overflow = '';
+    if (!document.querySelector('dialog[open]')) document.documentElement.style.overflow = '';
     image.removeAttribute('src');
-    opener?.focus({ preventScroll: true });
+    if (!preview) updateArtworkUrl();
+    if (gallery.isConnected) opener?.focus({ preventScroll: true });
   });
   function onPreview() {
     if (modal.open) modal.close();
     else openArtwork(artworks[active] || artworks[0], true);
   }
   modal.addEventListener('art:preview', onPreview);
+  function openFromUrl() {
+    if (!gallery.isConnected || location.pathname !== galleryPath) return;
+    let slug;
+    try { slug = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const button = artworks.find(artwork => artwork.id === slug);
+    if (button) {
+      if (!modal.open) openArtwork(button);
+      else if (artworks[active] !== button) showArtwork(artworks.indexOf(button), { instant: true });
+    } else if (modal.open) modal.close();
+  }
+  window.addEventListener('hashchange', openFromUrl);
+  openFromUrl();
   function cleanup() {
     if (gallery.isConnected) return;
     request++;
     observer.disconnect();
-    pagination.unmount();
     transition?.cancel();
-    image.removeEventListener('load', alignCaption);
+    image.removeEventListener('load', fitArtwork);
+    window.removeEventListener('hashchange', openFromUrl);
     document.removeEventListener('site:page-change', cleanup);
   }
   document.addEventListener('site:page-change', cleanup);

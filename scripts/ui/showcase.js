@@ -7,6 +7,10 @@ function initializeShowcase() {
   dispose?.();
   const stage = document.querySelector('[data-showcase]');
   if (!stage) return;
+  const page = stage.closest('.home-page');
+  const intro = page?.querySelector('.page-intro');
+  const header = document.querySelector('.site-header');
+  const navItem = header?.querySelector('.site-nav-link');
   const cards = [...stage.querySelectorAll('.showcase-card')];
   const status = stage.parentElement.querySelector('[data-showcase-status]');
   const compact = matchMedia('(max-width: 780px)');
@@ -19,6 +23,8 @@ function initializeShowcase() {
   let captionInstant;
   let stageHasActive;
   let measuredCompact;
+  let measuredViewportHeight;
+  let measuredSectionTop;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const abort = new AbortController();
@@ -29,8 +35,12 @@ function initializeShowcase() {
     return { values, targets: {}, stopStyle: styleEffect(card, values), followers: [], width: 0, photoHeight: 0, active: null, hidden: null };
   });
   let layoutScale = 1;
+  let photoGrowth = 1;
+  let photoTopLimit = -Infinity;
+  let cardTop = 0;
   let mobileStep = settings.layout.mobileSpacing;
   let replayTimer;
+  const viewportHeight = () => window.visualViewport?.scale === 1 ? window.visualViewport.height : window.innerHeight;
   function configureSprings() {
     states.forEach(state => {
       state.followers.forEach(stop => stop());
@@ -38,16 +48,70 @@ function initializeShowcase() {
       state.followers = Object.values(state.values).map(value => attachFollow(value, value.get(), transition));
     });
   }
+  function photoBounds(width, height, rotation, scale = 1) {
+    const angle = rotation * Math.PI / 180;
+    const cosine = Math.abs(Math.cos(angle));
+    const sine = Math.abs(Math.sin(angle));
+    return { width: (width * cosine + height * sine) * scale, height: (height * cosine + width * sine) * scale };
+  }
+  function bottomAnchor(state, rotation, scale = 1) {
+    if (!settings.sizing.bottomAnchored) return 0;
+    const bounds = photoBounds(state.width, state.photoHeight, rotation, scale);
+    return (1 - 1 / photoGrowth) * (state.photoHeight + bounds.height) / 2;
+  }
   function measureCards() {
     const fitWidth = settings.layout.spacing * (cards.length - 1) + settings.photos.workWidth * settings.photos.artMaxWidth + 64;
-    layoutScale = compact.matches ? Math.min(1.15, Math.max(0.8, width / 358)) : Math.min(1, width / fitWidth);
+    const widthScale = compact.matches ? Math.min(1.15, Math.max(0.8, width / 358)) : Math.min(1, width / fitWidth);
+    const stageHeight = compact.matches ? settings.layout.mobileHeight * 0.85 : settings.layout.stageHeight;
+    layoutScale = widthScale;
+    if (page) {
+      const height = viewportHeight();
+      const labelGap = Math.min(settings.appearance.labelGap, Math.max(4, (height - 300) * 0.04));
+      stage.parentElement.style.setProperty('--showcase-label-gap', `${labelGap}px`);
+      const pillInset = navItem ? parseFloat(getComputedStyle(navItem).getPropertyValue('--nav-pill-inset')) || 0 : 0;
+      const bottomGap = settings.sizing.matchCaptionToNav && navItem ? navItem.getBoundingClientRect().top + pillInset : settings.sizing.captionBottomGap;
+      page.style.setProperty('--home-bottom-gap', `${bottomGap}px`);
+      page.style.setProperty('--home-header-height', `${header?.offsetHeight || 0}px`);
+      const captionSpace = Math.max(caption.offsetHeight, settings.appearance.detailSize * 1.4 + 6) + labelGap;
+      const sectionTop = intro.getBoundingClientRect().bottom + window.scrollY + parseFloat(getComputedStyle(page).rowGap);
+      const availableHeight = height - sectionTop - captionSpace - bottomGap;
+      layoutScale = Math.min(widthScale, Math.max(0, availableHeight / stageHeight));
+    }
     mobileStep = settings.layout.mobileSpacing * width / 358;
     const style = stage.parentElement.style;
     style.setProperty('--showcase-desktop-width', `${settings.photos.workWidth * layoutScale}px`);
     style.setProperty('--showcase-mobile-width', `${settings.photos.mobileWidth * layoutScale}px`);
     style.setProperty('--showcase-stage-height', `${settings.layout.stageHeight * layoutScale}px`);
     style.setProperty('--showcase-mobile-height', `${settings.layout.mobileHeight * layoutScale * 0.85}px`);
-    style.setProperty('--showcase-card-top', `${(compact.matches ? 22 : 38) * layoutScale}px`);
+    cardTop = (compact.matches ? 22 : 38) * layoutScale;
+    style.setProperty('--showcase-card-top', `${cardTop}px`);
+    photoGrowth = 1;
+    photoTopLimit = page ? intro.getBoundingClientRect().bottom - stage.getBoundingClientRect().top + settings.sizing.textClearance : -Infinity;
+    let growthLimit = settings.sizing.growth;
+    const baseline = (settings.layout.baseline - (compact.matches ? 20 : 0)) * layoutScale;
+    const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
+    states.forEach((state, index) => {
+      state.width = cards[index].offsetWidth;
+      state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
+      const slots = compact.matches ? [-1, 0, 1] : [index - (cards.length - 1) / 2];
+      for (const slot of slots) {
+        const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
+        const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
+        const rotation = Math.max(-30, Math.min(30, -slot * settings.layout.rotation * direction));
+        const bounds = photoBounds(state.width, state.photoHeight, rotation);
+        const top = cardTop + baseline - direction * arc + stagger + state.photoHeight / 2 - bounds.height / 2;
+        if (bounds.height > 0) growthLimit = Math.min(growthLimit, 1 + (top - photoTopLimit) / bounds.height);
+        const horizontalRoom = compact.matches ? width / 2 - 12 : width / 2 - Math.abs(slot * settings.layout.spacing * layoutScale) - 12;
+        if (bounds.width > 0) growthLimit = Math.min(growthLimit, horizontalRoom * 2 / (bounds.width * (compact.matches ? settings.spotlight.scale : 1)));
+        if (!settings.sizing.bottomAnchored && bounds.height > 0) {
+          const bottom = top + bounds.height;
+          growthLimit = Math.min(growthLimit, 1 + (stage.clientHeight - bottom - 8) * 2 / (state.photoHeight + bounds.height));
+        }
+      }
+    });
+    photoGrowth = page ? Math.max(1, settings.sizing.fitToWindow ? growthLimit : settings.sizing.growth) : 1;
+    style.setProperty('--showcase-desktop-width', `${settings.photos.workWidth * layoutScale * photoGrowth}px`);
+    style.setProperty('--showcase-mobile-width', `${settings.photos.mobileWidth * layoutScale * photoGrowth}px`);
     states.forEach((state, index) => {
       state.width = cards[index].offsetWidth;
       state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
@@ -104,11 +168,20 @@ function initializeShowcase() {
       const spread = side * influence * settings.hover.spread * layoutScale;
       const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
       const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
-      const y = baseline - direction * arc - lift + stagger;
+      let y = baseline - direction * arc - lift + stagger;
       const restingRotation = clamp(-slot * settings.layout.rotation * direction, -30, 30);
       const rotation = active === index ? restingRotation * settings.spotlight.rotationFollow : restingRotation + side * influence * settings.hover.tilt;
       const scale = active === index ? settings.spotlight.scale : 1 + influence * (settings.hover.neighborScale - 1);
+      y -= bottomAnchor(state, rotation, scale);
+      if (photoGrowth > 1 && settings.sizing.protectTextOnHover) {
+        const top = cardTop + y + state.photoHeight / 2 - photoBounds(state.width, state.photoHeight, rotation, scale).height / 2;
+        y += Math.max(0, photoTopLimit - top);
+      }
       const target = { x: x + spread + (mobile ? dragOffset : 0) - state.width / 2, y, rotate: rotation, scale };
+      if (!mobile && photoGrowth > 1 && settings.sizing.fitToWindow) {
+        const halfWidth = photoBounds(state.width, state.photoHeight, rotation, scale).width / 2;
+        target.x = clamp(x + spread, -width / 2 + halfWidth + 12, width / 2 - halfWidth - 12) - state.width / 2;
+      }
       const selected = active === index;
       if (selected !== state.active) { card.toggleAttribute('data-active', selected); state.active = selected; }
       const layer = selected && settings.spotlight.popToFront ? 100 : 10 + index;
@@ -162,7 +235,8 @@ function initializeShowcase() {
       const slot = index - center;
       const x = width / 2 + slot * step;
       const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
-      const top = 38 * layoutScale + baseline - direction * Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale) + stagger;
+      const rotation = clamp(-slot * settings.layout.rotation * direction, -30, 30);
+      const top = cardTop + baseline - direction * Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale) + stagger - bottomAnchor(states[index], rotation);
       const distance = Math.abs(localX - x);
       if (distance < states[index].width * 0.6 && localY >= top - 65 && localY <= top + states[index].photoHeight + 20 && distance < closest) { closest = distance; next = index; }
     });
@@ -268,8 +342,12 @@ function initializeShowcase() {
   applySettings();
   function resize() {
     const nextWidth = stage.clientWidth;
-    if (nextWidth === width && measuredCompact === compact.matches) return;
+    const nextHeight = viewportHeight();
+    const sectionTop = stage.parentElement.getBoundingClientRect().top + window.scrollY;
+    if (nextWidth === width && measuredCompact === compact.matches && measuredViewportHeight === nextHeight && measuredSectionTop === sectionTop) return;
     measuredCompact = compact.matches;
+    measuredViewportHeight = nextHeight;
+    measuredSectionTop = sectionTop;
     press = undefined; dragOffset = 0;
     width = nextWidth;
     if (compact.matches) { active = active < 0 ? 0 : active; center = active; }
@@ -279,6 +357,10 @@ function initializeShowcase() {
   }
   const observer = new ResizeObserver(resize);
   observer.observe(stage);
+  if (intro) observer.observe(intro);
+  if (header) observer.observe(header);
+  window.addEventListener('resize', resize, options);
+  window.visualViewport?.addEventListener('resize', resize, options);
   compact.addEventListener('change', resize, options);
   reduced.addEventListener('change', () => { hover = null; render(true); }, options);
   render(true);

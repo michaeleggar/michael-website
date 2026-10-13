@@ -1,4 +1,34 @@
 /* A mixed fan of photographs, with distinct work and art silhouettes. */
+body:has(.home-page) {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.home-page {
+  --paragraph-gap: clamp(0.25rem, calc((100svh - 300px) * 0.032), 1.1875rem);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--section-gap);
+  height: calc(100dvh - var(--home-header-height, 72px));
+  padding-block-start: clamp(1rem, calc((100svh - 600px) * 0.13), 3.25rem);
+  padding-block-end: var(--home-bottom-gap, 22px);
+}
+
+.home-page > .page-intro { flex: none; }
+.home-page .home-showcase { flex: none; margin-block-start: auto; }
+
+body:has(.home-page) .site-edge-blur { display: none; }
+@media (max-height: 600px) {
+  body:has(.home-page) .site-header {
+    padding-block: clamp(4px, calc((100svh - 300px) * 0.04), 16px);
+  }
+  .home-page {
+    padding-block-start: clamp(0px, calc((100svh - 300px) * 0.04), 16px);
+    row-gap: clamp(0px, calc((100svh - 300px) * 0.04), 12px);
+  }
+}
+
 .home-showcase {
   --showcase-work-radius: 14px;
   --showcase-art-radius: 7px;
@@ -49,12 +79,13 @@
   transition: filter var(--showcase-blur-duration, 120ms) ease-out;
 }
 .showcase-stage[data-has-active] .showcase-card:not([data-active]) .showcase-photo { filter: blur(var(--showcase-inactive-blur, 0px)); }
-.showcase-card[data-kind="art"] { width: calc(var(--showcase-card-width) * var(--art-width-scale)); cursor: var(--art-zoom-cursor); }
+.showcase-card[data-kind="art"] { width: calc(var(--showcase-card-width) * var(--art-width-scale)); cursor: pointer; }
 .showcase-card[data-kind="art"] .showcase-photo { aspect-ratio: var(--art-ratio); border-radius: var(--showcase-art-radius); }
 .showcase-card[data-kind="art"] img { object-fit: contain; }
 .showcase-photo img { display: block; width: 100%; height: 100%; object-fit: var(--showcase-work-fit, cover); pointer-events: none; }
-.showcase-label { display: flex; justify-content: center; align-items: center; gap: 6px; min-height: calc(var(--showcase-label-size, var(--type-meta)) * var(--line-snug)); white-space: nowrap; margin-top: var(--showcase-label-gap, 12px); font-size: var(--showcase-label-size, var(--type-meta)); font-weight: 500; line-height: var(--line-snug); opacity: 0; transition: opacity 140ms ease; pointer-events: none; }
-.showcase-title { display: block; color: var(--text-primary); }
+.showcase-label { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; text-align: center; white-space: nowrap; margin-top: var(--showcase-label-gap, 12px); font-size: var(--showcase-label-size, var(--type-meta)); font-weight: 500; line-height: var(--line-snug); opacity: 0; transition: opacity 140ms ease; pointer-events: none; }
+.showcase-tags { display: flex; justify-content: center; align-items: center; gap: 6px; min-height: calc(var(--showcase-detail-size, 11px) * 1.4 + 6px); }
+.showcase-title { display: block; max-width: 100%; min-height: calc(var(--showcase-label-size, var(--type-meta)) * var(--line-snug)); color: var(--text-primary); }
 .showcase-tag { display: block; flex: none; padding: 3px 7px; border-radius: calc(var(--control-radius) * 0.65); corner-shape: superellipse(1.6); background: color-mix(in oklch, var(--text-primary) 6%, transparent); white-space: nowrap; color: var(--text-primary); font-size: var(--showcase-detail-size, 11px); font-weight: 500; letter-spacing: 0.01em; line-height: 1.4; }
 .showcase-label[data-visible] { opacity: var(--showcase-label-opacity, 1); }
 .showcase-card:focus-visible { outline: none; }

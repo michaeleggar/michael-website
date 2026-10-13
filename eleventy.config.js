@@ -29,7 +29,6 @@ module.exports = function (eleventyConfig) {
     "assets/scripts",
     "CNAME",
   ].forEach((assetPath) => eleventyConfig.addPassthroughCopy(assetPath));
-  eleventyConfig.addPassthroughCopy({ 'node_modules/pasito/dist/index.css': 'assets/css/pasito.css' });
 
   eleventyConfig.addCollection("workProjects", (collectionApi) =>
     collectionApi
@@ -42,6 +41,7 @@ module.exports = function (eleventyConfig) {
     if (!artwork) throw new Error(`Featured artwork "${slug}" was not found in art.json.`);
     return artwork;
   }));
+  eleventyConfig.addFilter('artworkSlug', artwork => artwork.image.split('/').pop());
 
   return {
     dir: {

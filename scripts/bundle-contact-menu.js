@@ -10,7 +10,7 @@ esbuild.buildSync({
   legalComments: 'eof',
 });
 esbuild.buildSync({
-  entryPoints: ['scripts/ui/art-lightbox.jsx'],
+  entryPoints: ['scripts/ui/art-lightbox.js'],
   bundle: true,
   minify: true,
   format: 'iife',

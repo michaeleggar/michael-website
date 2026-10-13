@@ -7,7 +7,7 @@
 {% macro artCard(artwork, position, center) %}
 {% set artScale = (artwork.width / artwork.height) * 0.87 %}
 {% if artScale > 1.15 %}{% set artScale = 1.15 %}{% endif %}
-<button type="button" class="showcase-card" data-kind="art" data-art-width="{{ artwork.width }}" data-art-height="{{ artwork.height }}" data-showcase-title="{{ artwork.title | escape }}" aria-label="View {{ artwork.title | escape }}" data-modal-src="{{ artwork.image }}-large.webp" data-alt="{{ artwork.alt | escape }}" data-title="{{ artwork.title | escape }}" data-year="{{ artwork.year | escape }}" data-medium="{{ artwork.medium | escape }}" data-dimensions="{{ artwork.dimensions_text | escape }}" style="--slot: {{ position - center }}; --order: {{ position }}; --art-ratio: {{ artwork.width }} / {{ artwork.height }}; --art-width-scale: {{ artScale }};">
+<a class="showcase-card" href="/art/#{{ artwork | artworkSlug }}" data-kind="art" data-art-width="{{ artwork.width }}" data-art-height="{{ artwork.height }}" data-showcase-title="{{ artwork.title | escape }}" aria-label="View {{ artwork.title | escape }} on the Art page" data-year="{{ artwork.year | escape }}" style="--slot: {{ position - center }}; --order: {{ position }}; --art-ratio: {{ artwork.width }} / {{ artwork.height }}; --art-width-scale: {{ artScale }};">
   <span class="showcase-photo"><img src="{{ artwork.image }}-thumb.webp" width="{{ artwork.width }}" height="{{ artwork.height }}" alt="{{ artwork.alt | escape }}" loading="eager" decoding="async" draggable="false" /></span>
-</button>
+</a>
 {% endmacro %}

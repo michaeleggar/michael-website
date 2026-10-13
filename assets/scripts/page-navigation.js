@@ -50,7 +50,9 @@
       const src = new URL(source.getAttribute('src'), url).href;
       if (loadedScripts.has(src)) continue;
       await new Promise((resolve, reject) => {
-        const script = source.cloneNode(true);
+        // Scripts parsed by DOMParser stay inert when cloned; create a fresh node.
+        const script = document.createElement('script');
+        for (const attribute of source.attributes) script.setAttribute(attribute.name, attribute.value);
         script.src = src;
         script.onload = () => { loadedScripts.add(src); resolve(); };
         script.onerror = () => { script.remove(); reject(new Error('Page script failed to load')); };
@@ -123,7 +125,7 @@
       if (signal.aborted) return;
       document.dispatchEvent(new CustomEvent('site:page-change'));
       nextMain.setAttribute('tabindex', '-1');
-      nextMain.focus({ preventScroll: true });
+      if (!nextMain.querySelector('dialog[open]')) nextMain.focus({ preventScroll: true });
       scrollToDestination(url, pop ? scrollPositions.get(currentKey) : null);
       announcement.textContent = page.querySelector('h1')?.textContent || page.title;
     } catch (error) {

@@ -56,18 +56,17 @@ async function startArtTuner() {
     },
     viewer: {
       _collapsed: true,
-      '--art-dialog-width': [80, 40, 98, 1],
-      '--art-dialog-height': [80, 40, 98, 1],
-      '--art-viewer-image-height': [80, 20, 85, 1],
+      '--art-dialog-width': [100, 40, 100, 1],
+      '--art-dialog-height': [100, 40, 100, 1],
+      '--art-viewer-image-height': [100, 20, 100, 1],
       '--art-viewer-image-radius': [1, 0, 40, 1],
-      '--art-close-gap': [16, 0, 48, 1],
     },
     caption: {
       _collapsed: true,
       '--art-title-size': [15, 12, 28, 0.5],
       '--art-detail-size': [13, 10, 22, 0.5],
       '--art-caption-line': [1.5, 1.1, 2, 0.05],
-      '--art-caption-padding': [24, 0, 48, 1],
+      '--art-caption-padding': [16, 0, 48, 1],
       '--art-caption-gap': [32, 0, 64, 1],
     },
     navigation: {
