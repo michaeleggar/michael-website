@@ -1,0 +1,198 @@
+/* Isolated comparison page; no production page loads this stylesheet. */
+.details-preview {
+  padding-block-end: 120px;
+  overflow-anchor: none;
+}
+
+html:has([data-details-preview]) { scroll-padding-block-end: 100px; }
+
+.preview-context,
+.preview-project-intro,
+.preview-details-block {
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--content-width));
+  margin-inline: auto;
+}
+
+.preview-context {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.preview-context p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  white-space: nowrap;
+}
+
+.preview-context .portfolio-back-link { width: fit-content; }
+.preview-variant[hidden] { display: none !important; }
+.preview-details-block { margin-block-start: var(--space-xl); }
+.preview-details-wide { max-width: 840px; width: calc(100% - 2 * var(--page-gutter)); }
+
+.preview-variant dl { margin: 0; }
+.preview-variant dt { color: var(--text-muted); font-size: var(--type-meta); }
+.preview-variant dd { margin: 0; font-size: var(--type-sm); line-height: 1.5; overflow-wrap: anywhere; }
+.preview-variant dl > div { min-width: 0; }
+.credit-list { margin: 0; padding: 0; list-style: none; }
+.credit-list li + li { margin-block-start: 6px; }
+.credit-list li > span:not(.credit-person) { color: var(--text-secondary); font-size: var(--type-meta); }
+.credit-line { display: block; }
+.preview-live-link {
+  display: inline-block;
+  margin-block-start: 20px;
+  color: var(--text-secondary);
+  font-size: var(--type-meta);
+  text-underline-offset: 3px;
+}
+
+/* 1: The existing project-table language, expanded to four fields. */
+.credits-ledger { border-block-start: 1px solid color-mix(in oklch, var(--text-primary) 65%, transparent); }
+.credits-ledger > div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 12px;
+  border-block-end: 1px solid color-mix(in oklch, var(--text-primary) 65%, transparent);
+}
+
+/* 2: A wide, horizontal overview with aligned label/value columns. */
+.credits-columns {
+  display: grid;
+  grid-template-columns: 1fr 0.65fr 1fr 1.4fr;
+  gap: 28px;
+  padding-block-start: 20px;
+  border-block-start: 1px solid color-mix(in oklch, var(--text-muted) 45%, transparent);
+}
+.credits-columns dt { margin-block-end: 10px; }
+
+/* 3: Details live beside the introduction rather than beneath it. */
+.preview-split {
+  display: grid;
+  grid-template-columns: minmax(0, 550px) minmax(190px, 240px);
+  gap: clamp(40px, 7vw, 80px);
+  width: min(calc(100% - 2 * var(--page-gutter)), 920px);
+  margin: var(--space-xl) auto 0;
+  align-items: start;
+}
+.preview-split .preview-project-intro { width: 100%; margin: 0; }
+.credits-sidebar { padding-inline-start: 24px; border-inline-start: 1px solid color-mix(in oklch, var(--text-muted) 45%, transparent); }
+.credits-sidebar dl { display: grid; gap: 22px; }
+.credits-sidebar dt { margin-block-end: 5px; }
+.credits-sidebar dd { font-size: var(--type-xs); }
+
+/* 4: A quiet credit note with labels embedded in the reading flow. */
+.credits-inline { max-width: 54ch; line-height: 1.6; font-size: var(--type-sm); }
+.credits-inline p { margin: 0 0 8px; }
+.credits-inline p > span { color: var(--text-muted); font-size: var(--type-meta); margin-inline-end: 8px; }
+.credits-inline b { font-weight: 400; color: var(--text-muted); margin-inline: 10px; }
+.credits-inline em { color: var(--text-secondary); font-size: var(--type-meta); font-style: normal; }
+.credits-inline .credits-inline-contributors { margin-block-start: 20px; }
+.credits-inline-contributors > span { display: inline-block; margin-block-end: 4px; }
+
+/* 5: One contained panel, with agency/year above the role and credits. */
+.credits-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid color-mix(in oklch, var(--text-muted) 30%, transparent);
+  border-radius: var(--surface-radius);
+  background: color-mix(in oklch, var(--surface) 38%, transparent);
+}
+.credits-card dt { margin-block-end: 5px; }
+.credits-card-agency dd { font-size: var(--type-base); }
+.credits-card-year { text-align: end; font-variant-numeric: tabular-nums; }
+.credits-card-role { grid-column: 1; }
+.credits-card-contributors {
+  grid-column: 2;
+  padding-inline-start: 20px;
+  border-inline-start: 1px solid color-mix(in oklch, var(--text-muted) 30%, transparent);
+}
+.credits-card-contributors .credit-list li + li { margin-block-start: 8px; }
+
+/* 6: The year gets a typographic margin; the credits remain compact. */
+.credits-year-stamp {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 16px 40px;
+}
+.credits-year { grid-row: 1 / 4; }
+.credits-year dt { margin-block-end: 8px; }
+.credits-year dd { font-size: 52px; font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.credits-year-agency,
+.credits-year-role,
+.credits-year-contributors { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 20px; }
+
+/* The preview switcher is separate from every design direction. */
+.preview-picker {
+  position: fixed;
+  inset-block-end: 20px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(100% - 32px);
+  padding: 8px 12px;
+  border: 1px solid color-mix(in oklch, var(--text-muted) 35%, transparent);
+  border-radius: 16px;
+  background: var(--background);
+  box-shadow: 0 6px 24px oklch(0 0 0 / 0.22);
+}
+.preview-tabs { display: flex; gap: 4px; min-width: 0; overflow-x: auto; padding: 3px; scrollbar-width: thin; }
+.preview-tabs button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 33px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--control-radius);
+  corner-shape: superellipse(1.6);
+  background: transparent;
+  color: var(--text-secondary);
+  font: 500 var(--type-meta) / 1 var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.preview-tabs button > span { opacity: 0.65; font-variant-numeric: tabular-nums; }
+.preview-tabs button[aria-selected="true"] { background: var(--accent); color: var(--background); }
+.preview-tabs button:focus-visible { outline-offset: 1px; }
+.preview-shortcuts { flex: 0 0 auto; color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .preview-tabs button:not([aria-selected="true"]):hover { color: var(--text-primary); background: color-mix(in oklch, var(--text-primary) 6%, transparent); }
+}
+@media (pointer: coarse) {
+  .preview-tabs button { min-height: 44px; }
+}
+@media (max-width: 780px) {
+  .credits-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+  .preview-split { grid-template-columns: 1fr; gap: 32px; max-width: var(--content-width); }
+  .credits-sidebar { padding-inline-start: 0; padding-block-start: 20px; border-inline-start: 0; border-block-start: 1px solid color-mix(in oklch, var(--text-muted) 45%, transparent); }
+  .credits-sidebar dl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .credits-year-stamp { grid-template-columns: 100px minmax(0, 1fr); gap: 16px 24px; }
+  .credits-year dd { font-size: 38px; }
+  .credits-year-agency,
+  .credits-year-role,
+  .credits-year-contributors { display: block; }
+  .credits-year-stamp dt { margin-block-end: 5px; }
+  .preview-picker { gap: 0; padding: 6px; }
+  .preview-shortcuts { display: none; }
+}
+@media (max-width: 420px) {
+  .preview-context { gap: 12px; flex-wrap: wrap; }
+  .preview-context p { font-size: 12px; }
+  .credits-ledger > div { grid-template-columns: 84px minmax(0, 1fr); gap: 16px; }
+  .credits-card { padding: 20px; gap: 20px; }
+  .credits-card-role { grid-column: 1 / -1; }
+  .credits-card-contributors { grid-column: 1 / -1; padding-inline-start: 0; padding-block-start: 16px; border-inline-start: 0; border-block-start: 1px solid color-mix(in oklch, var(--text-muted) 30%, transparent); }
+  .credits-year-stamp { grid-template-columns: 82px minmax(0, 1fr); gap: 16px; }
+  .credits-year dd { font-size: 32px; }
+}

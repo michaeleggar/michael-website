@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+permalink: /work/details-preview/index.html
+title: Work details — Six layouts
+description: Six project-credit layouts for comparison, using sample agency and contributor names.
+stylesheets: [case-study, work-details-preview]
+scripts: [work-details-preview]
+eleventyExcludeFromCollections: true
+preview:
+  title: Retirement Investment Advisors website
+  deck: Retirement Investment Advisors is a fiduciary firm based in Oklahoma City. It needed a redesign that could organize a growing library of resources, financial tools, and market commentary, all managed by staff with no technical background.
+  agency: Example Studio
+  year: "2026"
+  roles: [Design, Development]
+  contributors:
+    - name: Alex Morgan
+      role: Brand design
+    - name: Taylor Chen
+      role: Copywriting
+  link: https://www.theretirementpath.com
+---
+
+<main id="main-content" class="page-content portfolio-case-study details-preview" data-details-preview>
+  <div class="preview-context">
+    {% include "work-back-link.html" %}
+    <p title="Agency and contributor names are sample content.">Six layouts · Sample credits</p>
+  </div>
+
+  <section id="layout-ledger" class="preview-variant" role="tabpanel" aria-labelledby="tab-ledger" data-details-variant="ledger">
+    {% include "prototypes/work-details/ledger.njk" %}
+  </section>
+  <section id="layout-columns" class="preview-variant" role="tabpanel" aria-labelledby="tab-columns" data-details-variant="columns" hidden>
+    {% include "prototypes/work-details/columns.njk" %}
+  </section>
+  <section id="layout-sidebar" class="preview-variant" role="tabpanel" aria-labelledby="tab-sidebar" data-details-variant="sidebar" hidden>
+    {% include "prototypes/work-details/sidebar.njk" %}
+  </section>
+  <section id="layout-inline" class="preview-variant" role="tabpanel" aria-labelledby="tab-inline" data-details-variant="inline" hidden>
+    {% include "prototypes/work-details/inline.njk" %}
+  </section>
+  <section id="layout-card" class="preview-variant" role="tabpanel" aria-labelledby="tab-card" data-details-variant="card" hidden>
+    {% include "prototypes/work-details/card.njk" %}
+  </section>
+  <section id="layout-year" class="preview-variant" role="tabpanel" aria-labelledby="tab-year" data-details-variant="year" hidden>
+    {% include "prototypes/work-details/year.njk" %}
+  </section>
+
+  <figure class="portfolio-wide-media portfolio-first-media">
+    <img src="/assets/images/optimized/ria/ria-feature-large.webp"
+      srcset="/assets/images/optimized/ria/ria-feature-thumb.webp 600w, /assets/images/optimized/ria/ria-feature-large.webp 1430w"
+      sizes="100vw" width="1430" height="944" alt="Retirement Investment Advisors website screenshot"
+      loading="eager" decoding="async" />
+  </figure>
+
+  <div class="preview-picker" aria-label="Compare work-detail layouts">
+    <div class="preview-tabs" role="tablist" aria-label="Layout directions">
+      <button type="button" id="tab-ledger" role="tab" aria-selected="true" aria-controls="layout-ledger" data-variant-target="ledger"><span>1</span> Ledger</button>
+      <button type="button" id="tab-columns" role="tab" aria-selected="false" aria-controls="layout-columns" tabindex="-1" data-variant-target="columns"><span>2</span> Columns</button>
+      <button type="button" id="tab-sidebar" role="tab" aria-selected="false" aria-controls="layout-sidebar" tabindex="-1" data-variant-target="sidebar"><span>3</span> Sidebar</button>
+      <button type="button" id="tab-inline" role="tab" aria-selected="false" aria-controls="layout-inline" tabindex="-1" data-variant-target="inline"><span>4</span> Inline</button>
+      <button type="button" id="tab-card" role="tab" aria-selected="false" aria-controls="layout-card" tabindex="-1" data-variant-target="card"><span>5</span> Card</button>
+      <button type="button" id="tab-year" role="tab" aria-selected="false" aria-controls="layout-year" tabindex="-1" data-variant-target="year"><span>6</span> Year stamp</button>
+    </div>
+    <span class="preview-shortcuts" aria-hidden="true">Keys 1–6</span>
+  </div>
+  <span class="visually-hidden" role="status" data-preview-status></span>
+</main>

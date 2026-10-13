@@ -1,0 +1,10 @@
+{% include "prototypes/work-details/intro.njk" %}
+<div class="preview-details-block">
+  <dl class="credits-ledger" aria-label="Project details">
+    <div><dt>Agency</dt><dd>{{ preview.agency }}</dd></div>
+    <div><dt>Year</dt><dd>{{ preview.year }}</dd></div>
+    <div><dt>Role</dt><dd>{{ preview.roles | join(" / ") }}</dd></div>
+    <div><dt>Contributors</dt><dd><ul class="credit-list">{% for person in preview.contributors %}<li>{{ person.name }} <span>— {{ person.role }}</span></li>{% endfor %}</ul></dd></div>
+  </dl>
+  {% include "prototypes/work-details/live-link.njk" %}
+</div>

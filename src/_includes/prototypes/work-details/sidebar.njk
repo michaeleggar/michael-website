@@ -1,0 +1,12 @@
+<div class="preview-split">
+  {% include "prototypes/work-details/intro.njk" %}
+  <aside class="credits-sidebar" aria-label="Project details">
+    <dl>
+      <div><dt>Agency</dt><dd>{{ preview.agency }}</dd></div>
+      <div><dt>Year</dt><dd>{{ preview.year }}</dd></div>
+      <div><dt>Role</dt><dd>{{ preview.roles | join(" / ") }}</dd></div>
+      <div><dt>Contributors</dt><dd><ul class="credit-list">{% for person in preview.contributors %}<li>{{ person.name }}<span class="credit-line">{{ person.role }}</span></li>{% endfor %}</ul></dd></div>
+    </dl>
+    {% include "prototypes/work-details/live-link.njk" %}
+  </aside>
+</div>

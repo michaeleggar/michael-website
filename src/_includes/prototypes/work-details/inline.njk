@@ -1,0 +1,9 @@
+{% include "prototypes/work-details/intro.njk" %}
+<div class="preview-details-block">
+  <div class="credits-inline" aria-label="Project details">
+    <p><span>Agency</span> {{ preview.agency }} <b aria-hidden="true">·</b> <span>Year</span> {{ preview.year }}</p>
+    <p><span>Role</span> {{ preview.roles | join(" and ") }}</p>
+    <p class="credits-inline-contributors"><span>Contributors</span><br />{% for person in preview.contributors %}{{ person.name }} <em>({{ person.role }})</em>{% if not loop.last %},<br />{% endif %}{% endfor %}</p>
+  </div>
+  {% include "prototypes/work-details/live-link.njk" %}
+</div>

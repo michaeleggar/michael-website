@@ -1,0 +1,10 @@
+{% include "prototypes/work-details/intro.njk" %}
+<div class="preview-details-block preview-details-wide">
+  <dl class="credits-columns" aria-label="Project details">
+    <div><dt>Agency</dt><dd>{{ preview.agency }}</dd></div>
+    <div><dt>Year</dt><dd>{{ preview.year }}</dd></div>
+    <div><dt>Role</dt><dd>{% for role in preview.roles %}<span class="credit-line">{{ role }}</span>{% endfor %}</dd></div>
+    <div><dt>Contributors</dt><dd><ul class="credit-list">{% for person in preview.contributors %}<li>{{ person.name }}<span class="credit-line">{{ person.role }}</span></li>{% endfor %}</ul></dd></div>
+  </dl>
+  {% include "prototypes/work-details/live-link.njk" %}
+</div>
