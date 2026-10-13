@@ -16,7 +16,8 @@ body:has(.home-page) {
 }
 
 .home-page > .page-intro { flex: none; }
-.home-page .home-showcase { flex: none; margin-block-start: auto; }
+/* Keep the fan with the intro; unused viewport space stays below it. */
+.home-page .home-showcase { flex: none; margin-block-start: 0; }
 
 body:has(.home-page) .site-edge-blur { display: none; }
 @media (max-height: 600px) {
