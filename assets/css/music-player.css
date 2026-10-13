@@ -1,7 +1,4 @@
 .music-player {
-  --surface: var(--accent);
-  --text-primary: var(--background);
-  --text-secondary: var(--background);
   position: fixed;
   left: max(var(--page-gutter), env(safe-area-inset-left));
   bottom: max(var(--page-gutter), env(safe-area-inset-bottom));
