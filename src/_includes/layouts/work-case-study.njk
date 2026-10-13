@@ -4,7 +4,15 @@ stylesheets: [case-study]
 ---
 
 <main id="main-content" class="page-content portfolio-case-study">
-  {% include "work-back-link.html" %}
+  {% set liveSiteUrl = "" %}
+  {% for group in projectDetails %}
+    {% if group.label == "Link" %}
+      {% for item in group.items %}
+        {% if item.href and not liveSiteUrl %}{% set liveSiteUrl = item.href %}{% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% include "work-project-nav.njk" %}
 
   <header class="portfolio-project-intro">
     <h1>{{ heading or cardTitle }}</h1>
@@ -12,16 +20,35 @@ stylesheets: [case-study]
   </header>
 
   <dl class="project-details" aria-label="Project details">
+    {% if agency %}
+    <div><dt>Agency</dt><dd>{{ agency }}, <span class="project-details-year">{{ year }}</span></dd></div>
+    {% else %}
+    <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
+    {% endif %}
     {% for group in projectDetails %}
+      {% if group.label != "Link" or not liveSiteUrl %}
       <div>
         <dt>{{ group.label }}</dt>
         <dd>
           {% for item in group.items %}
-            {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}, {% endif %}
+            {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
           {% endfor %}
         </dd>
       </div>
+      {% endif %}
     {% endfor %}
+    {% if contributors and contributors.length %}
+    <div>
+      <dt>Contributors</dt>
+      <dd>
+        <ul class="project-credit-list">
+          {% for person in contributors %}
+            <li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>
+          {% endfor %}
+        </ul>
+      </dd>
+    </div>
+    {% endif %}
   </dl>
 
   {% if heroImage %}

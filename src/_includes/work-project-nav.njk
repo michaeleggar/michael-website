@@ -1,0 +1,9 @@
+<nav class="project-navigation" aria-label="Project navigation">
+  {% include "work-back-link.html" %}
+  {% if liveSiteUrl %}
+  <a class="site-nav-link project-nav-link project-nav-live" href="{{ liveSiteUrl }}" target="_blank" rel="noopener noreferrer">
+    <span>Live site</span>
+    {% include "icons/arrow-up-right-solid-micro.svg" %}
+  </a>
+  {% endif %}
+</nav>

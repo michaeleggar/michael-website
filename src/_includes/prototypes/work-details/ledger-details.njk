@@ -1,0 +1,5 @@
+<dl class="project-details" aria-label="Project details">
+    <div><dt>Agency</dt><dd>{{ preview.agency }}, <span class="project-details-year">{{ preview.year }}</span></dd></div>
+    <div><dt>My role</dt><dd>{{ preview.roles | join(" / ") }}</dd></div>
+    <div><dt>Contributors</dt><dd><ul class="project-credit-list">{% for person in preview.contributors %}<li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>{% endfor %}</ul></dd></div>
+  </dl>

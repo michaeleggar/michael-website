@@ -1,12 +1,16 @@
 /* Case-study pages: introduction, copy, media, and project details. */
 
 .portfolio-case-study {
-  --work-media-start-scale: 0.8;
+  --case-study-section-gap: var(--space-lg);
+  --case-study-details-gap: var(--space-xl);
+  --work-media-start-scale: 0.6;
+  --work-media-start-inset: 0px;
+  --project-details-overhang: 1rem;
   width: 100%;
-  padding-block-start: var(--page-top-space);
+  padding-block-start: var(--case-study-section-gap);
 }
 
-.portfolio-case-study > .portfolio-back-link,
+.portfolio-case-study > .project-navigation,
 .portfolio-case-study > .portfolio-project-intro,
 .portfolio-case-study > .project-details,
 .portfolio-case-study > .portfolio-project-copy {
@@ -14,26 +18,25 @@
   margin-inline: auto;
 }
 
-.portfolio-back-link {
+.project-navigation {
+  --nav-pill-inset: 3.5px;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  color: var(--text-muted);
-  font-size: var(--type-xs);
-  line-height: var(--line-snug);
-  text-decoration: none;
+  justify-content: space-between;
+  gap: var(--space-sm);
 }
+.project-nav-link { gap: 0.45rem; }
+.project-nav-link svg { width: 16px; height: 16px; flex: none; transform: translateY(0.5px); transform-origin: center; }
+.project-nav-back svg { width: 14px; height: 14px; }
 
-.portfolio-back-link svg {
-  width: 1rem;
-  height: 1rem;
-  flex: 0 0 auto;
-  transform: translateY(-0.5px);
-  transform-origin: center;
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-nav-link > svg { transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .project-nav-back:hover > svg { transform: translate(-2px, 0.5px); }
+  .project-nav-live:hover > svg { transform: translate(2px, -1.5px) rotate(-3deg); }
 }
 
 .portfolio-project-intro {
-  margin-block-start: var(--space-xl);
+  margin-block-start: var(--case-study-section-gap);
 }
 
 .portfolio-project-intro h1 {
@@ -41,7 +44,6 @@
 }
 
 .portfolio-project-deck {
-  max-width: 34rem;
   margin: 0;
   color: var(--text-secondary);
 }
@@ -58,12 +60,15 @@
 }
 
 .portfolio-first-media {
-  margin-block-start: var(--space-lg);
+  margin-block-start: var(--case-study-details-gap);
 }
+.portfolio-first-media img { transform-origin: top center; }
 
 @keyframes portfolio-media-grow {
   from {
     transform: scale(var(--work-media-start-scale));
+    /* Extra inset per side, while keeping the image proportional. */
+    transform: scale(calc(var(--work-media-start-scale) - 2 * var(--work-media-start-inset) / 100vw));
     clip-path: inset(0 round calc(var(--border-radius) + 2px));
   }
   to {
@@ -105,53 +110,95 @@
   line-height: 1.6;
 }
 
-/* Project details use ordinary label/value rows. */
-
+/* Dense ledger: the original 4px dash / 4px gap rules, at uniform 60% opacity. */
 .project-details {
-  margin: var(--space-xl) 0 0;
-  border-top: 1px solid currentColor;
+  --project-details-column-gap: var(--space-lg);
+  --project-details-rule: color-mix(in oklch, var(--text-muted) 60%, transparent);
+  --project-details-line: repeating-linear-gradient(
+    to right,
+    var(--project-details-rule) 0 4px,
+    transparent 4px 8px
+  );
+  --project-details-line-vertical: repeating-linear-gradient(
+    to bottom,
+    var(--project-details-rule) 0 4px,
+    transparent 4px 8px
+  );
+  position: relative;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: var(--project-details-column-gap);
+  margin: var(--case-study-details-gap) 0 0;
+  border-block-start: 1px solid transparent;
   font-size: var(--type-sm);
 }
 
+.project-details::before,
+.project-details > div::after {
+  content: "";
+  position: absolute;
+  inset-inline: calc(-1 * var(--project-details-overhang));
+  height: 1px;
+  background: var(--project-details-line);
+  pointer-events: none;
+}
+.project-details::before { inset-block-start: -1px; }
+.project-details > div::after { inset-block-end: -1px; }
+.project-details::after {
+  content: "";
+  position: absolute;
+  inset-block: calc(-1 * var(--project-details-overhang));
+  grid-column: 2;
+  inset-inline-start: calc(-1 * var(--project-details-column-gap) / 2 - 0.5px);
+  width: 1px;
+  background: var(--project-details-line-vertical);
+  pointer-events: none;
+}
+
 .project-details > div {
+  position: relative;
   display: grid;
-  grid-template-columns: 5.75rem minmax(0, 1fr);
-  gap: var(--space-md);
-  padding-block: 0.85rem;
-  border-bottom: 1px solid currentColor;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: start;
+  gap: var(--project-details-column-gap);
+  padding-block: 0.625rem;
+  border-block-end: 1px solid transparent;
 }
 
 .project-details dt {
-  color: var(--text-muted);
-  font-size: var(--type-meta);
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 3px 7px;
+  border-radius: calc(var(--control-radius) * 0.65);
+  corner-shape: superellipse(1.6);
+  background: color-mix(in oklch, var(--text-primary) 6%, transparent);
+  color: var(--text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .project-details dd {
   margin: 0;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .portfolio-back-link:hover {
-    color: var(--text-primary);
-  }
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .portfolio-back-link svg {
-    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .portfolio-back-link:hover svg {
-    transform: translate(-2px, -0.5px);
-  }
-}
-
+.project-details-year { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.project-details-year-standalone { font-variant-numeric: tabular-nums; }
+.project-credit-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.project-credit-role { color: var(--text-secondary); }
 @media (max-width: 780px) {
   .portfolio-case-study {
-    --work-media-start-scale: 0.92;
-    padding-block-start: clamp(3rem, 12vw, 4.5rem);
+    --work-media-start-scale: 0.9;
+    --project-details-overhang: 0.25rem;
   }
 }
 
@@ -160,12 +207,5 @@
     animation: none;
     transform: none;
     clip-path: inset(0 round 0px);
-  }
-}
-
-@media (max-width: 560px) {
-  .project-details > div {
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
   }
 }
