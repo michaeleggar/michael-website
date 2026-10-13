@@ -12,11 +12,5 @@
   </div>
   <div class="showcase-label" data-showcase-caption aria-hidden="true"><span class="showcase-title"></span> <span class="showcase-tag showcase-category"></span> <span class="showcase-tag showcase-year"></span></div>
   <span class="visually-hidden" data-showcase-status role="status" aria-live="polite"></span>
-  <dialog id="art-modal" aria-labelledby="modal-title">
-    <button type="button" class="modal-close" aria-label="Close artwork">{% include "icons/close-micro.svg" %}</button>
-    <div class="modal-content">
-      <img id="modal-img" alt="" />
-      <div class="modal-info"><h2 id="modal-title"></h2><p id="modal-details"></p></div>
-    </div>
-  </dialog>
+  {% include "art-dialog.njk" %}
 </section>

@@ -7,5 +7,6 @@ vendor
 node_modules/
 dist/
 assets/scripts/contact-menu.js
+assets/scripts/art-lightbox.js
 notes.md
 .vscode

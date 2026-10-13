@@ -4,11 +4,11 @@ title: Art — Michael Eggar
 description: A selection of paintings and drawings by Michael Eggar, an artist based in Oklahoma City.
 socialImage: /assets/images/optimized/artwork/thank-you-buddy-social.jpg
 socialImageAlt: Thank You, Buddy, a mixed-media painting by Michael Eggar
-stylesheets: [art]
-scripts: [art]
+stylesheets: [pasito, art]
+scripts: [art-lightbox]
 ---
 
-<main id="main-content" class="page-content">
+<main id="main-content" class="page-content art-page">
   <h1 class="visually-hidden">Art</h1>
   <section class="page-section" aria-label="Artwork">
     <div
@@ -22,14 +22,5 @@ scripts: [art]
     </div>
   </section>
 
-  <dialog id="art-modal" aria-labelledby="modal-title">
-    <button type="button" class="modal-close" aria-label="Close artwork">{% include "icons/close-micro.svg" %}</button>
-    <div class="modal-content">
-      <img id="modal-img" alt="" />
-      <div class="modal-info">
-        <h2 id="modal-title"></h2>
-        <p id="modal-details"></p>
-      </div>
-    </div>
-  </dialog>
+  {% include "art-dialog.njk" %}
 </main>
