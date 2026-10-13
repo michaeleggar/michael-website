@@ -9,6 +9,8 @@
   const status = panel.querySelector('.music-player-status');
   const source = panel.querySelector('[data-music-source]');
   const sourceToggle = panel.querySelector('[data-music-source-toggle]');
+  let playerOpen = false;
+  let visibilityGeneration = 0;
   let player;
   let frame;
   let ready = false;
@@ -260,6 +262,38 @@
     showSource(false);
     sourceToggle.focus();
   });
-  // Prepare metadata, without autoplay; actual playback always comes from a click.
-  initialize();
+  function showPlayer(value, { instant = false } = {}) {
+    const attempt = ++visibilityGeneration;
+    playerOpen = value;
+    const focusInside = panel.contains(document.activeElement);
+    panel.toggleAttribute('data-instant', instant);
+    document.dispatchEvent(new CustomEvent('site:music-change', { detail: { open: value } }));
+    if (value) {
+      if (panel.hidden) {
+        panel.hidden = false;
+        // Establish the entrance pose before transitioning to the open state.
+        getComputedStyle(panel).opacity;
+      }
+      panel.inert = false;
+      panel.removeAttribute('aria-hidden');
+      panel.setAttribute('data-open', '');
+      initialize();
+    } else {
+      showSource(false);
+      if (focusInside) document.querySelector('[data-contact-menu] [aria-haspopup="menu"]')?.focus();
+      panel.inert = true;
+      panel.setAttribute('aria-hidden', 'true');
+      panel.removeAttribute('data-open');
+      // CSS transitions reverse from their current position during rapid toggles.
+      Promise.allSettled(panel.getAnimations().map(animation => animation.finished)).then(() => {
+        if (attempt === visibilityGeneration && !playerOpen) panel.hidden = true;
+      });
+    }
+  }
+
+  document.addEventListener('site:music-toggle', event => showPlayer(!playerOpen, { instant: event.detail?.instant === true }));
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !playerOpen) return;
+    showPlayer(false, { instant: true });
+  });
 })();
