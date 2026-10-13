@@ -24,5 +24,21 @@ stylesheets: [case-study]
     {% endfor %}
   </dl>
 
+  {% if heroImage %}
+    <figure class="portfolio-wide-media portfolio-first-media">
+      <img
+        src="{{ heroImage.image }}-large.webp"
+        srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
+        sizes="100vw"
+        width="{{ heroImage.width }}"
+        height="{{ heroImage.height }}"
+        alt="{{ heroImage.alt }}"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+  {% endif %}
+
   {{ content | safe }}
 </main>
