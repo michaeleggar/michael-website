@@ -46,7 +46,8 @@
   --modal-backdrop: color-mix(in oklch, var(--background) 90%, transparent);
   color-scheme: dark;
 
-  --content-width: 38.75rem;
+  --content-width: 34.375rem;
+  --art-zoom-cursor: url('/assets/css/cursors/zoom-in.svg') 10 10, zoom-in;
   --page-gutter: 2.5rem;
   --space-sm: 0.75rem;
   --space-md: 1.6rem;

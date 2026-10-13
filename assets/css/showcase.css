@@ -49,7 +49,7 @@
   transition: filter var(--showcase-blur-duration, 120ms) ease-out;
 }
 .showcase-stage[data-has-active] .showcase-card:not([data-active]) .showcase-photo { filter: blur(var(--showcase-inactive-blur, 0px)); }
-.showcase-card[data-kind="art"] { width: calc(var(--showcase-card-width) * var(--art-width-scale)); }
+.showcase-card[data-kind="art"] { width: calc(var(--showcase-card-width) * var(--art-width-scale)); cursor: var(--art-zoom-cursor); }
 .showcase-card[data-kind="art"] .showcase-photo { aspect-ratio: var(--art-ratio); border-radius: var(--showcase-art-radius); }
 .showcase-card[data-kind="art"] img { object-fit: contain; }
 .showcase-photo img { display: block; width: 100%; height: 100%; object-fit: var(--showcase-work-fit, cover); pointer-events: none; }

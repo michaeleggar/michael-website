@@ -10,60 +10,52 @@ async function startTypeTuner() {
       link.onload = resolve; link.onerror = reject; document.head.append(link);
     }),
   ]);
-  const rootCss = getComputedStyle(document.documentElement);
-  const rem = parseFloat(rootCss.fontSize);
-  function current(name, scope = document.documentElement) {
-    const value = getComputedStyle(scope).getPropertyValue(name).trim();
-    return parseFloat(value) * (value.endsWith('rem') ? rem : 1);
-  }
-  const slider = (name, min, max, step = 1, scope) => [current(name, scope), min, max, step];
-  const caption = document.querySelector('.home-showcase');
   const config = {
     typography: {
-      '--home-title-size': slider('--home-title-size', 14, 40, 0.5),
-      '--type-base': slider('--type-base', 12, 22, 0.5),
-      '--nav-font-size': slider('--nav-font-size', 11, 20, 0.5),
-      '--type-meta': slider('--type-meta', 10, 18, 0.5),
-      '--home-title-tracking': slider('--home-title-tracking', 0, 8, 0.1),
+      '--home-title-size': [16, 14, 40, 0.5],
+      '--type-base': [16, 12, 22, 0.5],
+      '--nav-font-size': [14, 11, 20, 0.5],
+      '--type-meta': [13, 10, 18, 0.5],
+      '--home-title-tracking': [3.2, 0, 8, 0.1],
     },
     contentSpacing: {
-      '--paragraph-gap': slider('--paragraph-gap', 0, 48),
-      '--section-gap': slider('--section-gap', 12, 96),
-      '--space-sm': slider('--space-sm', 4, 40),
+      '--paragraph-gap': [19, 0, 48],
+      '--section-gap': [12, 12, 96],
+      '--space-sm': [12, 4, 40],
     },
     layout: {
       _collapsed: true,
-      '--content-width': slider('--content-width', 400, 900, 10),
+      '--content-width': [550, 400, 900, 10],
       '--page-gutter': [40, 8, 80],
-      '--page-top-space': slider('--page-top-space', 16, 120),
+      '--page-top-space': [52, 16, 120],
     },
     navigation: {
-      '--nav-height': slider('--nav-height', 24, 48),
-      '--nav-padding-inline': slider('--nav-padding-inline', 4, 24, 0.5),
-      '--nav-gap': slider('--nav-gap', 0, 24),
-      '--nav-pill-inset': slider('--nav-pill-inset', 0, 8, 0.5, document.querySelector('.site-header-group')),
+      '--nav-height': [33, 24, 48],
+      '--nav-padding-inline': [11.5, 4, 24, 0.5],
+      '--nav-gap': [10, 0, 24],
+      '--nav-pill-inset': [3.5, 0, 8, 0.5],
     },
     submenu: {
       _collapsed: true,
-      '--other-menu-padding': slider('--other-menu-padding', 0, 20),
-      '--other-menu-gap': slider('--other-menu-gap', 0, 24),
-      '--other-menu-min-width': slider('--other-menu-min-width', 140, 280, 2),
+      '--other-menu-padding': [6, 0, 20],
+      '--other-menu-gap': [6, 0, 24],
+      '--other-menu-min-width': [168, 140, 280, 2],
     },
     caption: {
       _collapsed: true,
-      '--showcase-label-size': caption ? slider('--showcase-label-size', 10, 20, 0.5, caption) : [13, 10, 20, 0.5],
-      '--showcase-detail-size': caption ? slider('--showcase-detail-size', 9, 16, 0.5, caption) : [11, 9, 16, 0.5],
-      '--showcase-label-gap': caption ? slider('--showcase-label-gap', 0, 40, 1, caption) : [12, 0, 40],
+      '--showcase-label-size': [13, 10, 20, 0.5],
+      '--showcase-detail-size': [11, 9, 16, 0.5],
+      '--showcase-label-gap': [12, 0, 40],
     },
     advanced: {
       _collapsed: true,
-      '--line-body': slider('--line-body', 1.2, 2, 0.05),
-      '--line-snug': slider('--line-snug', 1.1, 1.8, 0.05),
-      '--home-title-line': slider('--home-title-line', 1, 2, 0.05),
-      '--type-sm': slider('--type-sm', 12, 22, 0.5),
-      '--control-radius': slider('--control-radius', 0, 24),
-      '--surface-radius': slider('--surface-radius', 0, 24),
-      '--header-top-space': slider('--header-top-space', 0, 48),
+      '--line-body': [1.5, 1.2, 2, 0.05],
+      '--line-snug': [1.45, 1.1, 1.8, 0.05],
+      '--home-title-line': [1.55, 1, 2, 0.05],
+      '--type-sm': [15, 12, 22, 0.5],
+      '--control-radius': [11, 0, 24],
+      '--surface-radius': [12, 0, 24],
+      '--header-top-space': [16, 0, 48],
     },
     exportCss: { type: 'action', label: 'Export homepage CSS' },
     reset: { type: 'action', label: 'Reset to site defaults' },
