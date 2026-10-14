@@ -74,4 +74,4 @@ The command prints an `image` filename prefix and the actual `thumbnailWidth`, `
 - For project cards, copy those fields plus `thumbnailWidth` into the project's `cardImage` object. Put `socialImage` at the top level of its frontmatter.
 - For case-study content, use ordinary `<img>` markup with the generated filenames and dimensions. The existing pages show `srcset` and `sizes` for the shared 700px content width.
 
-Commit the prepared files with the content changes. Sharp is only used by this manual command; building the site does not process images. Original images are kept locally in the repository and are not copied to the published site.
+Commit the prepared files with the content changes. Building the site only uses Sharp to make the tiny blurred previews; it does not resize the published images. Original images are kept locally in the repository and are not copied to the published site.
