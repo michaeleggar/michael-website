@@ -8,7 +8,7 @@ An Eleventy static site with Nunjucks templates, plain CSS, and a small browser 
 | --- | --- |
 | [styles.css](assets/css/styles.css) | Shared fonts, colors, design tokens, typography, accessibility, page width, and introductions |
 | [header.css](assets/css/header.css) | Site navigation and contact links |
-| [ambient-player.css](assets/css/ambient-player.css) | Transparent CD player and compact dock |
+| [ambient-player.css](assets/css/ambient-player.css) | Transparent CD player and its lowered state |
 | [portfolio.css](assets/css/portfolio.css) | Homepage name treatment and the Work project grid and cards |
 | [showcase.css](assets/css/showcase.css) | Homepage work/art fan, photographic frames, and responsive presentation |
 | [case-study.css](assets/css/case-study.css) | Project introductions, details, copy, and images |
@@ -39,11 +39,11 @@ Shared colors, typography, spacing, widths, and corner radii live in `assets/css
 
 ## CD player
 
-Open **Other Stuff → CD player** to reveal one shiny, hand-marked disc already seated beneath a fixed transparent cover. Press play to start the original Web Audio wind-and-leaf placeholder; no third-party samples, recordings, or streaming embeds are used.
+Open **Other Stuff → CD player** to raise one shiny, hand-marked disc already seated beneath a fixed transparent lid. Press play to start the original Web Audio wind-and-leaf placeholder; no third-party samples, recordings, or streaming embeds are used.
 
-The controls handle restart, stop, play/pause, and volume. The LCD shows elapsed playback time, a quieter disc number, and a draggable segmented volume strip. The handwritten disc artwork rotates beneath fixed metallic reflections. Restart resets the counter while preserving playback, stop resets and pauses, pause preserves the time, and closing stops the audio. Site navigation preserves the player and audio state.
+The disc, lid, and shell share one center, so the rims stay even all the way around; the display and the three keys sit on a single row above them. The keys handle restart, stop, and play/pause. The seven-segment display shows elapsed time above a segmented volume strip, and the whole display is the volume control: drag it, scroll over it, or use the arrow keys. The handwritten artwork eases up to speed beneath fixed reflections and coasts to a stop; a paused disc blinks its time. Restart resets the counter while preserving playback, stop resets and pauses, pause preserves the time, and closing stops the audio. Site navigation preserves the player and audio state.
 
-After the first hover or interaction, moving away tucks the player into a small dock after a short grace period. Touch interactions tuck away after 2.4 seconds of inactivity; dragging and keyboard focus keep it open. An intentional scroll also minimizes it. Hover over the dock's disc, or activate its expand button, to return to the full player. The dock's play/pause button remains usable without expanding. Keyboard access and touch do not depend on hover. Reduced motion removes spinning and uses opacity changes for the dock.
+After the first hover or interaction, moving away lowers the player after a short grace period until only its control row and the top of the disc show above the bottom edge. Touch interactions lower it after 2.4 seconds of inactivity; dragging and keyboard focus keep it raised. An intentional scroll also lowers it. Hover over the display or disc, tap anywhere off the keys, or focus a control with the keyboard to raise it again. The keys keep working while it is lowered. Reduced motion removes the spin, blink, and slide.
 
 To replace the shared placeholder with a recording, put the file in `assets/audio/`, add that directory to Eleventy's passthrough-copy list, and set `data-audio-src="/assets/audio/backyard.mp3"` on the section in `src/_includes/ambient-player.html`. Prepare a seamless loop and check the recording level before publishing.
 

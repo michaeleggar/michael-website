@@ -1,39 +1,23 @@
-<section id="ambient-player" class="cd-player" aria-label="CD player" data-expanded="true" hidden>
-  <div class="cd-expanded" id="cd-expanded">
-    <div class="cd-machine">
-      <div class="cd-well" aria-hidden="true">
-        <div class="cd-seat"><div class="cd-record cd-loaded-record">{% include "cd-artwork.svg" %}</div></div>
-        <span class="cd-spindle"></span>
-        <span class="cd-pickup"></span>
-      </div>
-      <div class="cd-cover" aria-hidden="true"><span class="cd-screw cd-screw-left"></span><span class="cd-screw cd-screw-right"></span></div>
-      <div class="cd-console" role="group" aria-label="Playback controls">
-        <div class="cd-secondary">
-          <button class="cd-key cd-key-restart" type="button" data-cd-restart aria-label="Restart" title="Restart"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4v8M12 4 6 8l6 4V4Z" /></svg></button>
-          <button class="cd-key cd-key-stop" type="button" data-cd-stop aria-label="Stop playback" title="Stop"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 4.5h7v7h-7z" /></svg></button>
+<section id="ambient-player" class="cd-player" aria-label="CD player" hidden>
+  <div class="cd-machine">
+    <div class="cd-deck" role="group" aria-label="Playback controls">
+      <div class="cd-lcd" data-cd-peek>
+        <div class="cd-readout" role="timer" aria-label="Disc 1, 0 minutes 0 seconds">
+          <span class="cd-lcd-playing" aria-hidden="true"></span>
+          <svg class="cd-digits" data-cd-time viewBox="0 0 38 12" aria-hidden="true"></svg>
         </div>
-        <div class="cd-display">
-          <div class="cd-lcd" role="timer" aria-label="Disc 1, 0 minutes 0 seconds">
-            <span class="cd-lcd-playing" aria-hidden="true">▶</span>
-            <span data-cd-track aria-hidden="true">01</span>
-            <span data-cd-time aria-hidden="true">00:00</span>
-          </div>
-          <div class="cd-volume">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 3 4 6H2v4h2l3 3V3ZM10 5a4 4 0 0 1 0 6m2-8a7 7 0 0 1 0 10" /></svg>
-            <input type="range" min="0" max="100" value="45" step="1" aria-label="Volume" aria-valuetext="45%" title="Volume" />
-          </div>
-        </div>
-        <button class="cd-key cd-key-play" type="button" data-cd-play aria-label="Play" title="Play / pause"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="cd-icon-play" d="m5 3 7 5-7 5V3Z" /><path class="cd-icon-pause" d="M5 3v10M11 3v10" /></svg></button>
+        <span class="cd-level" aria-hidden="true"></span>
+        <input type="range" min="0" max="100" value="45" step="1" aria-label="Volume" aria-valuetext="45%" title="Volume" />
       </div>
+      <button class="cd-key" type="button" data-cd-restart aria-label="Restart" title="Restart"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 2h2v8h-2zM10.5 2v8L4.5 6z" /></svg></button>
+      <button class="cd-key" type="button" data-cd-stop aria-label="Stop playback" title="Stop"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 2.5h7v7h-7z" /></svg></button>
+      <button class="cd-key cd-key-play" type="button" data-cd-play aria-label="Play" title="Play / pause"><svg viewBox="0 0 12 12" aria-hidden="true"><path class="cd-icon-play" d="M3 1.5v9L10.5 6z" /><path class="cd-icon-pause" d="M2.5 2h2.5v8H2.5zM7 2h2.5v8H7z" /></svg></button>
     </div>
-  </div>
-  <div class="cd-mini" inert aria-hidden="true">
-    <button class="cd-mini-expand" type="button" data-cd-expand aria-label="Expand CD player" aria-expanded="false" aria-controls="cd-expanded" title="Open player">
-      <span class="cd-record cd-mini-record" aria-hidden="true">{% include "cd-artwork.svg" %}</span>
-      <span class="cd-mini-track" aria-hidden="true">01</span>
-      <svg class="cd-mini-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m5 9 3-3 3 3" /></svg>
-    </button>
-    <button class="cd-mini-play" type="button" data-cd-play aria-label="Play" title="Play / pause"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="cd-icon-play" d="m5 3 7 5-7 5V3Z" /><path class="cd-icon-pause" d="M5 3v10M11 3v10" /></svg></button>
+    <div class="cd-well" data-cd-peek aria-hidden="true">
+      <span class="cd-spindle"></span>
+      <div class="cd-seat"><div class="cd-record">{% include "cd-artwork.svg" %}</div></div>
+    </div>
+    <div class="cd-lid" aria-hidden="true"><span class="cd-screw cd-screw-left"></span><span class="cd-screw cd-screw-right"></span></div>
   </div>
   <p class="cd-status visually-hidden" role="status"></p>
 </section>

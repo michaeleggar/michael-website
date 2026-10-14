@@ -1,16 +1,19 @@
 (() => {
   const panel = document.querySelector('#ambient-player');
   if (!panel) return;
-  const expandedView = panel.querySelector('.cd-expanded');
-  const mini = panel.querySelector('.cd-mini');
-  const expandButton = panel.querySelector('[data-cd-expand]');
-  const playButtons = [...panel.querySelectorAll('[data-cd-play]')];
+  const machine = panel.querySelector('.cd-machine');
+  const lcd = panel.querySelector('.cd-lcd');
+  const readout = panel.querySelector('.cd-readout');
+  const digits = panel.querySelector('[data-cd-time]');
+  const level = panel.querySelector('.cd-level');
+  const playButton = panel.querySelector('[data-cd-play]');
   const volume = panel.querySelector('input[type="range"]');
   const status = panel.querySelector('[role="status"]');
+  const artwork = panel.querySelector('.cd-artwork');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   let open = false;
-  let expanded = true;
+  let tucked = false;
   let playing = false;
   let busy = false;
   let engine;
@@ -26,10 +29,45 @@
   let clockTimer;
   let seconds = 0;
   let startedAt = 0;
-  let expandedScrollY = window.scrollY;
+  let raisedScrollY = window.scrollY;
   let wheelDistance = 0;
   let lastWheelAt = 0;
   let touchStartY = 0;
+  let spinRate = 0;
+  let spinFrame;
+
+  // Seven-segment digits, drawn as a, b, c, d, e, f, g. Unlit segments stay in the DOM.
+  const SEGMENTS = ['M1.5.7h3.5', 'M5.8 1.4v3.9', 'M5.8 6.7v3.9', 'M1.5 11.3h3.5', 'M.7 6.7v3.9', 'M.7 1.4v3.9', 'M1.5 6h3.5'];
+  const GLYPHS = ['abcdef', 'bc', 'abged', 'abgcd', 'fgbc', 'afgcd', 'afgedc', 'abc', 'abcdefg', 'abcdfg'];
+  const cells = [0, 8.5, 23, 31.5].map(x => SEGMENTS.map(d => {
+    const segment = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    segment.setAttribute('d', d);
+    segment.setAttribute('transform', `translate(${x})`);
+    return digits.appendChild(segment);
+  }));
+  const colon = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  colon.setAttribute('d', 'M18.4 3.6h1.3M18.4 8.4h1.3');
+  colon.toggleAttribute('data-on', true);
+  digits.appendChild(colon);
+
+  // The ink eases up to speed and coasts to a stop, like a disc on a motor.
+  const spin = artwork.animate({ rotate: ['-13deg', '347deg'] }, { duration: 10000, iterations: Infinity });
+  spin.pause();
+  function setSpin(target) {
+    cancelAnimationFrame(spinFrame);
+    if (reduced.matches) { spinRate = 0; spin.pause(); return; }
+    const from = spinRate;
+    const began = performance.now();
+    const duration = target ? 1400 : 2200;
+    if (target) spin.play();
+    (function step(now) {
+      const t = Math.min(1, Math.max(0, now - began) / duration);
+      spinRate = from + (target - from) * (1 - (1 - t) ** 3);
+      spin.playbackRate = spinRate;
+      if (t < 1) spinFrame = requestAnimationFrame(step);
+      else if (!target) spin.pause();
+    })(began);
+  }
 
   // The disc plays original wind-and-leaf synthesis.
   // A future local recording can be supplied through data-audio-src on the panel.
@@ -113,25 +151,30 @@
   }
   function updateClock() {
     const total = Math.floor(elapsed());
-    const time = `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
-    panel.querySelector('[data-cd-time]').textContent = time;
-    panel.querySelector('.cd-lcd').setAttribute('aria-label', `Disc 1, ${Math.floor(total / 60)} minutes ${total % 60} seconds`);
+    const minutes = Math.floor(total / 60);
+    const text = `${String(minutes % 100).padStart(2, '0')}${String(total % 60).padStart(2, '0')}`;
+    cells.forEach((cell, index) => {
+      const lit = GLYPHS[text[index]];
+      cell.forEach((segment, position) => segment.toggleAttribute('data-on', lit.includes('abcdefg'[position])));
+    });
+    readout.setAttribute('aria-label', `Disc 1, ${minutes} minutes ${total % 60} seconds`);
+    // A held disc blinks its time, the way a paused player does.
+    panel.toggleAttribute('data-paused', !playing && !busy && total > 0);
   }
   function setBusy(value) {
     busy = value;
     panel.toggleAttribute('data-loading', value);
-    playButtons.forEach(button => {
-      button.disabled = value;
-      button.setAttribute('aria-busy', String(value));
-    });
+    playButton.disabled = value;
+    playButton.setAttribute('aria-busy', String(value));
     if (!value) scheduleMinimize();
   }
   function setPlaying(value) {
     playing = value;
     panel.toggleAttribute('data-playing', value);
-    playButtons.forEach(button => button.setAttribute('aria-label', value ? 'Pause' : 'Play'));
+    playButton.setAttribute('aria-label', value ? 'Pause' : 'Play');
     clearInterval(clockTimer);
     if (value) clockTimer = setInterval(() => { if (!document.hidden) updateClock(); }, 250);
+    setSpin(value ? 1 : 0);
     updateClock();
   }
   function pause() {
@@ -187,53 +230,47 @@
     setPlaying(true);
     status.textContent = 'Playing.';
   }
-  function togglePlayback(event) {
+  function togglePlayback() {
     if (busy) return;
     if (playing) { pause(); return; }
-    panel.toggleAttribute('data-instant', event.detail === 0);
     const token = ++operation;
     setBusy(true);
     finishPlaying(prepareAudio(), token);
   }
-  function setExpanded(value, { focus = false, instant = false } = {}) {
-    if (value === expanded) return;
+  function showVolume() {
+    level.style.setProperty('--volume', `${Math.ceil(Number(volume.value) / 10) * 10}%`);
+    volume.setAttribute('aria-valuetext', Number(volume.value) === 0 ? 'Muted' : `${volume.value}%`);
+  }
+  // Tucking only lowers the player; every control stays reachable in both positions.
+  function setTucked(value, { instant = false } = {}) {
+    if (value === tucked) return;
     clearTimeout(hoverTimer);
     clearTimeout(minimizeTimer);
     panel.toggleAttribute('data-instant', instant || reduced.matches);
-    expanded = value;
-    if (value) {
-      expandedScrollY = window.scrollY;
+    tucked = value;
+    if (!value) {
+      raisedScrollY = window.scrollY;
       wheelDistance = 0;
     }
-    panel.dataset.expanded = String(value);
-    expandButton.setAttribute('aria-expanded', String(value));
-    const from = value ? mini : expandedView;
-    const to = value ? expandedView : mini;
-    to.inert = false;
-    to.removeAttribute('aria-hidden');
-    if (focus || from.contains(document.activeElement)) {
-      (value ? playButtons[0] : expandButton).focus({ preventScroll: true });
-    }
-    from.inert = true;
-    from.setAttribute('aria-hidden', 'true');
+    panel.toggleAttribute('data-tucked', value);
   }
   function showPlayer(value, { instant = false } = {}) {
     const token = ++visibilityGeneration;
     open = value;
-    panel.toggleAttribute('data-instant', instant || reduced.matches);
     document.dispatchEvent(new CustomEvent('site:ambience-change', { detail: { open: value } }));
     if (value) {
-      expandedScrollY = window.scrollY;
-      wheelDistance = 0;
       panel.hidden = false;
       panel.inert = false;
       panel.removeAttribute('aria-hidden');
-      setExpanded(true, { instant });
+      setTucked(false, { instant: true });
+      raisedScrollY = window.scrollY;
+      wheelDistance = 0;
       hasInteracted = false;
       pointerOverPlayer = false;
-      getComputedStyle(panel).opacity;
+      getComputedStyle(machine).opacity;
+      panel.toggleAttribute('data-instant', instant || reduced.matches);
       panel.setAttribute('data-open', '');
-      if (instant) playButtons[0].focus({ preventScroll: true });
+      if (instant) playButton.focus({ preventScroll: true });
     } else {
       pause();
       clearTimeout(hoverTimer);
@@ -242,53 +279,61 @@
       if (panel.contains(document.activeElement)) document.querySelector('[data-contact-menu] [aria-haspopup="menu"]')?.focus();
       panel.inert = true;
       panel.setAttribute('aria-hidden', 'true');
+      panel.toggleAttribute('data-instant', instant || reduced.matches);
       panel.removeAttribute('data-open');
-      Promise.allSettled(panel.getAnimations().map(animation => animation.finished)).then(() => {
+      const leaving = machine.getAnimations().filter(animation => animation instanceof CSSTransition);
+      Promise.allSettled(leaving.map(animation => animation.finished)).then(() => {
         if (token === visibilityGeneration && !open) panel.hidden = true;
       });
     }
   }
+  function raise(options) {
+    if (!open || !tucked) return;
+    setTucked(false, options);
+    hasInteracted = true;
+  }
   function tuckAway() {
-    if (!open || !expanded || busy || activePointers.size || expandedView.querySelector(':focus-visible')) return;
-    setExpanded(false);
+    if (!open || tucked || busy || activePointers.size || panel.querySelector(':focus-visible')) return;
+    setTucked(true);
   }
   function scheduleMinimize(delay = lastPointerType === 'mouse' ? 650 : 2400) {
     clearTimeout(minimizeTimer);
-    if (!open || !expanded || !hasInteracted || pointerOverPlayer || activePointers.size || busy || expandedView.querySelector(':focus-visible')) return;
+    if (!open || tucked || !hasInteracted || pointerOverPlayer || activePointers.size || busy || panel.querySelector(':focus-visible')) return;
     minimizeTimer = setTimeout(() => {
       if (!pointerOverPlayer && !activePointers.size) tuckAway();
     }, delay);
   }
-  playButtons.forEach(button => button.addEventListener('click', togglePlayback));
+  playButton.addEventListener('click', togglePlayback);
   panel.querySelector('[data-cd-restart]').addEventListener('click', resetTime);
   panel.querySelector('[data-cd-stop]').addEventListener('click', () => { pause(); resetTime(); });
   volume.addEventListener('input', () => {
-    volume.style.setProperty('--volume', `${Math.ceil(Number(volume.value) / 10) * 10}%`);
-    volume.setAttribute('aria-valuetext', Number(volume.value) === 0 ? 'Muted' : `${volume.value}%`);
+    showVolume();
     if (engine && playing) engine.master.gain.setTargetAtTime(Number(volume.value) / 100 * .65, engine.context.currentTime, .04);
   });
-  expandButton.addEventListener('click', event => {
-    setExpanded(true, { focus: event.detail === 0, instant: event.detail === 0 });
-    hasInteracted = true;
-    scheduleMinimize();
+  lcd.addEventListener('wheel', event => {
+    if (tucked) return;
+    event.preventDefault();
+    volume.value = Number(volume.value) + (event.deltaY < 0 ? 5 : -5);
+    volume.dispatchEvent(new Event('input'));
+  }, { passive: false });
+  // The display and the disc invite the player back up; the keys just work where they are.
+  panel.querySelectorAll('[data-cd-peek]').forEach(element => {
+    element.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse' || !finePointer.matches) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(raise, 140);
+    });
+    element.addEventListener('pointerleave', () => clearTimeout(hoverTimer));
   });
-  expandButton.addEventListener('pointerenter', event => {
-    if (event.pointerType !== 'mouse' || !finePointer.matches) return;
-    clearTimeout(hoverTimer);
-    hoverTimer = setTimeout(() => {
-      if (open && !expanded) {
-        setExpanded(true);
-        hasInteracted = true;
-      }
-    }, 160);
+  machine.addEventListener('click', event => {
+    if (!event.target.closest('button')) raise();
   });
-  expandButton.addEventListener('pointerleave', () => { if (!expanded) clearTimeout(hoverTimer); });
   panel.addEventListener('pointerenter', event => {
     if (event.pointerType !== 'mouse' || !finePointer.matches) return;
     pointerOverPlayer = true;
     lastPointerType = event.pointerType;
     clearTimeout(minimizeTimer);
-    if (expanded) hasInteracted = true;
+    if (!tucked) hasInteracted = true;
   });
   panel.addEventListener('pointerleave', event => {
     if (event.pointerType !== 'mouse') return;
@@ -309,7 +354,8 @@
   document.addEventListener('pointerup', endPointerInteraction);
   document.addEventListener('pointercancel', endPointerInteraction);
   panel.addEventListener('focusin', () => {
-    if (!expanded) return;
+    if (!panel.querySelector(':focus-visible')) return;
+    raise({ instant: true });
     hasInteracted = true;
     clearTimeout(minimizeTimer);
   });
@@ -318,7 +364,7 @@
     if (!panel.contains(event.target)) scheduleMinimize(650);
   });
   document.addEventListener('scroll', () => {
-    if (Math.abs(window.scrollY - expandedScrollY) > 24) tuckAway();
+    if (Math.abs(window.scrollY - raisedScrollY) > 24) tuckAway();
   }, { passive: true });
   document.addEventListener('wheel', event => {
     if (panel.contains(event.target)) return;
@@ -336,14 +382,15 @@
   document.addEventListener('site:ambience-toggle', event => showPlayer(!open, { instant: event.detail?.instant === true }));
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || !open) return;
-    if (expanded) {
+    if (!tucked) {
       if (busy) pause();
-      setExpanded(false, { instant: true });
+      setTucked(true, { instant: true });
     } else showPlayer(false, { instant: true });
   });
   document.addEventListener('visibilitychange', () => {
-    panel.toggleAttribute('data-background', document.hidden);
     if (!document.hidden) updateClock();
   });
   window.addEventListener('pagehide', pause);
+  showVolume();
+  updateClock();
 })();
