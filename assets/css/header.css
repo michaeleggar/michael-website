@@ -181,7 +181,7 @@
 .elsewhere-content { padding: var(--other-menu-padding); }
 #elsewhere-links { display: flex; flex-direction: column; gap: 0px; }
 .elsewhere-divider { height: 1px; margin: 6px var(--nav-padding-inline); background: color-mix(in oklch, var(--text-primary) 14%, transparent); }
-.elsewhere-music[aria-checked="true"] > svg { color: var(--accent); }
+.elsewhere-ambience[aria-checked="true"] > svg { color: var(--accent); }
 .elsewhere-measure { position: fixed; left: -10000px; top: 0; visibility: hidden; pointer-events: none; width: max-content; }
 .elsewhere-menu-measure { position: fixed; left: -10000px; top: 0; visibility: hidden; pointer-events: none; min-width: var(--other-menu-min-width); width: max-content; }
 .elsewhere-menu-measure .elsewhere-item { width: auto; }

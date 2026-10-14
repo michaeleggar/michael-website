@@ -97,7 +97,7 @@
       url.hash = destination.hash;
       const page = new DOMParser().parseFromString(await response.text(), 'text/html');
       const nextMain = page.querySelector('#main-content');
-      if (!nextMain || !page.querySelector('#music-player')) throw new Error('Page has no shared layout');
+      if (!nextMain || !page.querySelector('#ambient-player')) throw new Error('Page has no shared layout');
       const styles = await loadStyles(page, url, signal);
       if (signal.aborted) return;
 

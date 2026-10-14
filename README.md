@@ -8,6 +8,7 @@ An Eleventy static site with Nunjucks templates, plain CSS, and a small browser 
 | --- | --- |
 | [styles.css](assets/css/styles.css) | Shared fonts, colors, design tokens, typography, accessibility, page width, and introductions |
 | [header.css](assets/css/header.css) | Site navigation and contact links |
+| [ambient-player.css](assets/css/ambient-player.css) | Transparent CD player and compact dock |
 | [portfolio.css](assets/css/portfolio.css) | Homepage name treatment and the Work project grid and cards |
 | [showcase.css](assets/css/showcase.css) | Homepage work/art fan, photographic frames, and responsive presentation |
 | [case-study.css](assets/css/case-study.css) | Project introductions, details, copy, and images |
@@ -35,6 +36,16 @@ Shared colors, typography, spacing, widths, and corner radii live in `assets/css
 - Start local development with `ART_DIALKIT=1` to open Art · Layout & Type. It tunes masonry/grid layout, desktop and mobile columns, image proportions, spacing, navigation, and the artwork viewer and its caption. Use the viewer preview to adjust its controls while the image is open; reset and CSS export are included. Art controls stay scoped to the Art page and are excluded from production builds.
 - Case-study project details use a definition list styled as label/value rows in `case-study.css`.
 - `assets/images/optimized/` contains the prepared WebP images and JPEG social previews. Eleventy copies this directory as-is.
+
+## CD player
+
+Open **Other Stuff → CD player** to reveal one shiny, hand-marked disc already seated beneath a fixed transparent cover. Press play to start the original Web Audio wind-and-leaf placeholder; no third-party samples, recordings, or streaming embeds are used.
+
+The controls handle restart, stop, play/pause, and volume. The LCD shows elapsed playback time, a quieter disc number, and a draggable segmented volume strip. The handwritten disc artwork rotates beneath fixed metallic reflections. Restart resets the counter while preserving playback, stop resets and pauses, pause preserves the time, and closing stops the audio. Site navigation preserves the player and audio state.
+
+After the first hover or interaction, moving away tucks the player into a small dock after a short grace period. Touch interactions tuck away after 2.4 seconds of inactivity; dragging and keyboard focus keep it open. An intentional scroll also minimizes it. Hover over the dock's disc, or activate its expand button, to return to the full player. The dock's play/pause button remains usable without expanding. Keyboard access and touch do not depend on hover. Reduced motion removes spinning and uses opacity changes for the dock.
+
+To replace the shared placeholder with a recording, put the file in `assets/audio/`, add that directory to Eleventy's passthrough-copy list, and set `data-audio-src="/assets/audio/backyard.mp3"` on the section in `src/_includes/ambient-player.html`. Prepare a seamless loop and check the recording level before publishing.
 
 ## Adding images
 

@@ -6,8 +6,8 @@ import { MotionConfig, motion, useAnimationControls } from 'framer-motion';
 
 const menuItemSelector = '[role="menuitem"], [role="menuitemcheckbox"]';
 
-function MusicNote() {
-  return <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M14 1.75a.75.75 0 0 0-.89-.737l-7.502 1.43a.75.75 0 0 0-.61.736v2.5c0 .018 0 .036.002.054V9.73a1 1 0 0 1-.813.983l-.58.11a1.978 1.978 0 0 0 .741 3.886l.603-.115c.9-.171 1.55-.957 1.55-1.873v-1.543l-.001-.043V6.3l6-1.143v3.146a1 1 0 0 1-.813.982l-.584.111a1.978 1.978 0 0 0 .74 3.886l.326-.062A2.252 2.252 0 0 0 14 11.007V1.75Z" /></svg>;
+function DiscIcon() {
+  return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.5" /><circle cx="8" cy="8" r="1.5" /><path d="M4.5 8a3.5 3.5 0 0 1 3.5-3.5M11.5 8A3.5 3.5 0 0 1 8 11.5" /></svg>;
 }
 
 function Arrow() {
@@ -48,7 +48,7 @@ function CopyConfirmation({ status, pulse, instant, reduced }) {
 
 function ContactMenu({ email, initialGeometry }) {
   const [open, setOpen] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(() => document.querySelector('#music-player')?.hasAttribute('data-open') || false);
+  const [ambienceOpen, setAmbienceOpen] = useState(() => document.querySelector('#ambient-player')?.hasAttribute('data-open') || false);
   const [status, setStatus] = useState('');
   const [copyFeedback, setCopyFeedback] = useState({ pulse: 0, instant: false });
   const wrapper = useRef(null);
@@ -82,9 +82,9 @@ function ContactMenu({ email, initialGeometry }) {
     if (open && keyboard.current) requestAnimationFrame(() => wrapper.current?.querySelector(menuItemSelector)?.focus());
   }, [open]);
   useEffect(() => {
-    const update = event => setMusicEnabled(event.detail.open);
-    document.addEventListener('site:music-change', update);
-    return () => document.removeEventListener('site:music-change', update);
+    const update = event => setAmbienceOpen(event.detail.open);
+    document.addEventListener('site:ambience-change', update);
+    return () => document.removeEventListener('site:ambience-change', update);
   }, []);
   useEffect(() => {
     const close = () => setOpen(false);
@@ -104,9 +104,9 @@ function ContactMenu({ email, initialGeometry }) {
     if (event.key in positions) { event.preventDefault(); items[positions[event.key]]?.focus(); }
     if (event.key === 'Tab') keyboard.current = false;
   }
-  function toggleMusic(event) {
-    document.dispatchEvent(new CustomEvent('site:music-toggle', { detail: { instant: event.detail === 0 } }));
-    changeOpen(false);
+  function toggleAmbience(event) {
+    document.dispatchEvent(new CustomEvent('site:ambience-toggle', { detail: { instant: event.detail === 0 } }));
+    setOpen(false);
   }
   async function copyEmail(event) {
     const instant = event.detail === 0;
@@ -135,7 +135,7 @@ function ContactMenu({ email, initialGeometry }) {
       <div className="elsewhere-item">LinkedIn <Arrow /></div>
       <div className="elsewhere-item">Email <span className="elsewhere-copy-note">Copied again!</span></div>
       <div className="elsewhere-divider" />
-      <div className="elsewhere-item">Disable music <MusicNote /></div>
+      <div className="elsewhere-item">CD player <DiscIcon /></div>
     </div>
     <Menu.Root open={open} onOpenChange={changeOpen} direction="bottom" anchor="end" visualDuration={0.25} bounce={0.12} animationConfig={{ contentDelay: 0.025, contentBlur: 4, triggerBlur: 4, contentScale: reduced ? 1 : 0.98 }}>
       <ContactTrigger />
@@ -147,7 +147,7 @@ function ContactMenu({ email, initialGeometry }) {
           <a role="menuitem" className="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>LinkedIn <Arrow /></a>
           <button role="menuitem" className="elsewhere-item" onClick={copyEmail}>Email <CopyConfirmation status={status} pulse={copyFeedback.pulse} instant={copyFeedback.instant} reduced={reduced} /></button>
           <div className="elsewhere-divider" role="separator" />
-          <button role="menuitemcheckbox" className="elsewhere-item elsewhere-music" aria-checked={musicEnabled} aria-controls="music-player" onClick={toggleMusic}>{musicEnabled ? 'Disable music' : 'Enable music'} <MusicNote /></button>
+          <button role="menuitemcheckbox" className="elsewhere-item elsewhere-ambience" aria-checked={ambienceOpen} aria-controls="ambient-player" onClick={toggleAmbience}>CD player <DiscIcon /></button>
           </div>
         </Menu.Content>
       </Menu.Container>

@@ -4,7 +4,7 @@
     {% include "head.html" %}
     <link rel="stylesheet" href="/assets/css/styles.css" />
     <link rel="stylesheet" href="/assets/css/header.css" />
-    <link rel="stylesheet" href="/assets/css/music-player.css" />
+    <link rel="stylesheet" href="/assets/css/ambient-player.css" />
     {% for stylesheet in stylesheets %}
       <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css" data-page-style />
     {% endfor %}
@@ -13,10 +13,10 @@
     <a class="skip-nav" href="#main-content">Skip to main content</a>
     {% include "edge-blur.njk" %}
     {% include "site-header.html" %}
-    {% include "music-player.html" %}
+    {% include "ambient-player.html" %}
     {{ content | safe }}
     <script src="/assets/scripts/contact-menu.js" defer></script>
-    <script src="/assets/scripts/music-player.js" defer></script>
+    <script src="/assets/scripts/ambient-player.js" defer></script>
     <script src="/assets/scripts/page-navigation.js" defer></script>
     {% for script in scripts %}
       <script src="/assets/scripts/{{ script }}.js" data-page-script></script>

@@ -1,0 +1,127 @@
+/* A fixed clear shell, a hand-marked silver disc, and quiet hardware controls. */
+.cd-player {
+  --cd-size: 248px;
+  --cd-ink: #374345;
+  --cd-control: #ee6b38;
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 50;
+  width: calc(var(--cd-size) * .9);
+  height: 241.2px;
+  color: var(--cd-ink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 150ms ease, transform 230ms var(--ease-out-expo);
+}
+.cd-player[data-open] { opacity: 1; transform: none; }
+.cd-player[hidden] { display: none; }
+.cd-player button { appearance: none; -webkit-tap-highlight-color: transparent; cursor: pointer; font: inherit; }
+.cd-player button:disabled { cursor: wait; }
+.cd-player svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cd-player :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.cd-machine :focus-visible, .cd-mini :focus-visible { outline-color: #9e4327; }
+.cd-expanded { position: absolute; inset: 0; transform-origin: bottom right; opacity: 1; transform: none; transition: opacity 160ms ease, transform 240ms var(--ease-out-expo), visibility 0s; }
+.cd-player[data-expanded="false"] .cd-expanded { opacity: 0; transform: translateY(8px) scale(.96); visibility: hidden; transition: opacity 130ms ease, transform 200ms var(--ease-out-expo), visibility 0s 200ms; }
+.cd-player[data-open][data-expanded="true"] .cd-expanded { pointer-events: auto; }
+.cd-machine {
+  position: absolute; bottom: 0; right: 0; width: var(--cd-size); height: 268px;
+  transform: scale(.9);
+  transform-origin: bottom right;
+  border: 1px solid #e1e8f063;
+  border-radius: 35px 35px 83px 83px / 31px 31px 67px 67px;
+  background: linear-gradient(155deg, #d8e0ed73, #aab8ca40 60%, #dfe6ef87);
+  box-shadow: inset 1px 1px 1px #ffffff66, inset -1px -2px 1px #65738955, 0 2px 0 #27323e66, 0 4px 6px #0002, 0 14px 30px #0003;
+  backdrop-filter: blur(4px);
+}
+/* A molded perimeter and a visible tray give the clear parts some thickness. */
+.cd-machine::before { content: ''; position: absolute; inset: 4px; border: 1px solid #eaf2ff25; border-radius: 31px 31px 79px 79px / 27px 27px 63px 63px; pointer-events: none; }
+.cd-machine::after { content: ''; position: absolute; bottom: 5px; left: 81px; right: 81px; height: 1px; background: #edf5ff40; pointer-events: none; }
+.cd-well { position: absolute; top: 10px; left: 21px; width: 204px; height: 187px; overflow: hidden; border-radius: 25px 25px 102px 102px; background: radial-gradient(circle at 102px 85px, #28364455 0 82px, #b2c6d322 83px 85px, #28364420 86px, transparent 89px); }
+.cd-well::before { content: ''; position: absolute; width: 168px; height: 168px; top: 1px; left: 18px; border-radius: 50%; border: 1px solid #e7f0fa38; box-shadow: inset 0 2px 2px #1f2e3d40, 0 1px 0 #ffffff19; }
+.cd-pickup { position: absolute; width: 22px; height: 8px; top: 169px; left: 91px; border-radius: 2px; border: 1px solid #dce7ed42; background: linear-gradient(#33435270, #9baeb940); box-shadow: 0 1px 1px #23314240; }
+.cd-pickup::after { content: ''; position: absolute; inset: 2px 4px; background: repeating-linear-gradient(90deg, #263a49a6 0 1px, transparent 1px 3px); }
+/* The disc and the lid's lower arc share a center, leaving a 27px rim. */
+.cd-seat { position: absolute; width: 156px; height: 156px; left: 24px; top: 7px; border-radius: 50%; box-shadow: 0 1px 0 #f2f7ff80, 0 3px 4px #17223260; }
+.cd-record {
+  position: relative; display: block; width: 100%; height: 100%; border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 12%, #cbd4df99 12.5% 16%, #ffffffdd 16.5% 17%, transparent 17.5% 64%, #ffffff80 65%, transparent 66%),
+    repeating-radial-gradient(circle, #ffffff00 0 2px, #ffffff18 2.3px, #37484309 2.8px, transparent 3px),
+    conic-gradient(from -28deg, #9eacbb, #e8eef3 7%, #ffffff 10%, #c4e8ed 13%, #c5b6e2 17%, #f3e3b4 21%, #d4dde5 26%, #8b9bab 35%, #dce4ec 44%, #ffffff 48%, #c5e9ed 52%, #c2b3df 56%, #c5e1c5 60%, #f6e8bc 63%, #f9fafc 67%, #b5c2ce 75%, #8595a6 82%, #e5edf5 91%, #ffffff 94%, #9eacbb);
+  box-shadow: inset 0 0 0 1px #ffffffdd;
+  mask-image: radial-gradient(circle, transparent 0 7%, #000 7.5%);
+}
+/* Metallic reflections stay in the light; only the ink turns with the disc. */
+.cd-record::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: conic-gradient(from -28deg, transparent 7%, #ffffff35 10%, transparent 14% 45%, #ffffff28 48%, transparent 52% 91%, #ffffff2b 94%, transparent 98%); }
+.cd-player .cd-artwork { position: absolute; inset: 0; width: 100%; height: 100%; color: #253941; opacity: .92; transform: rotate(-13deg); animation: cd-spin 20s linear infinite paused; }
+.cd-player[data-playing]:not([data-background]) .cd-artwork { animation-play-state: running; }
+.cd-spindle { position: absolute; width: 22px; height: 22px; top: 74px; left: 91px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #788799, #465361 70%); border: 4px solid #a8b6c4; box-shadow: inset 0 1px 1px #e7f1ff55, 0 0 0 1px #35455555, 0 1px 0 #eef5ff88; }
+.cd-cover { position: absolute; z-index: 3; top: 7px; left: 18px; width: 210px; height: 193px; pointer-events: none; border-radius: 28px 28px 105px 105px; border: 1px solid #eef5ff75; background: linear-gradient(123deg, transparent 9%, #ffffff08 23%, #ffffff27 24%, #ffffff08 26%, transparent 45% 77%, #dceaff0d); box-shadow: inset 0 1px 0 #ffffff8c, inset 0 -2px 1px #d5e4f42b, 0 2px 1px #24364a45; }
+.cd-cover::before { content: ''; position: absolute; inset: 3px; border-radius: 24px 24px 101px 101px; border: 1px solid #e5f0ff20; border-top-color: #ffffff32; }
+.cd-screw { position: absolute; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: linear-gradient(135deg, #e3eaf1 38%, #62758a 43% 55%, #bbc8d5 60%); box-shadow: 0 0 0 3px #8ba1b329, 0 0 0 4px #e1eeff20, 0 1px 1px #283b4b55; }
+.cd-screw-left { left: 12px; }.cd-screw-right { right: 12px; }
+/* The display follows the disc axis; secondary keys and play balance each side. */
+.cd-console { position: absolute; left: 40px; right: 40px; bottom: 14px; height: 64px; display: grid; grid-template-columns: 28px minmax(0, 1fr) 28px; gap: 12px; align-items: center; }
+.cd-secondary { display: flex; flex-direction: column; gap: 8px; }
+.cd-display { align-self: end; min-width: 0; height: 40px; padding: 3px 8px 0; border-radius: 4px; background: linear-gradient(115deg, #cbd2c9, #b8c5bb); box-shadow: 0 0 0 1px #31443e55, inset 0 1px 3px #30453d55, 0 1px 0 1px #eff5ef40; color: #30483f; }
+.cd-lcd { position: relative; height: 15px; display: flex; justify-content: space-between; align-items: baseline; font-family: 'Courier New', monospace; font-variant-numeric: tabular-nums; line-height: 15px; }
+.cd-lcd [data-cd-track] { font-size: 9px; color: #65766c; }
+.cd-lcd [data-cd-time] { font-size: 13px; letter-spacing: -.04em; }
+.cd-lcd-playing { position: absolute; left: -4px; top: 6px; width: 2px; height: 2px; overflow: hidden; background: currentColor; color: #30483f; opacity: 0; }
+.cd-player[data-playing] .cd-lcd-playing { opacity: 1; }
+.cd-key { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; color: #34414f; border-radius: 50%; background: #c2cad2; box-shadow: inset 0 1px 0 #ffffff91, inset 0 -1px 0 #8c9baa80, 0 0 0 1px #34475a3d, 0 2px 1px #26344455; transition: transform 120ms ease, background-color 150ms ease; }
+.cd-key svg { width: 13px; height: 13px; }
+.cd-key-stop svg { width: 12px; height: 12px; }
+.cd-key-play { justify-self: center; width: 36px; height: 36px; background: var(--cd-control); color: #343e3b; box-shadow: inset 0 1px 0 #ffb58b99, inset 0 -1px 0 #b34f2b70, 0 0 0 1px #673d2f60, 0 2px 1px #26344455; }
+.cd-key-play svg { width: 16px; height: 16px; }
+.cd-key-play .cd-icon-play { transform: translateX(1px); }
+.cd-icon-play { fill: currentColor; stroke: none; }
+.cd-icon-pause { display: none; stroke-width: 2; }
+.cd-player[data-playing] .cd-icon-play { display: none; }
+.cd-player[data-playing] .cd-icon-pause { display: block; }
+.cd-volume { display: flex; align-items: center; gap: 5px; height: 22px; color: #30483f; }
+.cd-volume svg { width: 12px; height: 12px; flex: none; stroke-width: 1.7; }
+.cd-volume input { --volume: 50%; appearance: none; width: 100%; height: 24px; margin: 0; min-width: 0; border-radius: 2px; background: transparent; cursor: ew-resize; }
+.cd-volume input::-webkit-slider-runnable-track { height: 6px; background: linear-gradient(to right, #30483f var(--volume), #96a59a var(--volume)); mask-image: repeating-linear-gradient(to right, #000 0 7%, transparent 7% 10%); }
+.cd-volume input::-moz-range-track { height: 6px; background: linear-gradient(to right, #30483f var(--volume), #96a59a var(--volume)); mask-image: repeating-linear-gradient(to right, #000 0 7%, transparent 7% 10%); }
+.cd-volume input::-moz-range-progress { background: transparent; }
+.cd-volume input::-webkit-slider-thumb { appearance: none; width: 8px; height: 24px; margin-top: -9px; border: 0; background: transparent; }
+.cd-volume input::-moz-range-thumb { width: 8px; height: 24px; border: 0; background: transparent; }
+.cd-display:has(input:focus-visible) { outline: 2px solid #9e4327; outline-offset: 3px; }
+.cd-volume input:focus-visible { outline: none; }
+.cd-mini { position: absolute; right: 0; bottom: 0; width: 132px; height: 46px; display: flex; align-items: center; gap: 4px; padding: 5px; border: 1px solid #edf4ff80; border-radius: 25px; background: #c7d3e2a6; backdrop-filter: blur(4px); box-shadow: inset 0 1px 0 #ffffff55, 0 2px 3px #0002, 0 8px 22px #0003; opacity: 0; transform: translateY(4px) scale(.96); visibility: hidden; transform-origin: bottom right; transition: opacity 130ms ease, transform 200ms var(--ease-out-expo), visibility 0s 200ms; }
+.cd-player[data-expanded="false"] .cd-mini { opacity: 1; transform: none; visibility: visible; transition-delay: 65ms, 0s, 0s; }
+.cd-player[data-open][data-expanded="false"] .cd-mini { pointer-events: auto; }
+.cd-mini-expand { display: flex; align-items: center; gap: 7px; width: 84px; height: 36px; padding: 0; border: 0; border-radius: 22px; background: transparent; color: var(--cd-ink); }
+.cd-mini-record { width: 32px; height: 32px; flex: none; }
+.cd-mini-track { font: 11px/1 'Courier New', monospace; color: #364558; }
+.cd-mini-chevron { width: 11px !important; opacity: .5; }
+.cd-mini-play { width: 32px; height: 32px; flex: none; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--cd-control); color: #343e3b; transition: transform 120ms ease, background-color 150ms ease; }
+.cd-mini-play svg { width: 14px; height: 14px; }
+.cd-player[data-error] .cd-status { position: absolute; bottom: 100%; right: 0; width: 232px; height: auto; margin: 0 0 10px; padding: 10px 12px; clip-path: none; white-space: normal; border-radius: 10px; background: var(--surface); color: var(--text-primary); font-size: 12px; }
+@keyframes cd-spin { from { transform: rotate(-13deg); } to { transform: rotate(347deg); } }
+@media (hover: hover) and (pointer: fine) {
+  .cd-key:hover { background-color: #dde4ee; }
+  .cd-key-play:hover, .cd-mini-play:hover { background-color: #f9814a; }
+}
+.cd-player[data-instant], .cd-player[data-instant] .cd-expanded, .cd-player[data-instant] .cd-mini { transition: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .cd-key:active, .cd-mini-play:active { transform: translateY(1px) scale(.96); }
+}
+@media (max-width: 480px) {
+  .cd-player { right: max(16px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cd-player, .cd-player[data-open], .cd-expanded, .cd-player[data-expanded="false"] .cd-expanded, .cd-mini, .cd-player[data-expanded="false"] .cd-mini { transform: none; transition: opacity 140ms ease, visibility 0s; }
+  .cd-player .cd-artwork { animation: none; }
+}
+@media (max-height: 480px) {
+  .cd-player { bottom: max(16px, env(safe-area-inset-bottom)); }
+  .cd-expanded { transform: scale(.76); }
+  .cd-player[data-expanded="false"] .cd-expanded { transform: scale(.73); }
+}
+@media (max-height: 480px) and (prefers-reduced-motion: reduce) {
+  .cd-player[data-expanded="false"] .cd-expanded { transform: scale(.76); }
+}
