@@ -11,7 +11,7 @@ body:has(.home-page) {
   flex-direction: column;
   row-gap: var(--section-gap);
   height: calc(100dvh - var(--home-header-height, 72px));
-  padding-block-start: clamp(1rem, calc((100svh - 600px) * 0.13), 3.25rem);
+  padding-block-start: clamp(2rem, calc((100svh - 500px) * 0.16), 4.5rem);
   padding-block-end: var(--home-bottom-gap, 22px);
 }
 
