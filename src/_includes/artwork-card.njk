@@ -1,6 +1,8 @@
-<figure class="art-item" style="--art-placeholder: url({{ artPlaceholders[artwork | artworkSlug] }});">
+<figure class="art-item">
   <button
     type="button"
+    class="image-preview"
+    style="--image-preview: url({{ placeholders[artwork.image] }});"
     id="{{ artwork | artworkSlug }}"
     aria-label="View {{ artwork.title | escape }}"
     data-modal-src="{{ artwork.image }}-large.webp"

@@ -166,6 +166,27 @@ img {
   transform: translateY(0);
 }
 
+/* Image previews: a blurred copy holds an image's place until it loads.
+   Inside [data-reveal], images stay hidden until loaded, then fade in over it. */
+.image-preview {
+  position: relative;
+  isolation: isolate;
+}
+
+.image-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--image-preview) center / cover no-repeat;
+  filter: blur(12px);
+  transform: scale(1.15);
+}
+
+[data-reveal] img:not([data-loaded]) {
+  opacity: 0;
+}
+
 /* Typography and links */
 
 a {
