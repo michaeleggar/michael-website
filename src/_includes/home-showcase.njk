@@ -1,6 +1,6 @@
 {% from "showcase-cards.njk" import workCard, artCard %}
 <section class="page-section home-showcase" aria-label="Work and art">
-  <div class="showcase-stage" id="art-gallery" data-showcase aria-label="Explore work and art">
+  <div class="showcase-stage" data-showcase role="group" aria-label="Explore work and art">
     {% set selectedArt = art | featuredArtwork(site.featuredArt) %}
     {% set fanCenter = (collections.workProjects.length + selectedArt.length - 1) / 2 %}
     {% for project in collections.workProjects %}
