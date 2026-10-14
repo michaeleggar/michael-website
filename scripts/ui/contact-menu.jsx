@@ -143,7 +143,7 @@ function ElsewhereMenu({ email, initialGeometry }) {
     <div className="elsewhere-item">LinkedIn <Arrow /></div>
     <div className="elsewhere-item">Email <span className="elsewhere-copy-note">Copied again!</span></div>
   </>;
-  return <SiteMenu name="elsewhere" label="Elsewhere" anchor="start" initialGeometry={initialGeometry} measure={measure} status={status}>{changeOpen => <>
+  return <SiteMenu name="elsewhere" label="Elsewhere" anchor="end" initialGeometry={initialGeometry} measure={measure} status={status}>{changeOpen => <>
     <a role="menuitem" className="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>GitHub <Arrow /></a>
     <a role="menuitem" className="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>LinkedIn <Arrow /></a>
     <button role="menuitem" className="elsewhere-item" onClick={copyEmail}>Email <CopyConfirmation status={status} pulse={copyFeedback.pulse} instant={copyFeedback.instant} reduced={reduced} /></button>

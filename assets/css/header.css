@@ -176,7 +176,7 @@
   .site-header-inner, .site-header-contact { padding-inline: 2px; }
 }
 
-/* Bloom menus: one text trigger, expanding from its left edge in the nav and its right edge at the far side. */
+/* Bloom menus: one text trigger, expanding from its right edge. */
 .elsewhere-menu { position: relative; height: var(--nav-height); }
 .elsewhere-shell { background: transparent; color: var(--text-secondary); box-shadow: none !important; }
 .elsewhere-menu[data-open="true"] .elsewhere-shell { background: var(--surface); box-shadow: 0 12px 28px color-mix(in oklch, var(--background) 65%, transparent) !important; }
@@ -184,7 +184,6 @@
 .elsewhere-menu[data-open="true"] .elsewhere-trigger { color: var(--background); }
 .elsewhere-menu[data-open="true"] .elsewhere-trigger::before { background: var(--accent); }
 .elsewhere-bloom-origin { position: absolute; top: calc(var(--nav-height) * 0.25 + var(--other-menu-gap)); right: 0; pointer-events: none; }
-.elsewhere-menu[data-anchor="start"] .elsewhere-bloom-origin { right: auto; left: 0; }
 .elsewhere-menu[data-open="true"] .elsewhere-shell { pointer-events: auto; }
 .elsewhere-content { padding: var(--other-menu-padding); }
 .elsewhere-links { display: flex; flex-direction: column; gap: 0px; }
@@ -203,6 +202,5 @@
 @media (prefers-reduced-motion: reduce) {
   .elsewhere-shell { transform: none !important; width: var(--elsewhere-width) !important; height: var(--nav-height) !important; }
   .elsewhere-menu[data-open="true"] .elsewhere-shell { width: var(--other-measured-width, 168px) !important; height: var(--other-measured-height, 114px) !important; left: auto !important; right: 0; top: calc(var(--nav-height) * 0.75) !important; border-radius: var(--surface-radius) !important; }
-  .elsewhere-menu[data-anchor="start"][data-open="true"] .elsewhere-shell { left: 0 !important; right: auto; }
   .elsewhere-content { transform: none !important; filter: none !important; }
 }
