@@ -230,6 +230,12 @@ p {
   text-wrap: pretty;
 }
 
+/* Hyphenated words and titles stay on one line. */
+.page-intro .keep-together,
+.page-intro cite {
+  white-space: nowrap;
+}
+
 .page-intro .page-lede {
   color: var(--text-primary);
 }
