@@ -20,7 +20,7 @@ The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the 
 
 ## Design tokens
 
-Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation retains the same typography and row sizing. The Other Stuff menu uses Bloom, with its React source in `scripts/ui/contact-menu.jsx`. Run `npm run bundle:contacts` after changing that source; dev and production build commands also bundle it automatically. The generated `assets/scripts/contact-menu.js` is ignored by Git; the UI source and bundling script are the source of truth.
+Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation keeps its typography and tightens its spacing on phones so every label fits on one row. The Elsewhere and Other Stuff menus use Bloom, with its React source in `scripts/ui/contact-menu.jsx`. Run `npm run bundle:contacts` after changing that source; dev and production build commands also bundle it automatically. The generated `assets/scripts/contact-menu.js` is ignored by Git; the UI source and bundling script are the source of truth.
 
 ## Content and behavior
 

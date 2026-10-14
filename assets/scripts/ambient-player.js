@@ -276,7 +276,7 @@
       clearTimeout(hoverTimer);
       clearTimeout(minimizeTimer);
       activePointers.clear();
-      if (panel.contains(document.activeElement)) document.querySelector('[data-contact-menu] [aria-haspopup="menu"]')?.focus();
+      if (panel.contains(document.activeElement)) document.querySelector('[data-site-menu="other"] [aria-haspopup="menu"]')?.focus();
       panel.inert = true;
       panel.setAttribute('aria-hidden', 'true');
       panel.toggleAttribute('data-instant', instant || reduced.matches);

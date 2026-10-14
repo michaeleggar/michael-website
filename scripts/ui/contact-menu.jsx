@@ -18,11 +18,11 @@ function Heart() {
   return <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2 6.342a3.375 3.375 0 0 1 6-2.088 3.375 3.375 0 0 1 5.997 2.26c-.063 2.134-1.618 3.76-2.955 4.784a14.437 14.437 0 0 1-2.676 1.61c-.02.01-.038.017-.05.022l-.014.006-.004.002h-.002a.75.75 0 0 1-.592.001h-.002l-.004-.003-.015-.006a5.528 5.528 0 0 1-.232-.107 14.395 14.395 0 0 1-2.535-1.557C3.564 10.22 1.999 8.558 1.999 6.38L2 6.342Z" /></svg>;
 }
 
-function ContactTrigger() {
+function MenuTrigger({ label, controls }) {
   const { open, setOpen, triggerRef } = useBloomContext();
-  return <button ref={triggerRef} className="site-nav-link elsewhere-trigger" aria-haspopup="menu" aria-expanded={open} aria-controls="elsewhere-links" onClick={() => setOpen(!open)} onKeyDown={event => {
+  return <button ref={triggerRef} className="site-nav-link elsewhere-trigger" aria-haspopup="menu" aria-expanded={open} aria-controls={controls} onClick={() => setOpen(!open)} onKeyDown={event => {
     if (event.key === 'ArrowDown' && !open) { event.preventDefault(); setOpen(true); }
-  }}>Other Stuff</button>;
+  }}>{label}</button>;
 }
 
 function CopyConfirmation({ status, pulse, instant, reduced }) {
@@ -46,21 +46,18 @@ function CopyConfirmation({ status, pulse, instant, reduced }) {
   return <motion.span className="elsewhere-copy-note" animate={controls} initial={false} data-copied={status.startsWith('Copied')}>{status.startsWith('Copied') ? status : 'Copy'}{status === 'Copied!' && <Heart />}</motion.span>;
 }
 
-function ContactMenu({ email, initialGeometry }) {
+// One text trigger that blooms into a menu. `measure` mirrors the items so the shell can be sized before it opens.
+function SiteMenu({ name, label, anchor, initialGeometry, measure, status, children }) {
   const [open, setOpen] = useState(false);
-  const [ambienceOpen, setAmbienceOpen] = useState(() => document.querySelector('#ambient-player')?.hasAttribute('data-open') || false);
-  const [status, setStatus] = useState('');
-  const [copyFeedback, setCopyFeedback] = useState({ pulse: 0, instant: false });
   const wrapper = useRef(null);
   const keyboard = useRef(false);
-  const copyCount = useRef(0);
   const reduced = useReducedMotion();
   const [geometry, setGeometry] = useState(initialGeometry);
   useEffect(() => {
-    const measure = wrapper.current.querySelector('.elsewhere-measure');
+    const measured = wrapper.current.querySelector('.elsewhere-measure');
     const update = () => {
       const css = getComputedStyle(wrapper.current);
-      const trigger = measure.getBoundingClientRect();
+      const trigger = measured.getBoundingClientRect();
       const menu = wrapper.current.querySelector('.elsewhere-menu-measure').getBoundingClientRect();
       const next = {
         width: trigger.width, height: trigger.height,
@@ -72,7 +69,7 @@ function ContactMenu({ email, initialGeometry }) {
       setGeometry(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
     };
     const observer = new ResizeObserver(update);
-    observer.observe(measure);
+    observer.observe(measured);
     observer.observe(wrapper.current.querySelector('.elsewhere-menu-measure'));
     document.fonts.ready.then(update);
     update();
@@ -81,11 +78,6 @@ function ContactMenu({ email, initialGeometry }) {
   useEffect(() => {
     if (open && keyboard.current) requestAnimationFrame(() => wrapper.current?.querySelector(menuItemSelector)?.focus());
   }, [open]);
-  useEffect(() => {
-    const update = event => setAmbienceOpen(event.detail.open);
-    document.addEventListener('site:ambience-change', update);
-    return () => document.removeEventListener('site:ambience-change', update);
-  }, []);
   useEffect(() => {
     const close = () => setOpen(false);
     document.addEventListener('site:page-change', close);
@@ -104,12 +96,31 @@ function ContactMenu({ email, initialGeometry }) {
     if (event.key in positions) { event.preventDefault(); items[positions[event.key]]?.focus(); }
     if (event.key === 'Tab') keyboard.current = false;
   }
-  function toggleAmbience(event) {
-    document.dispatchEvent(new CustomEvent('site:ambience-toggle', { detail: { instant: event.detail === 0 } }));
-    setOpen(false);
-  }
+  return <MotionConfig reducedMotion="user"><div ref={wrapper} className="elsewhere-menu" style={{ width: geometry.width, "--elsewhere-width": `${geometry.width}px`, "--other-measured-width": `${geometry.menuWidth}px`, "--other-measured-height": `${geometry.menuHeight}px` }} data-open={open} data-anchor={anchor} onBlur={event => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} onKeyDownCapture={keys} onPointerDownCapture={() => { keyboard.current = false; }}>
+    <span className="site-nav-link elsewhere-measure" aria-hidden="true">{label}</span>
+    <div className="elsewhere-menu-measure elsewhere-content" aria-hidden="true">{measure}</div>
+    <Menu.Root open={open} onOpenChange={changeOpen} direction="bottom" anchor={anchor} visualDuration={0.25} bounce={0.12} animationConfig={{ contentDelay: 0.025, contentBlur: 4, triggerBlur: 4, contentScale: reduced ? 1 : 0.98 }}>
+      <MenuTrigger label={label} controls={`${name}-links`} />
+      <div className="elsewhere-bloom-origin">
+      <Menu.Container key={geometry.key} buttonSize={{ width: geometry.width, height: geometry.height }} menuWidth={geometry.menuWidth} menuRadius={geometry.menuRadius} buttonRadius={geometry.radius} className="elsewhere-shell">
+        <Menu.Content className="elsewhere-content">
+          <div id={`${name}-links`} className="elsewhere-links">{children(changeOpen)}</div>
+        </Menu.Content>
+      </Menu.Container>
+      </div>
+    </Menu.Root>
+    {status !== undefined && <span className="visually-hidden" role="status" aria-live="polite">{status}</span>}
+  </div></MotionConfig>;
+}
+
+function ElsewhereMenu({ email, initialGeometry }) {
+  const [status, setStatus] = useState('');
+  const [copyFeedback, setCopyFeedback] = useState({ pulse: 0, instant: false });
+  const copyCount = useRef(0);
+  const reduced = useReducedMotion();
   async function copyEmail(event) {
     const instant = event.detail === 0;
+    const trigger = event.currentTarget.closest('.elsewhere-menu')?.querySelector('button');
     try {
       try { await navigator.clipboard.writeText(email); }
       catch {
@@ -120,7 +131,7 @@ function ContactMenu({ email, initialGeometry }) {
         field.select();
         const copied = document.execCommand('copy');
         field.remove();
-        wrapper.current?.querySelector('button')?.focus();
+        trigger?.focus();
         if (!copied) throw new Error('Copy failed');
       }
       copyCount.current += 1;
@@ -128,46 +139,46 @@ function ContactMenu({ email, initialGeometry }) {
       setCopyFeedback({ pulse: copyCount.current, instant });
     } catch { setStatus(email); }
   }
-  return <MotionConfig reducedMotion="user"><div ref={wrapper} className="elsewhere-menu" style={{ width: geometry.width, "--elsewhere-width": `${geometry.width}px`, "--other-measured-width": `${geometry.menuWidth}px`, "--other-measured-height": `${geometry.menuHeight}px` }} data-open={open} onBlur={event => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setOpen(false); }} onKeyDownCapture={keys} onPointerDownCapture={() => { keyboard.current = false; }}>
-    <span className="site-nav-link elsewhere-measure" aria-hidden="true">Other Stuff</span>
-    <div className="elsewhere-menu-measure elsewhere-content" aria-hidden="true">
-      <div className="elsewhere-item">GitHub <Arrow /></div>
-      <div className="elsewhere-item">LinkedIn <Arrow /></div>
-      <div className="elsewhere-item">Email <span className="elsewhere-copy-note">Copied again!</span></div>
-      <div className="elsewhere-divider" />
-      <div className="elsewhere-item">CD player <DiscIcon /></div>
-    </div>
-    <Menu.Root open={open} onOpenChange={changeOpen} direction="bottom" anchor="end" visualDuration={0.25} bounce={0.12} animationConfig={{ contentDelay: 0.025, contentBlur: 4, triggerBlur: 4, contentScale: reduced ? 1 : 0.98 }}>
-      <ContactTrigger />
-      <div className="elsewhere-bloom-origin">
-      <Menu.Container key={geometry.key} buttonSize={{ width: geometry.width, height: geometry.height }} menuWidth={geometry.menuWidth} menuRadius={geometry.menuRadius} buttonRadius={geometry.radius} className="elsewhere-shell">
-        <Menu.Content className="elsewhere-content">
-          <div id="elsewhere-links">
-          <a role="menuitem" className="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>GitHub <Arrow /></a>
-          <a role="menuitem" className="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>LinkedIn <Arrow /></a>
-          <button role="menuitem" className="elsewhere-item" onClick={copyEmail}>Email <CopyConfirmation status={status} pulse={copyFeedback.pulse} instant={copyFeedback.instant} reduced={reduced} /></button>
-          <div className="elsewhere-divider" role="separator" />
-          <button role="menuitemcheckbox" className="elsewhere-item elsewhere-ambience" aria-checked={ambienceOpen} aria-controls="ambient-player" onClick={toggleAmbience}>CD player <DiscIcon /></button>
-          </div>
-        </Menu.Content>
-      </Menu.Container>
-      </div>
-    </Menu.Root>
-    <span className="visually-hidden" role="status" aria-live="polite">{status}</span>
-  </div></MotionConfig>;
+  const measure = <>
+    <div className="elsewhere-item">GitHub <Arrow /></div>
+    <div className="elsewhere-item">LinkedIn <Arrow /></div>
+    <div className="elsewhere-item">Email <span className="elsewhere-copy-note">Copied again!</span></div>
+  </>;
+  return <SiteMenu name="elsewhere" label="Elsewhere" anchor="start" initialGeometry={initialGeometry} measure={measure} status={status}>{changeOpen => <>
+    <a role="menuitem" className="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>GitHub <Arrow /></a>
+    <a role="menuitem" className="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer" onClick={() => changeOpen(false)}>LinkedIn <Arrow /></a>
+    <button role="menuitem" className="elsewhere-item" onClick={copyEmail}>Email <CopyConfirmation status={status} pulse={copyFeedback.pulse} instant={copyFeedback.instant} reduced={reduced} /></button>
+  </>}</SiteMenu>;
 }
-const mount = document.querySelector('[data-contact-menu]');
-if (mount) {
+
+function OtherMenu({ initialGeometry }) {
+  const [ambienceOpen, setAmbienceOpen] = useState(() => document.querySelector('#ambient-player')?.hasAttribute('data-open') || false);
+  useEffect(() => {
+    const update = event => setAmbienceOpen(event.detail.open);
+    document.addEventListener('site:ambience-change', update);
+    return () => document.removeEventListener('site:ambience-change', update);
+  }, []);
+  return <SiteMenu name="other" label="Other Stuff" anchor="end" initialGeometry={initialGeometry} measure={<div className="elsewhere-item">CD player <DiscIcon /></div>}>{changeOpen => (
+    <button role="menuitemcheckbox" className="elsewhere-item elsewhere-ambience" aria-checked={ambienceOpen} aria-controls="ambient-player" onClick={event => {
+      document.dispatchEvent(new CustomEvent('site:ambience-toggle', { detail: { instant: event.detail === 0 } }));
+      changeOpen(false);
+    }}>CD player <DiscIcon /></button>
+  )}</SiteMenu>;
+}
+
+const menus = { elsewhere: { Component: ElsewhereMenu, rows: 3 }, other: { Component: OtherMenu, rows: 1 } };
+document.querySelectorAll('[data-site-menu]').forEach(mount => {
+  const { Component, rows } = menus[mount.dataset.siteMenu];
   const css = getComputedStyle(mount);
   const height = parseFloat(css.getPropertyValue('--nav-height'));
   const width = mount.querySelector('.site-nav-link').getBoundingClientRect().width;
   const menuWidth = parseFloat(css.getPropertyValue('--other-menu-min-width'));
-  const menuHeight = 4 * height + 2 * parseFloat(css.getPropertyValue('--other-menu-padding')) + 13;
+  const menuHeight = rows * height + 2 * parseFloat(css.getPropertyValue('--other-menu-padding'));
   const initialGeometry = {
     width, height, menuWidth, menuHeight,
     radius: parseFloat(css.getPropertyValue('--control-radius')),
     menuRadius: parseFloat(css.getPropertyValue('--surface-radius')),
     key: `${height}-${menuWidth}-${menuHeight}`,
   };
-  createRoot(mount).render(<ContactMenu email={mount.dataset.email} initialGeometry={initialGeometry} />);
-}
+  createRoot(mount).render(<Component email={mount.dataset.email} initialGeometry={initialGeometry} />);
+});
