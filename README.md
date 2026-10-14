@@ -55,7 +55,7 @@ Keep originals in `assets/images/` and prepare each new image with:
 npm run images -- "assets/images/artwork/New painting.jpg" artwork/new-painting
 ```
 
-This writes `artwork/new-painting-thumb.webp` (up to 600px wide) and `artwork/new-painting-large.webp` (up to 1600px wide) under `assets/images/optimized/`. Images keep their proportions and are never enlarged.
+This writes `artwork/new-painting-thumb.webp` (up to 600px wide) and `artwork/new-painting-large.webp` (up to 1600px wide) under `assets/images/optimized/`. Artwork also gets `artwork/new-painting-small.webp` (up to 320px wide), which the Art page serves to standard-density screens. Images keep their proportions and are never enlarged. The blurred preview each painting shows while it loads is generated from the small image at build time by `src/_data/artPlaceholders.js`.
 
 For a project cover or social preview, add `--social` to also create a JPEG up to 1200px wide:
 

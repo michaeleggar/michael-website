@@ -47,6 +47,7 @@
 }
 
 .art-item button {
+  position: relative;
   width: 100%;
   margin: 0;
   padding: var(--art-image-padding, 0px);
@@ -67,13 +68,29 @@
   outline-offset: -4px;
 }
 
+/* A blurred preview of the painting holds its place until the image arrives. */
+.art-item button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--art-placeholder) center / cover no-repeat;
+  filter: blur(12px);
+  transform: scale(1.15);
+}
+
 .art-item img {
+  position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: var(--art-image-ratio, auto);
   object-fit: var(--art-image-fit, cover);
   display: block;
-  transition: transform 150ms var(--ease-out-expo);
+  transition: transform 150ms var(--ease-out-expo), opacity 450ms ease-out;
+}
+
+/* Images that weren't ready when the page appeared fade in over their preview. */
+.art-masonry[data-reveal] img:not([data-loaded]) {
+  opacity: 0;
 }
 
 /* Artwork dialog */

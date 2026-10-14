@@ -1,4 +1,4 @@
-<figure class="art-item">
+<figure class="art-item" style="--art-placeholder: url({{ artPlaceholders[artwork | artworkSlug] }});">
   <button
     type="button"
     id="{{ artwork | artworkSlug }}"
@@ -12,10 +12,14 @@
   >
     <img
       src="{{ artwork.image }}-thumb.webp"
+      srcset="{{ artwork.image }}-small.webp 320w, {{ artwork.image }}-thumb.webp 600w"
+      sizes="(max-width: 780px) calc((100vw - 48px) / 2), min(calc((100vw - 128px) / 4), 248px)"
       width="{{ artwork.width }}"
       height="{{ artwork.height }}"
       loading="lazy"
       decoding="async"
+      onload="this.setAttribute('data-loaded', '')"
+      onerror="this.setAttribute('data-loaded', '')"
       alt="{{ artwork.alt | escape }}"
     />
   </button>

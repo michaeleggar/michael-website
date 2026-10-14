@@ -3,6 +3,16 @@ function initializeGallery() {
   const modal = document.getElementById('art-modal');
   if (!gallery || !modal || gallery.hasAttribute('data-initialized')) return;
   gallery.dataset.initialized = '';
+  // After client-side navigation the inline reveal script doesn't run, so mark loaded images here too.
+  for (const thumbnail of gallery.querySelectorAll('img')) {
+    const reveal = () => thumbnail.setAttribute('data-loaded', '');
+    if (thumbnail.complete) reveal();
+    else {
+      thumbnail.addEventListener('load', reveal, { once: true });
+      thumbnail.addEventListener('error', reveal, { once: true });
+    }
+  }
+  gallery.setAttribute('data-reveal', '');
   const galleryPath = location.pathname;
   const artworks = [...gallery.querySelectorAll('button[data-modal-src]')];
   const image = modal.querySelector('#modal-img');

@@ -24,6 +24,15 @@ async function main() {
     .webp({ quality: 80 })
     .toFile(`${output}-thumb.webp`);
 
+  // Artwork also gets a 320px version for the gallery on standard-density screens.
+  if (name.startsWith("artwork/")) {
+    await sharp(source)
+      .rotate()
+      .resize({ width: 320, withoutEnlargement: true })
+      .webp({ quality: 78 })
+      .toFile(`${output}-small.webp`);
+  }
+
   const large = await sharp(source)
     .rotate()
     .resize({ width: 1600, withoutEnlargement: true })

@@ -16,6 +16,8 @@ scripts: [art-lightbox]
       class="art-masonry"
       aria-label="Artwork gallery"
     >
+      {# Hide paintings until each finishes loading; set inline so it runs before any can draw. #}
+      <script>document.currentScript.parentElement.setAttribute('data-reveal', '');</script>
       {% for artwork in art %}
         {% include "artwork-card.njk" %}
       {% endfor %}
