@@ -74,8 +74,9 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
+  /* Match the Work and Art width; the extra 12px lets the pills' outer edges meet the content edges. */
+  max-width: calc(var(--wide-content-width) + 12px);
+  margin-inline: auto;
 }
 
 .site-header-inner,

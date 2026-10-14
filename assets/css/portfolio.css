@@ -23,7 +23,7 @@
 /* Project grid: as wide as the Art page, two columns, three once there are six projects. */
 
 .work-page {
-  --content-width: 65rem;
+  --content-width: var(--wide-content-width);
 }
 
 .portfolio-project-card a {

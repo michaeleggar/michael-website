@@ -1,7 +1,7 @@
 /* Artwork grid */
 
 .art-page {
-  --art-content-width: 1040px;
+  --art-content-width: var(--wide-content-width);
   --art-page-gutter: 40px;
   --art-top-space: 30px;
   --art-bottom-space: 48px;
