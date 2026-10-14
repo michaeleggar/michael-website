@@ -5,8 +5,42 @@ import { MotionConfig, motion, useAnimationControls } from 'framer-motion';
 
 const menuItemSelector = '[role="menuitem"], [role="menuitemcheckbox"]';
 
-function DiscIcon() {
-  return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.5" /><circle cx="8" cy="8" r="1.5" /><path d="M4.5 8a3.5 3.5 0 0 1 3.5-3.5M11.5 8A3.5 3.5 0 0 1 8 11.5" /></svg>;
+function DiscIcon({ iconRef }) {
+  return <svg ref={iconRef} width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.5" /><circle cx="8" cy="8" r="1.5" /><path d="M4.5 8a3.5 3.5 0 0 1 3.5-3.5M11.5 8A3.5 3.5 0 0 1 8 11.5" /></svg>;
+}
+
+// The disc looks the same every half turn, so it can come to rest at any multiple of 180°.
+const discTurn = 1200;
+const discCoast = 2; // Initial slope of the ease-out below, so the stop starts at the spin's speed.
+const discCanSpin = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+
+function useDiscSpin() {
+  const icon = useRef(null);
+  const spin = useRef(null);
+  const angle = () => {
+    const animation = spin.current;
+    if (!animation) return 0;
+    const { from, to } = animation.discRange;
+    return from + (to - from) * animation.effect.getComputedTiming().progress;
+  };
+  const start = () => {
+    if (!discCanSpin.matches || !icon.current) return;
+    const from = angle() % 360;
+    spin.current?.cancel();
+    spin.current = icon.current.animate({ rotate: [`${from}deg`, `${from + 360}deg`] }, { duration: discTurn, iterations: Infinity });
+    spin.current.discRange = { from, to: from + 360 };
+  };
+  const stop = () => {
+    if (!spin.current || !icon.current) return;
+    const from = angle() % 360;
+    let distance = 180 - (from % 180);
+    if (distance < 45) distance += 180;
+    spin.current.cancel();
+    spin.current = icon.current.animate({ rotate: [`${from}deg`, `${from + distance}deg`] }, { duration: distance / 360 * discTurn * discCoast, easing: 'cubic-bezier(0.5, 1, 0.89, 1)' });
+    spin.current.discRange = { from, to: from + distance };
+    spin.current.onfinish = () => { spin.current = null; };
+  };
+  return { icon, onPointerEnter: start, onPointerLeave: stop };
 }
 
 function Arrow() {
@@ -157,11 +191,12 @@ function OtherMenu({ initialGeometry }) {
     document.addEventListener('site:ambience-change', update);
     return () => document.removeEventListener('site:ambience-change', update);
   }, []);
+  const disc = useDiscSpin();
   return <SiteMenu name="other" label="Other Stuff" anchor="end" initialGeometry={initialGeometry} measure={<div className="elsewhere-item">CD player <DiscIcon /></div>}>{changeOpen => (
-    <button role="menuitemcheckbox" className="elsewhere-item elsewhere-ambience" aria-checked={ambienceOpen} aria-controls="ambient-player" onClick={event => {
+    <button role="menuitemcheckbox" className="elsewhere-item elsewhere-ambience" aria-checked={ambienceOpen} aria-controls="ambient-player" onPointerEnter={disc.onPointerEnter} onPointerLeave={disc.onPointerLeave} onClick={event => {
       document.dispatchEvent(new CustomEvent('site:ambience-toggle', { detail: { instant: event.detail === 0 } }));
       changeOpen(false);
-    }}>CD player <DiscIcon /></button>
+    }}>CD player <DiscIcon iconRef={disc.icon} /></button>
   )}</SiteMenu>;
 }
 
