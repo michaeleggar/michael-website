@@ -26,7 +26,7 @@ Shared colors, typography, spacing, widths, and corner radii live in `assets/css
 
 - `src/index.html`, `src/work/index.html`, and `src/art/index.html` serve Hey, Work, and Art as separate pages with ordinary navigation links. The homepage has a small redirect for old `/#work` and `/#art` bookmarks; current navigation works without JavaScript.
 - `src/work/*/index.html` contains project content and card metadata. Project cards link directly to these pages.
-- `src/_includes/project-card.njk` renders the Work grid.
+- `src/_includes/project-card.njk` renders the Work grid. Each card shows its year, `agency`, and "My role" details as small tags. On hover, `scripts/ui/work-cards.js` (part of the shared browser bundle) leans the picture gently toward the pointer. Projects with a `cardOrder` are pinned first in that order; any without one follow, newest `year` first. The grid has two columns, and three on wide screens once there are six or more projects.
 - `src/_includes/home-showcase.njk` mixes project photographs and artworks listed by image slug in `src/_data/site.json`. Artwork frames retain their original aspect ratios. `scripts/ui/showcase.js` handles pointer lift, keyboard browsing, and reduced motion, and is included in the shared browser bundle. Artwork links to `/art/#image-slug`, where the selected piece opens automatically.
 - The fan scales with available width and height to keep the homepage within the window. Card growth can preserve the bottom edges and limit overlap with the intro. On mobile it centers one card with two neighboring previews; horizontal swipes snap through the selection. Tap a preview to center it, then tap the centered card to open it. Keyboard or reduced-motion browsing updates immediately.
 - Interface icons use Heroicons Micro, normally at 16px; the copy-confirmation heart is 12px.
@@ -55,7 +55,7 @@ Keep originals in `assets/images/` and prepare each new image with:
 npm run images -- "assets/images/artwork/New painting.jpg" artwork/new-painting
 ```
 
-This writes `artwork/new-painting-thumb.webp` (up to 600px wide) and `artwork/new-painting-large.webp` (up to 1600px wide) under `assets/images/optimized/`. Artwork also gets `artwork/new-painting-small.webp` (up to 320px wide), which the Art page serves to standard-density screens. Images keep their proportions and are never enlarged. The blurred preview each painting shows while it loads is generated at build time by `src/_data/placeholders.js`, from the small image when there is one and the thumbnail otherwise.
+This writes `artwork/new-painting-thumb.webp` (up to 600px wide) and `artwork/new-painting-large.webp` (up to 1600px wide) under `assets/images/optimized/`. Artwork also gets `artwork/new-painting-small.webp` (up to 320px wide), which the Art page serves to standard-density screens. Images keep their proportions and are never enlarged. The blurred preview each painting and project card shows while it loads is generated at build time by `src/_data/placeholders.js`, from the small image when there is one and the thumbnail otherwise.
 
 For a project cover or social preview, add `--social` to also create a JPEG up to 1200px wide:
 

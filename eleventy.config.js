@@ -39,7 +39,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("workProjects", (collectionApi) =>
     collectionApi
       .getFilteredByGlob("src/work/*/index.html")
-      .sort((first, second) => first.data.cardOrder - second.data.cardOrder),
+      // Projects with a cardOrder are pinned first in that order; the rest follow, newest first.
+      .sort((first, second) => {
+        const pinned = (first.data.cardOrder ?? Infinity) - (second.data.cardOrder ?? Infinity);
+        if (pinned) return pinned;
+        return String(second.data.year).localeCompare(String(first.data.year)) || first.data.cardTitle.localeCompare(second.data.cardTitle);
+      }),
   );
 
   eleventyConfig.addFilter('featuredArtwork', (artworks, slugs) => slugs.map(slug => {
@@ -47,6 +52,11 @@ module.exports = function (eleventyConfig) {
     if (!artwork) throw new Error(`Featured artwork "${slug}" was not found in art.json.`);
     return artwork;
   }));
+  // Card tags: the agency, then each "My role" detail.
+  eleventyConfig.addFilter('projectTags', data => {
+    const roles = data.projectDetails?.find(group => group.label === 'My role')?.items || [];
+    return [data.agency, ...roles.map(item => item.label || item)].filter(Boolean);
+  });
   eleventyConfig.addFilter('artworkSlug', artwork => artwork.image.split('/').pop());
 
   return {
