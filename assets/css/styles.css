@@ -179,6 +179,32 @@ a:hover {
   color: var(--accent);
 }
 
+/* Links in running text are underlined with a running stitch; hover pulls the thread taut. */
+@property --stitch-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 4px;
+}
+
+:where(p, dd, li, figcaption) a:not([class]) {
+  padding-block-end: 3px;
+  background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px calc(5px + var(--stitch-gap))) 0 100% / 100% 1.5px no-repeat;
+  text-decoration: none;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: --stitch-gap 260ms cubic-bezier(0.3, 1.4, 0.5, 1), color 140ms ease;
+}
+
+:where(p, dd, li, figcaption) a:not([class]):hover {
+  --stitch-gap: 0px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(p, dd, li, figcaption) a:not([class]) {
+    transition: color 140ms ease;
+  }
+}
+
 h1,
 h2,
 h3 {
