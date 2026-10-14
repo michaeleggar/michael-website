@@ -5,6 +5,8 @@ module.exports = function (eleventyConfig) {
   const artTuningEnabled = serving && process.env.ART_DIALKIT === '1';
   const workSpacingTuningEnabled = serving && process.env.WORK_SPACING_DIALKIT === '1';
   const workImageTuningEnabled = serving && process.env.WORK_IMAGE_DIALKIT === '1';
+  // Design prototypes are only for local previews.
+  if (!serving) eleventyConfig.ignores.add('src/prototypes/**');
   eleventyConfig.addGlobalData('workImageTuningEnabled', workImageTuningEnabled);
   eleventyConfig.addGlobalData('workSpacingTuningEnabled', workSpacingTuningEnabled);
   eleventyConfig.addGlobalData('artTuningEnabled', artTuningEnabled);
