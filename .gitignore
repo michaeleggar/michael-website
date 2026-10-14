@@ -6,6 +6,7 @@ vendor
 .DS_Store
 node_modules/
 dist/
+assets/scripts/site.js
 assets/scripts/contact-menu.js
 assets/scripts/art-lightbox.js
 notes.md

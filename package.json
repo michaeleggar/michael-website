@@ -6,9 +6,9 @@
     "build": "npm run clean && eleventy",
     "dev": "eleventy --serve",
     "verify": "npm run build && node scripts/check-build.js",
-    "bundle:contacts": "node scripts/bundle-contact-menu.js",
-    "prebuild": "npm run bundle:contacts",
-    "predev": "npm run bundle:contacts"
+    "bundle": "node scripts/bundle-scripts.js",
+    "prebuild": "npm run bundle",
+    "predev": "npm run bundle"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",

@@ -1,5 +1,3 @@
-import './showcase.js';
-import './work-cards.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Menu, useReducedMotion, useBloomContext } from 'bloom-menu';

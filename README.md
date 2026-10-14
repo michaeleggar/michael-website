@@ -1,6 +1,6 @@
 # Michael's website
 
-An Eleventy static site with Nunjucks templates, plain CSS, and a small browser script for the artwork dialog.
+An Eleventy static site with Nunjucks templates, plain CSS, and small browser scripts.
 
 ## Stylesheets
 
@@ -20,14 +20,18 @@ The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the 
 
 ## Design tokens
 
-Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation keeps its typography and tightens its spacing on phones so every label fits on one row. The Elsewhere and Other Stuff menus use Bloom, with its React source in `scripts/ui/contact-menu.jsx`. Run `npm run bundle:contacts` after changing that source; dev and production build commands also bundle it automatically. The generated `assets/scripts/contact-menu.js` is ignored by Git; the UI source and bundling script are the source of truth.
+Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation keeps its typography and tightens its spacing on phones so every label fits on one row. The Elsewhere and Other Stuff menus use Bloom, with its React source in `scripts/ui/contact-menu.jsx`.
+
+## Browser scripts
+
+Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and Work card hover), `contact-menu.js` (the React menus), and `art-lightbox.js`. Each is self-contained, so the fan starts without waiting for React. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
 
 ## Content and behavior
 
 - `src/index.html`, `src/work/index.html`, and `src/art/index.html` serve Hey, Work, and Art as separate pages with ordinary navigation links. The homepage has a small redirect for old `/#work` and `/#art` bookmarks; current navigation works without JavaScript.
 - `src/work/*/index.html` contains project content and card metadata. Project cards link directly to these pages.
-- `src/_includes/project-card.njk` renders the Work grid. Each card shows its year, `agency`, and "My role" details as small tags. On hover, `scripts/ui/work-cards.js` (part of the shared browser bundle) leans the picture gently toward the pointer. Projects with a `cardOrder` are pinned first in that order; any without one follow, newest `year` first. The grid has two columns, and three on wide screens once there are six or more projects.
-- `src/_includes/home-showcase.njk` mixes project photographs and artworks listed by image slug in `src/_data/site.json`. Artwork frames retain their original aspect ratios. `scripts/ui/showcase.js` handles pointer lift, keyboard browsing, and reduced motion, and is included in the shared browser bundle. Artwork links to `/art/#image-slug`, where the selected piece opens automatically.
+- `src/_includes/project-card.njk` renders the Work grid. Each card shows its year, `agency`, and "My role" details as small tags. On hover, `scripts/ui/work-cards.js` leans the picture gently toward the pointer. Projects with a `cardOrder` are pinned first in that order; any without one follow, newest `year` first. The grid has two columns, and three on wide screens once there are six or more projects.
+- `src/_includes/home-showcase.njk` mixes project photographs and artworks listed by image slug in `src/_data/site.json`. Artwork frames retain their original aspect ratios. `scripts/ui/showcase.js` handles pointer lift, keyboard browsing, and reduced motion. Artwork links to `/art/#image-slug`, where the selected piece opens automatically.
 - The fan scales with available width and height to keep the homepage within the window. Card growth can preserve the bottom edges and limit overlap with the intro. On mobile it centers one card with two neighboring previews; horizontal swipes snap through the selection. Tap a preview to center it, then tap the centered card to open it. Keyboard or reduced-motion browsing updates immediately.
 - Interface icons use Heroicons Micro, normally at 16px; the copy-confirmation heart is 12px.
 - `scripts/ui/showcase-settings.js` holds the saved fan defaults. The DialKit panel is off by default; start local development with `SHOWCASE_DIALKIT=1` to reopen it. Sizing controls cover growth, text clearance, bottom anchoring, window limits, hover protection, and caption spacing. Its existing Layout, Photos, Hover, and Spotlight controls tune the rest of the fan. Export settings as JSON when ready. The panel and its vendor assets are excluded from production.
