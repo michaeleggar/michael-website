@@ -76,11 +76,9 @@
     if (!AudioContext) throw new Error('Audio is unavailable in this browser.');
     const context = new AudioContext();
     const master = context.createGain();
-    const analyser = context.createAnalyser();
-    analyser.fftSize = 256;
     master.gain.value = 0;
-    analyser.connect(master).connect(context.destination);
-    const result = { context, master, analyser, samples: new Uint8Array(analyser.fftSize) };
+    master.connect(context.destination);
+    const result = { context, master };
     context.addEventListener('statechange', () => {
       if (playing && context.state !== 'running') {
         pause();
@@ -97,7 +95,7 @@
           panel.setAttribute('data-error', '');
           status.textContent = 'Couldn’t load the recording. Press play to try again.';
         });
-        context.createMediaElementSource(audio).connect(analyser);
+        context.createMediaElementSource(audio).connect(master);
         result.audio = audio;
         return result;
       }
@@ -131,7 +129,7 @@
         const amount = context.createGain();
         amount.gain.value = depth;
         breeze.connect(amount).connect(breath.gain);
-        noise.connect(low).connect(high).connect(breath).connect(analyser);
+        noise.connect(low).connect(high).connect(breath).connect(master);
         noise.start(0, offset);
         breeze.start();
       }
