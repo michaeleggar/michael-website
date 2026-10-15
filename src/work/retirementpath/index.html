@@ -21,20 +21,32 @@ cardImage:
 socialImage: /assets/images/optimized/ria/ria-website-social.jpg
 cardImageAlt: Retirement Investment Advisors website displayed on a laptop
 heroImage:
-  image: /assets/images/optimized/ria/ria-feature
-  width: 1430
+  image: /assets/images/optimized/ria/ria-website
+  width: 1500
   height: 944
-  alt: Retirement Investment Advisors website screenshot
+  alt: Retirement Investment Advisors website on a laptop on a table
 heading: Retirement Investment Advisors website
 deck: >-
   Retirement Investment Advisors is a fiduciary firm based in Oklahoma City. It
   needed a redesign that could organize a growing library of resources, financial
   tools, and market commentary, all managed by staff with no technical background.
+leadShowcase: true
+siteShowcase:
+  href: https://theretirementpath.com/
+  url: theretirementpath.com
+  tint: "oklch(36% 0.08 252)"
+  alt: The Retirement Investment Advisors homepage
+  desktop: { image: /assets/images/optimized/ria/ria-page-desktop.webp, width: 1440, height: 4892 }
+  mobile: { image: /assets/images/optimized/ria/ria-page-mobile.webp, width: 600, height: 9535 }
 projectDetails:
   - label: My role
     items:
       - Design
       - Development
+  - label: Built with
+    items:
+      - WordPress
+      - ACF
   - label: Link
     items:
       - label: theretirementpath.com
@@ -50,6 +62,11 @@ projectDetails:
     commentary work the same way, so staff can add content and the rest
     is handled for them.
   </p>
+</section>
+
+{% include "work-hero-mockup.njk" %}
+
+<section class="portfolio-project-copy">
   <h2>Reusable content</h2>
   <p>
     I applied the same approach at the page level, creating reusable
@@ -63,16 +80,3 @@ projectDetails:
     photography, more white space, and a refreshed type system.
   </p>
 </section>
-
-<figure class="portfolio-wide-media">
-  <img
-    src="/assets/images/optimized/ria/ria-tablet-large.webp"
-    srcset="/assets/images/optimized/ria/ria-tablet-thumb.webp 600w, /assets/images/optimized/ria/ria-tablet-large.webp 1500w"
-    sizes="100vw"
-    width="1500"
-    height="944"
-    alt="Retirement Investment Advisors website shown on a tablet"
-    loading="lazy"
-    decoding="async"
-  />
-</figure>

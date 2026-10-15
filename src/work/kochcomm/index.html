@@ -21,18 +21,29 @@ cardImage:
 socialImage: /assets/images/optimized/kochcomm/kc-website-1-social.jpg
 cardImageAlt: Koch Comm website displayed on a laptop
 heroImage:
-  image: /assets/images/optimized/kochcomm/kc-website-1
+  image: /assets/images/optimized/kochcomm/kc-website-2
   width: 1500
   height: 944
-  alt: Koch Comm website shown on a laptop
+  alt: Koch Comm website on three phones
 deck: >-
   Koch Comm is a full-service marketing and advertising agency in Oklahoma City.
   The team was ready for a site that better reflected the agency and did more to
   showcase its work and services.
+leadShowcase: true
+siteShowcase:
+  href: https://www.kochcomm.com/
+  url: kochcomm.com
+  tint: "oklch(52% 0.07 172)"
+  alt: The Koch Comm homepage
+  desktop: { image: /assets/images/optimized/kochcomm/kochcomm-page-desktop.webp, width: 1440, height: 4035 }
+  mobile: { image: /assets/images/optimized/kochcomm/kochcomm-page-mobile.webp, width: 600, height: 6375 }
 projectDetails:
   - label: My role
     items:
       - Development
+  - label: Built with
+    items:
+      - WordPress
   - label: Link
     items:
       - label: kochcomm.com
@@ -47,6 +58,11 @@ projectDetails:
     archive includes category-based filtering so users can browse projects
     by service and industry.
   </p>
+</section>
+
+{% include "work-hero-mockup.njk" %}
+
+<section class="portfolio-project-copy">
   <h2>Designer collaboration</h2>
   <p>
     I worked closely with the designer throughout the build. The comps
@@ -62,16 +78,3 @@ projectDetails:
     anniversary.
   </p>
 </section>
-
-<figure class="portfolio-wide-media">
-  <img
-    src="/assets/images/optimized/kochcomm/kc-website-2-large.webp"
-    srcset="/assets/images/optimized/kochcomm/kc-website-2-thumb.webp 600w, /assets/images/optimized/kochcomm/kc-website-2-large.webp 1500w"
-    sizes="100vw"
-    width="1500"
-    height="944"
-    alt="Koch Comm website detail"
-    loading="lazy"
-    decoding="async"
-  />
-</figure>

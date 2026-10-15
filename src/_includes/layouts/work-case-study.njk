@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 stylesheets: [case-study]
+scripts: [case-study]
 ---
 
 <main id="main-content" class="page-content portfolio-case-study">
@@ -51,12 +52,14 @@ stylesheets: [case-study]
     {% endif %}
   </dl>
 
-  {% if heroImage %}
-    <figure class="portfolio-wide-media portfolio-first-media">
+  {% if leadShowcase and siteShowcase %}
+    {% include "site-showcase.njk" %}
+  {% elif heroImage %}
+    <figure class="portfolio-wide-media portfolio-first-media" style="--hero-ratio: {{ heroImage.width / heroImage.height }}; --hero-max: {{ heroImage.width }}px;">
       <img
         src="{{ heroImage.image }}-large.webp"
         srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
-        sizes="100vw"
+        sizes="(min-width: 1100px) 1040px, 100vw"
         width="{{ heroImage.width }}"
         height="{{ heroImage.height }}"
         alt="{{ heroImage.alt }}"
