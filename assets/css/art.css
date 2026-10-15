@@ -74,7 +74,7 @@
   aspect-ratio: var(--art-image-ratio, auto);
   object-fit: var(--art-image-fit, cover);
   display: block;
-  transition: transform 150ms var(--ease-out-expo), opacity 450ms ease-out;
+  transition: opacity 450ms ease-out;
 }
 
 /* Artwork dialog */
@@ -289,12 +289,6 @@
   }
   .modal-info p::before {
     display: none;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .art-item button:hover img {
-    transform: scale(1.012);
   }
 }
 
