@@ -12,6 +12,7 @@ An Eleventy static site with Nunjucks templates, plain CSS, and small browser sc
 | [portfolio.css](assets/css/portfolio.css) | Homepage name treatment and the Work project grid and cards |
 | [showcase.css](assets/css/showcase.css) | Homepage work/art fan, photographic frames, and responsive presentation |
 | [case-study.css](assets/css/case-study.css) | Project introductions, details, copy, and images |
+| [chat-demo.css](assets/css/chat-demo.css) | The chat app case study's live demo |
 | [art.css](assets/css/art.css) | Artwork gallery and image dialog |
 
 Keep each feature's responsive and reduced-motion rules in its own stylesheet. Shared tokens belong in `styles.css`; feature-specific tokens belong beside the component that uses them. The `.page-content` class sets the common content width and gutters.
@@ -24,7 +25,7 @@ Shared colors, typography, spacing, widths, and corner radii live in `assets/css
 
 ## Browser scripts
 
-Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and Work card hover), `contact-menu.js` (the React menus), and `art-lightbox.js`. Each is self-contained, so the fan starts without waiting for React. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
+Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and Work card hover), `contact-menu.js` (the React menus), `art-lightbox.js`, and `chat-demo.js` (the chat app demo). Each is self-contained, so the fan starts without waiting for React. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
 
 ## Content and behavior
 
@@ -40,7 +41,7 @@ Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets
 - Start local development with `ART_DIALKIT=1` to open Art · Layout & Type. It tunes masonry/grid layout, desktop and mobile columns, image proportions, spacing, navigation, and the artwork viewer and its caption. Use the viewer preview to adjust its controls while the image is open; reset and CSS export are included. Art controls stay scoped to the Art page and are excluded from production builds.
 - `src/prototypes/` holds design previews (such as `/work/details-preview/`). They are built only by `npm run dev`, never for production.
 - Case-study project details use a definition list styled as label/value rows in `case-study.css`.
-- `demos/chatapp/` holds static builds of both chat app versions, copied to `/work/chatapp/demo/` and embedded live in that case study with `live-demo.css`. Rebuild them from the chat-app repo with `npm run build:demo`; `check-build.js` skips them because they're standalone pages without site metadata.
+- `demos/chatapp/` holds static builds of both chat app versions, copied to `/work/chatapp/demo/`. The case study's `chat-demo.njk` shows the actor's screen as a live iframe, laid out at 960 × 600 and scaled to fit (phones get the app's small-screen layout, at least 420px wide), beside a cue window set on the painting named in `demoScene.wallpaper`. The cue window speaks to the app through `bridge.js`, which the chat-app build publishes beside the demos: each cue shows its character typing and then sends the line; Back to one clears the chat and replays `demoScene.opening`. The first cue plays by itself once the demo is in view, unless reduced motion is on. The version buttons swap between the original and the rebuild, and the control panel link opens that version's real control panel, which stays in sync. Rebuild the demos from the chat-app repo with `npm run build:demo`; `check-build.js` skips them because they're standalone pages without site metadata.
 - `assets/images/optimized/` contains the prepared WebP images and JPEG social previews. Eleventy copies this directory as-is.
 
 ## CD player

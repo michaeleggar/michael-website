@@ -1,7 +1,7 @@
 ---
 layout: layouts/work-case-study.njk
 title: Film Production Chat App
-description: A case study of a custom Electron chat app built as an interactive on-screen prop for a feature film shoot.
+description: A case study of a custom Electron chat app built as an interactive on-screen prop for a feature film shoot, with both versions running live.
 cardOrder: 2
 cardTitle: Film production chat app
 year: "2026"
@@ -14,24 +14,66 @@ cardImage:
 socialImage: /assets/images/optimized/chatapp/chat-onset-2b-social.jpg
 cardImageAlt: Chat interface appearing on an actor’s laptop during filming
 heroImage:
-  image: /assets/images/optimized/chatapp/chat-app-1
+  image: /assets/images/optimized/chatapp/chat-onset-1
   width: 1600
-  height: 1143
-  alt: Chat app crew control interface showing user list and message input
+  height: 1004
+  alt: On-set camera monitor showing an actor using the chat app on a laptop during filming
 deck: >-
   A custom Electron app commissioned for a feature film shoot, designed to display
   real-time chat conversations on an actor’s laptop as an on-screen prop. I later
-  rebuilt it independently with React and Vite. Both versions run live below.
-stylesheets: [live-demo]
+  rebuilt it independently with React and Vite. Both versions run live on this page.
+stylesheets: [chat-demo]
+scripts: [chat-demo]
 projectDetails:
   - label: My role
     items:
       - Design
       - Development
+  - label: Built with
+    items:
+      - Electron
+      - JavaScript
+      - React
+      - Vite
+demoScene:
+  wallpaper:
+    image: /assets/images/optimized/artwork/in-bed
+    title: In Bed
+    note: one of my paintings (acrylic on canvas, 2020).
+  versions:
+    - id: v1
+      name: Original
+      note: as used on set
+      screen: /work/chatapp/demo/v1/screen.html
+      control: /work/chatapp/demo/v1/control.html
+    - id: v2
+      name: Rebuild
+      note: React and Vite
+      screen: /work/chatapp/demo/v2/
+      control: /work/chatapp/demo/v2/control/
+  opening:
+    - [user_friend, "anyone else up?"]
+    - [user_ichigo99, "always lol"]
+    - [user_jen_brian, "same. scan results tomorrow so sleep isn't happening"]
+    - [user_friend, "you got this. waiting is the worst part"]
+    - [user_main, "hey everyone, sorry I've been quiet"]
+    - [user_ichigo99, "SADIE 👋 we missed you"]
+  cues:
+    - { userId: user_jen_brian, name: jen_brian, color: "#6ec2e8", delayMs: 2500, text: "how did the appointment go?" }
+    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 1800, text: "you don't have to say if you don't want to" }
+    - { userId: user_friend, name: BillyTheKid, color: "#7ab49c", delayMs: 1500, text: "we're all here for you, seriously" }
+    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 900, text: "brb, nurse just walked in" }
 ---
 
 <section class="portfolio-project-copy">
-  <h2>Two interfaces</h2>
+  <h2>A prop that had to hold up on camera</h2>
+  <p>
+    The film needed a teen cancer support group’s chat open on an actor’s
+    laptop. It had to read as a real app on camera, take
+    whatever the actor typed, and let the crew play every other member of the
+    group from off screen.
+  </p>
+  <h2>Two windows</h2>
   <p>
     The on-camera view lets the actor type and send messages, and the
     logged-in user can be swapped to show the conversation from different
@@ -40,67 +82,39 @@ projectDetails:
     sending messages as other users, saving templated messages for
     reshoots, and switching between direct messages and video chats.
   </p>
+  <p>
+    Try it below. Cue a line from the crew’s side and watch it arrive on the
+    actor’s screen, or reply as Sadie.
+  </p>
+</section>
+
+{% include "chat-demo.njk" %}
+
+<section class="portfolio-project-copy">
   <h2>Iterating on set</h2>
   <p>
     After the first shoot day, the crew needed a way to reshoot without
     manually retyping the script. They also needed the ability to reorder
     and edit messages already sent in the chat. I added a template system
     with a configurable typing-indicator delay and a custom right-click
-    menu for editing messages.
+    menu for editing messages. Between takes, one reset clears the
+    conversation so the scene can start again from the top.
   </p>
 </section>
 
 <figure class="portfolio-wide-media">
   <img
-    src="/assets/images/optimized/chatapp/chat-onset-1-large.webp"
-    srcset="/assets/images/optimized/chatapp/chat-onset-1-thumb.webp 600w, /assets/images/optimized/chatapp/chat-onset-1-large.webp 1600w"
-    sizes="100vw"
-    width="1600"
-    height="1004"
-    alt="On-set camera monitor showing an actor using the chat app on a laptop during filming"
-    loading="lazy"
-    decoding="async"
-  />
-</figure>
-
-<figure class="portfolio-wide-media">
-  <img
     src="/assets/images/optimized/chatapp/chat-onset-2-large.webp"
     srcset="/assets/images/optimized/chatapp/chat-onset-2-thumb.webp 600w, /assets/images/optimized/chatapp/chat-onset-2-large.webp 1600w"
-    sizes="100vw"
+    sizes="(min-width: 70rem) 65rem, calc(100vw - 5rem)"
     width="1600"
     height="1069"
     alt="Camera monitor close-up showing the chat app interface visible within the film frame"
     loading="lazy"
     decoding="async"
   />
+  <figcaption>The chat screen through the camera monitor while recording.</figcaption>
 </figure>
-
-<section class="portfolio-project-copy">
-  <h2>Try the original</h2>
-  <p>
-    This is the version that ran on set, changed only to run in a browser
-    instead of Electron. Send a message or request a video call from the
-    control panel, and it appears on the chat screen.
-  </p>
-</section>
-
-<div class="live-demo">
-  <figure class="live-demo__pane">
-    <figcaption class="live-demo__label">
-      Chat screen
-      <a href="/work/chatapp/demo/v1/screen.html" target="_blank" rel="noopener">Open in new tab</a>
-    </figcaption>
-    <iframe class="live-demo__frame" src="/work/chatapp/demo/v1/screen.html" title="Original chat app: chat screen" loading="lazy"></iframe>
-  </figure>
-  <figure class="live-demo__pane">
-    <figcaption class="live-demo__label">
-      Control panel
-      <a href="/work/chatapp/demo/v1/control.html" target="_blank" rel="noopener">Open in new tab</a>
-    </figcaption>
-    <iframe class="live-demo__frame" src="/work/chatapp/demo/v1/control.html" title="Original chat app: control panel" loading="lazy"></iframe>
-  </figure>
-</div>
 
 <section class="portfolio-project-copy">
   <h2>Rebuilding it in React</h2>
@@ -112,25 +126,8 @@ projectDetails:
     and a layout that works down to phone size.
   </p>
   <p>
-    Saved messages send with a typing delay, so the chat screen shows someone
-    typing before their message lands. You can also run the whole thing from the
-    cog next to Sadie’s name.
+    Switch the demo above to Rebuild to try it. Saved messages still send
+    with a typing delay, and the whole crew side is also tucked behind the cog
+    next to Sadie’s name.
   </p>
 </section>
-
-<div class="live-demo">
-  <figure class="live-demo__pane">
-    <figcaption class="live-demo__label">
-      Chat screen
-      <a href="/work/chatapp/demo/v2/" target="_blank" rel="noopener">Open in new tab</a>
-    </figcaption>
-    <iframe class="live-demo__frame" src="/work/chatapp/demo/v2/" title="React chat app: chat screen" loading="lazy"></iframe>
-  </figure>
-  <figure class="live-demo__pane">
-    <figcaption class="live-demo__label">
-      Control panel
-      <a href="/work/chatapp/demo/v2/control/" target="_blank" rel="noopener">Open in new tab</a>
-    </figcaption>
-    <iframe class="live-demo__frame" src="/work/chatapp/demo/v2/control/" title="React chat app: control panel" loading="lazy"></iframe>
-  </figure>
-</div>

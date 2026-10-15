@@ -1,0 +1,364 @@
+/* Live chat app demo: two light app windows set on a painting, like a desktop.
+   The actor's screen is a live iframe; the crew's cue window drives it. */
+
+.chat-demo {
+  /* App-window palette, light like the chat app itself. */
+  --window-bg: oklch(98.5% 0.006 95);
+  --window-bar: oklch(94.5% 0.008 95);
+  --window-line: oklch(87% 0.01 95);
+  --window-text: oklch(28% 0.015 95);
+  --window-muted: oklch(54% 0.015 95);
+  --window-hover: oklch(95% 0.01 95);
+  --window-accent: oklch(55% 0.13 245);
+  --window-radius: 10px;
+  --window-shadow:
+    0 1px 2px oklch(0% 0 0 / 0.18),
+    0 12px 32px -8px oklch(0% 0 0 / 0.45),
+    0 32px 80px -24px oklch(0% 0 0 / 0.5);
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
+  margin: clamp(3rem, 7vw, 5rem) auto 0;
+}
+
+/* Version toggle and control panel link */
+
+.chat-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm) var(--space-md);
+  margin-block-end: var(--space-sm);
+}
+
+.chat-demo__versions {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: calc(var(--control-radius) + 4px);
+  corner-shape: superellipse(1.6);
+  background: color-mix(in oklch, var(--text-primary) 6%, transparent);
+}
+
+.chat-demo__version {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  border: 0;
+  border-radius: var(--control-radius);
+  corner-shape: superellipse(1.6);
+  background: transparent;
+  color: var(--text-secondary);
+  font: 500 var(--type-xs) / 1.2 var(--font-body);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.chat-demo__version:hover { color: var(--text-primary); }
+
+.chat-demo__version[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--background);
+}
+
+.chat-demo__version-note {
+  font-size: var(--type-meta);
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.chat-demo__control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: var(--type-xs);
+  text-decoration: none;
+}
+
+.chat-demo__control:hover { color: var(--accent); }
+.chat-demo__control svg { width: 14px; height: 14px; flex: none; }
+
+/* The desktop: a painting behind both windows */
+
+.chat-demo__desktop {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: clamp(0.75rem, 4vw, 3.5rem);
+  border-radius: var(--surface-radius);
+  corner-shape: superellipse(1.4);
+  overflow: hidden;
+}
+
+/* Painting over its blurred preview, toned down so the windows lead. */
+.chat-demo__desktop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(oklch(15% 0.02 180 / 0.28), oklch(15% 0.02 180 / 0.28)),
+    var(--chat-demo-wallpaper) center 40% / cover no-repeat;
+}
+
+/* Wide screens layer the cue window over the screen's edge, clear of its controls. */
+@media (min-width: 62rem) {
+  .chat-demo__desktop {
+    grid-template-columns: minmax(0, 1fr) 2.5rem 15.5rem;
+    align-items: start;
+    gap: 0;
+    padding-inline-end: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .chat-demo__window--screen { grid-column: 1 / 3; grid-row: 1; }
+  .chat-demo__window--cues {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    z-index: 1;
+    margin-block-start: 3.5rem;
+  }
+}
+
+/* App windows */
+
+.chat-demo__window {
+  margin: 0;
+  border-radius: var(--window-radius);
+  background: var(--window-bg);
+  box-shadow: var(--window-shadow), 0 0 0 1px oklch(0% 0 0 / 0.12);
+  color: var(--window-text);
+  overflow: hidden;
+}
+
+.chat-demo__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2rem;
+  padding-inline: 0.75rem;
+  border-block-end: 1px solid var(--window-line);
+  background: var(--window-bar);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.chat-demo__lights { display: inline-flex; gap: 6px; }
+.chat-demo__lights i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: oklch(82% 0.008 95);
+}
+
+.chat-demo__title {
+  flex: 1;
+  color: var(--window-muted);
+  text-align: center;
+  /* Balance the traffic lights so the title sits in the true center. */
+  margin-inline-end: 42px;
+}
+
+/* The app is laid out at laptop size, then scaled to fit (set by chat-demo.js). */
+.chat-demo__viewport {
+  position: relative;
+  aspect-ratio: 960 / 600;
+  overflow: hidden;
+  background: var(--window-bg);
+}
+
+.chat-demo__frame {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: block;
+  width: var(--chat-demo-width, 960px);
+  height: var(--chat-demo-height, 600px);
+  border: 0;
+  transform: scale(var(--chat-demo-scale, 1));
+  transform-origin: 0 0;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.chat-demo[data-ready] .chat-demo__frame { opacity: 1; }
+
+/* Phone-sized stages use the app's own small-screen layout. */
+.chat-demo[data-native] .chat-demo__viewport { aspect-ratio: auto; height: min(32rem, 70svh); }
+
+.chat-demo__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--window-muted);
+  font-size: var(--type-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.chat-demo[data-ready] .chat-demo__loading { opacity: 0; }
+.chat-demo[data-failed] .chat-demo__loading::after { content: " Couldn’t load the demo."; text-transform: none; letter-spacing: 0; }
+
+/* Cue window */
+
+.chat-demo__window--cues .chat-demo__title { margin-inline-end: 0; text-align: start; }
+
+.chat-demo__take {
+  color: var(--window-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.chat-demo__cue-list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+}
+
+.chat-demo__cue {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+  column-gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.5rem 0.6rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--window-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background-color 140ms ease, opacity 200ms ease;
+}
+
+.chat-demo__cue:hover:not(:disabled) { background: var(--window-hover); }
+.chat-demo__cue:disabled { cursor: default; opacity: 0.55; }
+.chat-demo__cue:focus-visible { outline: 2px solid var(--window-accent); outline-offset: -2px; }
+
+.chat-demo__avatar {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--cue-color);
+  color: white;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.chat-demo__cue-who {
+  color: var(--window-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.chat-demo__cue-line {
+  grid-column: 2;
+  color: var(--window-muted);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.chat-demo__cue-state {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--window-hover);
+  color: var(--window-muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chat-demo__cue-state::before { content: "Cue"; }
+.chat-demo__cue:hover:not(:disabled) .chat-demo__cue-state { background: var(--window-accent); color: white; }
+.chat-demo__cue[data-state="typing"] .chat-demo__cue-state { background: transparent; color: var(--window-accent); }
+.chat-demo__cue[data-state="typing"] .chat-demo__cue-state::before { content: "typing…"; }
+.chat-demo__cue[data-state="sent"] .chat-demo__cue-state { background: transparent; }
+.chat-demo__cue[data-state="sent"] .chat-demo__cue-state::before { content: "Sent"; }
+.chat-demo__cue[data-state="sent"]:hover .chat-demo__cue-state::before { content: "Again"; }
+.chat-demo__cue[data-state="sent"] .chat-demo__cue-line { opacity: 0.6; }
+
+/* While the character "types", a bar fills over the cue's typing delay. */
+.chat-demo__cue::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.5rem 0.2rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--window-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+}
+
+.chat-demo__cue[data-state="typing"]::after {
+  opacity: 0.7;
+  animation: chat-demo-typing var(--cue-delay, 0ms) linear forwards;
+}
+
+@keyframes chat-demo-typing {
+  to { transform: scaleX(1); }
+}
+
+.chat-demo__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.6rem 0.75rem;
+  border-block-start: 1px solid var(--window-line);
+}
+
+.chat-demo__hint {
+  margin: 0;
+  color: var(--window-muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.chat-demo__reset {
+  flex: none;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--window-line);
+  border-radius: 7px;
+  background: white;
+  color: var(--window-text);
+  font: 500 0.75rem / 1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.chat-demo__reset:hover:not(:disabled) { background: var(--window-hover); }
+.chat-demo__reset:disabled { cursor: default; opacity: 0.55; }
+.chat-demo__reset:focus-visible { outline: 2px solid var(--window-accent); outline-offset: 2px; }
+
+.chat-demo__credit {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+@media (max-width: 780px) {
+  .chat-demo { width: calc(100% - 2 * var(--page-gutter)); }
+  .chat-demo__version-note { display: none; }
+  .chat-demo__versions { flex: 1; }
+  .chat-demo__version { flex: 1; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-demo__frame,
+  .chat-demo__loading { transition: none; }
+  .chat-demo__cue[data-state="typing"]::after { animation: none; transform: scaleX(1); }
+}
