@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Chat Client Control Panel</title>
+    <link rel="stylesheet" href="./styles/colors.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/theme-light-pastel.css" />
+    <link rel="stylesheet" href="./styles/control.css" />
+    <script type="module" src="./logic/control.js"></script>
+  </head>
+  <body class="control">
+    <header class="control__masthead" id="controlMasthead">
+      <h1 class="control__masthead-title">Chat Client Control Panel</h1>
+      <div class="control__masthead-actions">
+        <div class="display-scale control__masthead-scale">
+          <span class="display-scale__label">Zoom</span>
+          <div class="display-scale__controls" aria-live="polite">
+            <button
+              class="btn secondary display-scale__btn"
+              id="scaleDecreaseBtn"
+              type="button"
+              aria-label="Zoom out"
+            >
+              -
+            </button>
+            <output
+              class="display-scale__value"
+              id="scaleValue"
+              aria-live="polite"
+              aria-label="Current zoom level"
+            >
+              100%
+            </output>
+            <button
+              class="btn secondary display-scale__btn"
+              id="scaleIncreaseBtn"
+              type="button"
+              aria-label="Zoom in"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="control__content">
+      <section class="panel control__roster" id="rosterPanel">
+        <header class="panel__header">
+          <h2 class="panel__title">Users</h2>
+          <button class="btn secondary" id="addUserBtn">New User</button>
+        </header>
+        <div class="roster__list" id="rosterList"></div>
+      </section>
+      <main class="control__main">
+        <section class="panel control__composer-panel" id="messagePanel">
+          <header class="panel__header">
+            <h2 class="panel__title">Message Controls</h2>
+          </header>
+          <div class="control__composer-grid">
+            <div class="control__composer-form">
+              <div class="field">
+                <label for="sendAs">User</label>
+                <select id="sendAs" class="control__user-select"></select>
+              </div>
+              <div class="field">
+                <label for="templateDelayInput">Typing delay (seconds)</label>
+                <input
+                  id="templateDelayInput"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value="0"
+                  inputmode="decimal"
+                  placeholder="0"
+                />
+              </div>
+              <div class="composer">
+                <textarea id="composerInput" placeholder="Message"></textarea>
+                <div class="composer__actions control__composer-actions">
+                  <button class="btn success" id="saveTemplateBtn" type="button">
+                    Save
+                  </button>
+                  <button class="btn secondary" id="sendMessageBtn" type="button">
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="control__top">
+          <section class="panel control__video-panel" id="videoPanel">
+            <div class="control__video-section control__video-section--session">
+              <p class="control__video-sectionTitle">Session Actions</p>
+              <label class="control__video-inlineField" for="activeUserSelect">
+                <span>Logged in user</span>
+                <select
+                  id="activeUserSelect"
+                  class="control__user-select"
+                  aria-label="Logged in user on chat screen"
+                ></select>
+              </label>
+              <div class="control__video-sessionButtons">
+                <button class="roster__actionBtn control__danger-btn" id="resetTakeBtn" type="button">
+                  Reset Chat Client
+                </button>
+                <button class="btn secondary" id="videoSwitchToMain" type="button">
+                  Switch to Group Chat
+                </button>
+              </div>
+            </div>
+            <div class="control__video-section control__video-section--call">
+              <p class="control__video-sectionTitle">Video Call Actions</p>
+              <label class="control__video-inlineField" for="videoRequester">
+                <span>Request as</span>
+                <select id="videoRequester" class="control__user-select"></select>
+              </label>
+              <div class="control__video-actions">
+                <button class="btn primary" id="videoRequestBtn" type="button">
+                  Send Request
+                </button>
+                <button class="btn secondary" id="videoEndBtn" type="button">
+                  End Call
+                </button>
+                <button class="btn secondary" id="videoAcceptBtn" type="button">
+                  Accept
+                </button>
+                <button class="btn secondary" id="videoDeclineBtn" type="button">
+                  Decline
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+        <section class="panel control__templates-panel" id="templatesPanel">
+          <header class="panel__header">
+            <h2 class="panel__title">Saved Messages</h2>
+          </header>
+          <div class="template-list" id="templateList" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+    <div
+      class="modal"
+      id="userEditorModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="userEditorTitle"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="modal__backdrop" id="userEditorBackdrop"></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h3 class="modal__title" id="userEditorTitle">New User</h3>
+          <button
+            class="modal__close"
+            id="userEditorClose"
+            type="button"
+            aria-label="Close editor"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="icon icon--close"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+              />
+            </svg>
+          </button>
+        </header>
+        <div class="modal__body">
+          <form class="user-editor" id="userEditorForm">
+            <div class="user-editor__grid">
+              <label class="field" for="userDisplayNameInput">
+                <span class="modal__label">Display name</span>
+                <input
+                  id="userDisplayNameInput"
+                  type="text"
+                  name="displayName"
+                  placeholder="New Member"
+                  required
+                />
+              </label>
+              <label class="field" for="userAvatarInitialInput">
+                <span class="modal__label">Avatar letter (optional)</span>
+                <input
+                  id="userAvatarInitialInput"
+                  type="text"
+                  name="avatarInitial"
+                  placeholder="A"
+                />
+              </label>
+            </div>
+            <div class="user-editor__grid">
+              <label class="field field--color" for="userColorInput">
+                <span class="modal__label">Accent color</span>
+                <div class="user-editor__colorInputs">
+                  <input
+                    id="userColorPicker"
+                    type="color"
+                    name="colorPicker"
+                    aria-label="Choose a color"
+                  />
+                  <input
+                    id="userColorInput"
+                    type="text"
+                    name="color"
+                    placeholder="#6b90b1"
+                  />
+                </div>
+              </label>
+            </div>
+            <div class="user-editor__grid user-editor__grid--full">
+              <label class="field" for="userBioInput">
+                <span class="modal__label">Bio</span>
+                <textarea
+                  id="userBioInput"
+                  name="bio"
+                  rows="3"
+                  placeholder="Add a short description"
+                ></textarea>
+              </label>
+              <label class="field" for="userBadgesInput">
+                <span class="modal__label">Badges</span>
+                <input
+                  id="userBadgesInput"
+                  type="text"
+                  name="badges"
+                  placeholder="Separate badges with commas"
+                />
+              </label>
+            </div>
+          </form>
+          <p class="modal__error" id="userEditorError" hidden></p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn secondary" id="userEditorCancel" type="button">
+            Cancel
+          </button>
+          <button class="btn primary" id="userEditorSave" type="submit" form="userEditorForm">
+            Create
+          </button>
+        </footer>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="templateEditorModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="templateEditorTitle"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="modal__backdrop" id="templateEditorBackdrop"></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h3 class="modal__title" id="templateEditorTitle">Edit saved message</h3>
+          <button
+            class="modal__close"
+            id="templateEditorClose"
+            type="button"
+            aria-label="Close editor"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="icon icon--close"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+              />
+            </svg>
+          </button>
+        </header>
+        <div class="modal__body">
+          <form class="template-editor" id="templateEditorForm">
+            <p class="modal__description" id="templateEditorUser"></p>
+            <label class="field" for="templateEditorMessage">
+              <span class="modal__label">Message</span>
+              <textarea
+                id="templateEditorMessage"
+                class="modal__textarea"
+                placeholder="Saved message"
+                required
+              ></textarea>
+            </label>
+            <label class="field" for="templateEditorDelay">
+              <span class="modal__label">Typing delay (seconds)</span>
+              <input
+                id="templateEditorDelay"
+                type="number"
+                min="0"
+                step="0.1"
+                value="0"
+                inputmode="decimal"
+              />
+              <span class="field__note">Use 0 to send immediately.</span>
+            </label>
+          </form>
+          <p class="modal__error" id="templateEditorError" hidden></p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn secondary" id="templateEditorCancel" type="button">
+            Cancel
+          </button>
+          <button class="btn primary" id="templateEditorSave" type="submit" form="templateEditorForm">
+            Save
+          </button>
+        </footer>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="confirmModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmTitle"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="modal__backdrop" id="confirmBackdrop"></div>
+      <div class="modal__panel" role="document">
+        <header class="modal__header">
+          <h3 class="modal__title" id="confirmTitle">Confirm Action</h3>
+        </header>
+        <div class="modal__body">
+          <p id="confirmMessage"></p>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn secondary" id="confirmCancel" type="button">
+            Cancel
+          </button>
+          <button class="btn primary" id="confirmConfirm" type="button">
+            Confirm
+          </button>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

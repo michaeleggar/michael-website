@@ -40,6 +40,7 @@ Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets
 - Start local development with `ART_DIALKIT=1` to open Art · Layout & Type. It tunes masonry/grid layout, desktop and mobile columns, image proportions, spacing, navigation, and the artwork viewer and its caption. Use the viewer preview to adjust its controls while the image is open; reset and CSS export are included. Art controls stay scoped to the Art page and are excluded from production builds.
 - `src/prototypes/` holds design previews (such as `/work/details-preview/`). They are built only by `npm run dev`, never for production.
 - Case-study project details use a definition list styled as label/value rows in `case-study.css`.
+- `demos/chatapp/` holds static builds of both chat app versions, copied to `/work/chatapp/demo/` and embedded live in that case study with `live-demo.css`. Rebuild them from the chat-app repo with `npm run build:demo`; `check-build.js` skips them because they're standalone pages without site metadata.
 - `assets/images/optimized/` contains the prepared WebP images and JPEG social previews. Eleventy copies this directory as-is.
 
 ## CD player

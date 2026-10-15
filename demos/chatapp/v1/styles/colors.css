@@ -1,0 +1,74 @@
+:root {
+  /* Neutral base */
+  --sand-0: #fffef1;
+  --sand-50: #F2EBCD;
+  --sand-100: #f6f4e2;
+  --sand-200: #f2ebcd;
+  --sand-300: #e5d6b3;
+
+  /* Shared RGB channels */
+  --ink-rgb: 16, 14, 9;
+  --accent-rgb: 193, 154, 95;
+  --success-rgb: 59, 165, 93;
+  --danger-rgb: 207, 68, 68;
+
+  /* Accent + state colors */
+  --accent: #c19a5f;
+  --accent-strong: #8f6127;
+  --success: rgb(var(--success-rgb));
+  --danger: rgb(var(--danger-rgb));
+  --danger-strong: #a23838;
+  --icon-accent: var(--accent-strong);
+
+  /* Text */
+  --text-primary: rgba(var(--ink-rgb), 0.9);
+  --text-secondary: rgba(var(--ink-rgb), 0.72);
+  --text-tertiary: rgba(var(--ink-rgb), 0.6);
+  --text-muted: rgba(var(--ink-rgb), 0.5);
+  --text-subtle: rgba(var(--ink-rgb), 0.44);
+  --text-soft: rgba(var(--ink-rgb), 0.36);
+  --text-contrast: var(--sand-0);
+
+  /* Surfaces */
+  --surface-page: var(--sand-50);
+  --surface-screen: var(--sand-50);
+  --surface-shell: var(--sand-200);
+  --surface-raised: var(--sand-0);
+  --surface-panel: var(--sand-100);
+  --surface-panel-soft: var(--sand-50);
+  --surface-card: var(--sand-0);
+  --surface-overlay: rgba(246, 244, 226, 0.96);
+  --surface-avatar: rgba(255, 255, 255, 0.9);
+  --surface-veil: rgba(var(--ink-rgb), 0.08);
+  --surface-faint: rgba(var(--ink-rgb), 0.04);
+  --surface-scroll-track: transparent;
+  --surface-video: #808080;
+
+  /* Accent surfaces */
+  --surface-accent-soft: rgba(var(--accent-rgb), 0.16);
+  --surface-accent: rgba(var(--accent-rgb), 0.24);
+  --surface-accent-strong: rgba(var(--accent-rgb), 0.32);
+  --accent-outline: rgba(var(--accent-rgb), 0.6);
+  --accent-scrollbar: rgba(var(--accent-rgb), 0.4);
+
+  /* Borders */
+  --border-soft: rgba(var(--ink-rgb), 0.14);
+  --border-faint: rgba(var(--ink-rgb), 0.08);
+  --border-strong: rgba(var(--ink-rgb), 0.22);
+  --border-accent: rgba(var(--accent-rgb), 0.38);
+  --border-danger: rgba(var(--danger-rgb), 0.4);
+
+  /* Buttons */
+  --button-primary: #64718a;
+  --button-primary-hover: #323d52;
+  --button-primary-border: transparent;
+  --button-primary-outline: transparent;
+
+  /* Status */
+  --presence-offline: #acada8;
+
+  /* Effects */
+  --overlay-scrim: rgba(var(--ink-rgb), 0.32);
+  --shadow-shell: 0 30px 60px rgba(var(--ink-rgb), 0.12);
+  --shadow-dialog: 0 32px 80px rgba(var(--ink-rgb), 0.2);
+}

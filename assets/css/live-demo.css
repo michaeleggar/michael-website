@@ -1,0 +1,52 @@
+/* Live app demos embedded in a case study: two synced windows side by side. */
+
+.live-demo {
+  --live-demo-height: min(42rem, 85vh);
+  width: min(calc(100% - 2 * var(--page-gutter)), 90rem);
+  margin: var(--space-xl) auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.live-demo__pane {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.live-demo__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.live-demo__label a {
+  color: inherit;
+}
+
+.live-demo__label a:hover {
+  color: var(--text-primary);
+}
+
+.live-demo__frame {
+  display: block;
+  width: 100%;
+  height: var(--live-demo-height);
+  border: 1px solid color-mix(in oklch, var(--text-muted) 30%, transparent);
+  border-radius: calc(var(--border-radius) + 2px);
+  background: var(--surface);
+}
+
+/* Wide screens show both windows at once, so a message sent from the
+   control panel can be watched arriving on the chat screen. */
+@media (min-width: 75rem) {
+  .live-demo {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-md);
+  }
+}

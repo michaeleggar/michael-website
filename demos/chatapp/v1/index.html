@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Chat App Launcher</title>
+    <link rel="stylesheet" href="./styles/colors.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/theme-light-pastel.css" />
+    <script type="module" src="./logic/launcher.js"></script>
+  </head>
+  <body class="launcher">
+    <main class="launcher__container">
+      <header class="launcher__header">
+        <h1 class="launcher__title">Movie Chat Client</h1>
+      </header>
+      <p>
+        Open the chat screen and the crew control panel in separate windows.
+        They stay in sync as long as both are open in this browser.
+      </p>
+      <section class="launcher__actions">
+        <button id="openControl" class="btn secondary">Open Control Panel</button>
+        <button id="openScreen" class="btn secondary">Open Chat Screen</button>
+        <button id="launchAuto" class="btn primary">Open Both Windows</button>
+      </section>
+    </main>
+  </body>
+</html>

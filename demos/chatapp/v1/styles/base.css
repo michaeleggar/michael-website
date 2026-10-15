@@ -1,0 +1,79 @@
+:root {
+  --ui-scale: 1;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-size: calc(16px * var(--ui-scale));
+  line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--text-primary);
+  background-color: var(--surface-page);
+  cursor: default;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  transition: background-color 120ms ease, border-color 120ms ease,
+    transform 160ms ease;
+}
+
+.btn.primary,
+.btn.secondary {
+  background-color: var(--button-primary);
+  color: var(--text-contrast);
+  border-color: var(--button-primary-border);
+}
+
+.btn.primary:hover,
+.btn.secondary:hover {
+  background-color: var(--button-primary-hover);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.launcher {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.launcher__container {
+  max-width: 800px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-soft);
+  border-radius: 5px;
+  padding: 2.5rem 3rem;
+  display: grid;
+}
+
+.launcher__header h1 {
+  margin: 0;
+}
+
+.launcher__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}

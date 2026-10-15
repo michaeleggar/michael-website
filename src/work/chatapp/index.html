@@ -20,8 +20,9 @@ heroImage:
   alt: Chat app crew control interface showing user list and message input
 deck: >-
   A custom Electron app commissioned for a feature film shoot, designed to display
-  real-time chat conversations on an actor’s laptop as an on-screen prop. I’m now
-  independently rebuilding it with React and Vite.
+  real-time chat conversations on an actor’s laptop as an on-screen prop. I later
+  rebuilt it independently with React and Vite. Both versions run live below.
+stylesheets: [live-demo]
 projectDetails:
   - label: My role
     items:
@@ -46,12 +47,6 @@ projectDetails:
     and edit messages already sent in the chat. I added a template system
     with a configurable typing-indicator delay and a custom right-click
     menu for editing messages.
-  </p>
-  <h2>React and Vite migration</h2>
-  <p>
-    The original codebase grew organically under production pressure. The
-    ongoing refactor introduces component-based architecture, a slide-out
-    settings panel, and cleaner separation between the two interfaces.
   </p>
 </section>
 
@@ -80,3 +75,62 @@ projectDetails:
     decoding="async"
   />
 </figure>
+
+<section class="portfolio-project-copy">
+  <h2>Try the original</h2>
+  <p>
+    This is the version that ran on set, changed only to run in a browser
+    instead of Electron. Send a message or request a video call from the
+    control panel, and it appears on the chat screen.
+  </p>
+</section>
+
+<div class="live-demo">
+  <figure class="live-demo__pane">
+    <figcaption class="live-demo__label">
+      Chat screen
+      <a href="/work/chatapp/demo/v1/screen.html" target="_blank" rel="noopener">Open in new tab</a>
+    </figcaption>
+    <iframe class="live-demo__frame" src="/work/chatapp/demo/v1/screen.html" title="Original chat app: chat screen" loading="lazy"></iframe>
+  </figure>
+  <figure class="live-demo__pane">
+    <figcaption class="live-demo__label">
+      Control panel
+      <a href="/work/chatapp/demo/v1/control.html" target="_blank" rel="noopener">Open in new tab</a>
+    </figcaption>
+    <iframe class="live-demo__frame" src="/work/chatapp/demo/v1/control.html" title="Original chat app: control panel" loading="lazy"></iframe>
+  </figure>
+</div>
+
+<section class="portfolio-project-copy">
+  <h2>Rebuilding it in React</h2>
+  <p>
+    The original codebase grew organically under production pressure. After
+    the shoot I rebuilt it with React and Vite. One reducer now drives both
+    windows and keeps them in sync over BroadcastChannel. The rebuild adds chat
+    rooms, a slide-out settings panel that can pop out into its own window,
+    and a layout that works down to phone size.
+  </p>
+  <p>
+    Saved messages send with a typing delay, so the chat screen shows someone
+    typing before their message lands. You can also run the whole thing from the
+    cog next to Sadie’s name.
+  </p>
+</section>
+
+<div class="live-demo">
+  <figure class="live-demo__pane">
+    <figcaption class="live-demo__label">
+      Chat screen
+      <a href="/work/chatapp/demo/v2/" target="_blank" rel="noopener">Open in new tab</a>
+    </figcaption>
+    <iframe class="live-demo__frame" src="/work/chatapp/demo/v2/" title="React chat app: chat screen" loading="lazy"></iframe>
+  </figure>
+  <figure class="live-demo__pane">
+    <figcaption class="live-demo__label">
+      Control panel
+      <a href="/work/chatapp/demo/v2/control/" target="_blank" rel="noopener">Open in new tab</a>
+    </figcaption>
+    <iframe class="live-demo__frame" src="/work/chatapp/demo/v2/control/" title="React chat app: control panel" loading="lazy"></iframe>
+  </figure>
+</div>

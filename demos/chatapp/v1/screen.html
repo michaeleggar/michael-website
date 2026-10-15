@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Teen Cancer Support Group</title>
+    <link rel="stylesheet" href="./styles/colors.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/theme-light-pastel.css" />
+    <link rel="stylesheet" href="./styles/screen.css" />
+    <script type="module" src="./logic/screen.js"></script>
+  </head>
+  <body class="screen">
+    <div class="screen__app">
+      <header class="screen__header">
+        <div class="screen__headerIntro">
+          <div class="screen__titleRow">
+            <span class="screen__channelPrefix" aria-hidden="true"></span>
+            <h1 class="screen__title" id="screenTitle">Teen Cancer Support Group</h1>
+          </div>
+        </div>
+        <div class="screen__headerMeta" aria-label="Channel actions">
+          <button
+            class="screen__headerButton screen__headerButton--back"
+            id="backToGroupButton"
+            type="button"
+            hidden
+          >
+            <svg
+              class="icon icon--arrow-left"
+              aria-hidden="true"
+              focusable="false"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 19.5 3 12l7.5-7.5M3 12h18"
+              />
+            </svg>
+            <span class="screen__headerButtonLabel">Back to group chat</span>
+          </button>
+        </div>
+      </header>
+      <main class="screen__main">
+        <section class="screen__feed" id="messageFeed"></section>
+        <footer class="screen__composer" id="screenComposer">
+          <div class="typing-indicator" id="typingIndicator" hidden>
+            <span class="typing-indicator__label">Typing</span>
+            <span class="typing-indicator__dots">
+              <span class="typing-indicator__dot"></span>
+              <span class="typing-indicator__dot"></span>
+              <span class="typing-indicator__dot"></span>
+            </span>
+          </div>
+          <div class="composer" id="composer">
+            <div class="composer__panel">
+              <textarea
+                id="composerInput"
+                class="composer__input"
+                rows="1"
+                placeholder="Message #main-chat"
+              ></textarea>
+              <div class="composer__footer">
+                <div class="composer__actions">
+                  <button class="composer__actionBtn" type="button" aria-label="Upload">
+                    <svg
+                      class="icon icon--plus"
+                      aria-hidden="true"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="composer__actionBtn" type="button" aria-label="Emoji">
+                    <svg
+                      class="icon icon--smile"
+                      aria-hidden="true"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="composer__send btn primary" id="composerSend" type="button">
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+      <aside class="screen__sidebar" aria-label="Members and profile">
+        <section class="sidebar__section sidebar__section--members">
+          <div class="sidebar__group">
+            <div class="sidebar__list sidebar__list--roster" aria-label="Online and offline members">
+              <div class="sidebar__listGroup">
+                <div class="sidebar__groupHeader">
+                  <span class="sidebar__groupLabel">Online</span>
+                  <span class="sidebar__groupCount" id="onlineCount">0</span>
+                </div>
+                <div class="sidebar__sublist" id="onlineRoster"></div>
+              </div>
+              <div class="sidebar__listGroup">
+                <div class="sidebar__groupHeader">
+                  <span class="sidebar__groupLabel">Offline</span>
+                  <span class="sidebar__groupCount" id="offlineCount">0</span>
+                </div>
+                <div class="sidebar__sublist" id="offlineRoster"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          class="sidebar__section sidebar__section--dmProfile"
+          id="dmProfilePanel"
+          aria-label="Direct message profile"
+          hidden
+        >
+          <article class="profileCard profileCard--sidebar" id="dmProfileCard">
+            <div class="profileCard__banner" id="dmProfileBanner"></div>
+            <div class="profileCard__body">
+              <div class="profileCard__avatarWrap">
+                <div class="profileCard__avatar" id="dmProfileAvatar"></div>
+                <span class="profileCard__presence" id="dmProfilePresence" aria-hidden="true"></span>
+              </div>
+              <header class="profileCard__header">
+                <h2 class="profileCard__name" id="dmProfileName">Member</h2>
+                <p class="profileCard__status" id="dmProfileStatus" aria-live="polite"></p>
+              </header>
+              <p class="profileCard__bio" id="dmProfileBio"></p>
+              <div class="profileCard__badges" id="dmProfileBadges"></div>
+              <div class="profileCard__footer">
+                <button class="btn primary profileCard__message" id="dmProfileMessageButton" type="button">
+                  Message
+                </button>
+                <button class="btn secondary profileCard__video" id="dmProfileVideoButton" type="button">
+                  <svg
+                    class="icon icon--video"
+                    aria-hidden="true"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M4.5 4.5C2.843 4.5 1.5 5.843 1.5 7.5v9c0 1.657 1.343 3 3 3h8.25c1.657 0 3-1.343 3-3v-9c0-1.657-1.343-3-3-3H4.5Z" />
+                    <path d="M19.939 18.75 17.25 16.06V7.94l2.689-2.69c.945-.945 2.561-.276 2.561 1.06v11.378c0 1.337-1.616 2.006-2.561 1.062Z" />
+                  </svg>
+                  <span>Video Chat</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section
+          class="sidebar__section sidebar__section--self sidebar__self"
+          id="sidebarSelf"
+          aria-label="Logged in member"
+        >
+          <div class="selfCard">
+            <div class="selfCard__avatar sidebar__avatar" id="selfAvatar">A
+              <span
+                class="sidebar__presence sidebar__presence--offline"
+                id="selfPresence"
+                aria-label="Offline"
+                title="Offline"
+              ></span>
+            </div>
+            <div class="selfCard__meta">
+              <div class="selfCard__name" id="selfName">Member</div>
+            </div>
+            <div class="selfCard__actions">
+              <button
+                class="selfCard__button"
+                id="selfSettingsButton"
+                type="button"
+                aria-label="Switch active user"
+                aria-expanded="false"
+                aria-controls="selfPopover"
+              >
+                <svg
+                  class="icon icon--cog size-6"
+                  aria-hidden="true"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+    <div
+      class="selfPopover"
+      id="selfPopover"
+      role="dialog"
+      aria-labelledby="selfPopoverTitle"
+      hidden
+    >
+      <div class="selfPopover__panel" id="selfPopoverPanel" role="document">
+        <header class="selfPopover__header">
+          <h2 class="selfPopover__title" id="selfPopoverTitle">Switch user</h2>
+          <button
+            class="selfPopover__close"
+            id="selfPopoverClose"
+            type="button"
+            aria-label="Close"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon size-6" aria-hidden="true" focusable="false">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+              />
+            </svg>
+          </button>
+        </header>
+        <div class="selfPopover__body">
+          <div
+            class="selfPopover__list"
+            id="selfPopoverList"
+            role="listbox"
+            aria-labelledby="selfPopoverTitle"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="video-modal" id="videoModal" data-state="idle">
+      <div class="video-modal__content">
+        <header class="video-modal__header">
+          <div class="video-modal__titleRow">
+          <h2 class="video-modal__title" id="videoCallModalTitle">Video chat</h2>
+            <div class="video-modal__pending typing-indicator" id="videoModalPending" hidden>
+              <span class="typing-indicator__dots" aria-hidden="true">
+                <span class="typing-indicator__dot"></span>
+                <span class="typing-indicator__dot"></span>
+                <span class="typing-indicator__dot"></span>
+              </span>
+            </div>
+          </div>
+        </header>
+        <div class="video-modal__frame" aria-label="Video feed preview"></div>
+        <div class="video-modal__actions composer__actions" id="videoModalActions">
+          <button class="btn primary" id="videoModalAccept">Accept</button>
+          <button class="btn secondary" id="videoModalDecline">Decline</button>
+          <button class="btn secondary" id="videoModalClose">Close</button>
+        </div>
+          <div class="video-modal__toolbar" id="videoModalToolbar">
+          <div class="video-modal__toolbarControls">
+            <button
+              type="button"
+              class="video-modal__toggle"
+              id="videoModalCameraToggle"
+              aria-pressed="true"
+              data-status="on"
+              aria-label="Toggle camera"
+            >
+              <span class="video-modal__icon video-modal__icon--on" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+              </span>
+              <span class="video-modal__icon video-modal__icon--off" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 0 1-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.407.659-.97.659-1.591v-9a2.25 2.25 0 0 0-2.25-2.25h-9c-.621 0-1.184.252-1.591.659m12.182 12.182L2.909 5.909M1.5 4.5l1.409 1.409" />
+                </svg>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="video-modal__toggle"
+              id="videoModalMicrophoneToggle"
+              aria-pressed="true"
+              data-status="on"
+              aria-label="Toggle microphone"
+            >
+              <span class="video-modal__icon video-modal__icon--on" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                </svg>
+              </span>
+              <span class="video-modal__icon video-modal__icon--off" aria-hidden="true">
+                <svg
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  color="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    d="M3 3L21 21"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M9 9V9C9 11.7614 11.2386 14 14 14V14M15 10.5V5C15 3.34315 13.6569 2 12 2V2C10.3431 2 9 3.34315 9 5V5.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M5 10V11C5 14.866 8.13401 18 12 18V18V18C15.866 18 19 14.866 19 11V10"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M12 18V22M12 22H9M12 22H15"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn video-modal__end"
+            id="videoModalEnd"
+            aria-label="End call"
+          >
+            <span class="video-modal__label">End Call</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="profilePopover"
+      id="userProfilePopover"
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby="userProfileName"
+      hidden
+    >
+      <div class="profileCard" id="userProfileCard" role="document">
+        <button
+          class="profileCard__close"
+          id="userProfileClose"
+          type="button"
+          aria-label="Close profile"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon icon--close"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+            />
+          </svg>
+        </button>
+        <div class="profileCard__banner" id="userProfileBanner">
+        </div>
+        <div class="profileCard__body">
+          <div class="profileCard__avatarWrap">
+            <div class="profileCard__avatar" id="userProfileAvatar"></div>
+            <span class="profileCard__presence" id="userProfilePresence" aria-hidden="true"></span>
+          </div>
+          <header class="profileCard__header">
+            <h2 class="profileCard__name" id="userProfileName">Member</h2>
+            <p class="profileCard__status" id="userProfileStatus" aria-live="polite"></p>
+          </header>
+          <p class="profileCard__bio" id="userProfileBio"></p>
+          <div class="profileCard__badges" id="userProfileBadges"></div>
+          <div class="profileCard__footer">
+            <button
+              class="btn primary profileCard__message"
+              id="userProfileMessageButton"
+              type="button"
+            >
+              Message
+            </button>
+            <button
+              class="btn secondary profileCard__video"
+              id="userProfileVideoButton"
+              type="button"
+            >
+              <svg
+                class="icon icon--video"
+                aria-hidden="true"
+                focusable="false"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M4.5 4.5C2.843 4.5 1.5 5.843 1.5 7.5v9c0 1.657 1.343 3 3 3h8.25c1.657 0 3-1.343 3-3v-9c0-1.657-1.343-3-3-3H4.5Z" />
+                <path d="M19.939 18.75 17.25 16.06V7.94l2.689-2.69c.945-.945 2.561-.276 2.561 1.06v11.378c0 1.337-1.616 2.006-2.561 1.062Z" />
+              </svg>
+              <span>Video Chat</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="message-editor"
+      id="messageEditorModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="messageEditorTitle"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="message-editor__backdrop" id="messageEditorBackdrop"></div>
+      <div class="message-editor__panel" role="document">
+        <header class="message-editor__header">
+          <h3 class="message-editor__title" id="messageEditorTitle">Edit message</h3>
+          <button
+            class="message-editor__close"
+            id="messageEditorClose"
+            type="button"
+            aria-label="Close editor"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="icon icon--close"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+              />
+            </svg>
+          </button>
+        </header>
+        <form class="message-editor__form" id="messageEditorForm">
+          <div class="message-editor__body">
+            <p class="message-editor__meta" id="messageEditorMeta"></p>
+            <label class="message-editor__field" for="messageEditorInput">
+              <span class="message-editor__label">Message text</span>
+              <textarea
+                id="messageEditorInput"
+                class="message-editor__textarea"
+                rows="6"
+                spellcheck="false"
+              ></textarea>
+            </label>
+            <p class="message-editor__error" id="messageEditorError" hidden aria-live="polite"></p>
+          </div>
+          <footer class="message-editor__footer">
+            <button class="btn secondary" id="messageEditorCancel" type="button">
+              Cancel
+            </button>
+            <button class="btn primary" id="messageEditorSave" type="submit">
+              Save
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+    <div class="messageMenu" id="messageMenu" role="menu" aria-hidden="true" hidden>
+      <button class="messageMenu__item" type="button" role="menuitem" data-menu-action="moveUp">
+        Move message up
+      </button>
+      <button class="messageMenu__item" type="button" role="menuitem" data-menu-action="moveDown">
+        Move message down
+      </button>
+      <button class="messageMenu__item" type="button" role="menuitem" data-menu-action="edit">
+        Edit message
+      </button>
+      <button
+        class="messageMenu__item messageMenu__item--destructive"
+        type="button"
+        role="menuitem"
+        data-menu-action="delete"
+      >
+        Delete message
+      </button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+[
+  {
+    "id": "user_main",
+    "displayName": "Sadie",
+    "color": "#6b90b1",
+    "online": true,
+    "bio": "Junior. Into film photography and bad horror movies.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_friend",
+    "displayName": "BillyTheKid",
+    "color": "#7ab49c",
+    "online": true,
+    "bio": "Here most nights. Ask me about my playlist.",
+    "badges": [
+      "member",
+      "night owl"
+    ]
+  },
+  {
+    "id": "user_ichigo99",
+    "displayName": "Ichigo99",
+    "color": "#de5b49",
+    "online": true,
+    "bio": "Anime, sketchbooks and too much bubble tea.",
+    "badges": [
+      "member",
+      "artist"
+    ]
+  },
+  {
+    "id": "user_canttellyoumyname",
+    "displayName": "canttellyoumyname",
+    "color": "#4d5d73",
+    "online": false,
+    "bio": "Mostly lurking. Glad you're all here.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_jen_brian",
+    "displayName": "jen_brian",
+    "color": "#6ec2e8",
+    "online": true,
+    "bio": "Six months in remission. One day at a time.",
+    "badges": [
+      "member",
+      "mentor"
+    ]
+  },
+  {
+    "id": "user_playkglwatmyfuneral",
+    "displayName": "PlayKGLWatmyFuneral",
+    "color": "#8a5a8e",
+    "online": false,
+    "bio": "Drummer. Loud music, louder opinions.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_xperion",
+    "displayName": "Xperion_",
+    "color": "#2f7ec4",
+    "online": true,
+    "bio": "Speedrunner. Currently losing to a fire level.",
+    "badges": [
+      "member",
+      "gamer"
+    ]
+  },
+  {
+    "id": "user_chadeggarz",
+    "displayName": "Chadeggarz",
+    "color": "#8fb88b",
+    "online": false,
+    "bio": "Volunteer moderator.",
+    "badges": [
+      "moderator"
+    ]
+  },
+  {
+    "id": "user_luv_x_u",
+    "displayName": "Luv_x_u",
+    "color": "#d39898",
+    "online": true,
+    "bio": "Sending good vibes only.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_lutherm",
+    "displayName": "LutherM",
+    "color": "#c19a5f",
+    "online": false,
+    "bio": "Group facilitator. DM me anytime.",
+    "badges": [
+      "facilitator"
+    ]
+  },
+  {
+    "id": "user_missunderstood47",
+    "displayName": "missunderstood47",
+    "color": "#9a7bd5",
+    "online": true,
+    "bio": "Poetry, cats and late night chats.",
+    "badges": [
+      "member",
+      "writer"
+    ]
+  },
+  {
+    "id": "user_seri0usly_n01",
+    "displayName": "seri0usly_n01",
+    "color": "#3fa5a2",
+    "online": false,
+    "bio": "Not actually serious. At all.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_pecanfriend",
+    "displayName": "PecanFriend",
+    "color": "#d8a750",
+    "online": true,
+    "bio": "Baker in training. Will share recipes.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_aesop_rox",
+    "displayName": "aesop_rox",
+    "color": "#c6a2d7",
+    "online": false,
+    "bio": "Hip hop head and part-time philosopher.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_duncan",
+    "displayName": "Duncan",
+    "color": "#f29b5c",
+    "online": false,
+    "bio": "Basketball until treatment, basketball after.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_wuzwerds",
+    "displayName": "_wuzwerds_",
+    "color": "#8fa4ff",
+    "online": true,
+    "bio": "Word games champion. Challenge me.",
+    "badges": [
+      "member"
+    ]
+  },
+  {
+    "id": "user_the_destroyer1",
+    "displayName": "The_destroyer1",
+    "color": "#f48a7a",
+    "online": true,
+    "bio": "Destroyer of video game bosses, not people.",
+    "badges": [
+      "member",
+      "gamer"
+    ]
+  },
+  {
+    "id": "user_jeffieboy",
+    "displayName": "jeffieboy",
+    "color": "#4da16c",
+    "online": false,
+    "bio": "New here. Hi!",
+    "badges": [
+      "new"
+    ]
+  }
+]
