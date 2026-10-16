@@ -3,7 +3,7 @@ const esbuild = require('esbuild');
 // Each source becomes its own script, so the homepage fan (site.js) starts
 // without waiting for React, which only the menus (contact-menu.js) need.
 esbuild.buildSync({
-  entryPoints: ['scripts/ui/site.js', 'scripts/ui/contact-menu.jsx', 'scripts/ui/art-lightbox.js', 'scripts/ui/chat-demo.js', 'scripts/ui/case-study.js'],
+  entryPoints: ['scripts/ui/site.js', 'scripts/ui/contact-menu.jsx', 'scripts/ui/art-lightbox.js', 'scripts/ui/chat-demo.js', 'scripts/ui/case-study.js', 'scripts/ui/work-index.js'],
   bundle: true,
   minify: true,
   format: 'iife',

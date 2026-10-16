@@ -80,6 +80,38 @@
     window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
   }
 
+  // Between Work pages, keep the project list and swap everything around it, so
+  // the list animates between its widths instead of being redrawn (see work.css).
+  function swapMain(oldMain, nextMain) {
+    const list = oldMain.querySelector(':scope > .work-index');
+    const incoming = [...nextMain.children];
+    const at = incoming.findIndex(child => child.matches('.work-index'));
+    if (!list || at < 0) {
+      oldMain.replaceWith(nextMain);
+      return nextMain;
+    }
+    for (const child of [...oldMain.children]) if (child !== list) child.remove();
+    list.before(...incoming.slice(0, at));
+    list.after(...incoming.slice(at + 1));
+    oldMain.dataset.workView = nextMain.dataset.workView;
+    for (const link of list.querySelectorAll('a[href]')) {
+      const next = incoming[at].querySelector(`a[href="${link.getAttribute('href')}"]`);
+      if (next?.hasAttribute('aria-current')) link.setAttribute('aria-current', next.getAttribute('aria-current'));
+      else link.removeAttribute('aria-current');
+    }
+    const stage = oldMain.querySelector(':scope > .work-stage');
+    if (stage) {
+      stage.setAttribute('data-entering', '');
+      const settle = event => {
+        if (event.target !== stage) return;
+        stage.removeAttribute('data-entering');
+        stage.removeEventListener('animationend', settle);
+      };
+      stage.addEventListener('animationend', settle);
+    }
+    return oldMain;
+  }
+
   async function navigate(destination, { pop = false, replace = false, key } = {}) {
     request?.abort();
     const controller = new AbortController();
@@ -104,7 +136,7 @@
       const oldMain = document.querySelector('#main-content');
       rememberScroll();
       for (const dialog of oldMain.querySelectorAll('dialog[open]')) dialog.close();
-      oldMain.replaceWith(nextMain);
+      const main = swapMain(oldMain, nextMain);
       for (const link of styles) {
         link.removeAttribute('data-staged-style');
         link.removeAttribute('media');
@@ -124,8 +156,8 @@
       await loadScripts(page, url, signal);
       if (signal.aborted) return;
       document.dispatchEvent(new CustomEvent('site:page-change'));
-      nextMain.setAttribute('tabindex', '-1');
-      if (!nextMain.querySelector('dialog[open]')) nextMain.focus({ preventScroll: true });
+      main.setAttribute('tabindex', '-1');
+      if (!main.querySelector('dialog[open]')) main.focus({ preventScroll: true });
       scrollToDestination(url, pop ? scrollPositions.get(currentKey) : null);
       announcement.textContent = page.querySelector('h1')?.textContent || page.title;
     } catch (error) {

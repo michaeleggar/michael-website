@@ -3,8 +3,6 @@
 .portfolio-case-study {
   --case-study-section-gap: var(--space-lg);
   --case-study-details-gap: var(--space-xl);
-  --work-media-start-scale: 0.6;
-  --work-media-start-inset: 0px;
   --project-details-overhang: 1rem;
   width: 100%;
   padding-block-start: var(--case-study-section-gap);
@@ -65,14 +63,13 @@
   width: min(calc(100% - 2 * var(--page-gutter)), calc(var(--content-width) + 8rem));
 }
 
-/* The hero alone grows into place as it scrolls in. It shares the showcase's
-   width, narrowing further only to land fully within the window's height. */
+/* The hero shares the showcase's width, narrowing further only to fit fully
+   within the window's height. */
 .portfolio-first-media {
   --hero-fit: min(var(--hero-max, 100vw), calc((100svh - 7rem) * var(--hero-ratio, 1.6)));
   width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width), var(--hero-fit));
   margin: var(--case-study-details-gap) auto 0;
 }
-.portfolio-first-media img { transform-origin: top center; }
 
 /* A showcase in the hero's place follows the details at the hero's spacing. */
 .site-showcase-lead { margin-block-start: var(--case-study-details-gap); }
@@ -176,15 +173,16 @@
   border-radius: var(--shell-radius);
 }
 
+/* Narrow columns show the phone alone; the desktop capture would be too small to read. */
 @container (max-width: 40rem) {
   .site-showcase-layout {
-    --desk-width: 100cqw;
-    --phone-width: 58cqw;
-    height: calc(var(--desk-height) + var(--showcase-gap) + var(--phone-height));
+    --phone-width: min(64cqw, 18rem);
+    height: var(--phone-height);
   }
+  .site-showcase-window { display: none; }
   .site-showcase-phone {
-    inset-block-start: calc(var(--desk-height) + var(--showcase-gap));
-    inset-inline-start: 21cqw;
+    inset-block-start: 0;
+    inset-inline-start: calc((100cqw - var(--phone-width)) / 2);
   }
 }
 
@@ -383,19 +381,6 @@
   .site-showcase-key, .site-showcase-grip::after { transition: none; }
 }
 
-@keyframes portfolio-media-grow {
-  from {
-    transform: scale(var(--work-media-start-scale));
-    /* Extra inset per side, while keeping the image proportional. */
-    transform: scale(calc(var(--work-media-start-scale) - 2 * var(--work-media-start-inset) / 100vw));
-    clip-path: inset(0 round calc(var(--border-radius) + 2px));
-  }
-  to {
-    transform: scale(1);
-    clip-path: inset(0 round calc(var(--border-radius) + 2px));
-  }
-}
-
 @keyframes portfolio-media-rise {
   from {
     opacity: 0;
@@ -405,15 +390,6 @@
 
 @supports (animation-timeline: view()) and (animation-range: entry 50% entry 100%) {
   @media (prefers-reduced-motion: no-preference) {
-    .portfolio-first-media img {
-      animation-name: portfolio-media-grow;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view(block 0px);
-      animation-range: entry 50% entry 100%;
-    }
-
     .portfolio-wide-media:not(.portfolio-first-media) > * {
       animation: portfolio-media-rise auto cubic-bezier(0.2, 0.7, 0.3, 1) both;
       animation-timeline: view();
@@ -529,7 +505,6 @@
 .project-credit-role { color: var(--text-secondary); }
 @media (max-width: 780px) {
   .portfolio-case-study {
-    --work-media-start-scale: 0.9;
     --project-details-overhang: 0.25rem;
   }
 }
@@ -538,10 +513,3 @@
   .portfolio-media-pair { grid-template-columns: minmax(0, 1fr); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .portfolio-first-media img {
-    animation: none;
-    transform: none;
-    clip-path: inset(0 round calc(var(--border-radius) + 2px));
-  }
-}

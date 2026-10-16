@@ -1,0 +1,232 @@
+/* Work: one list of projects, shared by the Work page and every case study.
+   On the Work page the list shows each project's year, agency, and roles beside
+   a photograph of whichever row is hovered. Opening a project narrows the list
+   to its titles and sets the case study beside it. page-navigation.js swaps only
+   the stage between these pages, so the list itself animates between widths. */
+
+.work-browser {
+  --work-index-wide: 36rem;
+  --work-index-narrow: 15rem;
+  --work-browser-gap: 3rem;
+  /* Where the list starts, so it stays put once sticky. */
+  --work-index-top: calc(4.5rem + var(--page-top-space));
+  --work-row-pad: var(--nav-padding-inline);
+  --work-rule: color-mix(in oklch, var(--text-muted) 60%, transparent);
+  --work-line: repeating-linear-gradient(to right, var(--work-rule) 0 4px, transparent 4px 8px);
+  --work-ease: var(--ease-out-expo);
+  /* As wide as the header; the case study's copy keeps the shared --content-width. */
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
+  display: grid;
+  grid-template-columns: var(--work-index-wide) minmax(0, 1fr);
+  column-gap: var(--work-browser-gap);
+  align-items: start;
+  transition: grid-template-columns 700ms var(--work-ease);
+}
+
+.work-browser[data-work-view="project"] {
+  grid-template-columns: var(--work-index-narrow) minmax(0, 1fr);
+}
+
+/* List */
+
+.work-index {
+  position: sticky;
+  top: var(--work-index-top);
+  min-width: 0;
+}
+
+.work-index-list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Dashed rules between rows, matching the case studies' project details. */
+.work-index-list::before,
+.work-index-list > li::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: var(--work-line);
+  pointer-events: none;
+}
+.work-index-list::before { inset-block-start: 0; }
+.work-index-list > li { position: relative; }
+.work-index-list > li::after { inset-block-end: 0; }
+
+/* Each row is a pill like the header menus' items. The title keeps the narrow
+   list's width throughout, so it never rewraps; the details are clipped and
+   fade as the list narrows. */
+.work-index-link {
+  --work-pill-inset: 5px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: calc(0.6rem + var(--work-pill-inset)) var(--work-row-pad);
+  overflow: hidden;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* The pill sits inside the rules, while the whole row stays clickable. */
+.work-index-link::before {
+  content: "";
+  position: absolute;
+  inset: var(--work-pill-inset) 0;
+  z-index: -1;
+  border-radius: var(--control-radius);
+  corner-shape: superellipse(1.6);
+  background: var(--work-pill-bg, transparent);
+  pointer-events: none;
+}
+
+.work-index-title {
+  flex: none;
+  width: calc(var(--work-index-narrow) - 2 * var(--work-row-pad));
+  font-size: var(--type-sm);
+  font-weight: 500;
+  line-height: var(--line-snug);
+  transition: color 140ms ease;
+}
+
+.work-index-meta {
+  flex: none;
+  display: grid;
+  grid-template-columns: 2.5rem 5.5rem auto;
+  gap: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: var(--type-meta);
+  line-height: var(--line-snug);
+  white-space: nowrap;
+  transition: opacity 350ms ease 250ms;
+}
+
+.work-index-year { font-variant-numeric: tabular-nums; }
+
+.work-browser[data-work-view="project"] .work-index-meta {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+}
+
+.work-index-link:hover,
+.work-index-link[aria-current="page"] {
+  --work-pill-bg: color-mix(in oklch, var(--text-primary) 6%, transparent);
+}
+
+.work-index-link[aria-current="page"] .work-index-title { color: var(--accent); }
+
+.work-index-link:focus-visible { outline: none; }
+.work-index-link:focus-visible::before { outline: 2px solid var(--text-primary); outline-offset: -2px; }
+
+/* Stage: a hovered project's photograph, or the open case study. */
+
+.work-stage {
+  position: relative;
+  min-width: 0;
+}
+
+.work-stage[data-entering] {
+  animation: work-stage-enter 600ms var(--work-ease) 60ms both;
+}
+
+@keyframes work-stage-enter {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+}
+
+.work-preview {
+  position: sticky;
+  top: var(--work-index-top);
+  display: grid;
+  aspect-ratio: 16 / 10;
+}
+
+.work-preview-image {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+  opacity: 0;
+  scale: 0.985;
+  transition: opacity 220ms ease, scale 400ms var(--work-ease);
+}
+
+.work-preview-image[data-active] {
+  opacity: 1;
+  scale: 1;
+}
+
+/* The case study fills the stage's width and starts level with the list. */
+.work-browser .portfolio-case-study {
+  --page-gutter: 0px;
+  padding-block-start: 0;
+}
+
+.work-browser > .work-stage.portfolio-case-study > * {
+  margin-inline: 0;
+}
+
+.work-browser > .portfolio-case-study > .portfolio-project-intro {
+  margin-block-start: 0;
+  padding-block-start: 0.6rem;
+}
+
+/* The list stands in for "All Work"; the live site link sits top right. */
+.work-browser > .portfolio-case-study > .project-navigation {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: auto;
+}
+.work-browser .project-nav-back { display: none; }
+
+/* Narrower windows: the list is the Work page, and each case study has the
+   whole width with its "All Work" link back. */
+@media (max-width: 1024px) {
+  .work-browser { display: block; }
+
+  .work-index {
+    position: static;
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+  .work-browser[data-work-view="project"] .work-index,
+  .work-browser[data-work-view="index"] .work-stage { display: none; }
+
+  .work-index-link {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .work-index-title { width: auto; }
+  .work-index-meta { grid-template-columns: 2.5rem 5.5rem minmax(0, 1fr); }
+
+  .work-browser > .portfolio-case-study > .project-navigation {
+    position: static;
+    width: 100%;
+  }
+  .work-browser .project-nav-back { display: flex; }
+  .work-browser > .work-stage.portfolio-case-study > * { margin-inline: auto; }
+  .work-browser > .portfolio-case-study > .portfolio-project-intro {
+    margin-block-start: var(--case-study-section-gap);
+    padding-block-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-browser,
+  .work-index-meta,
+  .work-browser[data-work-view="project"] .work-index-meta,
+  .work-preview-image {
+    transition: none;
+  }
+  .work-stage[data-entering] { animation: none; }
+}
