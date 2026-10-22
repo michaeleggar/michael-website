@@ -62,6 +62,15 @@ module.exports = function (eleventyConfig) {
     const roles = data.projectDetails?.find(group => group.label === 'My role')?.items || [];
     return [data.agency, ...roles.map(item => item.label || item)].filter(Boolean);
   });
+  // The case studies before and after one, wrapping around the Work list.
+  eleventyConfig.addFilter('workNeighbors', (projects, url) => {
+    const at = projects.findIndex(project => project.url === url);
+    if (at < 0 || projects.length < 2) return null;
+    return {
+      previous: projects[(at - 1 + projects.length) % projects.length],
+      next: projects[(at + 1) % projects.length],
+    };
+  });
   eleventyConfig.addFilter('artworkSlug', artwork => artwork.image.split('/').pop());
 
   return {

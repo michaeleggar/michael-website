@@ -1,24 +1,28 @@
+{#- A project in the Work gallery: its photograph, title, year, and one line
+    saying what it is. The year, agency, and roles live in the case study's details. -#}
 <article class="portfolio-project-card">
   <a href="{{ project.url }}" aria-label="View {{ project.data.cardTitle }} case study">
     <div class="portfolio-project-image image-preview" style="--image-preview: url({{ placeholders[project.data.cardImage.image] }});">
       <img
         src="{{ project.data.cardImage.image }}-thumb.webp"
         srcset="{{ project.data.cardImage.image }}-thumb.webp {{ project.data.cardImage.thumbnailWidth }}w, {{ project.data.cardImage.image }}-large.webp {{ project.data.cardImage.width }}w"
-        sizes="(max-width: 780px) calc(100vw - 2rem), min(calc((100vw - 6rem) / 2), 512px)"
+        sizes="(max-width: 780px) calc(100vw - 2rem), min(calc((100vw - 6.5rem) / 2), 512px)"
         width="{{ project.data.cardImage.width }}"
         height="{{ project.data.cardImage.height }}"
         alt="{{ project.data.cardImageAlt | escape }}"
-        loading="{{ 'eager' if loop.index0 < 3 else 'lazy' }}"
+        loading="{{ 'eager' if loop.index0 < 2 else 'lazy' }}"
         fetchpriority="{{ 'high' if loop.index0 < 2 else 'auto' }}"
         decoding="async"
         onload="this.setAttribute('data-loaded', '')"
         onerror="this.setAttribute('data-loaded', '')"
       />
     </div>
-    <h3>{{ project.data.cardTitle }}</h3>
-    <ul class="portfolio-project-tags">
-      <li><time datetime="{{ project.data.year }}">{{ project.data.year }}</time></li>
-      {% for tag in project.data | projectTags %}<li>{{ tag }}</li>{% endfor %}
-    </ul>
+    <div class="portfolio-project-caption">
+      <h3>
+        <span class="portfolio-project-title">{{ project.data.cardTitle }}</span>
+        <time class="portfolio-project-year" datetime="{{ project.data.year }}">{{ project.data.year }}</time>
+      </h3>
+      {% if project.data.cardSummary %}<p class="portfolio-project-summary">{{ project.data.cardSummary }}</p>{% endif %}
+    </div>
   </a>
 </article>

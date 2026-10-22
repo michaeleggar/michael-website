@@ -1,4 +1,4 @@
-/* Home and Work pages: the name treatment, project grid, and cards. */
+/* Home and Work pages: the name treatment, project gallery, and cards. */
 
 @font-face {
   font-family: "Oddball";
@@ -20,7 +20,8 @@
   text-transform: lowercase;
 }
 
-/* Project grid: as wide as the Art page, two columns, three once there are six projects. */
+/* Project gallery: as wide as the Art page, two big pictures to a row, three
+   once there are six projects. */
 
 .work-page {
   --content-width: var(--wide-content-width);
@@ -53,45 +54,49 @@
   transition: opacity 450ms ease-out;
 }
 
+/* Under each picture: the title with its year, and one line on what it is. */
+.portfolio-project-caption {
+  display: grid;
+  gap: 0.25rem;
+  margin-block-start: var(--space-sm);
+  padding-inline: 2px;
+}
+
 .portfolio-project-card h3 {
-  margin: var(--space-sm) 0 0;
-  font-size: var(--type-sm);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin: 0;
+  font-size: var(--type-base);
   font-weight: 500;
   line-height: var(--line-snug);
+}
+
+.portfolio-project-title {
   transition: color 140ms ease;
 }
 
-/* Year, agency, and roles as small tags, matching the homepage caption. */
-.portfolio-project-tags {
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  list-style: none;
-}
-
-.portfolio-project-tags li {
-  padding: 3px 7px;
-  border-radius: calc(var(--control-radius) * 0.65);
-  corner-shape: superellipse(1.6);
-  background: color-mix(in oklch, var(--text-primary) 6%, transparent);
-  color: var(--text-secondary);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.portfolio-project-tags time {
+.portfolio-project-year {
+  flex: none;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
   font-variant-numeric: tabular-nums;
+}
+
+.portfolio-project-summary {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--type-sm);
+  line-height: var(--line-snug);
+  text-wrap: pretty;
 }
 
 .portfolio-selected-work-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-lg) 1rem;
+  gap: var(--space-xl) 1.5rem;
 }
 
 @media (min-width: 1100px) {
@@ -103,12 +108,13 @@
 @media (max-width: 780px) {
   .portfolio-selected-work-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 }
 
 /* Hover lights the title; scripts/ui/work-cards.js leans the picture toward the pointer. */
 @media (hover: hover) and (pointer: fine) {
-  .portfolio-project-card a:hover h3 {
+  .portfolio-project-card a:hover .portfolio-project-title {
     color: var(--accent);
   }
 }

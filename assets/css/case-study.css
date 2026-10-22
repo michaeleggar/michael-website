@@ -1,8 +1,13 @@
-/* Case-study pages: introduction, copy, media, and project details. */
+/* Case-study pages: navigation, title, the lead picture, project details as
+   fine print beneath it, copy, media, and the previous/next footer. */
 
 .portfolio-case-study {
   --case-study-section-gap: var(--space-lg);
+  /* Between the title and the picture, and the picture and the details. */
+  --case-study-lead-gap: 2.5rem;
   --case-study-details-gap: var(--space-xl);
+  /* Between the details, copy sections, and media. */
+  --case-study-copy-gap: clamp(2.5rem, 5vw, 3.5rem);
   --project-details-overhang: 1rem;
   width: 100%;
   padding-block-start: var(--case-study-section-gap);
@@ -11,7 +16,8 @@
 .portfolio-case-study > .project-navigation,
 .portfolio-case-study > .portfolio-project-intro,
 .portfolio-case-study > .project-details,
-.portfolio-case-study > .portfolio-project-copy {
+.portfolio-case-study > .portfolio-project-copy,
+.portfolio-case-study > .project-footer {
   width: min(calc(100% - 2 * var(--page-gutter)), var(--content-width));
   margin-inline: auto;
 }
@@ -38,12 +44,19 @@
 }
 
 .portfolio-project-intro h1 {
-  font-size: var(--type-md);
+  margin-block-end: 0.75rem;
+  font-size: clamp(1.75rem, 1.3rem + 1.5vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: var(--line-title);
 }
 
 .portfolio-project-deck {
   margin: 0;
   color: var(--text-secondary);
+  font-size: 1.0625rem;
+  line-height: var(--line-body);
+  text-wrap: pretty;
 }
 
 .portfolio-wide-media img {
@@ -55,7 +68,7 @@
 
 .portfolio-wide-media {
   width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
-  margin: clamp(3rem, 7vw, 5rem) auto 0;
+  margin: var(--case-study-copy-gap) auto 0;
 }
 
 /* Media that steps only a little past the copy column. */
@@ -63,16 +76,16 @@
   width: min(calc(100% - 2 * var(--page-gutter)), calc(var(--content-width) + 8rem));
 }
 
-/* The hero shares the showcase's width, narrowing further only to fit fully
-   within the window's height. */
+/* The hero follows the title. It shares the showcase's width, narrowing
+   further only to fit fully within the window's height. */
 .portfolio-first-media {
   --hero-fit: min(var(--hero-max, 100vw), calc((100svh - 7rem) * var(--hero-ratio, 1.6)));
   width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width), var(--hero-fit));
-  margin: var(--case-study-details-gap) auto 0;
+  margin: var(--case-study-lead-gap) auto 0;
 }
 
-/* A showcase in the hero's place follows the details at the hero's spacing. */
-.site-showcase-lead { margin-block-start: var(--case-study-details-gap); }
+/* A showcase in the hero's place follows the title at the hero's spacing. */
+.site-showcase-lead { margin-block-start: var(--case-study-lead-gap); }
 
 .portfolio-wide-media figcaption {
   max-width: 65ch;
@@ -106,7 +119,7 @@
   --lcd-ink: #1c2823;
   --key-orange: #f55f2c;
   width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
-  margin: clamp(3rem, 7vw, 5rem) auto 0;
+  margin: var(--case-study-copy-gap) auto 0;
   container-type: inline-size;
 }
 
@@ -399,11 +412,11 @@
 }
 
 .portfolio-project-copy {
-  margin-block-start: clamp(3rem, 7vw, 5rem);
+  margin-block-start: var(--case-study-copy-gap);
 }
 
 .portfolio-project-copy h2 {
-  margin: 2.25rem 0 0.7rem;
+  margin: 2rem 0 0.7rem;
   font-size: 1.1rem;
 }
 
@@ -436,7 +449,7 @@
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
   column-gap: var(--project-details-column-gap);
-  margin: var(--case-study-details-gap) 0 0;
+  margin-block: var(--case-study-details-gap) 0;
   border-block-start: 1px solid transparent;
   font-size: var(--type-sm);
 }
@@ -513,3 +526,93 @@
   .portfolio-media-pair { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* Footer: the previous and next projects, each with its picture, between
+   the same dashed rules as the details. */
+.project-footer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin-block-start: clamp(3.5rem, 7vw, 5rem);
+  padding-block: var(--space-md);
+}
+
+.project-footer::before,
+.project-footer::after {
+  content: "";
+  position: absolute;
+  inset-inline: calc(-1 * var(--project-details-overhang));
+  height: 1px;
+  background: var(--project-details-line, repeating-linear-gradient(to right, color-mix(in oklch, var(--text-muted) 60%, transparent) 0 4px, transparent 4px 8px));
+  pointer-events: none;
+}
+.project-footer::before { inset-block-start: 0; }
+.project-footer::after { inset-block-end: 0; }
+
+.project-footer-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.project-footer-link[data-direction="next"] {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+
+.project-footer-image {
+  flex: none;
+  display: block;
+  width: 6.5rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+.project-footer-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-footer-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.project-footer-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  line-height: var(--line-snug);
+}
+.project-footer-link[data-direction="next"] .project-footer-label { justify-content: flex-end; }
+.project-footer-label svg { width: 12px; height: 12px; flex: none; transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.project-footer-title {
+  font-size: var(--type-sm);
+  font-weight: 500;
+  line-height: var(--line-snug);
+  transition: color 140ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-footer-link:hover .project-footer-title { color: var(--accent); }
+  .project-footer-link[data-direction="previous"]:hover svg { transform: translateX(-2px); }
+  .project-footer-link[data-direction="next"]:hover svg { transform: translateX(2px); }
+}
+
+@media (max-width: 560px) {
+  .project-footer { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .project-footer-link[data-direction="next"] { flex-direction: row; text-align: start; }
+  .project-footer-link[data-direction="next"] .project-footer-label { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-footer-label svg, .project-footer-title { transition: none; }
+}

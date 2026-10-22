@@ -1,77 +1,77 @@
 ---
 layout: layouts/base.njk
-stylesheets: [work, case-study]
-scripts: [work-index, case-study]
+stylesheets: [case-study]
+scripts: [case-study]
 ---
 
-<main id="main-content" class="page-content work-browser" data-work-view="project">
-  {% include "work-index.njk" %}
-  <article class="work-stage portfolio-case-study">
-    {% set liveSiteUrl = "" %}
-    {% for group in projectDetails %}
-      {% if group.label == "Link" %}
-        {% for item in group.items %}
-          {% if item.href and not liveSiteUrl %}{% set liveSiteUrl = item.href %}{% endif %}
-        {% endfor %}
-      {% endif %}
-    {% endfor %}
-    {% include "work-project-nav.njk" %}
-
-    <header class="portfolio-project-intro">
-      <h1>{{ heading or cardTitle }}</h1>
-      <p class="portfolio-project-deck">{{ deck }}</p>
-    </header>
-
-    <dl class="project-details" aria-label="Project details">
-      {% if agency %}
-      <div><dt>Agency</dt><dd>{{ agency }}, <span class="project-details-year">{{ year }}</span></dd></div>
-      {% else %}
-      <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
-      {% endif %}
-      {% for group in projectDetails %}
-        {% if group.label != "Link" or not liveSiteUrl %}
-        <div>
-          <dt>{{ group.label }}</dt>
-          <dd>
-            {% for item in group.items %}
-              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
-            {% endfor %}
-          </dd>
-        </div>
-        {% endif %}
+<main id="main-content" class="page-content portfolio-case-study">
+  {% set liveSiteUrl = "" %}
+  {% for group in projectDetails %}
+    {% if group.label == "Link" %}
+      {% for item in group.items %}
+        {% if item.href and not liveSiteUrl %}{% set liveSiteUrl = item.href %}{% endif %}
       {% endfor %}
-      {% if contributors and contributors.length %}
+    {% endif %}
+  {% endfor %}
+  {% include "work-project-nav.njk" %}
+
+  <header class="portfolio-project-intro">
+    <h1>{{ heading or cardTitle }}</h1>
+    <p class="portfolio-project-deck">{{ deck }}</p>
+  </header>
+
+  {# The picture leads; the details follow it as fine print. #}
+  {% if leadShowcase and siteShowcase %}
+    {% include "site-showcase.njk" %}
+  {% elif heroImage %}
+    <figure class="portfolio-wide-media portfolio-first-media" style="--hero-ratio: {{ heroImage.width / heroImage.height }}; --hero-max: {{ heroImage.width }}px;">
+      <img
+        src="{{ heroImage.image }}-large.webp"
+        srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
+        sizes="(min-width: 1100px) 1040px, 100vw"
+        width="{{ heroImage.width }}"
+        height="{{ heroImage.height }}"
+        alt="{{ heroImage.alt }}"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+  {% endif %}
+
+  <dl class="project-details" aria-label="Project details">
+    {% if agency %}
+    <div><dt>Agency</dt><dd>{{ agency }}, <span class="project-details-year">{{ year }}</span></dd></div>
+    {% else %}
+    <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
+    {% endif %}
+    {% for group in projectDetails %}
+      {% if group.label != "Link" or not liveSiteUrl %}
       <div>
-        <dt>Contributors</dt>
+        <dt>{{ group.label }}</dt>
         <dd>
-          <ul class="project-credit-list">
-            {% for person in contributors %}
-              <li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>
-            {% endfor %}
-          </ul>
+          {% for item in group.items %}
+            {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
+          {% endfor %}
         </dd>
       </div>
       {% endif %}
-    </dl>
-
-    {% if leadShowcase and siteShowcase %}
-      {% include "site-showcase.njk" %}
-    {% elif heroImage %}
-      <figure class="portfolio-wide-media portfolio-first-media" style="--hero-ratio: {{ heroImage.width / heroImage.height }}; --hero-max: {{ heroImage.width }}px;">
-        <img
-          src="{{ heroImage.image }}-large.webp"
-          srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
-          sizes="(min-width: 1100px) 1040px, 100vw"
-          width="{{ heroImage.width }}"
-          height="{{ heroImage.height }}"
-          alt="{{ heroImage.alt }}"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </figure>
+    {% endfor %}
+    {% if contributors and contributors.length %}
+    <div>
+      <dt>Contributors</dt>
+      <dd>
+        <ul class="project-credit-list">
+          {% for person in contributors %}
+            <li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>
+          {% endfor %}
+        </ul>
+      </dd>
+    </div>
     {% endif %}
+  </dl>
 
-    {{ content | safe }}
-  </article>
+  {{ content | safe }}
+
+  {% include "work-project-footer.njk" %}
 </main>

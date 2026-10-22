@@ -2,28 +2,19 @@
 layout: layouts/base.njk
 title: Work
 description: Selected websites and applications designed and developed by Michael Eggar, a front-end developer based in Oklahoma City.
-stylesheets: [work]
-scripts: [work-index]
+stylesheets: [portfolio]
 ---
 
-<main id="main-content" class="page-content work-browser" data-work-view="index">
+<main id="main-content" class="page-content work-page">
   <h1 class="visually-hidden">Work</h1>
-  {% include "work-index.njk" %}
-  <div class="work-stage">
-    {# Each project's photograph, shown while its row is hovered or focused. #}
-    <div class="work-preview" aria-hidden="true">
+  <section class="page-section" aria-labelledby="work-projects-title">
+    <h2 id="work-projects-title" class="visually-hidden">Selected work</h2>
+    <div class="portfolio-selected-work-grid">
+      {# Hide project images until each finishes loading; set inline so it runs before any can draw. #}
+      <script>document.currentScript.parentElement.setAttribute('data-reveal', '');</script>
       {% for project in collections.workProjects %}
-        <img
-          class="work-preview-image"
-          data-work-project="{{ project.fileSlug }}"
-          src="{{ project.data.cardImage.image }}-large.webp"
-          width="{{ project.data.cardImage.width }}"
-          height="{{ project.data.cardImage.height }}"
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
+        {% include "project-card.njk" %}
       {% endfor %}
     </div>
-  </div>
+  </section>
 </main>
