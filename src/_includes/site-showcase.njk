@@ -5,6 +5,9 @@
     Expects `siteShowcase` in page data. -#}
 {% set show = siteShowcase %}
 {% set hint = "showcase-hint-" + page.fileSlug %}
+{#- Leading the page, the captures are its first pictures, so fetch them first. The
+    desktop one stays lazy so narrow screens, which hide it, never download it. -#}
+{% set priority = 'fetchpriority="high"' if leadShowcase else '' %}
 <section class="site-showcase{% if leadShowcase %} site-showcase-lead{% endif %}" aria-label="{{ show.url }} homepage" data-site-showcase>
   <div class="site-showcase-layout">
     <div class="site-showcase-window" data-showcase-window>
@@ -24,7 +27,7 @@
       </div>
       <div class="site-showcase-screen">
         <div class="site-showcase-viewport" tabindex="0" role="region" aria-label="{{ show.url }} on desktop, scrollable">
-          <img src="{{ show.desktop.image }}" width="{{ show.desktop.width }}" height="{{ show.desktop.height }}" alt="{{ show.alt }} on desktop" loading="lazy" decoding="async" />
+          <img src="{{ show.desktop.image }}" width="{{ show.desktop.width }}" height="{{ show.desktop.height }}" alt="{{ show.alt }} on desktop" loading="lazy" {{ priority | safe }} decoding="async" />
         </div>
       </div>
       <span class="site-showcase-grip" tabindex="0" role="button" aria-label="Resize the desktop window" aria-describedby="{{ hint }}" data-resize-handle></span>
@@ -38,7 +41,7 @@
       </div>
       <div class="site-showcase-screen">
         <div class="site-showcase-viewport" tabindex="0" role="region" aria-label="{{ show.url }} on a phone, scrollable">
-          <img src="{{ show.mobile.image }}" width="{{ show.mobile.width }}" height="{{ show.mobile.height }}" alt="{{ show.alt }} on a phone" loading="lazy" decoding="async" />
+          <img src="{{ show.mobile.image }}" width="{{ show.mobile.width }}" height="{{ show.mobile.height }}" alt="{{ show.alt }} on a phone" loading="{{ 'eager' if leadShowcase else 'lazy' }}" {{ priority | safe }} decoding="async" />
         </div>
       </div>
       <span class="site-showcase-grip" tabindex="0" role="button" aria-label="Resize the phone" aria-describedby="{{ hint }}" data-resize-handle></span>
