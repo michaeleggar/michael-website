@@ -109,26 +109,47 @@ function setUp(root) {
   fit();
 
   // The app focuses its composer on load; keep that from scrolling the page to it.
+  // Scrolling the visitor does meanwhile moves the spot to return to, and while
+  // they're still scrolling nothing is undone.
   const holdScroll = () => {
-    const { scrollX, scrollY } = window;
-    const restore = () => window.scrollTo(scrollX, scrollY);
+    let { scrollX, scrollY } = window;
+    let lastInput = -Infinity;
+    const scrolling = () => performance.now() - lastInput < 400;
+    const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+    const input = event => { if (event.type !== 'keydown' || scrollKeys.includes(event.key)) lastInput = performance.now(); };
+    const follow = () => { if (scrolling()) ({ scrollX, scrollY } = window); };
+    const inputs = ['wheel', 'touchmove', 'keydown'];
+    inputs.forEach(type => window.addEventListener(type, input, { capture: true, passive: true }));
+    window.addEventListener('scroll', follow, { passive: true });
+    const restore = () => { if (!scrolling()) window.scrollTo(scrollX, scrollY); };
     iframe.addEventListener('load', () => {
       requestAnimationFrame(restore);
-      setTimeout(restore, 150);
+      setTimeout(() => {
+        restore();
+        inputs.forEach(type => window.removeEventListener(type, input, { capture: true }));
+        window.removeEventListener('scroll', follow);
+      }, 150);
     }, { once: true });
   };
 
   const start = () => {
     if (started) return;
     started = true;
+    root.querySelector('.chat-demo__desktop').style.setProperty('--chat-demo-wallpaper', `url("${root.dataset.wallpaper}")`);
     holdScroll();
     load(versions.find(version => version.getAttribute('aria-pressed') === 'true') || versions[0]);
   };
+  // Booting the app briefly busies the page, so do it while the visitor is still
+  // reading the top rather than while they scroll down to it.
+  const idle = window.requestIdleCallback || (callback => setTimeout(callback, 1));
+  const startWhenIdle = () => idle(start, { timeout: 2000 });
+  if (document.readyState === 'complete') startWhenIdle();
+  else window.addEventListener('load', startWhenIdle, { once: true });
   const watcher = new IntersectionObserver(entries => {
     if (entries.some(entry => entry.isIntersecting)) { watcher.disconnect(); start(); }
   }, { rootMargin: '300px 0px' });
   watcher.observe(root);
-  cleanups.push(() => watcher.disconnect());
+  cleanups.push(() => { watcher.disconnect(); window.removeEventListener('load', startWhenIdle); });
 
   for (const version of versions) {
     const onClick = () => {

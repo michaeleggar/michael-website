@@ -1,7 +1,7 @@
 {#- Live chat app demo: the actor's screen and the crew's cue window, set on a
     painting like windows on a desktop. Expects `demoScene` in page data. -#}
 {% set wallpaper = demoScene.wallpaper %}
-<section class="chat-demo" aria-label="Live demo" data-chat-demo data-bridge="/work/chatapp/demo/bridge.js">
+<section class="chat-demo" aria-label="Live demo" data-chat-demo data-bridge="/work/chatapp/demo/bridge.js" data-wallpaper="{{ wallpaper.image }}-large.webp">
   <div class="chat-demo__bar">
     <div class="chat-demo__versions" role="group" aria-label="Version">
       {% for version in demoScene.versions %}
@@ -24,7 +24,7 @@
     </a>
   </div>
 
-  <div class="chat-demo__desktop image-preview" style="--image-preview: url({{ placeholders[wallpaper.image] }}); --chat-demo-wallpaper: url({{ wallpaper.image }}-large.webp);">
+  <div class="chat-demo__desktop image-preview" style="--image-preview: url({{ placeholders[wallpaper.image] }});">
     <figure class="chat-demo__window chat-demo__window--screen">
       <figcaption class="chat-demo__titlebar">
         <span class="chat-demo__lights" aria-hidden="true"><i></i><i></i><i></i></span>
