@@ -40,17 +40,11 @@ function initializeShowcase() {
   let cardTop = 0;
   let replayTimer;
   // Phones: the cards ride the top of a wheel that runs off both edges. `position`
-  // is the card at the top, fractional while it turns; the dial under the wheel
-  // turns with it.
+  // is the card at the top, fractional while it turns.
   let position = 0;
   let wheelRadius = 0;
   let wheelSpacing = 0;
   let spinFrame;
-  const dialStep = 36;
-  const dial = document.createElement('span');
-  dial.className = 'showcase-dial';
-  dial.setAttribute('aria-hidden', 'true');
-  caption.prepend(dial);
   const viewportHeight = () => window.visualViewport?.scale === 1 ? window.visualViewport.height : window.innerHeight;
   function configureSprings() {
     states.forEach(state => {
@@ -98,7 +92,7 @@ function initializeShowcase() {
       page.style.setProperty('--home-bottom-gap', `${bottomGap}px`);
       page.style.setProperty('--home-header-height', `${header?.offsetHeight || 0}px`);
       const captionSpace = Math.max(caption.offsetHeight, settings.appearance.detailSize * 1.4 + 6) + labelGap;
-      const sectionTop = intro.getBoundingClientRect().bottom + window.scrollY + parseFloat(getComputedStyle(page).rowGap);
+      const sectionTop = stage.getBoundingClientRect().top + window.scrollY;
       const availableHeight = height - sectionTop - captionSpace - bottomGap;
       // Phones: as big as the room under the intro allows, so the page never scrolls.
       layoutScale = Math.min(widthScale, Math.max(0, availableHeight / (mobile ? wheelHeight(1) : settings.layout.stageHeight)));
@@ -204,8 +198,6 @@ function initializeShowcase() {
       const target = { x: wheelRadius * Math.sin(angle) - state.width / 2, y, rotate: angle * 180 / Math.PI, scale };
       place(card, state, target, 100 - Math.round(Math.abs(slot) * 10), true);
     });
-    dial.style.setProperty('--dial-step', `${dialStep}px`);
-    dial.style.setProperty('--dial-offset', `${dial.clientWidth / 2 - 0.5 - position * dialStep}px`);
   }
   function render(instant = false) {
     if (compact.matches) { renderWheel(); return; }
@@ -452,7 +444,7 @@ function initializeShowcase() {
   compact.addEventListener('change', resize, options);
   reduced.addEventListener('change', () => { hover = null; render(true); }, options);
   render(true);
-  dispose = () => { abort.abort(); observer.disconnect(); cancelAnimationFrame(frame); stopSpin(); dial.remove(); clearInterval(replayTimer); states.forEach(state => { state.stopStyle(); state.followers.forEach(stop => stop()); Object.values(state.values).forEach(value => value.destroy()); }); };
+  dispose = () => { abort.abort(); observer.disconnect(); cancelAnimationFrame(frame); stopSpin(); clearInterval(replayTimer); states.forEach(state => { state.stopStyle(); state.followers.forEach(stop => stop()); Object.values(state.values).forEach(value => value.destroy()); }); };
 }
 initializeShowcase();
 document.addEventListener('site:page-change', initializeShowcase);

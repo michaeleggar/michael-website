@@ -89,34 +89,17 @@ body:has(.home-page) .site-edge-blur { display: none; }
 .showcase-title { display: block; max-width: 100%; min-height: calc(var(--showcase-label-size, var(--type-meta)) * var(--line-snug)); color: var(--text-primary); }
 .showcase-tag { display: block; flex: none; padding: 3px 7px; border-radius: calc(var(--control-radius) * 0.65); corner-shape: superellipse(1.6); background: color-mix(in oklch, var(--text-primary) 6%, transparent); white-space: nowrap; color: var(--text-primary); font-size: var(--showcase-detail-size, 11px); font-weight: 500; letter-spacing: 0.01em; line-height: 1.4; }
 .showcase-label[data-visible] { opacity: var(--showcase-label-opacity, 1); }
-.showcase-dial { display: none; }
 .showcase-card:focus-visible { outline: none; }
 .showcase-card:focus-visible .showcase-photo { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 780px) {
   /* Cards round the far side of the wheel hang below it; clip them there so the page never scrolls. */
   .home-showcase { --showcase-card-width: var(--showcase-mobile-width, 210px); width: calc(100vw - 2rem); overflow-y: clip; }
+  /* Room between the intro and the top of the wheel. */
+  .home-page .home-showcase { margin-block-start: 1.5rem; }
   /* The wheel runs off both edges of the screen, and the thumb turns it
      (showcase.js); the home page doesn't scroll, so the stage keeps the gesture. */
   .showcase-stage { width: 100vw; height: var(--showcase-mobile-height, 220px); margin-inline: calc(50% - 50vw); overflow: visible; overflow-x: clip; touch-action: pinch-zoom; }
   .showcase-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-  /* The dial under the wheel: a tick a card, finer ones between, turning with
-     it past a fixed mark. */
-  .showcase-dial {
-    --dial-tick: color-mix(in oklch, var(--text-primary) 30%, transparent);
-    --dial-fine: color-mix(in oklch, var(--text-primary) 14%, transparent);
-    position: relative;
-    display: block;
-    align-self: stretch;
-    height: 12px;
-    margin-block-end: 4px;
-    background-image: linear-gradient(to right, var(--dial-tick) 1px, transparent 1px), linear-gradient(to right, var(--dial-fine) 1px, transparent 1px);
-    background-size: var(--dial-step, 36px) 12px, calc(var(--dial-step, 36px) / 4) 6px;
-    background-position: var(--dial-offset, 0) 0, var(--dial-offset, 0) 100%;
-    background-repeat: repeat-x;
-    -webkit-mask-image: linear-gradient(to right, transparent, oklch(0% 0 0) 30%, oklch(0% 0 0) 70%, transparent);
-    mask-image: linear-gradient(to right, transparent, oklch(0% 0 0) 30%, oklch(0% 0 0) 70%, transparent);
-  }
-  .showcase-dial::after { content: ""; position: absolute; top: -2px; left: 50%; width: 2px; height: 16px; margin-inline-start: -1px; border-radius: 1px; background: var(--accent); }
 }
 @media (prefers-reduced-motion: reduce) {
   .showcase-label { transition: opacity 120ms ease; }
