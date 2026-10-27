@@ -115,6 +115,8 @@ function createElsewhereMenu(mount) {
 const discTurn = 1200;
 const discCoast = 2; // Initial slope of the ease-out below, so the stop starts at the spin's speed.
 const discCanSpin = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+// A transform (not the `rotate` property) keeps the spin on the compositor; the nudge matches header.css.
+const turn = degrees => `translateY(0.5px) rotate(${degrees}deg)`;
 
 function spinDisc(button) {
   const icon = button.querySelector('svg');
@@ -128,7 +130,7 @@ function spinDisc(button) {
     if (!discCanSpin.matches) return;
     const from = angle() % 360;
     spin?.cancel();
-    spin = icon.animate({ rotate: [`${from}deg`, `${from + 360}deg`] }, { duration: discTurn, iterations: Infinity });
+    spin = icon.animate({ transform: [turn(from), turn(from + 360)] }, { duration: discTurn, iterations: Infinity });
     spin.discRange = { from, to: from + 360 };
   });
   button.addEventListener('pointerleave', () => {
@@ -137,7 +139,7 @@ function spinDisc(button) {
     let distance = 180 - (from % 180);
     if (distance < 45) distance += 180;
     spin.cancel();
-    const stop = icon.animate({ rotate: [`${from}deg`, `${from + distance}deg`] }, { duration: distance / 360 * discTurn * discCoast, easing: 'cubic-bezier(0.5, 1, 0.89, 1)' });
+    const stop = icon.animate({ transform: [turn(from), turn(from + distance)] }, { duration: distance / 360 * discTurn * discCoast, easing: 'cubic-bezier(0.5, 1, 0.89, 1)' });
     stop.discRange = { from, to: from + distance };
     stop.onfinish = () => { if (spin === stop) spin = null; };
     spin = stop;

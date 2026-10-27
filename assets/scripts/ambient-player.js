@@ -51,7 +51,9 @@
   digits.appendChild(colon);
 
   // The ink eases up to speed and coasts to a stop, like a disc on a motor.
-  const spin = artwork.animate({ rotate: ['-13deg', '347deg'] }, { duration: 10000, iterations: Infinity });
+  // It turns by transform on top of its resting -13° rotate: Chrome restyles a
+  // spinning `rotate` property on every frame, but leaves a transform to the compositor.
+  const spin = artwork.animate({ transform: ['rotate(0deg)', 'rotate(360deg)'] }, { duration: 10000, iterations: Infinity });
   spin.pause();
   function setSpin(target) {
     cancelAnimationFrame(spinFrame);
@@ -147,10 +149,15 @@
     if (engine?.audio) return engine.audio.currentTime;
     return seconds + (playing ? engine.context.currentTime - startedAt : 0);
   }
+  let shownClock;
   function updateClock() {
     const total = Math.floor(elapsed());
     const minutes = Math.floor(total / 60);
     const text = `${String(minutes % 100).padStart(2, '0')}${String(total % 60).padStart(2, '0')}`;
+    // The clock ticks four times a second; only touch the display when it changes.
+    const shown = `${text} ${playing} ${busy}`;
+    if (shown === shownClock) return;
+    shownClock = shown;
     cells.forEach((cell, index) => {
       const lit = GLYPHS[text[index]];
       cell.forEach((segment, position) => segment.toggleAttribute('data-on', lit.includes('abcdefg'[position])));
