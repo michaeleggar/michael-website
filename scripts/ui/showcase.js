@@ -38,7 +38,7 @@ function initializeShowcase() {
   let photoGrowth = 1;
   let photoTopLimit = -Infinity;
   let cardTop = 0;
-  let mobileStep = settings.layout.mobileSpacing;
+  let mobileStep = 0;
   let replayTimer;
   const viewportHeight = () => window.visualViewport?.scale === 1 ? window.visualViewport.height : window.innerHeight;
   function configureSprings() {
@@ -59,7 +59,20 @@ function initializeShowcase() {
     const bounds = photoBounds(state.width, state.photoHeight, rotation, scale);
     return (1 - 1 / photoGrowth) * (state.photoHeight + bounds.height) / 2;
   }
+  // Phones show the first few cards as a miniature of the desktop fan.
+  function fanCount() { return compact.matches ? Math.min(cards.length, settings.layout.mobileCount) : cards.length; }
+  // The desktop fan's curve, stagger, and spread, scaled to the phone spacing so it keeps its shape.
+  function shapeScale() { return compact.matches ? mobileStep / (settings.layout.spacing * layoutScale) : 1; }
   function measureCards() {
+    center = (fanCount() - 1) / 2;
+    cards.forEach((card, index) => {
+      const hidden = index >= fanCount();
+      if (states[index].hidden === hidden) return;
+      card.toggleAttribute('data-mobile-hidden', hidden);
+      card.inert = hidden;
+      if (hidden) card.setAttribute('aria-hidden', 'true'); else card.removeAttribute('aria-hidden');
+      states[index].hidden = hidden;
+    });
     const fitWidth = settings.layout.spacing * (cards.length - 1) + settings.photos.workWidth * settings.photos.artMaxWidth + 64;
     const widthScale = compact.matches ? Math.min(1.15, Math.max(0.8, width / 358)) : Math.min(1, width / fitWidth);
     const stageHeight = compact.matches ? settings.layout.mobileHeight * 0.85 : settings.layout.stageHeight;
@@ -77,7 +90,6 @@ function initializeShowcase() {
       const availableHeight = height - sectionTop - captionSpace - bottomGap;
       layoutScale = Math.min(widthScale, Math.max(0, availableHeight / stageHeight));
     }
-    mobileStep = settings.layout.mobileSpacing * width / 358;
     const style = stage.parentElement.style;
     style.setProperty('--showcase-desktop-width', `${settings.photos.workWidth * layoutScale}px`);
     style.setProperty('--showcase-mobile-width', `${settings.photos.mobileWidth * layoutScale}px`);
@@ -90,19 +102,21 @@ function initializeShowcase() {
     let growthLimit = settings.sizing.growth;
     const baseline = (settings.layout.baseline - (compact.matches ? 20 : 0)) * layoutScale;
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
+    fitMobileStep();
+    const shape = shapeScale();
     states.forEach((state, index) => {
       state.width = cards[index].offsetWidth;
       state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
-      const slots = compact.matches ? [-1, 0, 1] : [index - (cards.length - 1) / 2];
-      for (const slot of slots) {
-        const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
-        const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
+      if (!state.hidden) {
+        const slot = index - center;
+        const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale * shape);
+        const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale * shape;
         const rotation = Math.max(-30, Math.min(30, -slot * settings.layout.rotation * direction));
         const bounds = photoBounds(state.width, state.photoHeight, rotation);
         const top = cardTop + baseline - direction * arc + stagger + state.photoHeight / 2 - bounds.height / 2;
         if (bounds.height > 0) growthLimit = Math.min(growthLimit, 1 + (top - photoTopLimit) / bounds.height);
-        const horizontalRoom = compact.matches ? width / 2 - 12 : width / 2 - Math.abs(slot * settings.layout.spacing * layoutScale) - 12;
-        if (bounds.width > 0) growthLimit = Math.min(growthLimit, horizontalRoom * 2 / (bounds.width * (compact.matches ? settings.spotlight.scale : 1)));
+        const horizontalRoom = width / 2 - Math.abs(slot * (compact.matches ? mobileStep : settings.layout.spacing * layoutScale)) - 12;
+        if (bounds.width > 0) growthLimit = Math.min(growthLimit, horizontalRoom * 2 / bounds.width);
         if (!settings.sizing.bottomAnchored && bounds.height > 0) {
           const bottom = top + bounds.height;
           growthLimit = Math.min(growthLimit, 1 + (stage.clientHeight - bottom - 8) * 2 / (state.photoHeight + bounds.height));
@@ -116,66 +130,35 @@ function initializeShowcase() {
       state.width = cards[index].offsetWidth;
       state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
     });
+    fitMobileStep();
   }
-  let active = -1;
+  // On phones the fan fits the width: the step leaves room for each outer
+  // card as it sits there, tilted.
+  function fitMobileStep() {
+    const half = Math.max(1, (fanCount() - 1) / 2);
+    const tilt = Math.min(30, half * settings.layout.rotation);
+    const outer = [cards[0], cards[fanCount() - 1]].map(card => photoBounds(card.offsetWidth, card.querySelector('.showcase-photo').offsetHeight, tilt).width);
+    mobileStep = Math.max(12, (width / 2 - 12 - Math.max(...outer) / 2) / half);
+  }
   let hover = null;
-  let center = (cards.length - 1) / 2;
-  // On phones the fan is a loop: `position` is the card at the front, fractional
-  // mid-drag or mid-settle, and every card's place, size, tilt, and fade follow
-  // from it, so the deck moves as one under the finger.
-  let position = 0;
-  let trackFrame;
-  const trackSpring = { stiffness: 600, damping: 40 };
+  let center = (fanCount() - 1) / 2;
+  // Phones rest with the middle card raised, since there's no cursor to show the way.
+  let active = compact.matches ? Math.round(center) : -1;
   let frame;
   let immediateFrame = false;
   let press;
+  let tapFrom = -1;
   let suppressClick = false;
   let width = stage.clientWidth;
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const wrap = value => value - cards.length * Math.round(value / cards.length);
-  const front = () => ((Math.round(position) % cards.length) + cards.length) % cards.length;
-  const dots = document.createElement('span');
-  dots.className = 'showcase-dots';
-  dots.innerHTML = cards.map(() => '<span></span>').join('');
-  caption.append(dots);
   function announce() {
     const card = cards[active];
-    status.textContent = `${card.dataset.showcaseTitle}, ${card.dataset.kind === 'work' ? 'Project' : 'Art'} ${card.dataset.year}, ${active + 1} of ${cards.length}`;
-  }
-  function stopTrack() { cancelAnimationFrame(trackFrame); trackFrame = undefined; }
-  // How far the front card travels for one card of track: a step, plus the
-  // spread that pushes neighbours apart. Dragging by this keeps it under the finger.
-  function dragStep() {
-    const reach = settings.hover.ripple ? Math.exp(-1.2 / (settings.hover.reach * settings.hover.reach)) : 0;
-    return mobileStep + reach * settings.hover.spread * layoutScale;
-  }
-  // Springs the front card to `to`, from the finger's speed (cards a second).
-  function settleTrack(to, velocity = 0, onSettled) {
-    stopTrack();
-    if (reduced.matches || settings.motion.reducedMotionPreview) { position = to; render(true); onSettled?.(); return; }
-    let last = performance.now();
-    const step = now => {
-      let elapsed = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      while (elapsed > 0) {
-        const dt = Math.min(elapsed, 1 / 240);
-        velocity += (-trackSpring.stiffness * (position - to) - trackSpring.damping * velocity) * dt;
-        position += velocity * dt;
-        elapsed -= dt;
-      }
-      const done = Math.abs(position - to) < 0.001 && Math.abs(velocity) < 0.02;
-      if (done) position = to;
-      render(true);
-      if (done) { trackFrame = undefined; onSettled?.(); } else trackFrame = requestAnimationFrame(step);
-    };
-    trackFrame = requestAnimationFrame(step);
+    status.textContent = `${card.dataset.showcaseTitle}, ${card.dataset.kind === 'work' ? 'Project' : 'Art'} ${card.dataset.year}, ${active + 1} of ${fanCount()}`;
   }
   function render(instant = false) {
     const mobile = compact.matches;
     const step = mobile ? mobileStep : settings.layout.spacing * layoutScale;
-    // On phones the track is already animated, so cards follow it exactly.
-    const snap = mobile || instant || reduced.matches || settings.motion.reducedMotionPreview;
-    if (mobile) active = front();
+    const snap = instant || reduced.matches || settings.motion.reducedMotionPreview;
     const hasActive = active >= 0;
     const showCaption = hasActive && settings.spotlight.showLabels;
     if (stageHasActive !== hasActive) { stage.toggleAttribute('data-has-active', hasActive); stageHasActive = hasActive; }
@@ -186,37 +169,27 @@ function initializeShowcase() {
       captionTitle.textContent = card?.dataset.showcaseTitle || '';
       captionCategory.textContent = card ? (card.dataset.kind === 'work' ? 'Project' : 'Art') : '';
       captionYear.textContent = card?.dataset.year || '';
-      [...dots.children].forEach((dot, index) => dot.toggleAttribute('data-active', index === active));
       captionIndex = active;
     }
-    const fieldCenter = hover ? hover.x : mobile ? 0 : hasActive ? (active - center) * step : null;
+    const fieldCenter = hover ? hover.x : hasActive ? (active - center) * step : null;
     const energy = hover && settings.hover.verticalInfluence ? clamp(1.2 - hover.y / 800, 0.75, 1.15) : 1;
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
     const baseline = (settings.layout.baseline - (mobile ? 20 : 0)) * layoutScale;
+    const shape = shapeScale();
     cards.forEach((card, index) => {
       const state = states[index];
-      const slot = mobile ? wrap(index - position) : index - center;
-      // How far in front this card is: 1 at the front, easing to 0 a card away.
-      const spot = mobile ? Math.max(0, 1 - Math.abs(slot)) : active === index ? 1 : 0;
-      // Two cards a side, the outer ones fading in as they come round.
-      const opacity = mobile ? clamp((2.4 - Math.abs(slot)) / 0.9, 0, 1) : 1;
-      if (state.opacity !== opacity) { card.style.opacity = mobile ? opacity : ''; state.opacity = opacity; }
-      const hidden = mobile && opacity === 0;
-      if (state.hidden !== hidden) {
-        card.toggleAttribute('data-mobile-hidden', hidden);
-        card.inert = hidden;
-        if (hidden) card.setAttribute('aria-hidden', 'true'); else card.removeAttribute('aria-hidden');
-        state.hidden = hidden;
-      }
+      if (state.hidden) return;
+      const slot = index - center;
+      const spot = active === index ? 1 : 0;
       const x = slot * step;
       // A broad pointer field lets adjacent cards share the lift and rotation.
       const distance = fieldCenter === null ? Infinity : (x - fieldCenter) / (step * settings.hover.reach);
       const influence = settings.hover.ripple ? Math.exp(-distance * distance * 1.2) : 0;
       const side = fieldCenter === null ? 0 : clamp((x - fieldCenter) / step, -1, 1);
       const lift = (influence * settings.hover.lift * energy + spot * settings.spotlight.lift) * layoutScale;
-      const spread = side * influence * settings.hover.spread * layoutScale;
-      const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
-      const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
+      const spread = side * influence * settings.hover.spread * layoutScale * shape;
+      const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale * shape);
+      const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale * shape;
       let y = baseline - direction * arc - lift + stagger;
       const restingRotation = clamp(-slot * settings.layout.rotation * direction, -30, 30);
       const looseRotation = restingRotation + side * influence * settings.hover.tilt;
@@ -235,7 +208,7 @@ function initializeShowcase() {
       }
       const selected = active === index;
       if (selected !== state.active) { card.toggleAttribute('data-active', selected); state.active = selected; }
-      const layer = mobile ? 100 - Math.round(Math.abs(slot) * 10) : selected && settings.spotlight.popToFront ? 100 : 10 + index;
+      const layer = selected && settings.spotlight.popToFront ? 100 : 10 + index;
       if (state.layer !== layer) { card.style.zIndex = layer; state.layer = layer; }
       for (const key of transformKeys) {
         const value = target[key];
@@ -252,16 +225,8 @@ function initializeShowcase() {
   }
   function select(index, instant = false, speak = false) {
     hover = null;
-    index = clamp(index, 0, cards.length - 1);
-    if (compact.matches) {
-      // The short way round the loop.
-      const to = Math.round(position) + wrap(index - front());
-      if (instant) { stopTrack(); position = to; render(true); } else settleTrack(to);
-      active = index;
-    } else {
-      active = index;
-      render(instant);
-    }
+    active = clamp(index, 0, fanCount() - 1);
+    render(instant);
     if (speak) announce();
   }
   stage.addEventListener('pointermove', event => {
@@ -269,15 +234,7 @@ function initializeShowcase() {
       const dx = event.clientX - press.x;
       const dy = event.clientY - press.y;
       if (Math.hypot(dx, dy) > 7) suppressClick = true;
-      if (compact.matches) {
-        if (!press.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 8) press.axis = Math.abs(dx) > Math.abs(dy) * 1.2 ? 'horizontal' : 'vertical';
-        press.samples.push({ x: event.clientX, t: event.timeStamp });
-        if (press.samples.length > 6) press.samples.shift();
-        if (press.axis === 'horizontal' && !reduced.matches && !settings.motion.reducedMotionPreview) {
-          position = press.position - dx / dragStep();
-          schedule(true);
-        }
-      }
+      if (compact.matches) scrub(event);
       return;
     }
     if (compact.matches || !finePointer.matches || reduced.matches || settings.motion.reducedMotionPreview || settings.preview.enabled) return;
@@ -303,6 +260,19 @@ function initializeShowcase() {
     hover = next < 0 ? null : { x: localX - width / 2, y: localY };
     schedule();
   }
+  // Phones: the thumb plays the cursor. The card nearest it across the fan
+  // rises, wherever the thumb is up or down, and the neighbours part around it.
+  function scrub(event) {
+    const rect = stage.getBoundingClientRect();
+    const localX = event.clientX - rect.left;
+    let closest = Infinity;
+    cards.slice(0, fanCount()).forEach((card, index) => {
+      const distance = Math.abs(localX - (width / 2 + (index - center) * mobileStep));
+      if (distance < closest) { closest = distance; active = index; }
+    });
+    hover = { x: localX - width / 2, y: event.clientY - rect.top };
+    schedule();
+  }
   function previewPoint(point) { setHover(width / 2 + point.x * width / 2, stage.clientHeight / 2 - point.y * stage.clientHeight / 2); }
   stage.addEventListener('pointerleave', () => {
     if (!compact.matches && !press && !settings.preview.enabled) {
@@ -315,52 +285,46 @@ function initializeShowcase() {
   stage.addEventListener('pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false) return;
     suppressClick = false;
-    if (compact.matches) stopTrack();
-    press = { id: event.pointerId, x: event.clientX, y: event.clientY, position, samples: [{ x: event.clientX, t: event.timeStamp }] };
+    press = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    tapFrom = active;
+    if (compact.matches) scrub(event);
   }, options);
   window.addEventListener('pointerup', event => {
     if (!press || event.pointerId !== press.id) return;
     const dx = event.clientX - press.x;
     const dy = event.clientY - press.y;
-    const ended = press;
     press = undefined;
     cancelAnimationFrame(frame); frame = undefined; immediateFrame = false;
-    if (compact.matches) {
-      // Carry the flick: a quick one runs on a few cards, a slow one settles
-      // on the nearest. The finger's speed comes from its last ~100ms.
-      const samples = ended.samples.filter(sample => event.timeStamp - sample.t < 100);
-      const first = samples[0];
-      const speed = first && event.timeStamp > first.t ? (event.clientX - first.x) / (event.timeStamp - first.t) : 0;
-      const velocity = ended.axis === 'horizontal' ? -speed * 1000 / dragStep() : 0;
-      const reach = clamp(Math.round(position + velocity * 0.12), Math.round(ended.position) - 3, Math.round(ended.position) + 3);
-      const before = ((Math.round(ended.position) % cards.length) + cards.length) % cards.length;
-      if (ended.axis === 'horizontal') suppressClick = true;
-      settleTrack(reach, velocity, () => { if (front() !== before) announce(); });
-    } else render();
+    // The card the thumb let go over stays raised, as if the cursor rested there.
+    if (compact.matches) hover = null;
+    render();
   }, options);
   window.addEventListener('pointercancel', () => {
     press = undefined; suppressClick = false;
     cancelAnimationFrame(frame); frame = undefined; immediateFrame = false;
-    if (compact.matches) settleTrack(Math.round(position)); else render();
+    if (compact.matches) hover = null;
+    render();
   }, options);
   stage.addEventListener('dragstart', event => event.preventDefault(), options);
   stage.addEventListener('click', event => {
     if (suppressClick && event.detail !== 0) { event.preventDefault(); event.stopImmediatePropagation(); suppressClick = false; return; }
     suppressClick = false;
     const card = event.target.closest('.showcase-card');
-    if (compact.matches && card && cards.indexOf(card) !== active) {
-      event.preventDefault(); event.stopImmediatePropagation();
-      select(cards.indexOf(card), event.detail === 0, true);
+    // On phones a tap raises a card first; tapping the raised card opens it.
+    if (compact.matches && card && event.detail !== 0) {
+      if (tapFrom !== active) { event.preventDefault(); event.stopImmediatePropagation(); announce(); }
+      else if (card !== cards[active]) { event.preventDefault(); event.stopImmediatePropagation(); cards[active].click(); }
     }
   }, { ...options, capture: true });
   cards.forEach((card, index) => {
     card.addEventListener('focus', () => { if (card.matches(':focus-visible')) select(index, true); }, options);
     card.addEventListener('keydown', event => {
       let target;
-      if (event.key === 'ArrowRight') target = (index + 1) % cards.length;
-      if (event.key === 'ArrowLeft') target = (index - 1 + cards.length) % cards.length;
+      const count = fanCount();
+      if (event.key === 'ArrowRight') target = (index + 1) % count;
+      if (event.key === 'ArrowLeft') target = (index - 1 + count) % count;
       if (event.key === 'Home') target = 0;
-      if (event.key === 'End') target = cards.length - 1;
+      if (event.key === 'End') target = count - 1;
       if (target !== undefined) { event.preventDefault(); select(target, true, compact.matches); cards[target].focus({ preventScroll: true }); }
     }, options);
   });
@@ -415,11 +379,11 @@ function initializeShowcase() {
     measuredCompact = compact.matches;
     measuredViewportHeight = nextHeight;
     measuredSectionTop = sectionTop;
-    press = undefined; stopTrack();
+    press = undefined;
     width = nextWidth;
-    if (compact.matches) { active = active < 0 ? 0 : active; position = active; }
-    else center = (cards.length - 1) / 2;
     measureCards();
+    if (compact.matches) { if (active < 0 || active >= fanCount()) active = Math.round(center); }
+    else if (!hover) active = -1;
     if (settings.preview.enabled) previewPoint(settings.preview.point); else render(true);
   }
   const observer = new ResizeObserver(resize);
@@ -431,7 +395,7 @@ function initializeShowcase() {
   compact.addEventListener('change', resize, options);
   reduced.addEventListener('change', () => { hover = null; render(true); }, options);
   render(true);
-  dispose = () => { abort.abort(); observer.disconnect(); cancelAnimationFrame(frame); stopTrack(); dots.remove(); clearInterval(replayTimer); states.forEach(state => { state.stopStyle(); state.followers.forEach(stop => stop()); Object.values(state.values).forEach(value => value.destroy()); }); };
+  dispose = () => { abort.abort(); observer.disconnect(); cancelAnimationFrame(frame); clearInterval(replayTimer); states.forEach(state => { state.stopStyle(); state.followers.forEach(stop => stop()); Object.values(state.values).forEach(value => value.destroy()); }); };
 }
 initializeShowcase();
 document.addEventListener('site:page-change', initializeShowcase);

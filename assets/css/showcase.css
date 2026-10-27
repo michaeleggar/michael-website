@@ -89,23 +89,20 @@ body:has(.home-page) .site-edge-blur { display: none; }
 .showcase-title { display: block; max-width: 100%; min-height: calc(var(--showcase-label-size, var(--type-meta)) * var(--line-snug)); color: var(--text-primary); }
 .showcase-tag { display: block; flex: none; padding: 3px 7px; border-radius: calc(var(--control-radius) * 0.65); corner-shape: superellipse(1.6); background: color-mix(in oklch, var(--text-primary) 6%, transparent); white-space: nowrap; color: var(--text-primary); font-size: var(--showcase-detail-size, 11px); font-weight: 500; letter-spacing: 0.01em; line-height: 1.4; }
 .showcase-label[data-visible] { opacity: var(--showcase-label-opacity, 1); }
-.showcase-dots { display: none; }
 .showcase-card:focus-visible { outline: none; }
 .showcase-card:focus-visible .showcase-photo { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 780px) {
-  .home-showcase { --showcase-card-width: var(--showcase-mobile-width, 210px); width: calc(100vw - 2rem); }
+  .home-showcase { --showcase-card-width: var(--showcase-mobile-width, 132px); width: calc(100vw - 2rem); }
   .showcase-stage { height: var(--showcase-mobile-height, 330px); overflow: clip; overflow-clip-margin: 12px; }
-  .showcase-card[data-mobile-hidden] { opacity: 0; pointer-events: none; }
-  /* Where the front card sits in the loop. */
-  .showcase-dots { display: flex; gap: 5px; margin-block-start: 6px; }
-  .showcase-dots > span { width: 5px; height: 5px; border-radius: 999px; background: color-mix(in oklch, var(--text-primary) 22%, transparent); transition: width 240ms var(--ease-out-quad), background-color 240ms var(--ease-out-quad); }
-  .showcase-dots > span[data-active] { width: 14px; background: var(--text-secondary); }
+  /* The thumb scrubs across the fan (showcase.js), so it keeps the gesture;
+     the home page doesn't scroll. */
+  .showcase-stage { touch-action: pinch-zoom; }
+  .showcase-card[data-mobile-hidden] { display: none; }
   .showcase-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 }
 @media (prefers-reduced-motion: reduce) {
   .showcase-label { transition: opacity 120ms ease; }
   .showcase-photo { transition: none; }
-  .showcase-dots > span { transition: none; }
   .showcase-stage { cursor: auto; }
 }
 @supports not (transform: translateX(calc(1px * 1))) {

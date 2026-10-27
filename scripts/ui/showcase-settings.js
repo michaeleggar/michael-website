@@ -1,7 +1,7 @@
 export const showcaseDefaults = {
   sizing: { growth: 1.1, textClearance: 24, bottomAnchored: true, fitToWindow: true, protectTextOnHover: true, matchCaptionToNav: false, captionBottomGap: 50 },
-  layout: { curve: 'smile', maxWidth: 1600, spacing: 128, mobileSpacing: 108, curveDepth: 7, rotation: 3.8, baseline: 105, stagger: 25, stageHeight: 410, mobileHeight: 330 },
-  photos: { workWidth: 271, mobileWidth: 210, workAspect: 1.45, artHeight: 0.87, artMaxWidth: 1.15, workRadius: 14, artRadius: 7, workFit: 'cover' },
+  layout: { curve: 'smile', maxWidth: 1600, spacing: 128, curveDepth: 7, rotation: 3.8, baseline: 105, stagger: 25, stageHeight: 410, mobileHeight: 230, mobileCount: 5 },
+  photos: { workWidth: 271, mobileWidth: 132, workAspect: 1.45, artHeight: 0.87, artMaxWidth: 1.15, workRadius: 14, artRadius: 7, workFit: 'cover' },
   hover: { ripple: true, reach: 2.1, lift: 40, spread: 57, tilt: 3.6, neighborScale: 1.055, verticalInfluence: true },
   spotlight: { popToFront: true, lift: 12, scale: 1.17, rotationFollow: 0.15, showLabels: true },
   motion: { spring: { type: 'spring', stiffness: 701, damping: 29, mass: 1 }, reducedMotionPreview: false },
