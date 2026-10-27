@@ -160,6 +160,8 @@ main[tabindex="-1"]:focus {
 
 img {
   max-width: 100%;
+  /* Keeps a picture in proportion when its width is capped, even before a page's own styles arrive. */
+  height: auto;
 }
 
 /* Accessibility */

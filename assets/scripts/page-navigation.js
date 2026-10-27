@@ -100,6 +100,19 @@
       if (!nextMain || !page.querySelector('#ambient-player')) throw new Error('Page has no shared layout');
       const styles = await loadStyles(page, url, signal);
       if (signal.aborted) return;
+      // Safari may not fetch a stylesheet until its media matches, so a staged
+      // one can report loaded while still empty. Let it load before the swap, or
+      // the new page shows a moment unstyled (a hero image stretched tall).
+      const unready = styles.filter(link => link.hasAttribute('data-staged-style') && !link.sheet?.cssRules.length);
+      if (unready.length) {
+        await Promise.all(unready.map(link => new Promise(resolve => {
+          link.addEventListener('load', resolve, { once: true });
+          link.addEventListener('error', resolve, { once: true });
+          setTimeout(resolve, 1500);
+          link.removeAttribute('media');
+        })));
+        if (signal.aborted) return;
+      }
 
       const oldMain = document.querySelector('#main-content');
       rememberScroll();
