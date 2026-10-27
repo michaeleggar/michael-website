@@ -57,7 +57,7 @@
    between them. Without a picture it is type on the page. */
 .case-hero {
   /* The sticky header's height: its padding, and a pill in its 2.5px-inset track. */
-  --case-header-height: calc(var(--header-top-space) + var(--nav-height) + 5px + 1.125rem);
+  --case-header-height: calc(var(--safe-top) + var(--header-top-space) + var(--nav-height) + 5px + 1.125rem);
   position: relative;
   isolation: isolate;
   display: grid;
@@ -395,10 +395,11 @@
 /* A phone clip on its own stays phone-sized, centred. */
 .case-clip-row .case-clip[data-shape="tall"]:only-child { flex: 0 1 19rem; margin-inline: auto; }
 @media (max-width: 640px) {
-  .case-clip-row { flex-wrap: wrap; justify-content: center; }
-  /* On phones, wide clips take the full width and tall ones pair up. */
-  .case-clip-row .case-clip[data-shape="wide"] { flex-basis: 100%; }
-  .case-clip-row .case-clip[data-shape="tall"] { flex-basis: calc(50% - 0.75rem); }
+  /* On phones each clip takes its own line at the full width, so a phone
+     recording shows at a phone's own width, spaced like the other figures. */
+  .case-clip-row { flex-wrap: wrap; row-gap: var(--case-study-copy-gap); }
+  .case-clip-row .case-clip,
+  .case-clip-row .case-clip[data-shape="tall"]:only-child { flex: 1 1 100%; margin: 0; }
 }
 
 /* Aside: copy beside a picture, so the text runs against it. */
@@ -464,19 +465,25 @@
   .portfolio-case-study { --project-details-overhang: 0.25rem; }
   .case-hero { min-height: max(26rem, min(70svh, 36rem)); }
   .case-hero[data-plain] { min-height: max(24rem, min(60svh, 32rem)); }
-  /* The title and details stack tall here, so the picture takes the top of the
-     hero and fades out above them, rather than sitting behind them. */
-  .case-hero:not([data-plain]) { grid-template-rows: auto minmax(28svh, 1fr) auto; }
+  /* The picture fills the top of the hero and fades out under the title,
+     which sits over its lower edge as it does on wider screens; the details
+     follow beneath on the page. The middle row is sized so the title starts
+     at --hero-title-top. */
+  .case-hero:not([data-plain]) {
+    --hero-title-top: max(17rem, 52svh);
+    min-height: 0;
+    grid-template-rows: auto max(0px, calc(var(--hero-title-top) - var(--case-header-height) - 0.5rem - var(--nav-height) - 2 * var(--space-xl))) auto;
+  }
   .case-hero-frames {
     inset-block-end: auto;
-    height: 50svh;
-    -webkit-mask-image: linear-gradient(to bottom, oklch(0% 0 0) 55%, transparent);
-    mask-image: linear-gradient(to bottom, oklch(0% 0 0) 55%, transparent);
+    height: calc(var(--hero-title-top) + 5rem);
+    -webkit-mask-image: linear-gradient(to bottom, oklch(0% 0 0) calc(100% - 9rem), transparent);
+    mask-image: linear-gradient(to bottom, oklch(0% 0 0) calc(100% - 9rem), transparent);
   }
   .case-hero:not([data-plain])::before {
     background:
-      linear-gradient(to bottom, color-mix(in oklch, var(--background) 70%, transparent), transparent 18%),
-      linear-gradient(to top, var(--background), color-mix(in oklch, var(--background) 82%, transparent) 40%, transparent 82%);
+      linear-gradient(to bottom, color-mix(in oklch, var(--background) 70%, transparent), transparent calc(var(--case-header-height) + 4rem)),
+      linear-gradient(to bottom, transparent calc(var(--hero-title-top) - 10rem), color-mix(in oklch, var(--background) 60%, transparent) calc(var(--hero-title-top) + 1rem), var(--background) calc(var(--hero-title-top) + 5rem));
   }
 }
 
