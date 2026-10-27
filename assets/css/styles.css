@@ -48,7 +48,10 @@
 
   --content-width: 34.375rem;
   --wide-content-width: 65rem;
-  --page-gutter: 2.5rem;
+  /* The page runs under the iPhone status bar (viewport-fit=cover); keep
+     content clear of it, and of the notch in landscape. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --page-gutter: max(2.5rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   --space-sm: 0.75rem;
   --space-md: 1.6rem;
   --space-lg: 2rem;
@@ -104,7 +107,9 @@
 /* Document foundation */
 
 html {
-  scroll-padding-block-start: 7rem;
+  /* Safari falls back to the root colour for its bars. */
+  background: var(--background);
+  scroll-padding-block-start: calc(7rem + var(--safe-top));
   scrollbar-gutter: stable;
   scrollbar-color: currentColor transparent;
   scrollbar-width: thin;
@@ -304,7 +309,7 @@ p {
 
 @media (max-width: 780px) {
   :root {
-    --page-gutter: 1rem;
+    --page-gutter: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   }
 
   .page-content {

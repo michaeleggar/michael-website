@@ -4,37 +4,36 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  padding-block-start: var(--header-top-space);
+  padding-block-start: calc(var(--header-top-space) + var(--safe-top));
   padding-block-end: 1.125rem;
   padding-inline: var(--page-gutter);
   pointer-events: none;
 }
 
 /* The eight overlapping masks mirror at the viewport edges.
-   Both effects are decorative; navigation remains above them. */
+   Both effects are decorative; navigation remains above them.
+   Each layer is its own fixed box, with no wrapper between it and the page:
+   Safari draws a backdrop-filter nested in a fixed, clipped parent as a
+   smeared strip. */
 .site-edge-blur {
   display: none;
-  position: fixed;
-  inset-inline: 0;
-  height: 100px;
-  z-index: 49;
-  overflow: hidden;
-  pointer-events: none;
 }
 
 .site-edge-blur-top {
   --blur-direction: to top;
-  top: 0;
+  --blur-height: calc(100px + var(--safe-top));
 }
 
 .site-edge-blur-bottom {
   --blur-direction: to bottom;
-  bottom: 0;
+  --blur-height: 100px;
 }
 
 .site-edge-blur-layer {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  inset-inline: 0;
+  z-index: 49;
+  height: var(--blur-height);
   pointer-events: none;
   -webkit-backdrop-filter: blur(var(--blur-radius));
   backdrop-filter: blur(var(--blur-radius));
@@ -53,17 +52,41 @@
     transparent calc(var(--blur-start) + 37.5%)
   );
 }
+.site-edge-blur-top > .site-edge-blur-layer { top: 0; }
+.site-edge-blur-bottom > .site-edge-blur-layer { bottom: 0; }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))
   and ((mask-image: linear-gradient(oklch(0% 0 0), transparent)) or (-webkit-mask-image: linear-gradient(oklch(0% 0 0), transparent))) {
   .site-edge-blur {
-    display: block;
+    display: contents;
   }
 
   /* Let the final content scroll above the bottom blur. */
   .page-content {
     padding-block-end: max(var(--space-xl), 100px);
   }
+}
+
+/* iOS Safari 26 paints a solid colour behind its status bar and toolbar,
+   sampled from whatever fixed box touches each edge, so it would read the
+   clear blur layers. Josh Puckett's fix: hand it an opaque strip in the page
+   colour at each edge (joshpuckett.me/seamless-mobile-safari). Its own glass toolbar blurs the bottom, so the bottom
+   blur goes there. */
+.site-edge-tint { display: none; }
+@supports (-webkit-touch-callout: none) {
+  .site-edge-tint {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    z-index: 60;
+    background: var(--background);
+    pointer-events: none;
+  }
+  /* 12px strips, 7px past the edge: Safari needs 5px showing to sample one. */
+  .site-edge-tint { height: 12px; }
+  .site-edge-tint-top { top: -7px; }
+  .site-edge-tint-bottom { bottom: -7px; }
+  .site-edge-blur-bottom { display: none; }
 }
 
 .site-header-group {
@@ -170,10 +193,13 @@
   padding: 2.5px 6px;
 }
 
-/* Five labels share one row on phones by giving up some air between them. */
-@media (max-width: 480px) {
-  .site-header-group { --nav-padding-inline: 7px; --nav-gap: 2px; gap: 4px; }
-  .site-header-inner, .site-header-contact { padding-inline: 2px; }
+/* On phones, Elsewhere and Other Stuff fold into one More menu, so the pills
+   keep their desktop size. */
+.site-header-contact > [data-site-menu="more"] { display: none; }
+@media (max-width: 560px) {
+  .site-header-contact > [data-site-menu="elsewhere"],
+  .site-header-contact > [data-site-menu="other"] { display: none; }
+  .site-header-contact > [data-site-menu="more"] { display: block; }
 }
 
 /* Bloom menus: one text trigger, expanding from its right edge.
@@ -199,6 +225,7 @@
   .elsewhere-menu[data-open="true"] .elsewhere-content { opacity: 0; transform: translateY(-8px) scale(0.95); filter: blur(4px); }
 }
 .elsewhere-ambience[aria-checked="true"] > svg { color: var(--accent); }
+.elsewhere-divider { height: 1px; margin: 4px var(--nav-padding-inline); background: var(--hairline); }
 .elsewhere-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; height: var(--nav-height); min-height: var(--nav-height); padding: 0px var(--nav-padding-inline); border: 0; border-radius: var(--control-radius); corner-shape: superellipse(1.6); background: transparent; color: var(--text-primary); font: 500 var(--nav-font-size) / 1 var(--font-body); letter-spacing: 0.01em; text-decoration: none; cursor: pointer; }
 .elsewhere-item:hover, .elsewhere-item:focus-visible { background: color-mix(in oklch, var(--text-primary) 6%, transparent); color: var(--text-primary); outline-offset: -2px; }
 .elsewhere-item > svg { flex: none; width: 16px; height: 16px; transform: translateY(0.5px); transform-origin: center; transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1); }
