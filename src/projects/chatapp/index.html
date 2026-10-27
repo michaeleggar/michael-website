@@ -1,0 +1,93 @@
+---
+layout: layouts/work-case-study.njk
+title: Film Production Chat App
+description: A case study of a custom Electron chat app built as an interactive on-screen prop for a feature film shoot, then rebuilt in React, with both versions running live.
+cardOrder: 2
+cardTitle: Film Production Chat App
+cardSummary: An Electron chat app built as an on-screen prop for a feature film, then rebuilt in React.
+year: "2026"
+contributors: []
+cardImage:
+  image: /assets/images/optimized/chatapp/chat-onset-2b
+  thumbnailWidth: 600
+  width: 1600
+  height: 690
+socialImage: /assets/images/optimized/chatapp/chat-onset-2b-social.jpg
+cardImageAlt: Chat interface appearing on an actor’s laptop during filming
+heroImage:
+  image: /assets/images/optimized/chatapp/chat-onset-1
+  width: 1600
+  height: 1004
+  alt: On-set camera monitor showing an actor using the chat app on a laptop during filming
+heroFrames:
+  - { image: /assets/images/optimized/chatapp/chat-onset-1, width: 1600, height: 1004, alt: "On-set camera monitor showing an actor using the chat app on a laptop during filming" }
+  - { image: /assets/images/optimized/chatapp/chat-onset-2, width: 1600, height: 1069, alt: "Camera monitor close-up showing the chat app interface within the film frame" }
+  - { image: /assets/images/optimized/chatapp/chat-onset-2b, width: 1600, height: 690, alt: "Chat interface appearing on an actor’s laptop during filming" }
+heroCaption: On set, February 2026
+deck: >-
+  For a feature film shoot, I designed and built a chat app that ran on an
+  actor’s laptop as an on-screen prop, while the crew played the rest of the
+  group chat from off camera. Afterward I rebuilt it in React. Both versions
+  run live on this page.
+stylesheets: [chat-demo]
+scripts: [chat-demo]
+projectDetails:
+  - label: My role
+    items:
+      - Design
+      - Development
+  - label: Built with
+    items:
+      - Electron
+      - JavaScript
+      - React
+      - Vite
+demoScene:
+  versions:
+    - id: v1
+      name: Original
+      note: as used on set
+      screen: /projects/chatapp/demo/v1/screen.html
+      control: /projects/chatapp/demo/v1/control.html
+    - id: v2
+      name: Rebuild
+      note: React and Vite
+      screen: /projects/chatapp/demo/v2/
+      control: /projects/chatapp/demo/v2/control/
+  opening:
+    - [user_friend, "anyone else up?"]
+    - [user_ichigo99, "always lol"]
+    - [user_jen_brian, "same. scan results tomorrow so sleep isn't happening"]
+    - [user_friend, "you got this. waiting is the worst part"]
+    - [user_main, "hey everyone, sorry I've been quiet"]
+    - [user_ichigo99, "SADIE 👋 we missed you"]
+  cues:
+    - { userId: user_jen_brian, name: jen_brian, color: "#6ec2e8", delayMs: 2500, text: "how did the appointment go?" }
+    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 1800, text: "you don't have to say if you don't want to" }
+    - { userId: user_friend, name: BillyTheKid, color: "#7ab49c", delayMs: 1500, text: "we're all here for you, seriously" }
+    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 900, text: "brb, nurse just walked in" }
+---
+{% from "case-figures.njk" import picture %}
+
+<div class="case-copy">
+    <p>
+      In the scene, a teenager with cancer is up at night in a group chat with
+      friends who understand. I built the app in Electron as two windows sharing
+      one conversation: the chat the camera sees, where the actor types and
+      sends, and a crew window for adding characters, setting who’s online,
+      sending as anyone on cue, and switching between messages and video chat.
+      After the first shoot day I added saved lines with an adjustable typing
+      delay, in-place message editing, and a reset between takes.
+    </p>
+    <p>
+      The original grew fast under production pressure, so after the shoot I
+      rebuilt it with React and Vite. One reducer drives both windows and keeps
+      them in sync, and the rebuild adds chat rooms, a settings panel that pops
+      out into its own window, and a layout that works on a phone. Try either
+      version below: cue a line and the character types for a moment before it
+      lands.
+    </p>
+</div>
+
+{% include "chat-demo.njk" %}
+{{ picture({ image: "/assets/images/optimized/chatapp/chat-onset-2", width: 1600, height: 1069, alt: "Camera monitor close-up showing the chat app interface visible within the film frame" }) }}

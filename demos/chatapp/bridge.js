@@ -1,7 +1,7 @@
 // Lets a host page drive an embedded demo the way the crew did on set: cue
 // scripted lines with a typing delay, and reset the scene between takes.
 //
-//   import { connect } from "/work/chatapp/demo/bridge.js";
+//   import { connect } from "/projects/chatapp/demo/bridge.js";
 //   const demo = connect("v2");
 //   demo.reset(openingLines);
 //   demo.cue({ userId: "user_friend", text: "hey", delayMs: 1500 });

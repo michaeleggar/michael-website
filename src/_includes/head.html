@@ -7,6 +7,11 @@
 <link rel="preload" href="/assets/fonts/LatoLatin-Italic.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/assets/fonts/Oddball.woff2" as="font" type="font/woff2" crossorigin />
 {% endif %}
+{#- Rowan, the serif, comes from Fontshare's own servers: its license allows
+    self-hosting but not redistribution, and this repository is public. -#}
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=rowan@400,401&display=swap" />
 {% set metaTitle = site.name %}
 {% if title and title != site.name %}{% set metaTitle = site.name + " | " + title %}{% endif %}
 {% set metaDescription = description or site.defaultDescription %}

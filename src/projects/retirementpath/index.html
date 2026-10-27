@@ -1,0 +1,88 @@
+---
+layout: layouts/work-case-study.njk
+title: Retirement Investment Advisors
+description: A case study of the redesigned Retirement Investment Advisors website and its WordPress resource library that organizes itself.
+cardOrder: 6
+cardTitle: Retirement Investment Advisors
+cardSummary: A redesigned WordPress site for a fiduciary firm, with a resource library that organizes itself.
+year: "2026"
+agency: Koch Comm
+contributors:
+  - name: Scott Horton
+    role: Creative Director
+  - name: Julia Nored
+    role: Content Marketing Manager
+  - name: Brooke Green
+    role: VP, Client Service
+cardImage:
+  image: /assets/images/optimized/ria/ria-website
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/ria/ria-website-social.jpg
+cardImageAlt: Retirement Investment Advisors website displayed on a laptop
+heroImage:
+  image: /assets/images/optimized/ria/ria-staff
+  width: 1600
+  height: 1067
+  alt: "The Retirement Investment Advisors staff, seated and standing around a sofa"
+heroFocus: center 28%
+deck: >-
+  A redesign for Retirement Investment Advisors, a fee-only fiduciary firm in Oklahoma City, organizing a growing library of guides, calculators, and market commentary that its staff manage themselves.
+projectDetails:
+  - label: My role
+    items:
+      - Design
+      - Development
+  - label: Built with
+    items:
+      - WordPress
+      - ACF
+  - label: Link
+    items:
+      - label: theretirementpath.com
+        href: https://www.theretirementpath.com
+recordings:
+  full:
+    video: /assets/video/ria/full.mp4
+    poster: /assets/images/optimized/ria/clips/full.webp
+    width: 1600
+    height: 1000
+    label: "The Retirement Investment Advisors homepage scrolling from the hero through services, the team, the resource library, and the closing call to action"
+  phone:
+    video: /assets/video/ria/phone.mp4
+    poster: /assets/images/optimized/ria/clips/phone.webp
+    width: 524
+    height: 982
+    label: "The Retirement Investment Advisors homepage on a phone, scrolling through its sections"
+  services:
+    video: /assets/video/ria/services.mp4
+    poster: /assets/images/optimized/ria/clips/services.webp
+    width: 2268
+    height: 1090
+    label: "The pointer moving across three service cards, each heading turning gold"
+  library:
+    video: /assets/video/ria/library.mp4
+    poster: /assets/images/optimized/ria/clips/library.webp
+    width: 2268
+    height: 1232
+    label: "The pointer moving through the resource library cards"
+---
+{% from "case-figures.njk" import clip, clipRow, picture %}
+
+<div class="case-copy">
+  <p>
+    The library runs on custom post types with fields and tags in ACF. A new
+    piece gets a type and a few tags, and the site does the rest: it lands in
+    the right archive, shows up in the related lists on service pages, and
+    takes its turn on the homepage. Pages are built from sections the team
+    combines on their own, and I kept the firm’s classic navy and gold,
+    opening the site up around them.
+  </p>
+</div>
+
+{{ clipRow([recordings.full, recordings.phone]) }}
+{{ clip(recordings.services) }}
+{{ clip(recordings.library) }}
+{{ picture({ image: "/assets/images/optimized/ria/ria-headline", width: 1600, height: 382, alt: "The homepage headline: Your guide on the path to retirement, with the second line in gold italic" }) }}
+{{ picture({ image: "/assets/images/optimized/ria/ria-guide", width: 1600, height: 667, alt: "A Let us be your guide panel over a photograph of a couple at sunset" }) }}

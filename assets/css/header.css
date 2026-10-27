@@ -74,7 +74,7 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  /* Match the Work and Art width; the extra 12px lets the pills' outer edges meet the content edges. */
+  /* Match the Projects and Art width; the extra 12px lets the pills' outer edges meet the content edges. */
   max-width: calc(var(--wide-content-width) + 12px);
   margin-inline: auto;
 }

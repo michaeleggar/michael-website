@@ -1,76 +1,72 @@
-{#- Live chat app demo: the actor's screen and the crew's cue window, set on a
-    painting like windows on a desktop. Expects `demoScene` in page data. -#}
-{% set wallpaper = demoScene.wallpaper %}
-<section class="chat-demo" aria-label="Live demo" data-chat-demo data-bridge="/work/chatapp/demo/bridge.js" data-wallpaper="{{ wallpaper.image }}-large.webp">
-  <div class="chat-demo__bar">
-    <div class="chat-demo__versions" role="group" aria-label="Version">
-      {% for version in demoScene.versions %}
-      <button
-        type="button"
-        class="chat-demo__version"
-        data-version="{{ version.id }}"
-        data-screen="{{ version.screen }}"
-        data-control="{{ version.control }}"
-        aria-pressed="{{ 'true' if loop.first else 'false' }}"
-      >
-        <span class="chat-demo__version-name">{{ version.name }}</span>
-        <span class="chat-demo__version-note">{{ version.note }}</span>
-      </button>
-      {% endfor %}
-    </div>
-    <a class="chat-demo__control" href="{{ demoScene.versions[0].control }}" target="_blank" rel="noopener" data-chat-demo-control>
-      <span>Open the full control panel</span>
-      {% include "icons/arrow-up-right-solid-micro.svg" %}
-    </a>
-  </div>
-
-  <div class="chat-demo__desktop image-preview" style="--image-preview: url({{ placeholders[wallpaper.image] }});">
-    <figure class="chat-demo__window chat-demo__window--screen">
-      <figcaption class="chat-demo__titlebar">
-        <span class="chat-demo__lights" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="chat-demo__title">What the camera sees</span>
-      </figcaption>
-      <div class="chat-demo__viewport" data-chat-demo-viewport>
-        <iframe class="chat-demo__frame" title="Live chat app: the actor’s screen"></iframe>
-        <p class="chat-demo__loading" aria-hidden="true">Rolling…</p>
-      </div>
-    </figure>
-
-    <div class="chat-demo__window chat-demo__window--cues" role="group" aria-label="Crew cues">
-      <div class="chat-demo__titlebar">
-        <span class="chat-demo__lights" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="chat-demo__title">What the crew controls</span>
-        <span class="chat-demo__take" aria-live="polite">Take <span data-chat-demo-take>1</span></span>
-      </div>
-      <ol class="chat-demo__cue-list">
-        {% for cue in demoScene.cues %}
-        <li>
-          <button
-            type="button"
-            class="chat-demo__cue"
-            data-user-id="{{ cue.userId }}"
-            data-delay="{{ cue.delayMs }}"
-            data-text="{{ cue.text }}"
-            style="--cue-delay: {{ cue.delayMs }}ms; --cue-color: {{ cue.color }}"
-            disabled
-          >
-            <span class="chat-demo__avatar" aria-hidden="true">{{ cue.name | first | upper }}</span>
-            <span class="chat-demo__cue-who">{{ cue.name }}</span>
-            <span class="chat-demo__cue-line">{{ cue.text }}</span>
-            <span class="chat-demo__cue-state" aria-hidden="true"></span>
-          </button>
-        </li>
+{#- Live chat app demo, framed like the page's other figures: the actor's
+    screen beside the crew's cue sheet, with the version tabs in the title row.
+    Expects `demoScene` in page data. -#}
+<figure class="case-figure chat-demo" data-chat-demo data-bridge="/projects/chatapp/demo/bridge.js">
+  <div class="case-figure-frame">
+    <div class="case-figure-head">
+      <p class="case-figure-title">Live demo</p>
+      <div class="case-tabs" role="group" aria-label="Version">
+        {% for version in demoScene.versions %}
+        <button
+          type="button"
+          class="case-tab chat-demo__version"
+          data-version="{{ version.id }}"
+          data-screen="{{ version.screen }}"
+          data-control="{{ version.control }}"
+          aria-pressed="{{ 'true' if loop.first else 'false' }}"
+        >{{ version.name }}</button>
         {% endfor %}
-      </ol>
-      <div class="chat-demo__footer">
-        <p class="chat-demo__hint">You’re Sadie. Reply on her screen.</p>
-        <button type="button" class="chat-demo__reset" data-chat-demo-reset title="Reset the scene for another take" disabled>Back to one</button>
+      </div>
+      <a class="chat-demo__control" href="{{ demoScene.versions[0].control }}" target="_blank" rel="noopener" data-chat-demo-control>
+        <span>Open the control panel</span>
+        {% include "icons/arrow-up-right-solid-micro.svg" %}
+      </a>
+    </div>
+
+    <div class="chat-demo__stage">
+      <div class="chat-demo__window chat-demo__window--screen">
+        <div class="chat-demo__titlebar">
+          <span class="chat-demo__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="chat-demo__title">What the camera sees</span>
+        </div>
+        <div class="chat-demo__viewport" data-chat-demo-viewport>
+          <iframe class="chat-demo__frame" title="Live chat app: the actor’s screen"></iframe>
+          <p class="chat-demo__loading" aria-hidden="true">Rolling…</p>
+        </div>
+      </div>
+
+      <div class="chat-demo__cues" role="group" aria-label="Crew cues">
+        <div class="chat-demo__cues-head">
+          <span class="case-label">What the crew controls</span>
+          <span class="chat-demo__take case-label" aria-live="polite">Take <span data-chat-demo-take>1</span></span>
+        </div>
+        <ol class="chat-demo__cue-list">
+          {% for cue in demoScene.cues %}
+          <li>
+            <button
+              type="button"
+              class="chat-demo__cue"
+              data-user-id="{{ cue.userId }}"
+              data-delay="{{ cue.delayMs }}"
+              data-text="{{ cue.text }}"
+              style="--cue-delay: {{ cue.delayMs }}ms; --cue-color: {{ cue.color }}"
+              disabled
+            >
+              <span class="chat-demo__avatar" aria-hidden="true">{{ cue.name | first | upper }}</span>
+              <span class="chat-demo__cue-who">{{ cue.name }}</span>
+              <span class="chat-demo__cue-line">{{ cue.text }}</span>
+              <span class="chat-demo__cue-state" aria-hidden="true"></span>
+            </button>
+          </li>
+          {% endfor %}
+        </ol>
+        <div class="chat-demo__footer">
+          <p class="chat-demo__hint">You’re Sadie. Reply on her screen.</p>
+          <button type="button" class="chat-demo__reset" data-chat-demo-reset title="Reset the scene for another take" disabled>Back to one</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <p class="chat-demo__credit">
-    Behind the windows: <a href="/art/#{{ wallpaper.image | replace('/assets/images/optimized/artwork/', '') }}">{{ wallpaper.title }}</a>, {{ wallpaper.note }}
-  </p>
+  <figcaption class="case-figure-caption">Original is the build used on set; Rebuild is the React version. Cue a line from the crew’s side and watch it arrive on the actor’s screen, or type a reply as Sadie.</figcaption>
   <script type="application/json" data-chat-demo-opening>{{ demoScene.opening | dump | safe }}</script>
-</section>
+</figure>

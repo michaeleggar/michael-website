@@ -1,6 +1,7 @@
-// Live chat app demo: loads the actor's screen when it nears the viewport,
-// scales it like a laptop display, and wires the cue sheet to the app through
-// the bridge the chat-app repo publishes beside its demo builds.
+// Live chat app demo: loads the actor's screen once the page is idle or the
+// demo nears the viewport, scales it like a laptop display, and wires the cue
+// sheet to the app through the bridge the chat-app repo publishes beside its
+// demo builds.
 
 const VIRTUAL_WIDTH = 960;
 const VIRTUAL_HEIGHT = 600;
@@ -135,7 +136,6 @@ function setUp(root) {
   const start = () => {
     if (started) return;
     started = true;
-    root.querySelector('.chat-demo__desktop').style.setProperty('--chat-demo-wallpaper', `url("${root.dataset.wallpaper}")`);
     holdScroll();
     load(versions.find(version => version.getAttribute('aria-pressed') === 'true') || versions[0]);
   };

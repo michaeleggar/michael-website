@@ -1,0 +1,84 @@
+---
+layout: layouts/work-case-study.njk
+title: Koch Comm
+description: A case study of the front-end development of Koch Comm’s WordPress website, its custom post types, and its filterable work archive.
+cardOrder: 7
+cardTitle: Koch Comm
+cardSummary: The agency’s own WordPress site, with custom post types and a filterable work archive.
+year: "2025"
+agency: Koch Comm
+contributors:
+  - name: Julia Nored
+    role: Content Marketing Manager
+  - name: Scott Horton
+    role: Creative Director
+  - name: Jared Patterson
+    role: Brand Manager
+cardImage:
+  image: /assets/images/optimized/kochcomm/kc-website-1
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/kochcomm/kc-website-1-social.jpg
+cardImageAlt: Koch Comm website displayed on a laptop
+heroFrames:
+  - { image: /assets/images/optimized/kochcomm/kochcomm-film-set, width: 1600, height: 774, alt: "A Koch Comm crew filming an interview in a restaurant, a softbox lighting the subject" }
+  - { image: /assets/images/optimized/kochcomm/kochcomm-interview, width: 1600, height: 774, alt: "A news crew interviewing a man in a hat on a construction site downtown" }
+  - { image: /assets/images/optimized/kochcomm/kochcomm-press, width: 1600, height: 774, alt: "A spokesperson facing a line of press cameras in a lobby" }
+deck: >-
+  The website for Koch Comm, the Oklahoma City marketing and advertising agency where I work, built to show its work and services and let the people who write for a living keep publishing on their own.
+projectDetails:
+  - label: My role
+    items:
+      - Development
+  - label: Built with
+    items:
+      - WordPress
+  - label: Link
+    items:
+      - label: kochcomm.com
+        href: https://www.kochcomm.com
+recordings:
+  full:
+    video: /assets/video/kochcomm/full.mp4
+    poster: /assets/images/optimized/kochcomm/clips/full.webp
+    width: 1600
+    height: 1000
+    label: "The Koch Comm homepage scrolling from the hero through services, case studies, clients, the testimonial, and the FAQ"
+  phone:
+    video: /assets/video/kochcomm/phone.mp4
+    poster: /assets/images/optimized/kochcomm/clips/phone.webp
+    width: 524
+    height: 982
+    label: "The Koch Comm homepage on a phone, scrolling through its sections"
+  services:
+    video: /assets/video/kochcomm/services.mp4
+    poster: /assets/images/optimized/kochcomm/clips/services.webp
+    width: 2268
+    height: 858
+    label: "The pointer moving across three service cards, each filling with orange"
+  work:
+    video: /assets/video/kochcomm/work.mp4
+    poster: /assets/images/optimized/kochcomm/clips/work.webp
+    width: 2268
+    height: 866
+    label: "The case study carousel stepping forward two projects and back"
+---
+{% from "case-figures.njk" import clip, clipRow, picture %}
+
+<div class="case-copy">
+  <p>
+    I built custom post types for services, work, team members, and job
+    openings, and a work archive that filters by service and industry, so a
+    prospective client can find exactly the kind of campaign they’re after. I
+    worked closely with the designer, making the calls the comps left open
+    around interaction and responsive behavior, and I’ve kept building on it
+    since launch.
+  </p>
+</div>
+
+{{ clipRow([recordings.full, recordings.phone]) }}
+{{ clip(recordings.services) }}
+{{ clip(recordings.work) }}
+{{ picture({ image: "/assets/images/optimized/kochcomm/kochcomm-intro", width: 1600, height: 389, alt: "The homepage headline: An OKC advertising agency built to help you grow, with the last words in orange" }) }}
+{{ picture({ image: "/assets/images/optimized/kochcomm/kochcomm-faq", width: 1600, height: 683, alt: "The Questions you may have list" }) }}

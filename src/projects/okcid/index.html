@@ -1,0 +1,120 @@
+---
+layout: layouts/work-case-study.njk
+title: OKC Innovation District
+description: A case study of the OKC Innovation District website, designed and developed in WordPress for the organization behind Oklahoma City’s innovation neighborhood.
+cardOrder: 4
+cardTitle: OKC Innovation District
+cardSummary: A WordPress site for the organization behind Oklahoma City’s innovation neighborhood, with Innovation Hall, events, and a district map.
+year: "2026"
+agency: Koch Comm
+contributors:
+  - name: Julia Nored
+    role: Content Marketing Manager
+  - name: Scott Horton
+    role: Creative Director
+  - name: Jared Patterson
+    role: Brand Manager
+cardImage:
+  image: /assets/images/optimized/okcid/okcid-innovation-hall
+  thumbnailWidth: 600
+  width: 1600
+  height: 1000
+socialImage: /assets/images/optimized/okcid/okcid-innovation-hall-social.jpg
+cardImageAlt: "The entrance of Innovation Hall, with its name set tall beside the doors"
+heroImage:
+  image: /assets/images/optimized/okcid/okcid-innovation-hall
+  width: 1600
+  height: 1000
+  alt: "The entrance of Innovation Hall, with its name set tall beside the doors"
+heroFocus: center 55%
+deck: >-
+  A website for the organization behind Oklahoma City’s innovation district, explaining 1.3 square miles of hospitals, labs, and startups to residents, researchers, and founders, and getting them into the building at its center.
+projectDetails:
+  - label: My role
+    items:
+      - Design
+      - Development
+  - label: Built with
+    items:
+      - WordPress
+  - label: Link
+    items:
+      - label: okcinnovation.com
+        href: https://okcinnovation.com
+recordings:
+  full:
+    video: /assets/video/okcid/full.mp4
+    poster: /assets/images/optimized/okcid/clips/full.webp
+    width: 1600
+    height: 1000
+    label: "The OKC Innovation District homepage scrolling from the hero through the audience tags, the map, Innovation Hall, events, and the FAQ"
+  phone:
+    video: /assets/video/okcid/phone.mp4
+    poster: /assets/images/optimized/okcid/clips/phone.webp
+    width: 524
+    height: 982
+    label: "The OKC Innovation District homepage on a phone, scrolling through its sections"
+  audience:
+    video: /assets/video/okcid/audience.mp4
+    poster: /assets/images/optimized/okcid/clips/audience.webp
+    width: 2118
+    height: 1208
+    label: "The People, Ideas, and Industries tabs switching the tags and photograph beneath them"
+  hall:
+    video: /assets/video/okcid/hall.mp4
+    poster: /assets/images/optimized/okcid/clips/hall.webp
+    width: 2268
+    height: 1260
+    label: "The Innovation Hall tabs moving through the lounge, the coffee shop, the conference rooms, and event rentals"
+  nav:
+    video: /assets/video/okcid/nav.mp4
+    poster: /assets/images/optimized/okcid/clips/nav.webp
+    width: 2268
+    height: 840
+    label: "The Meet OKCID, Explore the District, and Engage menus opening in turn from the header"
+  hall-page:
+    video: /assets/video/okcid/hall-page.mp4
+    poster: /assets/images/optimized/okcid/clips/hall-page.webp
+    width: 1600
+    height: 1000
+    label: "The Innovation Hall page scrolling from its hours through event rentals, coffee, coworking, parking, and the campus"
+  map:
+    video: /assets/video/okcid/map.mp4
+    poster: /assets/images/optimized/okcid/clips/map.webp
+    width: 2268
+    height: 1242
+    label: "The district map flying between Stiles Park, the Tower at Convergence, and Innovation Hall"
+  directory:
+    video: /assets/video/okcid/directory.mp4
+    poster: /assets/images/optimized/okcid/clips/directory.webp
+    width: 2118
+    height: 1738
+    label: "The directory filtered to health organizations, then back to all of them"
+---
+{% from "case-figures.njk" import clip, clipRow, picture %}
+
+<div class="case-copy">
+  <p>
+    The homepage sorts its audience with tags, so it reads as a map before the
+    actual map appears. Innovation Hall, the district’s coworking and event
+    space, gets a tab for each room, each ending with the thing someone came
+    to do. Events and news are post types the OKCID team publishes directly;
+    they reach the homepage in order and move to the archive once they’ve
+    passed.
+  </p>
+  <p>
+    The Map & Directory page plots every organization in the district on a
+    live map that flies between its landmarks, with a directory beneath it
+    that filters by field. Innovation Hall has a page of its own, with its
+    hours up front and a tab for each space someone can rent.
+  </p>
+</div>
+
+{{ clipRow([recordings.full, recordings.phone]) }}
+{{ clip(recordings.nav) }}
+{{ clip(recordings.audience) }}
+{{ clip(recordings.hall) }}
+{{ clip(recordings["hall-page"]) }}
+{{ clip(recordings.map) }}
+{{ clip(recordings.directory) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-events", width: 1600, height: 854, alt: "Three upcoming event cards, each with a photograph, a date, and Innovation Hall as the place" }) }}

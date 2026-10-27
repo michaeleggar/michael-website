@@ -139,7 +139,7 @@ function initializeShowcase() {
     if (captionIndex !== active) {
       const card = cards[active];
       captionTitle.textContent = card?.dataset.showcaseTitle || '';
-      captionCategory.textContent = card ? (card.dataset.kind === 'work' ? 'Work' : 'Art') : '';
+      captionCategory.textContent = card ? (card.dataset.kind === 'work' ? 'Project' : 'Art') : '';
       captionYear.textContent = card?.dataset.year || '';
       captionIndex = active;
     }
@@ -205,7 +205,7 @@ function initializeShowcase() {
     active = clamp(index, 0, cards.length - 1);
     if (compact.matches) center = active;
     render(instant);
-    if (announce) status.textContent = `${cards[active].dataset.showcaseTitle}, ${cards[active].dataset.kind === 'work' ? 'Work' : 'Art'} ${cards[active].dataset.year}, ${active + 1} of ${cards.length}`;
+    if (announce) status.textContent = `${cards[active].dataset.showcaseTitle}, ${cards[active].dataset.kind === 'work' ? 'Project' : 'Art'} ${cards[active].dataset.year}, ${active + 1} of ${cards.length}`;
   }
   stage.addEventListener('pointermove', event => {
     if (press && event.pointerId === press.id) {

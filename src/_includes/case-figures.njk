@@ -1,0 +1,62 @@
+{#- Figures for case studies. Pages import what they use:
+      {% from "case-figures.njk" import gallery, picture, clip, clipRow %}
+    Each takes a plain object, usually from the page's frontmatter. -#}
+
+{#- A row of pictures, each with an optional caption. images: [{ image, width, height, alt, caption }] -#}
+{% macro gallery(images, columns, ratio) %}
+<div class="case-gallery" style="--columns: {{ columns or images.length }};{% if ratio %} --ratio: {{ ratio }};{% endif %}"{% if images.length > 3 %} data-stack{% endif %}>
+  {% for item in images %}
+    <figure>
+      <img
+        src="{{ item.image }}-large.webp"
+        srcset="{{ item.image }}-thumb.webp 600w, {{ item.image }}-large.webp {{ item.width }}w"
+        sizes="(min-width: 70rem) {{ (57 / (columns or images.length)) | round(1) }}rem, (min-width: 781px) {{ (100 / (columns or images.length)) | round }}vw, {{ '100vw' if images.length > 3 else '50vw' }}"
+        width="{{ item.width }}"
+        height="{{ item.height }}"
+        alt="{{ item.alt }}"
+        loading="lazy"
+        decoding="async"
+      />
+      {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+    </figure>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{#- One wide picture. item: { image, width, height, alt, caption } -#}
+{% macro picture(item, eager) %}
+<figure class="case-media">
+  <img
+    src="{{ item.image }}-large.webp"
+    srcset="{{ item.image }}-thumb.webp 600w, {{ item.image }}-large.webp {{ item.width }}w"
+    sizes="(min-width: 70rem) 57rem, calc(100vw - 2rem)"
+    width="{{ item.width }}"
+    height="{{ item.height }}"
+    alt="{{ item.alt }}"
+    loading="{{ 'eager' if eager else 'lazy' }}"
+    decoding="async"
+  />
+  {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+</figure>
+{% endmacro %}
+
+{#- A recorded clip of the site: muted, looping, framed like the other
+    pictures. case-study.js plays it only while it is on screen, and not at
+    all for reduced motion, when the poster (its first frame) stands in.
+    item: { video, poster, width, height, label } (full URLs) -#}
+{% macro clip(item) %}
+<figure class="case-clip" data-clip data-shape="{{ 'tall' if item.height > item.width else 'wide' }}" style="--ratio: {{ (item.width / item.height) | round(4) }};">
+  <video muted loop playsinline preload="none" poster="{{ item.poster }}" width="{{ item.width }}" height="{{ item.height }}" aria-label="{{ item.label }}">
+    <source src="{{ item.video }}" type="video/mp4" />
+  </video>
+</figure>
+{% endmacro %}
+
+{#- Clips side by side at one shared height, each as wide as its shape needs:
+    phone clips beside a wide detail, say. `narrow` keeps the row to the
+    reading column, for a pair of phone clips. items: [clip items] -#}
+{% macro clipRow(items, narrow) %}
+<div class="case-clip-row"{% if narrow %} data-narrow{% endif %}>
+  {% for item in items %}{{ clip(item) }}{% endfor %}
+</div>
+{% endmacro %}

@@ -13,65 +13,22 @@ scripts: [case-study]
       {% endfor %}
     {% endif %}
   {% endfor %}
-  {% include "work-project-nav.njk" %}
+  {% include "case-hero.njk" %}
 
-  <header class="portfolio-project-intro">
-    <h1>{{ heading or cardTitle }}</h1>
-    <p class="portfolio-project-deck">{{ deck }}</p>
-  </header>
-
-  {# The picture leads; the details follow it as fine print. #}
-  {% if leadShowcase and siteShowcase %}
-    {% include "site-showcase.njk" %}
-  {% elif heroImage %}
-    <figure class="portfolio-wide-media portfolio-first-media" style="--hero-ratio: {{ heroImage.width / heroImage.height }}; --hero-max: {{ heroImage.width }}px;">
-      <img
-        src="{{ heroImage.image }}-large.webp"
-        srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
-        sizes="(min-width: 1100px) 1040px, 100vw"
-        width="{{ heroImage.width }}"
-        height="{{ heroImage.height }}"
-        alt="{{ heroImage.alt }}"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </figure>
-  {% endif %}
-
-  <dl class="project-details" aria-label="Project details">
-    {% if agency %}
-    <div><dt>Agency</dt><dd>{{ agency }}, <span class="project-details-year">{{ year }}</span></dd></div>
-    {% else %}
-    <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
-    {% endif %}
-    {% for group in projectDetails %}
-      {% if group.label != "Link" or not liveSiteUrl %}
-      <div>
-        <dt>{{ group.label }}</dt>
-        <dd>
-          {% for item in group.items %}
-            {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
-          {% endfor %}
-        </dd>
-      </div>
-      {% endif %}
-    {% endfor %}
-    {% if contributors and contributors.length %}
-    <div>
-      <dt>Contributors</dt>
-      <dd>
-        <ul class="project-credit-list">
-          {% for person in contributors %}
-            <li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>
-          {% endfor %}
-        </ul>
-      </dd>
-    </div>
-    {% endif %}
-  </dl>
+  <div class="case-lede"><p>{{ deck }}</p></div>
 
   {{ content | safe }}
 
-  {% include "work-project-footer.njk" %}
+  {% if footnotes and footnotes.length %}
+  <section class="case-footnotes" aria-labelledby="footnotes-title">
+    <h2 id="footnotes-title">Notes</h2>
+    <ol>
+      {% for note in footnotes %}
+        <li id="note-{{ loop.index }}"><span>{{ note | safe }}</span></li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% include "work-project-nav.njk" %}
 </main>

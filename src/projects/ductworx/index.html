@@ -1,0 +1,97 @@
+---
+layout: layouts/work-case-study.njk
+title: DuctWorx
+description: A case study of a modular WordPress website designed and developed for DuctWorx, a ductwork fabricator in Oklahoma City.
+cardOrder: 1
+cardTitle: DuctWorx
+cardSummary: A modular WordPress site for a ductwork fabricator, built so its team can assemble pages without a developer.
+year: "2025"
+agency: Koch Comm
+contributors:
+  - name: Scott Horton
+    role: Creative Director
+  - name: Julia Nored
+    role: Content Marketing Manager
+  - name: Tessa Wright
+    role: Art Director
+cardImage:
+  image: /assets/images/optimized/ductworx/duc-mock-2
+  thumbnailWidth: 600
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/ductworx/duc-mock-2-social.jpg
+cardImageAlt: DuctWorx website on a phone lying on concrete
+heroImage:
+  image: /assets/images/optimized/ductworx/ductworx-welder
+  width: 1600
+  height: 878
+  alt: "A welder in a flag-painted helmet working at the bench, sparks flying"
+heroFocus: 60% center
+deck: >-
+  A website for DuctWorx, an Oklahoma City ductwork fabricator. I designed and
+  built a library of sections the team assembles into pages, so the site stays
+  on brand without a developer.
+projectDetails:
+  - label: My role
+    items:
+      - Design
+      - Development
+  - label: Built with
+    items:
+      - WordPress
+      - ACF
+  - label: Link
+    items:
+      - label: ductworxokc.com
+        href: https://www.ductworxokc.com
+recordings:
+  full-home:
+    video: /assets/video/ductworx/full-home.mp4
+    poster: /assets/images/optimized/ductworx/clips/full-home.webp
+    width: 1600
+    height: 1000
+    label: "The DuctWorx homepage scrolling from the hero through products, work, and the team quote to the footer"
+  nav:
+    video: /assets/video/ductworx/nav.mp4
+    poster: /assets/images/optimized/ductworx/clips/nav.webp
+    width: 1440
+    height: 580
+    label: "The pointer moving across the DuctWorx navigation, each link lighting in turn"
+  phone-home:
+    video: /assets/video/ductworx/phone-home.mp4
+    poster: /assets/images/optimized/ductworx/clips/phone-home.webp
+    width: 524
+    height: 982
+    label: "The DuctWorx homepage on a phone, scrolling through its sections"
+  grid:
+    video: /assets/video/ductworx/grid.mp4
+    poster: /assets/images/optimized/ductworx/clips/grid.webp
+    width: 2420
+    height: 900
+    label: "The pointer moving down the four product rows, each filling navy with an orange arrow and changing the photograph beside the DuctWorx mark below"
+  tabs:
+    video: /assets/video/ductworx/tabs.mp4
+    poster: /assets/images/optimized/ductworx/clips/tabs.webp
+    width: 2100
+    height: 990
+    label: "The products page switching between round, rectangular, hardware, and custom ductwork"
+---
+{% from "case-figures.njk" import clip, clipRow, picture %}
+
+<div class="case-copy">
+  <p>
+    The office wanted to keep the site current on its own, so I built every
+    section in WordPress with Advanced Custom Fields, from the product rows to
+    the values table. The team picks one, fills it in, and the layout, type,
+    and spacing come with it.
+    Since launch, they’ve added projects, updated the roster, and rewritten
+    copy without a single developer request.
+  </p>
+</div>
+
+{{ clipRow([recordings["full-home"], recordings["phone-home"]]) }}
+{{ clip(recordings.nav) }}
+{{ clip(recordings.grid) }}
+{{ clip(recordings.tabs) }}
+{{ picture({ image: "/assets/images/optimized/ductworx/ductworx-quote", width: 1600, height: 502, alt: "The DuctWorx team quote, set in cream on burnt orange beside a large outlined dw mark" }) }}
+{{ picture({ image: "/assets/images/optimized/ductworx/ductworx-values", width: 1600, height: 520, alt: "The Our Values table: masterful, committed, tactical, and ignited, each with a line of description" }) }}

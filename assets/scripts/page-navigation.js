@@ -165,10 +165,10 @@
   });
   window.addEventListener('pagehide', rememberScroll);
 
-  // Preserve bookmarks from before Work and Art had separate pages.
+  // Preserve bookmarks from before Projects (then Work) and Art had separate pages.
   function redirectLegacySection() {
     if (location.pathname !== '/') return;
-    const path = { '#work': '/work/', '#art': '/art/' }[location.hash.toLowerCase()];
+    const path = { '#work': '/projects/', '#art': '/art/' }[location.hash.toLowerCase()];
     if (path) navigate(new URL(path + location.search, location.origin), { replace: true });
   }
   window.addEventListener('hashchange', redirectLegacySection);

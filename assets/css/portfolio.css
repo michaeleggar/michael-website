@@ -1,4 +1,4 @@
-/* Home and Work pages: the name treatment, project gallery, and cards. */
+/* Home and Projects pages: the name treatment, project gallery, and cards. */
 
 @font-face {
   font-family: "Oddball";
@@ -68,8 +68,9 @@
   justify-content: space-between;
   gap: var(--space-sm);
   margin: 0;
-  font-size: var(--type-base);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--type-md);
+  font-weight: 400;
   line-height: var(--line-snug);
 }
 
@@ -80,6 +81,7 @@
 .portfolio-project-year {
   flex: none;
   color: var(--text-muted);
+  font-family: var(--font-body);
   font-size: var(--type-meta);
   font-variant-numeric: tabular-nums;
 }

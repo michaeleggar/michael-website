@@ -58,6 +58,11 @@
   --control-radius: 11px;
   --card-radius: var(--surface-radius);
   --font-body: "Lato", sans-serif;
+  /* The serif, for case-study titles, ledes, numbers, and project cards. Rowan
+     loads from Fontshare (see head.html); the rest is the fallback meanwhile. */
+  --font-display: "Rowan", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --hairline: color-mix(in oklch, var(--text-primary) 10%, transparent);
+  --panel: color-mix(in oklch, var(--text-primary) 3%, transparent);
   --type-meta: 0.8125rem;
   --type-xs: 0.875rem;
   --type-sm: 0.9375rem;

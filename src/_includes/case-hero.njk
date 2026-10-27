@@ -1,0 +1,81 @@
+{#- The hero: runs to the top of the page beneath the site header, with the
+    project links, the title, and the project details (agency and year, role,
+    tools, contributors) set under it. `heroFrames` (a list of images) adds
+    dots that switch between pictures; `heroImage` leads alone; with neither,
+    the hero is type alone.
+    `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
+{% set frames = heroFrames or ([heroImage] if heroImage else []) %}
+<header class="case-hero" data-case-hero{% if not frames.length %} data-plain{% endif %}>
+  {% if frames.length %}
+  <div class="case-hero-frames" style="--hero-focus: {{ heroFocus or 'center' }};">
+    {% for frame in frames %}
+      <img
+        src="{{ frame.image }}-large.webp"
+        srcset="{{ frame.image }}-thumb.webp 600w, {{ frame.image }}-large.webp {{ frame.width }}w"
+        sizes="100vw"
+        width="{{ frame.width }}"
+        height="{{ frame.height }}"
+        alt="{{ frame.alt }}"
+        loading="{{ 'eager' if loop.first else 'lazy' }}"
+        {% if loop.first %}fetchpriority="high" data-active{% endif %}
+        decoding="async"
+      />
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% include "work-project-nav.njk" %}
+
+  <div class="case-hero-body">
+    {% if frames.length > 1 or heroCaption %}
+    <div class="case-hero-aside">
+      {% if heroCaption %}<p>{{ heroCaption }}</p>{% endif %}
+      {% if frames.length > 1 %}
+      <div class="case-hero-dots" role="group" aria-label="Hero pictures">
+        {% for frame in frames %}
+          <button type="button" class="case-hero-dot" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-label="{{ frame.alt }}" data-hero-frame="{{ loop.index0 }}"></button>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    <h1>
+      {% if heroTitle %}
+        {% for line in heroTitle %}<span class="case-title-line">{{ line }}</span>{% endfor %}
+      {% else %}
+        {{ heading or cardTitle }}
+      {% endif %}
+    </h1>
+    <dl class="project-details" aria-label="Project details">
+      {% if agency %}
+      <div><dt>Agency</dt><dd>{{ agency }}, <span class="project-details-year">{{ year }}</span></dd></div>
+      {% else %}
+      <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
+      {% endif %}
+      {% for group in projectDetails %}
+        {% if group.label != "Link" or not liveSiteUrl %}
+        <div>
+          <dt>{{ group.label }}</dt>
+          <dd>
+            {% for item in group.items %}
+              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
+            {% endfor %}
+          </dd>
+        </div>
+        {% endif %}
+      {% endfor %}
+      {% if contributors and contributors.length %}
+      <div>
+        <dt>Contributors</dt>
+        <dd>
+          <ul class="project-credit-list">
+            {% for person in contributors %}
+              <li><span class="project-credit-person">{{ person.name }}</span>, <span class="project-credit-role">{{ person.role }}</span></li>
+            {% endfor %}
+          </ul>
+        </dd>
+      </div>
+      {% endif %}
+    </dl>
+  </div>
+</header>

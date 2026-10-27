@@ -2,6 +2,7 @@
   "name": "Michael Eggar",
   "url": "https://www.michael-eggar.com",
   "featuredArt": ["opt-cmd-e", "holy-shit", "sleepy-reading"],
+  "fanProjects": 5,
   "defaultDescription": "Portfolio of Michael Eggar, a front-end developer, designer, and artist based in Oklahoma City.",
   "defaultSocialImage": "/assets/images/optimized/ductworx/duc-mock-2-social.jpg",
   "defaultSocialImageAlt": "DuctWorx website displayed across laptop and desktop screens"

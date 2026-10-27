@@ -66,7 +66,7 @@ if (!fs.existsSync(outputRoot)) {
 }
 
 // Embedded app demos are standalone builds without site metadata.
-const demoRoot = path.join(outputRoot, "work", "chatapp", "demo");
+const demoRoot = path.join(outputRoot, "projects", "chatapp", "demo");
 const htmlFiles = walk(outputRoot).filter(
   (file) => file.endsWith(".html") && !file.startsWith(demoRoot + path.sep),
 );

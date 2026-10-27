@@ -4,7 +4,7 @@ import { motionValue, attachFollow, styleEffect } from 'motion-dom';
 // picture inside drifts the other way, like looking through a window.
 const spring = { type: 'spring', stiffness: 420, damping: 28, mass: 1 };
 const groups = [
-  // Work cards.
+  // Project cards.
   { card: '.portfolio-project-card a', frame: '.portfolio-project-image', pull: { x: 7, y: 5, rotate: 1.1 }, parallax: 5, scale: 1.04 },
   // Artwork, more quietly, so the gallery stays calm as the pointer crosses it.
   { card: '.art-item button', frame: (card) => card.closest('.art-item'), pull: { x: 3, y: 2, rotate: 0.4 }, parallax: 2, scale: 1.015 },

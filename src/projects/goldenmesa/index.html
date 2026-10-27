@@ -1,0 +1,86 @@
+---
+layout: layouts/work-case-study.njk
+title: Golden Mesa Casino & Hotel
+description: A case study of the Golden Mesa Casino & Hotel website, designed and developed in WordPress for a casino, hotel, and RV park in the Oklahoma panhandle.
+cardOrder: 3
+cardTitle: Golden Mesa Casino & Hotel
+cardSummary: A WordPress site for a casino and hotel in the panhandle, with rooms, dining, and promotions its team keeps current.
+year: "2026"
+agency: Koch Comm
+contributors:
+  - name: Julia Nored
+    role: Content Marketing Manager
+  - name: Scott Horton
+    role: Creative Director
+  - name: Jared Patterson
+    role: Brand Manager
+cardImage:
+  image: /assets/images/optimized/goldenmesa/goldenmesa-sunset
+  thumbnailWidth: 600
+  width: 1600
+  height: 900
+socialImage: /assets/images/optimized/goldenmesa/goldenmesa-sunset-social.jpg
+cardImageAlt: "The Golden Mesa Casino & Hotel sign against a panhandle sunset"
+heroImage:
+  image: /assets/images/optimized/goldenmesa/goldenmesa-sunset
+  width: 1600
+  height: 900
+  alt: "The Golden Mesa Casino & Hotel sign against a panhandle sunset"
+heroFocus: center 40%
+deck: >-
+  A website for a casino, hotel, and RV park in the Oklahoma panhandle, built to sell a weekend to people four hours away and keep up with promotions that change every week.
+projectDetails:
+  - label: My role
+    items:
+      - Design
+      - Development
+  - label: Built with
+    items:
+      - WordPress
+  - label: Link
+    items:
+      - label: goldenmesa.com
+        href: https://goldenmesa.com
+recordings:
+  full:
+    video: /assets/video/goldenmesa/full.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/full.webp
+    width: 1600
+    height: 1000
+    label: "The Golden Mesa homepage scrolling from the hero through games, dining, rooms, promotions, and the FAQ"
+  phone:
+    video: /assets/video/goldenmesa/phone.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/phone.webp
+    width: 524
+    height: 982
+    label: "The Golden Mesa homepage on a phone, scrolling through its sections"
+  promos:
+    video: /assets/video/goldenmesa/promos.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/promos.webp
+    width: 2268
+    height: 1210
+    label: "The promotions carousel stepping forward two cards and back"
+  menu:
+    video: /assets/video/goldenmesa/menu.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/menu.webp
+    width: 2268
+    height: 1160
+    label: "The Play, Eat, and Stay menus opening in turn, each with photographs of what’s inside"
+---
+{% from "case-figures.njk" import clip, clipRow, picture %}
+
+<div class="case-copy">
+  <p>
+    The navigation is three verbs, Play, Eat, and Stay, each opening onto the
+    part of the property behind it. Rooms and promotions are their own post
+    types, so the marketing team adds a hot seat drawing the way they’d write
+    a post: it appears on the homepage carousel and the promotions page on its
+    own, and drops off when it ends.
+  </p>
+</div>
+
+{{ clipRow([recordings.full, recordings.phone]) }}
+{{ clip(recordings.promos) }}
+{{ clip(recordings.menu) }}
+{{ picture({ image: "/assets/images/optimized/goldenmesa/goldenmesa-dining", width: 1600, height: 431, alt: "The Eat and drink band: an italic serif headline beside a photograph of a plated steak" }) }}
+{{ picture({ image: "/assets/images/optimized/goldenmesa/goldenmesa-explore", width: 1600, height: 600, alt: "The Explore cards for the restaurant, the gift shop, and the RV park" }) }}

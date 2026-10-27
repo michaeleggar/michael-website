@@ -27,14 +27,16 @@ module.exports = function (eleventyConfig) {
     "assets/fonts/LatoLatin-Semibold.woff2",
     "assets/fonts/Oddball.woff2",
     "assets/scripts",
+    "assets/video",
   ].forEach((assetPath) => eleventyConfig.addPassthroughCopy(assetPath));
   // Static builds of the chat app, embedded live in its case study. Rebuild them
-  // from the chat-app repo with `npm run build:demo`.
-  eleventyConfig.addPassthroughCopy({ "demos/chatapp": "work/chatapp/demo" });
+  // from the chat-app repo with `npm run build:demo`, with its base path set to
+  // /projects/chatapp/demo/ (it was /work/chatapp/demo/).
+  eleventyConfig.addPassthroughCopy({ "demos/chatapp": "projects/chatapp/demo" });
 
   eleventyConfig.addCollection("workProjects", (collectionApi) =>
     collectionApi
-      .getFilteredByGlob("src/work/*/index.html")
+      .getFilteredByGlob("src/projects/*/index.html")
       // Projects with a cardOrder are pinned first in that order; the rest follow, newest first.
       .sort((first, second) => {
         const pinned = (first.data.cardOrder ?? Infinity) - (second.data.cardOrder ?? Infinity);
@@ -52,15 +54,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter('projectTags', data => {
     const roles = data.projectDetails?.find(group => group.label === 'My role')?.items || [];
     return [data.agency, ...roles.map(item => item.label || item)].filter(Boolean);
-  });
-  // The case studies before and after one, wrapping around the Work list.
-  eleventyConfig.addFilter('workNeighbors', (projects, url) => {
-    const at = projects.findIndex(project => project.url === url);
-    if (at < 0 || projects.length < 2) return null;
-    return {
-      previous: projects[(at - 1 + projects.length) % projects.length],
-      next: projects[(at + 1) % projects.length],
-    };
   });
   eleventyConfig.addFilter('artworkSlug', artwork => artwork.image.split('/').pop());
 

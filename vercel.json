@@ -3,10 +3,18 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": true,
+  "redirects": [
+    { "source": "/work", "destination": "/projects/", "permanent": true },
+    { "source": "/work/:path*", "destination": "/projects/:path*", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/fonts/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/assets/video/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=2592000" }]
     },
     {
       "source": "/assets/images/(.*)",
