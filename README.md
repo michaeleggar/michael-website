@@ -21,11 +21,11 @@ The [base layout](src/_includes/layouts/base.njk) loads shared styles, then the 
 
 ## Design tokens
 
-Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation keeps its typography and tightens its spacing on phones so every label fits on one row. The Elsewhere and Other Stuff menus use Bloom, with its React source in `scripts/ui/contact-menu.jsx`.
+Shared colors, typography, spacing, widths, and corner radii live in `assets/css/styles.css`. Page gutters adapt on smaller screens; navigation keeps its typography and tightens its spacing on phones so every label fits on one row. The Elsewhere and Other Stuff menus are built by `scripts/ui/contact-menu.js`; their bloom is a CSS transition in `header.css`, using an easing sampled from the spring Bloom used.
 
 ## Browser scripts
 
-Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and the Work and Art card hover), `contact-menu.js` (the React menus), `art-lightbox.js`, `case-study.js` (live site showcases), and `chat-demo.js` (the chat app demo). Each is self-contained, so the fan starts without waiting for React. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
+Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and the Work and Art card hover), `contact-menu.js` (the header menus), `art-lightbox.js`, `case-study.js` (live site showcases), and `chat-demo.js` (the chat app demo). Each is self-contained. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
 
 ## Content and behavior
 

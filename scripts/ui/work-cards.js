@@ -1,4 +1,4 @@
-import { motionValue, attachFollow, styleEffect } from 'framer-motion';
+import { motionValue, attachFollow, styleEffect } from 'motion-dom';
 
 // Cards lean gently toward the pointer: the frame drifts toward it while the
 // picture inside drifts the other way, like looking through a window.

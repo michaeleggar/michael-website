@@ -1,4 +1,4 @@
-import { motionValue, attachFollow, styleEffect } from 'framer-motion';
+import { motionValue, attachFollow, styleEffect } from 'motion-dom';
 import { getShowcaseSettings } from './showcase-settings.js';
 
 const transformKeys = ['x', 'y', 'rotate', 'scale'];

@@ -176,21 +176,29 @@
   .site-header-inner, .site-header-contact { padding-inline: 2px; }
 }
 
-/* Bloom menus: one text trigger, expanding from its right edge. */
-.elsewhere-menu { position: relative; height: var(--nav-height); }
-.elsewhere-shell { background: transparent; color: var(--text-secondary); box-shadow: none !important; }
-.elsewhere-menu[data-open="true"] .elsewhere-shell { background: var(--surface); box-shadow: 0 12px 28px color-mix(in oklch, var(--background) 65%, transparent) !important; }
+/* Bloom menus: one text trigger, expanding from its right edge.
+   The shell rests at its open size beneath the trigger. Closed, it's clipped to the trigger's pill and
+   tucked up behind it, so blooming only transitions transform, clip-path, opacity, and filter. */
+.elsewhere-menu {
+  /* framer-motion's spring (visual duration 0.25s, bounce 0.12), sampled. */
+  --bloom-spring: linear(0, 0.073 6.8%, 0.214 13.2%, 0.372 19.6%, 0.521 26%, 0.649 32.4%, 0.751 38.9%, 0.83 45.3%, 0.888 51.7%, 0.929 58.1%, 0.957 64.5%, 0.976 70.9%, 0.988 77.4%, 0.995 83.8%, 0.999 90.2%, 1.001 96.6%, 1);
+  position: relative;
+  height: var(--nav-height);
+}
 .elsewhere-trigger { position: relative; z-index: 51; width: 100%; border: 0; background: transparent; font-family: var(--font-body); cursor: pointer; }
 .elsewhere-menu[data-open="true"] .elsewhere-trigger { color: var(--background); }
 .elsewhere-menu[data-open="true"] .elsewhere-trigger::before { background: var(--accent); }
-.elsewhere-bloom-origin { position: absolute; top: calc(var(--nav-height) * 0.25 + var(--other-menu-gap)); right: 0; pointer-events: none; }
-.elsewhere-menu[data-open="true"] .elsewhere-shell { pointer-events: auto; }
-.elsewhere-content { padding: var(--other-menu-padding); }
-.elsewhere-links { display: flex; flex-direction: column; gap: 0px; }
+.elsewhere-shell { position: absolute; top: calc(var(--nav-height) + var(--other-menu-gap)); right: 0; z-index: 50; pointer-events: none; transform: translateY(calc(var(--nav-height) * -0.75)); transition: transform 300ms var(--bloom-spring); }
+.elsewhere-surface { min-width: var(--other-menu-min-width); width: max-content; color: var(--text-secondary); clip-path: inset(0 0 calc(100% - var(--nav-height)) calc(100% - var(--trigger-width, 100%)) round var(--control-radius)); transition: clip-path 300ms var(--bloom-spring); }
+.elsewhere-menu[data-open="true"] .elsewhere-shell { transform: none; pointer-events: auto; filter: drop-shadow(0 12px 28px color-mix(in oklch, var(--background) 65%, transparent)); }
+.elsewhere-menu[data-open="true"] .elsewhere-surface { background: var(--surface); clip-path: inset(0 round var(--surface-radius)); }
+/* Items rise in just after the shell, and drift up and away when it closes. */
+.elsewhere-content { display: none; flex-direction: column; padding: var(--other-menu-padding); opacity: 0; transform: translateY(-30px) scale(0.9); filter: blur(4px); transition: opacity 200ms cubic-bezier(0.4, 0, 1, 1), transform 200ms cubic-bezier(0.4, 0, 1, 1), filter 200ms cubic-bezier(0.4, 0, 1, 1), display 200ms allow-discrete; }
+.elsewhere-menu[data-open="true"] .elsewhere-content { display: flex; opacity: 1; transform: none; filter: none; transition: opacity 255ms var(--bloom-spring) 25ms, transform 255ms var(--bloom-spring) 25ms, filter 255ms var(--bloom-spring) 25ms; }
+@starting-style {
+  .elsewhere-menu[data-open="true"] .elsewhere-content { opacity: 0; transform: translateY(-8px) scale(0.95); filter: blur(4px); }
+}
 .elsewhere-ambience[aria-checked="true"] > svg { color: var(--accent); }
-.elsewhere-measure { position: fixed; left: -10000px; top: 0; visibility: hidden; pointer-events: none; width: max-content; }
-.elsewhere-menu-measure { position: fixed; left: -10000px; top: 0; visibility: hidden; pointer-events: none; min-width: var(--other-menu-min-width); width: max-content; }
-.elsewhere-menu-measure .elsewhere-item { width: auto; }
 .elsewhere-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; height: var(--nav-height); min-height: var(--nav-height); padding: 0px var(--nav-padding-inline); border: 0; border-radius: var(--control-radius); corner-shape: superellipse(1.6); background: transparent; color: var(--text-primary); font: 500 var(--nav-font-size) / 1 var(--font-body); letter-spacing: 0.01em; text-decoration: none; cursor: pointer; }
 .elsewhere-item:hover, .elsewhere-item:focus-visible { background: color-mix(in oklch, var(--text-primary) 6%, transparent); color: var(--text-primary); outline-offset: -2px; }
 .elsewhere-item > svg { flex: none; width: 16px; height: 16px; transform: translateY(0.5px); transform-origin: center; transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -199,10 +207,17 @@
   /* The CD player's disc spins (from contact-menu.jsx) instead of nudging. */
   .elsewhere-ambience:hover > svg { transform: translateY(0.5px); }
 }
-.elsewhere-copy-note { display: inline-flex; align-items: center; gap: 4px; font-size: var(--other-note-size); transform-origin: right center; white-space: nowrap; }
+/* The hidden reserve keeps the menu as wide as its longest note. */
+.elsewhere-copy-note { display: inline-grid; justify-items: end; font-size: var(--other-note-size); white-space: nowrap; }
+.elsewhere-copy-note > * { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 4px; }
+.elsewhere-copy-label { transform-origin: right center; }
+.elsewhere-copy-reserve { visibility: hidden; }
 .elsewhere-copy-note[data-copied="true"] { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
-  .elsewhere-shell { transform: none !important; width: var(--elsewhere-width) !important; height: var(--nav-height) !important; }
-  .elsewhere-menu[data-open="true"] .elsewhere-shell { width: var(--other-measured-width, 168px) !important; height: var(--other-measured-height, 114px) !important; left: auto !important; right: 0; top: calc(var(--nav-height) * 0.75) !important; border-radius: var(--surface-radius) !important; }
-  .elsewhere-content { transform: none !important; filter: none !important; }
+  .elsewhere-shell, .elsewhere-menu[data-open="true"] .elsewhere-shell { transform: none; transition: none; }
+  .elsewhere-surface, .elsewhere-menu[data-open="true"] .elsewhere-surface { clip-path: none; transition: none; }
+  .elsewhere-content, .elsewhere-menu[data-open="true"] .elsewhere-content { transform: none; filter: none; transition-duration: 120ms; transition-delay: 0s; }
+  @starting-style {
+    .elsewhere-menu[data-open="true"] .elsewhere-content { transform: none; filter: none; }
+  }
 }
