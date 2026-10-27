@@ -27,6 +27,7 @@ async function startShowcaseTuner() {
     motion: {
       _collapsed: true,
       spring: d.motion.spring,
+      wheelFriction: slider('motion', 'wheelFriction', 0.1, 0.8, 0.01),
       reducedMotionPreview: false,
     },
     hover: {
@@ -57,13 +58,13 @@ async function startShowcaseTuner() {
       baseline: slider('layout', 'baseline', 20, 180),
       stagger: slider('layout', 'stagger', 0, 60),
       stageHeight: slider('layout', 'stageHeight', 280, 600, 10),
-      mobileHeight: slider('layout', 'mobileHeight', 200, 500, 10),
-      mobileCount: slider('layout', 'mobileCount', 3, 8, 1),
+      wheelRadius: slider('layout', 'wheelRadius', 300, 1400, 10),
+      wheelSpacing: slider('layout', 'wheelSpacing', 0.3, 1, 0.01),
     },
     photos: {
       _collapsed: true,
       workWidth: slider('photos', 'workWidth', 160, 360),
-      mobileWidth: slider('photos', 'mobileWidth', 100, 220),
+      mobileWidth: slider('photos', 'mobileWidth', 140, 280),
       workAspect: slider('photos', 'workAspect', 1, 2.4, 0.05),
       artHeight: slider('photos', 'artHeight', 0.5, 1.2, 0.01),
       artMaxWidth: slider('photos', 'artMaxWidth', 0.8, 1.6, 0.01),
