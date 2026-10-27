@@ -92,15 +92,6 @@
   line-height: var(--line-snug);
 }
 
-/* Two images side by side, stacking on phones. */
-.portfolio-media-pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-sm);
-  align-items: start;
-}
-.portfolio-media-pair figcaption { grid-column: 1 / -1; }
-
 /* Live site showcase: homepage captures in a browser window on wide screens and
    a phone on narrow ones, framed in the site's own surface with quiet chrome.
    case-study.js moves and resizes them; until then each sits centered, sized
@@ -450,10 +441,6 @@
   .portfolio-case-study {
     --project-details-overhang: 0.25rem;
   }
-}
-
-@media (max-width: 560px) {
-  .portfolio-media-pair { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Footer: the previous and next projects, each with its picture, between
