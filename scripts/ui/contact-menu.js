@@ -60,16 +60,12 @@ function createMenu(mount, { name, label, items, status = false }) {
   return { menu, trigger, close: () => setOpen(false) };
 }
 
-function createElsewhereMenu(mount) {
-  const email = mount.dataset.email;
-  const { menu, trigger, close } = createMenu(mount, {
-    name: 'elsewhere',
-    label: 'Elsewhere',
-    status: true,
-    items: `<a role="menuitem" class="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer">GitHub ${arrow}</a>
-      <a role="menuitem" class="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer">LinkedIn ${arrow}</a>
-      <button role="menuitem" class="elsewhere-item" type="button">Email <span class="elsewhere-copy-note"><span class="elsewhere-copy-label">Copy</span><span class="elsewhere-copy-reserve" aria-hidden="true">Copied again!</span></span></button>`,
-  });
+const elsewhereItems = () => `<a role="menuitem" class="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer">GitHub ${arrow}</a>
+  <a role="menuitem" class="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer">LinkedIn ${arrow}</a>
+  <button role="menuitem" class="elsewhere-item elsewhere-email" type="button">Email <span class="elsewhere-copy-note"><span class="elsewhere-copy-label">Copy</span><span class="elsewhere-copy-reserve" aria-hidden="true">Copied again!</span></span></button>`;
+
+// The links close the menu; Email copies the address and says so.
+function wireElsewhere({ menu, trigger, close }, email) {
   for (const link of menu.querySelectorAll('a')) link.addEventListener('click', close);
   const note = menu.querySelector('.elsewhere-copy-note');
   const label = note.querySelector('.elsewhere-copy-label');
@@ -86,7 +82,7 @@ function createElsewhereMenu(mount) {
     ], { duration: 290 });
   }
 
-  note.parentElement.addEventListener('click', async event => {
+  menu.querySelector('.elsewhere-email').addEventListener('click', async event => {
     const instant = event.detail === 0;
     try {
       try { await navigator.clipboard.writeText(email); }
@@ -109,6 +105,11 @@ function createElsewhereMenu(mount) {
       if (!instant) celebrate();
     } catch { status.textContent = email; }
   });
+}
+
+function createElsewhereMenu(mount) {
+  const parts = createMenu(mount, { name: 'elsewhere', label: 'Elsewhere', status: true, items: elsewhereItems() });
+  wireElsewhere(parts, mount.dataset.email);
 }
 
 // The disc looks the same every half turn, so it can come to rest at any multiple of 180°.
@@ -146,12 +147,9 @@ function spinDisc(button) {
   });
 }
 
-function createOtherMenu(mount) {
-  const { menu, close } = createMenu(mount, {
-    name: 'other',
-    label: 'Other Stuff',
-    items: `<button role="menuitemcheckbox" class="elsewhere-item elsewhere-ambience" type="button" aria-checked="${document.querySelector('#ambient-player')?.hasAttribute('data-open') || false}" aria-controls="ambient-player">CD player ${disc}</button>`,
-  });
+const otherItems = () => `<button role="menuitemcheckbox" class="elsewhere-item elsewhere-ambience" type="button" aria-checked="${document.querySelector('#ambient-player')?.hasAttribute('data-open') || false}" aria-controls="ambient-player">CD player ${disc}</button>`;
+
+function wireOther({ menu, close }) {
   const ambience = menu.querySelector('.elsewhere-ambience');
   spinDisc(ambience);
   document.addEventListener('site:ambience-change', event => ambience.setAttribute('aria-checked', event.detail.open));
@@ -161,5 +159,21 @@ function createOtherMenu(mount) {
   });
 }
 
-const menus = { elsewhere: createElsewhereMenu, other: createOtherMenu };
+function createOtherMenu(mount) {
+  wireOther(createMenu(mount, { name: 'other', label: 'Other Stuff', items: otherItems() }));
+}
+
+// Phones get both menus in one (header.css picks which shows).
+function createMoreMenu(mount) {
+  const parts = createMenu(mount, {
+    name: 'more',
+    label: 'More',
+    status: true,
+    items: `${elsewhereItems()}<div class="elsewhere-divider" role="separator"></div>${otherItems()}`,
+  });
+  wireElsewhere(parts, mount.dataset.email);
+  wireOther(parts);
+}
+
+const menus = { elsewhere: createElsewhereMenu, other: createOtherMenu, more: createMoreMenu };
 document.querySelectorAll('[data-site-menu]').forEach(mount => menus[mount.dataset.siteMenu](mount));
