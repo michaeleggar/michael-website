@@ -1,3 +1,3 @@
-// Page interactions that don't need React, kept apart from the menus so they start without waiting for it.
+// Page interactions: the homepage fan and the Work and Art card hover.
 import './showcase.js';
 import './work-cards.js';
