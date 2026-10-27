@@ -49,6 +49,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   transition: opacity 450ms ease-out;

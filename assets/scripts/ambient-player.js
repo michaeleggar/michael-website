@@ -281,7 +281,8 @@
       clearTimeout(hoverTimer);
       clearTimeout(minimizeTimer);
       activePointers.clear();
-      if (panel.contains(document.activeElement)) document.querySelector('[data-site-menu="other"] [aria-haspopup="menu"]')?.focus();
+      // Back to whichever menu holds the CD player at this width: Other Stuff, or More on phones.
+      if (panel.contains(document.activeElement)) [...document.querySelectorAll('[data-site-menu="other"], [data-site-menu="more"]')].map(mount => mount.querySelector('[aria-haspopup="menu"]')).find(trigger => trigger?.offsetParent)?.focus();
       panel.inert = true;
       panel.setAttribute('aria-hidden', 'true');
       panel.toggleAttribute('data-instant', instant || reduced.matches);

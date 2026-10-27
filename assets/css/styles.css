@@ -107,6 +107,8 @@
 /* Document foundation */
 
 html {
+  /* The controls have their own pressed states; iOS's grey tap box doubles them. */
+  -webkit-tap-highlight-color: transparent;
   /* Safari falls back to the root colour for its bars. */
   background: var(--background);
   scroll-padding-block-start: calc(7rem + var(--safe-top));
@@ -145,6 +147,14 @@ body {
 /* page-navigation.js focuses the new page's main so screen readers start
    there; it is a reading position, not a control, so it gets no ring. */
 main[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* After a tap or click, focus that a script moves gets no ring: Safari would
+   otherwise draw one (see input-modality.js). Keys bring the rings back. */
+:root[data-input="pointer"] :focus-visible,
+:root[data-input="pointer"] .showcase-card:focus-visible .showcase-photo,
+:root[data-input="pointer"] .cd-lcd:has(input:focus-visible) {
   outline: none;
 }
 
