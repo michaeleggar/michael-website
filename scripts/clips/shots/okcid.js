@@ -1,0 +1,73 @@
+module.exports = {
+  site: 'okcid', url: 'https://okcinnovation.com/',
+  scroll: [
+    { name: 'full', viewport: 'FULL', stops: [0, 0.194, 0.393, 0.53, 0.679, 0.833, 1] },
+    { name: 'phone', viewport: 'PHONE', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { move: 1.1, hold: 0.8 } },
+    { name: 'hall-page', viewport: 'FULL', url: 'https://okcinnovation.com/innovation-hall/', stops: [0, 0.2, 0.4, 0.6, 0.8, 1] },
+  ],
+  details: [
+    {
+      name: 'audience', pin: { text: 'People, ideas and industries', top: 120 }, seconds: 7.0,
+      pointer: [
+        [0, 0.4, 'rest:0.78,0.82', 'rest:0.78,0.82'],
+        [0.4, 1.0, 'rest:0.78,0.82', 'in:People, ideas and industries|Ideas'], [1.0, 2.4, 'in:People, ideas and industries|Ideas', 'in:People, ideas and industries|Ideas'],
+        [2.4, 2.8, 'in:People, ideas and industries|Ideas', 'in:People, ideas and industries|Industries'], [2.8, 4.2, 'in:People, ideas and industries|Industries', 'in:People, ideas and industries|Industries'],
+        [4.2, 4.8, 'in:People, ideas and industries|Industries', 'in:People, ideas and industries|People'], [4.8, 6.0, 'in:People, ideas and industries|People', 'in:People, ideas and industries|People'],
+        [6.0, 6.8, 'in:People, ideas and industries|People', 'rest:0.78,0.82'], [6.8, 7.0, 'rest:0.78,0.82', 'rest:0.78,0.82'],
+      ],
+      clicks: [1.1, 2.9, 4.9],
+    },
+    {
+      name: 'hall', pin: { text: 'Meet Innovation Hall', top: 110 }, seconds: 9.6,
+      pointer: [
+        [0, 0.4, 'rest:0.86,0.42', 'rest:0.86,0.42'],
+        [0.4, 1.0, 'rest:0.86,0.42', 'in:Meet Innovation Hall|Lounge'], [1.0, 2.2, 'in:Meet Innovation Hall|Lounge', 'in:Meet Innovation Hall|Lounge'],
+        [2.2, 2.6, 'in:Meet Innovation Hall|Lounge', 'in:Meet Innovation Hall|Elemental Coffee'], [2.6, 3.8, 'in:Meet Innovation Hall|Elemental Coffee', 'in:Meet Innovation Hall|Elemental Coffee'],
+        [3.8, 4.2, 'in:Meet Innovation Hall|Elemental Coffee', 'in:Meet Innovation Hall|Conference Rooms'], [4.2, 5.4, 'in:Meet Innovation Hall|Conference Rooms', 'in:Meet Innovation Hall|Conference Rooms'],
+        [5.4, 5.8, 'in:Meet Innovation Hall|Conference Rooms', 'in:Meet Innovation Hall|Event Rental Spaces'], [5.8, 7.0, 'in:Meet Innovation Hall|Event Rental Spaces', 'in:Meet Innovation Hall|Event Rental Spaces'],
+        [7.0, 7.8, 'in:Meet Innovation Hall|Event Rental Spaces', 'in:Meet Innovation Hall|Entrance'], [7.8, 8.8, 'in:Meet Innovation Hall|Entrance', 'in:Meet Innovation Hall|Entrance'],
+        [8.8, 9.4, 'in:Meet Innovation Hall|Entrance', 'rest:0.86,0.42'], [9.4, 9.6, 'rest:0.86,0.42', 'rest:0.86,0.42'],
+      ],
+      clicks: [1.1, 2.7, 4.3, 5.9, 7.9],
+    },
+    {
+      name: 'nav', keepHeader: true, pin: { text: 'Innovation Neighborhood', top: 400 }, seconds: 7.4,
+      pointer: [
+        [0, 0.4, 'rest:0.62,0.6', 'rest:0.62,0.6'],
+        [0.4, 1.0, 'rest:0.62,0.6', 'sel:|.okcid-header__menu-toggle@Meet OKCID'], [1.0, 2.4, 'sel:|.okcid-header__menu-toggle@Meet OKCID', 'sel:|.okcid-header__menu-toggle@Meet OKCID'],
+        [2.4, 2.8, 'sel:|.okcid-header__menu-toggle@Meet OKCID', 'sel:|.okcid-header__menu-toggle@Explore the District'], [2.8, 4.2, 'sel:|.okcid-header__menu-toggle@Explore the District', 'sel:|.okcid-header__menu-toggle@Explore the District'],
+        [4.2, 4.6, 'sel:|.okcid-header__menu-toggle@Explore the District', 'sel:|.okcid-header__menu-toggle@Engage'], [4.6, 6.2, 'sel:|.okcid-header__menu-toggle@Engage', 'sel:|.okcid-header__menu-toggle@Engage'],
+        [6.2, 7.1, 'sel:|.okcid-header__menu-toggle@Engage', 'rest:0.62,0.6'], [7.1, 7.4, 'rest:0.62,0.6', 'rest:0.62,0.6'],
+      ],
+      clicks: [1.1, 2.9, 4.7, 6.0],
+    },
+    {
+      name: 'map', url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Explore the Neighborhood', top: 110 }, seconds: 9.2,
+      pointer: [
+        [0, 0.4, 'rest:0.86,0.5', 'rest:0.86,0.5'],
+        [0.4, 1.0, 'rest:0.86,0.5', 'in:Explore the Neighborhood|Stiles Park'], [1.0, 3.2, 'in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|Stiles Park'],
+        [3.2, 3.7, 'in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|The Tower at Convergence'], [3.7, 5.9, 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|The Tower at Convergence'],
+        [5.9, 6.6, 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|Innovation Hall'], [6.6, 8.6, 'in:Explore the Neighborhood|Innovation Hall', 'in:Explore the Neighborhood|Innovation Hall'],
+        [8.6, 9.2, 'in:Explore the Neighborhood|Innovation Hall', 'rest:0.86,0.5'],
+      ],
+      clicks: [1.1, 3.8, 6.7],
+      // Fly to each place once first, so the map tiles are loaded.
+      reset: ['in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|Innovation Hall'],
+    },
+    {
+      name: 'directory', height: 1200, url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Meet More of the District', top: 90 }, seconds: 9.6,
+      reveal: ['.okcid-archive-filters__menu-toggle'], resetSel: ['.okcid-archive-filters__menu-toggle'],
+      pointer: [
+        [0, 0.4, 'rest:0.7,0.45', 'rest:0.7,0.45'],
+        [0.4, 1.0, 'rest:0.7,0.45', 'sel:|.okcid-archive-filters__menu-toggle'], [1.0, 1.4, 'sel:|.okcid-archive-filters__menu-toggle', 'sel:|.okcid-archive-filters__menu-toggle'],
+        [1.4, 1.9, 'sel:|.okcid-archive-filters__menu-toggle', 'sel:|label.okcid-archive-filters__option@Health'], [1.9, 2.3, 'sel:|label.okcid-archive-filters__option@Health', 'sel:|label.okcid-archive-filters__option@Health'],
+        [2.3, 2.8, 'sel:|label.okcid-archive-filters__option@Health', 'sel:|.okcid-archive-filters__apply'], [2.8, 4.7, 'sel:|.okcid-archive-filters__apply', 'sel:|.okcid-archive-filters__apply'],
+        [4.7, 5.3, 'sel:|.okcid-archive-filters__apply', 'sel:|.okcid-archive-filters__menu-toggle'], [5.3, 5.7, 'sel:|.okcid-archive-filters__menu-toggle', 'sel:|.okcid-archive-filters__menu-toggle'],
+        [5.7, 6.2, 'sel:|.okcid-archive-filters__menu-toggle', 'sel:|label.okcid-archive-filters__option@Health'], [6.2, 6.6, 'sel:|label.okcid-archive-filters__option@Health', 'sel:|label.okcid-archive-filters__option@Health'],
+        [6.6, 7.1, 'sel:|label.okcid-archive-filters__option@Health', 'sel:|.okcid-archive-filters__apply'], [7.1, 8.8, 'sel:|.okcid-archive-filters__apply', 'sel:|.okcid-archive-filters__apply'],
+        [8.8, 9.4, 'sel:|.okcid-archive-filters__apply', 'rest:0.7,0.45'], [9.4, 9.6, 'rest:0.7,0.45', 'rest:0.7,0.45'],
+      ],
+      clicks: [1.1, 2.0, 2.9, 5.4, 6.3, 7.2],
+    },
+  ],
+};

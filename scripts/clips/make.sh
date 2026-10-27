@@ -1,0 +1,11 @@
+#!/bin/zsh
+# Cut, encode, and poster clips: ./make.sh goldenmesa-full okcid-hall ...
+# A clip named <site>-<name> lands in assets/video/<site>/<name>.mp4.
+S=${0:A:h}; R=/Users/chadeggar/Projects/michael-website
+for clip in "$@"; do
+  site=${clip%%-*}; name=${clip#*-}
+  mkdir -p $R/assets/video/$site $R/assets/images/optimized/$site/clips
+  (cd $S && node clips.js $clip) || exit 1
+  /Applications/Blender.app/Contents/MacOS/Blender -b -P $S/encode.py -- $S/clips/$clip $R/assets/video/$site/$name.mp4 LOW 2>&1 | grep -i -E "error|Traceback" | head -2
+  (cd $R && node -e 'require("sharp")(process.argv[1]).webp({quality:80}).toFile(process.argv[2]).then(r=>console.log(process.argv[3], r.width+"x"+r.height))' $S/clips/$clip/0001.png assets/images/optimized/$site/clips/$name.webp $clip)
+done
