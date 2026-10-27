@@ -9,6 +9,8 @@
   /* Between the details, copy sections, and media. */
   --case-study-copy-gap: clamp(2.5rem, 5vw, 3.5rem);
   --project-details-overhang: 1rem;
+  /* Photos and the live site showcase share one width, a little inside the wide column. */
+  --case-study-media-width: calc(var(--wide-content-width) * 0.88);
   width: 100%;
   padding-block-start: var(--case-study-section-gap);
 }
@@ -45,8 +47,8 @@
 
 .portfolio-project-intro h1 {
   margin-block-end: 0.75rem;
-  font-size: clamp(1.75rem, 1.3rem + 1.5vw, 2.25rem);
-  font-weight: 500;
+  font-size: clamp(1.5rem, 1.15rem + 1.2vw, 1.875rem);
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: var(--line-title);
 }
@@ -67,20 +69,15 @@
 }
 
 .portfolio-wide-media {
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
   margin: var(--case-study-copy-gap) auto 0;
-}
-
-/* Media that steps only a little past the copy column. */
-.portfolio-wide-media.portfolio-snug-media {
-  width: min(calc(100% - 2 * var(--page-gutter)), calc(var(--content-width) + 8rem));
 }
 
 /* The hero follows the title. It shares the showcase's width, narrowing
    further only to fit fully within the window's height. */
 .portfolio-first-media {
   --hero-fit: min(var(--hero-max, 100vw), calc((100svh - 7rem) * var(--hero-ratio, 1.6)));
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width), var(--hero-fit));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width), var(--hero-fit));
   margin: var(--case-study-lead-gap) auto 0;
 }
 
@@ -104,36 +101,32 @@
 }
 .portfolio-media-pair figcaption { grid-column: 1 / -1; }
 
-/* Live site showcase: homepage captures in a browser window and a phone, built
-   from the CD player's parts (frosted molded shell, sage LCD, aluminum keys,
-   one orange key). case-study.js moves and resizes them; until then they sit
-   side by side (stacked in narrow columns), sized from the layout's width. */
+/* Live site showcase: homepage captures in a browser window on wide screens and
+   a phone on narrow ones, framed in the site's own surface with quiet chrome.
+   case-study.js moves and resizes them; until then each sits centered, sized
+   from the layout's width. */
 .site-showcase {
-  --shell-pad: 10px;
-  --shell-key: 26px;
-  /* Keys sit one shell inset below the edge, one 6px pitch above the screen. */
-  --shell-bar: calc(var(--shell-pad) + var(--shell-key) + 6px);
-  --phone-pad: 8px;
-  --phone-top: 22px;
-  --showcase-gap: var(--space-sm);
-  --lcd-ink: #1c2823;
-  --key-orange: #f55f2c;
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));
+  --shell-pad: 6px;
+  --shell-key: 28px;
+  --shell-bar: calc(var(--shell-key) + 2 * var(--shell-pad));
+  --phone-pad: 6px;
+  --phone-top: 20px;
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
   margin: var(--case-study-copy-gap) auto 0;
   container-type: inline-size;
 }
 
-/* Holds the devices' starting room, so moving or resizing them never shifts the page. */
+/* Holds the device's starting room, so moving or resizing it never shifts the page.
+   Like the hero, the window narrows to fit fully within the viewport's height. */
 .site-showcase-layout {
-  --desk-width: 76cqw;
+  --desk-width: min(100cqw, calc((100svh - 7rem) * 1.6));
   --desk-height: calc((var(--desk-width) - 2 * var(--shell-pad)) * 0.625 + var(--shell-bar) + var(--shell-pad));
-  --phone-width: 21cqw;
+  --phone-width: min(64cqw, 18rem);
   --phone-height: calc(var(--phone-width) * 828 / 390);
   position: relative;
   height: var(--desk-height);
 }
 
-/* The molded shell, shared with the CD player. */
 .site-showcase-window,
 .site-showcase-phone {
   position: absolute;
@@ -141,138 +134,93 @@
   display: flex;
   flex-direction: column;
   translate: var(--dx, 0px) var(--dy, 0px);
-  background: linear-gradient(165deg, #ffffff21, #ffffff08 42%, #ffffff12);
+  border-radius: var(--shell-radius);
+  corner-shape: superellipse(1.6);
+  background: var(--surface);
   box-shadow:
-    inset 0 0 0 1px #ffffff42,
-    inset 0 1px 0 1px #ffffff38,
-    inset 0 -12px 14px -12px #ffffff3d,
-    0 1px 0 #00000080,
-    0 3px 6px #00000033,
-    0 16px 32px #00000052;
-  backdrop-filter: blur(8px) saturate(1.25) brightness(1.1);
+    inset 0 0 0 1px color-mix(in oklch, var(--text-primary) 6%, transparent),
+    0 12px 28px color-mix(in oklch, var(--background) 65%, transparent);
 }
 .site-showcase-window[data-front],
 .site-showcase-phone[data-front] { z-index: 31; }
 
-/* The molded wall shows as a second line just inside the edge. */
-.site-showcase-window::before,
-.site-showcase-phone::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 1px solid #ffffff17;
-  border-radius: calc(var(--shell-radius) - 4px);
-  pointer-events: none;
-}
-
 .site-showcase-window {
-  --shell-radius: 20px;
+  --shell-radius: var(--surface-radius);
   inset-block-start: 0;
-  inset-inline-start: 0;
+  inset-inline-start: calc((100cqw - var(--desk-width)) / 2);
   width: var(--desk-width);
   height: var(--desk-height);
   padding: 0 var(--shell-pad) var(--shell-pad);
-  border-radius: var(--shell-radius);
 }
 
 /* Anchored top-left like the window, so resizing grows from the corner. */
 .site-showcase-phone {
-  --shell-radius: 32px;
-  inset-block-start: calc(var(--desk-height) - var(--phone-height));
-  inset-inline-start: calc(100cqw - var(--phone-width));
+  --shell-radius: 28px;
+  display: none;
+  inset-block-start: 0;
+  inset-inline-start: calc((100cqw - var(--phone-width)) / 2);
   width: var(--phone-width);
   aspect-ratio: 390 / 828;
   padding: 0 var(--phone-pad) var(--phone-pad);
-  border-radius: var(--shell-radius);
 }
 
-/* Narrow columns show the phone alone; the desktop capture would be too small to read. */
+/* Narrow columns show the phone instead; the desktop capture would be too small to read. */
 @container (max-width: 40rem) {
-  .site-showcase-layout {
-    --phone-width: min(64cqw, 18rem);
-    height: var(--phone-height);
-  }
+  .site-showcase-layout { height: var(--phone-height); }
   .site-showcase-window { display: none; }
-  .site-showcase-phone {
-    inset-block-start: 0;
-    inset-inline-start: calc((100cqw - var(--phone-width)) / 2);
-  }
+  .site-showcase-phone { display: flex; }
 }
 
-/* Top bar: grip dots, the LCD, and two keys on a 6px pitch. */
+/* Top bar: window dots, the address, and two quiet keys. */
 .site-showcase-bar {
   position: relative;
   display: flex;
   flex: none;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   height: var(--shell-bar);
-  padding: var(--shell-pad) 0 6px;
+  padding-inline: 4px 0;
 }
 
 /* The handle fills the top bar beneath its controls. */
 .site-showcase-handle {
   position: absolute;
   inset: 0 calc(-1 * var(--shell-pad));
-  border-radius: calc(var(--shell-radius) - 6px);
+  border-start-start-radius: var(--shell-radius);
+  border-start-end-radius: var(--shell-radius);
   cursor: grab;
   touch-action: none;
 }
-.site-showcase-handle:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+.site-showcase-handle:focus-visible { outline: 2px solid var(--text-secondary); outline-offset: -2px; }
 .site-showcase[data-dragging],
 .site-showcase[data-dragging] .site-showcase-handle { cursor: grabbing; }
 
 .site-showcase-dots {
   position: relative;
   flex: none;
-  width: 11px;
-  height: 16px;
-  margin-inline: 4px 2px;
-  background: radial-gradient(circle, #ffffff6b 1.1px, transparent 1.6px) 0 0 / 5.5px 5.5px;
+  width: 34px;
+  height: 8px;
+  margin-inline-end: 8px;
+  background: radial-gradient(circle, color-mix(in oklch, var(--text-primary) 18%, transparent) 3.5px, transparent 4px) 0 0 / 12px 8px repeat-x;
   pointer-events: none;
 }
 
-.site-showcase-lcd {
+.site-showcase-url {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-  height: var(--shell-key);
-  padding-inline: 9px;
-  border-radius: 7px;
-  background: linear-gradient(170deg, #c9d0c4, #b3bdb0);
-  box-shadow: inset 0 1px 2px #00000073, inset 0 0 0 1px #0d14114d, 0 1px 0 #ffffff38;
-  color: var(--lcd-ink);
-  pointer-events: none;
-}
-
-.site-showcase-lcd-url {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-size: var(--type-meta);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
   white-space: nowrap;
   text-overflow: ellipsis;
-  /* All caps: trim the line box to the capitals so they center in the LCD. */
-  line-height: 1;
-  text-box: trim-both cap alphabetic;
+  pointer-events: none;
 }
 
-/* A segmented level, like the CD player's volume, filled to how far the screen has scrolled. */
-.site-showcase-level {
-  --level: 0%;
-  flex: none;
-  width: 52px;
-  height: 3px;
-  background: linear-gradient(to right, currentColor var(--level), #1c282321 var(--level));
-  mask-image: repeating-linear-gradient(to right, #000 0 4px, transparent 4px 6px);
-}
-
+/* Keys read like the navigation pills: bare until hovered. */
 .site-showcase-key {
   position: relative;
   flex: none;
@@ -282,38 +230,30 @@
   height: var(--shell-key);
   padding: 0;
   border: 0;
-  border-radius: 7px;
-  background: linear-gradient(#eceff1, #cdd3d8);
-  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #8f9aa3, 0 0 0 1px #0b100f8c, 0 2px 2px #00000059;
-  color: #1d2528;
+  border-radius: calc(var(--control-radius) - 2px);
+  corner-shape: superellipse(1.6);
+  background: transparent;
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: transform 90ms ease, box-shadow 90ms ease;
+  transition: background-color 140ms ease, color 140ms ease, opacity 140ms ease, visibility 140ms;
 }
-.site-showcase-key svg { width: 12px; height: 12px; }
+.site-showcase-key svg { width: 14px; height: 14px; }
 .site-showcase-key[data-showcase-reset] svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.site-showcase-key-go { background: linear-gradient(#ff7440, #ee5320); box-shadow: inset 0 1px 0 #ffb08a, inset 0 -1px 0 #b53c14, 0 0 0 1px #2a0f068c, 0 2px 2px #00000059; color: #1d2528; }
-.site-showcase-key:hover { color: #1d2528; filter: brightness(1.04); }
-.site-showcase-key:active { transform: translateY(1px); box-shadow: inset 0 1px 0 #ffffffb3, 0 0 0 1px #0b100f8c, 0 1px 1px #00000059; }
-.site-showcase-key:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.site-showcase-key:hover { background: color-mix(in oklch, var(--text-primary) 6%, transparent); color: var(--text-primary); }
+.site-showcase-key:focus-visible { outline: 2px solid var(--text-primary); outline-offset: -2px; }
 
-/* Screens sit recessed in the shell, like the CD player's display. */
+/* Putting it back only matters once it has been moved or resized. */
+.site-showcase-window:not([data-moved]) [data-showcase-reset] { visibility: hidden; opacity: 0; }
+
 .site-showcase-screen {
   position: relative;
   flex: 1;
   min-height: 0;
   display: flex;
-  border-radius: 8px;
-  background: #0b100f;
-  box-shadow: 0 0 0 1px #0d14118c, 0 1px 0 #ffffff26;
+  border-radius: calc(var(--shell-radius) - var(--shell-pad));
+  corner-shape: superellipse(1.6);
+  background: var(--background);
   overflow: hidden;
-}
-.site-showcase-screen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 1px 3px #00000080;
-  pointer-events: none;
 }
 
 .site-showcase-viewport {
@@ -324,39 +264,29 @@
   scrollbar-width: none;
   background: white;
 }
-.site-showcase-viewport:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.site-showcase-viewport:focus-visible { outline: 2px solid var(--text-secondary); outline-offset: -2px; }
 .site-showcase-viewport img { display: block; width: 100%; height: auto; }
 
-/* Phone: a speaker slot that doubles as the level, and an orange status light. */
+/* Phone: the handle and a speaker slot above the screen. */
 .site-showcase-phone-top {
   position: relative;
   display: flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   height: var(--phone-top);
 }
-.site-showcase-phone .site-showcase-level {
+.site-showcase-speaker {
   position: relative;
-  width: 34%;
+  width: 28%;
   height: 4px;
-  color: #c9d0c4;
-  background: linear-gradient(to right, currentColor var(--level), #ffffff26 var(--level));
+  border-radius: 2px;
+  background: color-mix(in oklch, var(--text-primary) 14%, transparent);
   pointer-events: none;
 }
-.site-showcase-led {
-  position: relative;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--key-orange);
-  box-shadow: 0 0 6px #f55f2c99;
-  pointer-events: none;
-}
-.site-showcase-phone .site-showcase-screen { border-radius: 24px; }
+.site-showcase-phone .site-showcase-screen { border-radius: calc(var(--shell-radius) - var(--phone-pad)); }
 
-/* Resize from the bottom-right corner: a printed corner mark on the shell. */
+/* Resize from the bottom-right corner, marked on hover. */
 .site-showcase-grip {
   position: absolute;
   inset-block-end: 0;
@@ -370,21 +300,21 @@
 .site-showcase-grip::after {
   content: "";
   position: absolute;
-  inset-block-end: 3px;
-  inset-inline-end: 3px;
+  inset-block-end: 1px;
+  inset-inline-end: 1px;
   width: 9px;
   height: 9px;
-  border-block-end: 2px solid #ffffff6b;
-  border-inline-end: 2px solid #ffffff6b;
+  border-block-end: 2px solid var(--text-muted);
+  border-inline-end: 2px solid var(--text-muted);
   border-end-end-radius: 6px;
   opacity: 0;
   transition: opacity 140ms ease;
 }
-.site-showcase-phone .site-showcase-grip::after { inset-block-end: 6px; inset-inline-end: 6px; border-end-end-radius: 10px; }
+.site-showcase-phone .site-showcase-grip::after { inset-block-end: 3px; inset-inline-end: 3px; border-end-end-radius: 12px; }
 :is(.site-showcase-window, .site-showcase-phone):hover .site-showcase-grip::after,
 .site-showcase-grip:focus-visible::after,
 .site-showcase[data-dragging] .site-showcase-grip::after { opacity: 1; }
-.site-showcase-grip:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.site-showcase-grip:focus-visible { outline: 2px solid var(--text-secondary); outline-offset: -2px; }
 
 @media (hover: none) {
   .site-showcase-grip::after { opacity: 1; }

@@ -1,6 +1,5 @@
 // Live site showcases: a browser window and a phone that can be dragged anywhere
 // on the page by their top bars and resized from their bottom-right corners.
-// Each device's level fills as its screen scrolls.
 // Positions are tracked in page coordinates, so dragging keeps working while the
 // page scrolls, and dragging near the top or bottom of the window scrolls it.
 
@@ -37,6 +36,7 @@ function setUp(showcase) {
     device.style.setProperty('--dy', `${y}px`);
     device.style.width = width ? `${width}px` : '';
     device.style.height = width && !keepsAspect(device) ? `${height}px` : '';
+    device.toggleAttribute('data-moved', Boolean(x || y || width));
   }
 
   // Keeps the device on the page: fully inside it sideways, and between the
@@ -106,15 +106,10 @@ function setUp(showcase) {
   for (const device of devices) {
     const handle = device.querySelector('[data-drag-handle]');
     const grip = device.querySelector('[data-resize-handle]');
-    const viewport = device.querySelector('.site-showcase-viewport');
-    const level = device.querySelector('.site-showcase-level');
     const resetKey = device.querySelector('[data-showcase-reset]');
 
-    on(viewport, 'scroll', () => {
-      const travel = viewport.scrollHeight - viewport.clientHeight;
-      level.style.setProperty('--level', `${travel > 0 ? (viewport.scrollTop / travel) * 100 : 0}%`);
-    }, { passive: true });
-    if (resetKey) on(resetKey, 'click', () => reset(device));
+    // The key hides once the window is back, so hand focus to the handle.
+    if (resetKey) on(resetKey, 'click', () => { reset(device); handle.focus(); });
 
     on(device, 'pointerdown', () => bringToFront(device));
     on(device, 'focusin', () => bringToFront(device));

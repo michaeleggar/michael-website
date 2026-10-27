@@ -1,10 +1,10 @@
 {#- The project's hero mockup, set in the copy when the showcase leads the page.
     Expects `heroImage` in page data. -#}
-<figure class="portfolio-wide-media portfolio-snug-media">
+<figure class="portfolio-wide-media">
   <img
     src="{{ heroImage.image }}-large.webp"
     srcset="{{ heroImage.image }}-thumb.webp 600w, {{ heroImage.image }}-large.webp {{ heroImage.width }}w"
-    sizes="(min-width: 720px) 680px, 100vw"
+    sizes="(min-width: 1000px) 920px, 100vw"
     width="{{ heroImage.width }}"
     height="{{ heroImage.height }}"
     alt="{{ heroImage.alt }}"
