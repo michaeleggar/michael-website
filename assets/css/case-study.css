@@ -1,5 +1,5 @@
 /* Case-study pages: a recording of the site with the title and project
-   details under it, a serif lede, a paragraph or two, recorded clips of
+   details under it, a large lede, a paragraph or two, recorded clips of
    the site, pictures and galleries, the framed chat demo, and the project
    links at the end. */
 
@@ -65,7 +65,7 @@
   margin-inline: auto;
 }
 
-/* The name, in the sans. */
+/* The name. */
 .case-hero h1 {
   max-width: 14em;
   margin: 0;
@@ -174,7 +174,7 @@
   corner-shape: superellipse(1.6);
   background: color-mix(in oklch, var(--text-primary) 6%, transparent);
   color: var(--text-primary);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.4;
@@ -195,8 +195,7 @@
 .project-credit-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .project-credit-role { color: var(--text-secondary); }
 
-/* The lede: the deck in the serif, large; the serif is the page's voice, for
-   the lede and the copy, while the name and headings stay in the sans. */
+/* The lede: the deck, large. */
 .case-lede {
   margin-block: clamp(2.5rem, 6vw, 4rem) 0;
   color: var(--text-primary);
@@ -223,14 +222,12 @@
   text-wrap: balance;
 }
 
-/* Copy is set in the serif, the page's reading voice; names, headings, and
-   labels stay in the sans. */
 .case-copy p, .portfolio-project-copy p {
   max-width: 65ch;
   margin: 0;
   color: var(--text-secondary);
   font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   line-height: 1.6;
 }
 .case-copy p + p, .portfolio-project-copy p + p { margin-block-start: var(--paragraph-gap); }

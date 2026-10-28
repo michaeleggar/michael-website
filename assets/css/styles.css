@@ -20,6 +20,27 @@
   font-display: block;
 }
 
+/* Rethink Sans's capital W has crossed middle strokes, and the font has no
+   alternate; Archivo's W stands in (OFL, assets/fonts/Archivo-OFL.txt). Each
+   file holds only the W. Declared after the faces above, so it wins for W. */
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/assets/fonts/Archivo-W.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: block;
+  unicode-range: U+0057;
+}
+
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/assets/fonts/Archivo-W-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: block;
+  unicode-range: U+0057;
+}
+
 /* Theme and design tokens */
 
 :root {
