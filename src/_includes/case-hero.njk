@@ -1,55 +1,11 @@
-{#- The hero: runs to the top of the page beneath the site header, with the
-    project links, the title, and the project details (agency and year, role,
-    tools, contributors) set under it. `heroClip` names one of the page's
-    `recordings` to lead as the screen, playing; `heroFrames` (a list of images)
-    adds dots that switch between pictures; `heroImage` leads alone; with none,
-    the hero is type alone.
+{#- The hero: the project's name and its details (agency and year, role,
+    tools, contributors, the live site) set as a masthead, then a recording of
+    the site. `heroClip` names one of the page's `recordings` to lead, playing;
+    with none, the hero is the masthead alone.
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
 {% set screen = recordings[heroClip] if heroClip and recordings else null %}
-{% set frames = [] if screen else (heroFrames or ([heroImage] if heroImage else [])) %}
-<header class="case-hero" data-case-hero{% if screen %} data-screen{% elif frames.length %} data-photo{% else %} data-plain{% endif %}>
-  {% if frames.length %}
-  <div class="case-hero-frames" style="--hero-focus: {{ heroFocus or 'center' }};">
-    {% for frame in frames %}
-      <img
-        src="{{ frame.image }}-large.webp"
-        srcset="{{ frame.image }}-thumb.webp 600w, {{ frame.image }}-large.webp {{ frame.width }}w"
-        sizes="100vw"
-        width="{{ frame.width }}"
-        height="{{ frame.height }}"
-        alt="{{ frame.alt }}"
-        loading="{{ 'eager' if loop.first else 'lazy' }}"
-        {% if loop.first %}fetchpriority="high" data-active{% endif %}
-        decoding="async"
-      />
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  {% include "work-project-nav.njk" %}
-
-  {% if screen %}
-  {#- Plays like the other clips (case-study.js); its first frame, blurred, is the light around it. -#}
-  <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }}; --screen-light: url('{{ screen.poster }}');">
-    <video muted loop playsinline preload="metadata" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
-      <source src="{{ screen.video }}" type="video/mp4" />
-    </video>
-  </figure>
-  {% endif %}
-
-  <div class="case-hero-body">
-    {% if frames.length > 1 or heroCaption %}
-    <div class="case-hero-aside">
-      {% if heroCaption %}<p>{{ heroCaption }}</p>{% endif %}
-      {% if frames.length > 1 %}
-      <div class="case-hero-dots" role="group" aria-label="Hero pictures">
-        {% for frame in frames %}
-          <button type="button" class="case-hero-dot" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-label="{{ frame.alt }}" data-hero-frame="{{ loop.index0 }}"></button>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-    {% endif %}
+<header class="case-hero" data-case-hero{% if screen %} data-screen{% endif %}>
+  <div class="case-hero-masthead">
     <h1>
       {% if heroTitle %}
         {% for line in heroTitle %}<span class="case-title-line">{{ line }}</span>{% endfor %}
@@ -64,16 +20,14 @@
       <div><dt>Year</dt><dd class="project-details-year-standalone">{{ year }}</dd></div>
       {% endif %}
       {% for group in projectDetails %}
-        {% if group.label != "Link" or not liveSiteUrl %}
         <div>
           <dt>{{ group.label }}</dt>
           <dd>
             {% for item in group.items %}
-              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
+              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer"{% if group.label == "Link" %} class="project-details-live"{% endif %}>{{ item.label }}{% if group.label == "Link" %}{% include "icons/arrow-up-right-solid-micro.svg" %}{% endif %}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
             {% endfor %}
           </dd>
         </div>
-        {% endif %}
       {% endfor %}
       {% if contributors and contributors.length %}
       <div>
@@ -89,4 +43,13 @@
       {% endif %}
     </dl>
   </div>
+
+  {% if screen %}
+  {#- Plays like the other clips (case-study.js). -#}
+  <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }};">
+    <video muted loop playsinline preload="auto" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
+      <source src="{{ screen.video }}" type="video/mp4" />
+    </video>
+  </figure>
+  {% endif %}
 </header>

@@ -15,12 +15,12 @@ contributors:
   - name: Jared Patterson
     role: Brand Manager
 cardImage:
-  image: /assets/images/optimized/okcid/okcid-mockup
+  image: /assets/images/optimized/okcid/okcid-phones
   thumbnailWidth: 600
-  width: 1600
-  height: 1000
-socialImage: /assets/images/optimized/okcid/okcid-mockup-social.jpg
-cardImageAlt: "The OKC Innovation District homepage on a laptop and a phone"
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/okcid/okcid-phones-social.jpg
+cardImageAlt: "Three phones showing the OKC Innovation District homepage, its neighborhood map, and the Innovation Hall page"
 heroClip: full
 deck: >-
   A website for the organization behind Oklahoma City’s innovation district, explaining 1.3 square miles of hospitals, labs, and startups to residents, researchers, and founders, and getting them into the building at its center.
@@ -49,6 +49,12 @@ recordings:
     width: 524
     height: 982
     label: "The OKC Innovation District homepage on a phone, scrolling through its sections"
+  phone-hall:
+    video: /assets/video/okcid/phone-hall.mp4
+    poster: /assets/images/optimized/okcid/clips/phone-hall.webp
+    width: 524
+    height: 982
+    label: "The Innovation Hall page on a phone, scrolling from its hours through the spaces for rent"
   audience:
     video: /assets/video/okcid/audience.mp4
     poster: /assets/images/optimized/okcid/clips/audience.webp
@@ -77,8 +83,14 @@ recordings:
     video: /assets/video/okcid/map.mp4
     poster: /assets/images/optimized/okcid/clips/map.webp
     width: 2268
-    height: 1242
+    height: 1432
     label: "The district map flying between Stiles Park, the Tower at Convergence, and Innovation Hall"
+  programs:
+    video: /assets/video/okcid/programs.mp4
+    poster: /assets/images/optimized/okcid/clips/programs.webp
+    width: 2268
+    height: 1190
+    label: "The Signature Programs tabs switching between Aerospace Week, Bio Week, Innovation Week, and the Innovators Awards Breakfast"
   directory:
     video: /assets/video/okcid/directory.mp4
     poster: /assets/images/optimized/okcid/clips/directory.webp
@@ -108,8 +120,11 @@ recordings:
 {{ clipRow([recordings.phone]) }}
 {{ clip(recordings.nav) }}
 {{ clip(recordings.audience) }}
-{{ clip(recordings.hall) }}
-{{ clip(recordings["hall-page"]) }}
 {{ clip(recordings.map) }}
 {{ clip(recordings.directory) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-stats", width: 1600, height: 797, alt: "Growing the industries moving Oklahoma City forward: four dark tiles of figures about the district beside a photograph of a researcher at a microscope" }) }}
+{{ clip(recordings.hall) }}
+{{ clip(recordings["hall-page"]) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-campus", width: 1600, height: 817, alt: "The Convergence OKC Campus: cards for Innovation Hall, Stiles Park, and the Tower at Convergence, each tinted and with a photograph" }) }}
+{{ clip(recordings.programs) }}
 {{ picture({ image: "/assets/images/optimized/okcid/okcid-events", width: 1600, height: 854, alt: "Three upcoming event cards, each with a photograph, a date, and Innovation Hall as the place" }) }}

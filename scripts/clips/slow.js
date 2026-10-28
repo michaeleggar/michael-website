@@ -20,7 +20,8 @@ const only = process.argv[3];
     const dir = path.join(__dirname, 'frames', `${cfg.site}-${shot.name}`);
     fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
     const page = await open(browser, shot.url || cfg.url, viewport, { css: cfg.css, slow });
-    const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+    // Stop short of the last pixels, where a fractional page height can show a sliver of the root background.
+    const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight - 2);
     const track = stopsTrack(shot.stops, max, shot.timing);
     const client = await page.createCDPSession();
     await client.send('Animation.enable');

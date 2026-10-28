@@ -1,8 +1,9 @@
 module.exports = {
   site: 'okcid', url: 'https://okcinnovation.com/',
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.194, 0.393, 0.53, 0.679, 0.833, 1] },
-    { name: 'phone', viewport: 'PHONE', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { move: 1.1, hold: 0.8 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.194, 0.393, 0.53, 0.679, 0.833, 1], timing: { lead: 2.8 } },
+    { name: 'phone', viewport: 'PHONE', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
+    { name: 'phone-hall', viewport: 'PHONE', url: 'https://okcinnovation.com/innovation-hall/', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
     { name: 'hall-page', viewport: 'FULL', url: 'https://okcinnovation.com/innovation-hall/', stops: [0, 0.2, 0.4, 0.6, 0.8, 1] },
   ],
   details: [
@@ -42,7 +43,7 @@ module.exports = {
       clicks: [1.1, 2.9, 4.7, 6.0],
     },
     {
-      name: 'map', url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Explore the Neighborhood', top: 110 }, seconds: 9.2,
+      name: 'map', height: 1040, url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Explore the Neighborhood', top: 110 }, seconds: 9.2,
       pointer: [
         [0, 0.4, 'rest:0.86,0.5', 'rest:0.86,0.5'],
         [0.4, 1.0, 'rest:0.86,0.5', 'in:Explore the Neighborhood|Stiles Park'], [1.0, 3.2, 'in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|Stiles Park'],
@@ -68,6 +69,23 @@ module.exports = {
         [8.8, 9.4, 'sel:|.okcid-archive-filters__apply', 'rest:0.7,0.45'], [9.4, 9.6, 'rest:0.7,0.45', 'rest:0.7,0.45'],
       ],
       clicks: [1.1, 2.0, 2.9, 5.4, 6.3, 7.2],
+    },
+    {
+      name: 'programs', url: 'https://okcinnovation.com/about/', pin: { text: 'signature annual programs', top: 200 }, seconds: 10.0,
+      pointer: [
+        [0, 0.4, 'rest:0.8,0.82', 'rest:0.8,0.82'],
+        [0.4, 1.0, 'rest:0.8,0.82', 'sel:|button.okcid-tabs-info__tab@Bio Week'],
+        [1.0, 2.6, 'sel:|button.okcid-tabs-info__tab@Bio Week', 'sel:|button.okcid-tabs-info__tab@Bio Week'],
+        [2.6, 3.1, 'sel:|button.okcid-tabs-info__tab@Bio Week', 'sel:|button.okcid-tabs-info__tab@Innovation Week'],
+        [3.1, 4.7, 'sel:|button.okcid-tabs-info__tab@Innovation Week', 'sel:|button.okcid-tabs-info__tab@Innovation Week'],
+        [4.7, 5.2, 'sel:|button.okcid-tabs-info__tab@Innovation Week', 'sel:|button.okcid-tabs-info__tab@Innovator Awards Breakfast'],
+        [5.2, 6.8, 'sel:|button.okcid-tabs-info__tab@Innovator Awards Breakfast', 'sel:|button.okcid-tabs-info__tab@Innovator Awards Breakfast'],
+        [6.8, 7.3, 'sel:|button.okcid-tabs-info__tab@Innovator Awards Breakfast', 'sel:|button.okcid-tabs-info__tab@Aerospace Week'],
+        [7.3, 8.9, 'sel:|button.okcid-tabs-info__tab@Aerospace Week', 'sel:|button.okcid-tabs-info__tab@Aerospace Week'],
+        [8.9, 9.7, 'sel:|button.okcid-tabs-info__tab@Aerospace Week', 'rest:0.8,0.82'],
+        [9.7, 10.0, 'rest:0.8,0.82', 'rest:0.8,0.82'],
+      ],
+      clicks: [1.1, 3.2, 5.3, 7.4],
     },
   ],
 };

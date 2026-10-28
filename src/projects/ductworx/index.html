@@ -58,6 +58,12 @@ recordings:
     width: 524
     height: 982
     label: "The DuctWorx homepage on a phone, scrolling through its sections"
+  phone-menu:
+    video: /assets/video/ductworx/phone-menu.mp4
+    poster: /assets/images/optimized/ductworx/clips/phone-menu.webp
+    width: 524
+    height: 982
+    label: "The DuctWorx menu on a phone, opening over the homepage and closing again"
   grid:
     video: /assets/video/ductworx/grid.mp4
     poster: /assets/images/optimized/ductworx/clips/grid.webp
@@ -84,7 +90,7 @@ recordings:
   </p>
 </div>
 
-{{ clipRow([recordings["phone-home"]]) }}
+{{ clipRow([recordings["phone-home"], recordings["phone-menu"]], true) }}
 {{ clip(recordings.nav) }}
 {{ clip(recordings.grid) }}
 {{ clip(recordings.tabs) }}

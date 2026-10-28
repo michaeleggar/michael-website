@@ -1,8 +1,9 @@
 module.exports = {
   site: 'goldenmesa', url: 'https://goldenmesa.com/', slow: 16,
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.203, 0.397, 0.578, 0.763, 1] },
-    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { move: 1.1, hold: 0.8 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.203, 0.397, 0.578, 0.763, 1], timing: { lead: 2.8 } },
+    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
+    { name: 'phone-promos', viewport: 'PHONE', url: 'https://goldenmesa.com/promotions/', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
   ],
   details: [
     {
@@ -27,6 +28,38 @@ module.exports = {
       clicks: [1.1, 2.9, 4.7, 6.0],
       // Open each menu once first, so its photographs are loaded before recording.
       reset: ['in:Players Club|Play', 'in:Players Club|Eat', 'in:Players Club|Stay', 'in:Players Club|Stay'],
+    },
+    {
+      name: 'filter', url: 'https://goldenmesa.com/promotions/', height: 1100, pin: { text: 'Category', top: 110 }, seconds: 8.4,
+      pointer: [
+        [0, 0.4, 'rest:0.58,0.6', 'rest:0.58,0.6'],
+        [0.4, 1.0, 'rest:0.58,0.6', 'sel:|.gm-promotions-filter__type-control@Event'], [1.0, 2.8, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Event'],
+        [2.8, 3.2, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Event'],
+        [3.2, 3.8, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Promotion'], [3.8, 6.6, 'sel:|.gm-promotions-filter__type-control@Promotion', 'sel:|.gm-promotions-filter__type-control@Promotion'],
+        [6.6, 7.6, 'sel:|.gm-promotions-filter__type-control@Promotion', 'rest:0.58,0.6'], [7.6, 8.4, 'rest:0.58,0.6', 'rest:0.58,0.6'],
+      ],
+      clicks: [1.1, 2.9, 3.9, 5.7],
+    },
+    {
+      name: 'rooms', url: 'https://goldenmesa.com/hotel/', height: 1000, pin: { text: 'Double Queen Room', top: 560 }, seconds: 9.7,
+      pointer: [
+        [0, 0.4, 'rest:0.5,0.9', 'rest:0.5,0.9'],
+        [0.4, 1.0, 'rest:0.5,0.9', 'sel:Double Queen Room|.gm-room-gallery__arrow--next'],
+        [1.0, 1.8, 'sel:Double Queen Room|.gm-room-gallery__arrow--next', 'sel:Double Queen Room|.gm-room-gallery__arrow--next'],
+        [1.8, 2.2, 'sel:Double Queen Room|.gm-room-gallery__arrow--next', 'sel:Standard King Room|.gm-room-gallery__arrow--next'],
+        [2.2, 3.0, 'sel:Standard King Room|.gm-room-gallery__arrow--next', 'sel:Standard King Room|.gm-room-gallery__arrow--next'],
+        [3.0, 3.5, 'sel:Standard King Room|.gm-room-gallery__arrow--next', 'sel:King Deluxe Room|.gm-room-gallery__arrow--next'],
+        [3.5, 4.3, 'sel:King Deluxe Room|.gm-room-gallery__arrow--next', 'sel:King Deluxe Room|.gm-room-gallery__arrow--next'],
+        [4.3, 5.2, 'sel:King Deluxe Room|.gm-room-gallery__arrow--next', 'sel:Double Queen Room|.gm-room-gallery__arrow--prev'],
+        [5.2, 6.0, 'sel:Double Queen Room|.gm-room-gallery__arrow--prev', 'sel:Double Queen Room|.gm-room-gallery__arrow--prev'],
+        [6.0, 6.5, 'sel:Double Queen Room|.gm-room-gallery__arrow--prev', 'sel:Standard King Room|.gm-room-gallery__arrow--prev'],
+        [6.5, 7.2, 'sel:Standard King Room|.gm-room-gallery__arrow--prev', 'sel:Standard King Room|.gm-room-gallery__arrow--prev'],
+        [7.2, 7.7, 'sel:Standard King Room|.gm-room-gallery__arrow--prev', 'sel:King Deluxe Room|.gm-room-gallery__arrow--prev'],
+        [7.7, 8.5, 'sel:King Deluxe Room|.gm-room-gallery__arrow--prev', 'sel:King Deluxe Room|.gm-room-gallery__arrow--prev'],
+        [8.5, 9.3, 'sel:King Deluxe Room|.gm-room-gallery__arrow--prev', 'rest:0.5,0.9'],
+        [9.3, 9.7, 'rest:0.5,0.9', 'rest:0.5,0.9'],
+      ],
+      clicks: [1.1, 2.4, 3.6, 5.3, 6.5, 7.8],
     },
   ],
 };

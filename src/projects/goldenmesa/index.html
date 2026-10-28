@@ -15,12 +15,12 @@ contributors:
   - name: Jared Patterson
     role: Brand Manager
 cardImage:
-  image: /assets/images/optimized/goldenmesa/goldenmesa-mockup
+  image: /assets/images/optimized/goldenmesa/goldenmesa-tablet
   thumbnailWidth: 600
-  width: 1600
-  height: 1000
-socialImage: /assets/images/optimized/goldenmesa/goldenmesa-mockup-social.jpg
-cardImageAlt: "The Golden Mesa Casino & Hotel homepage on a laptop and a phone"
+  width: 1500
+  height: 944
+socialImage: /assets/images/optimized/goldenmesa/goldenmesa-tablet-social.jpg
+cardImageAlt: "The Golden Mesa homepage, its sign lit at sunset, on a tablet in a living room"
 heroClip: full
 deck: >-
   A website for a casino, hotel, and RV park in the Oklahoma panhandle, built to sell a weekend to people four hours away and keep up with promotions that change every week.
@@ -55,12 +55,24 @@ recordings:
     width: 2268
     height: 1210
     label: "The promotions carousel stepping forward two cards and back"
+  phone-promos:
+    video: /assets/video/goldenmesa/phone-promos.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/phone-promos.webp
+    width: 524
+    height: 982
+    label: "The Golden Mesa promotions page on a phone, scrolling from today’s promotion through the list"
   menu:
     video: /assets/video/goldenmesa/menu.mp4
     poster: /assets/images/optimized/goldenmesa/clips/menu.webp
     width: 2268
-    height: 1160
-    label: "The Play, Eat, and Stay menus opening in turn, each with photographs of what’s inside"
+    height: 1388
+    label: "The Play, Eat, and Stay menus opening in turn over the homepage, each with photographs of what’s inside"
+  rooms:
+    video: /assets/video/goldenmesa/rooms.mp4
+    poster: /assets/images/optimized/goldenmesa/clips/rooms.webp
+    width: 2268
+    height: 1230
+    label: "The hotel’s room cards, each stepping through its own photographs and back"
 ---
 {% from "case-figures.njk" import clip, clipRow, picture %}
 
@@ -75,7 +87,9 @@ recordings:
 </div>
 
 {{ clipRow([recordings.phone]) }}
-{{ clip(recordings.promos) }}
 {{ clip(recordings.menu) }}
+{{ clip(recordings.promos) }}
+{{ clip(recordings.rooms) }}
 {{ picture({ image: "/assets/images/optimized/goldenmesa/goldenmesa-dining", width: 1600, height: 431, alt: "The Eat and drink band: an italic serif headline beside a photograph of a plated steak" }) }}
+{{ picture({ image: "/assets/images/optimized/goldenmesa/goldenmesa-rv-park", width: 1600, height: 786, alt: "The RV Park amenities: an italic headline, the amenities in gold, and a carousel of the dog park and the laundry" }) }}
 {{ picture({ image: "/assets/images/optimized/goldenmesa/goldenmesa-explore", width: 1600, height: 600, alt: "The Explore cards for the restaurant, the gift shop, and the RV park" }) }}

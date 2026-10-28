@@ -26,11 +26,20 @@ const only = process.argv[3];
       }
     });
     // Bring the detail into view: the block holding `pin.text` at `pin.top`.
-    await page.evaluate(({ text, top }) => {
+    const target = await page.evaluate(({ text, top }) => {
       const leaf = [...document.querySelectorAll('body *')].filter(n => n.textContent.toLowerCase().includes(text.toLowerCase()) && n.getBoundingClientRect().height > 0).sort((a, b) => a.textContent.length - b.textContent.length)[0];
-      window.scrollTo(0, leaf.getBoundingClientRect().top + scrollY - top);
+      const y = Math.round(leaf.getBoundingClientRect().top + scrollY - top);
+      window.scrollTo(0, y);
+      return y;
     }, shot.pin);
     await new Promise(r => setTimeout(r, 1200));
+    // Some sites run a smooth-scroll script that undoes scrollTo but follows the wheel.
+    for (let tries = 0; tries < 6; tries++) {
+      const off = target - await page.evaluate(() => scrollY);
+      if (Math.abs(off) < 2) break;
+      await page.mouse.wheel({ deltaY: off });
+      await new Promise(r => setTimeout(r, 1500));
+    }
     // Open anything whose contents the pointer will need, before measuring.
     for (const css of shot.reveal || []) { await page.click(css); await new Promise(r => setTimeout(r, 900)); }
     const points = {};

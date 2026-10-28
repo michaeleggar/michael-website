@@ -34,7 +34,7 @@ function stopsTrack(stops, max, { lead = 0.8, move = 1.3, hold = 1.1 } = {}) {
 
 // Things that sit over a page and aren't part of the design: cookie banners,
 // popups, chat and accessibility widgets, the reCAPTCHA badge.
-const JUNK = /cky|cookie|consent|gdpr|accessib|userway|uwy|equalweb|dialog|popup|modal|chat|intercom|grecaptcha/i;
+const JUNK = /\bcky-|cookie|consent|gdpr|accessib|userway|uwy|equalweb|dialog|popup|modal|chat|intercom|grecaptcha/i;
 async function tidy(page, extraCss = '') {
   await page.addStyleTag({ content: `html { scroll-behavior: auto !important; } .grecaptcha-badge, .cky-consent-container, .cky-modal, .cky-overlay, .cky-btn-revisit-wrapper, .elementor-popup-modal, .dialog-widget, access-widget-ui { display: none !important; } ${extraCss}` });
   await page.evaluate(junk => {

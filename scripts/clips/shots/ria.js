@@ -1,8 +1,9 @@
 module.exports = {
   site: 'ria', url: 'https://theretirementpath.com/',
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.37, 0.546, 0.756, 1] },
-    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { move: 1.1, hold: 0.8 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.37, 0.546, 0.756, 1], timing: { lead: 2.8 } },
+    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
+    { name: 'phone-library', viewport: 'PHONE', url: 'https://theretirementpath.com/resources/', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
   ],
   details: [
     {
