@@ -1,11 +1,13 @@
 {#- The hero: runs to the top of the page beneath the site header, with the
     project links, the title, and the project details (agency and year, role,
-    tools, contributors) set under it. `heroFrames` (a list of images) adds
-    dots that switch between pictures; `heroImage` leads alone; with neither,
+    tools, contributors) set under it. `heroClip` names one of the page's
+    `recordings` to lead as the screen, playing; `heroFrames` (a list of images)
+    adds dots that switch between pictures; `heroImage` leads alone; with none,
     the hero is type alone.
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
-{% set frames = heroFrames or ([heroImage] if heroImage else []) %}
-<header class="case-hero" data-case-hero{% if not frames.length %} data-plain{% endif %}>
+{% set screen = recordings[heroClip] if heroClip and recordings else null %}
+{% set frames = [] if screen else (heroFrames or ([heroImage] if heroImage else [])) %}
+<header class="case-hero" data-case-hero{% if screen %} data-screen{% elif frames.length %} data-photo{% else %} data-plain{% endif %}>
   {% if frames.length %}
   <div class="case-hero-frames" style="--hero-focus: {{ heroFocus or 'center' }};">
     {% for frame in frames %}
@@ -25,6 +27,15 @@
   {% endif %}
 
   {% include "work-project-nav.njk" %}
+
+  {% if screen %}
+  {#- Plays like the other clips (case-study.js); its first frame, blurred, is the light around it. -#}
+  <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }}; --screen-light: url('{{ screen.poster }}');">
+    <video muted loop playsinline preload="metadata" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
+      <source src="{{ screen.video }}" type="video/mp4" />
+    </video>
+  </figure>
+  {% endif %}
 
   <div class="case-hero-body">
     {% if frames.length > 1 or heroCaption %}
