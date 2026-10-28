@@ -1,16 +1,32 @@
 {#- The hero: a recording of the site, then the project's name and its
     details (agency and year, role, the live site, contributors) stacked
     under it in the copy column. `heroClip` names one of the page's
-    `recordings` to lead, playing; with none, the hero is the name and details.
+    `recordings` to lead, playing; `heroPicture` leads with a photograph
+    instead; with neither, the hero is the name and details.
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
 {% set screen = recordings[heroClip] if heroClip and recordings else null %}
-<header class="case-hero" data-case-hero{% if screen %} data-screen{% endif %}>
+<header class="case-hero" data-case-hero{% if screen or heroPicture %} data-screen{% endif %}>
   {% if screen %}
   {#- Plays like the other clips (case-study.js). -#}
   <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }};">
     <video muted loop playsinline preload="auto" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
       <source src="{{ screen.video }}" type="video/mp4" />
     </video>
+  </figure>
+  {% elif heroPicture %}
+  {#- A photograph in the recording's place, for a project better shown where
+      it was used: { image, width, height, alt }, as for `picture`. -#}
+  <figure class="case-hero-screen">
+    <img
+      src="{{ heroPicture.image }}-large.webp"
+      srcset="{{ heroPicture.image }}-thumb.webp 600w, {{ heroPicture.image }}-large.webp {{ heroPicture.width }}w"
+      sizes="(min-width: 70rem) 57rem, calc(100vw - 2rem)"
+      width="{{ heroPicture.width }}"
+      height="{{ heroPicture.height }}"
+      alt="{{ heroPicture.alt }}"
+      fetchpriority="high"
+      decoding="async"
+    />
   </figure>
   {% endif %}
 

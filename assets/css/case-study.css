@@ -84,11 +84,12 @@
   width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
   margin: 0 auto;
 }
-.case-hero-screen video {
+.case-hero-screen video,
+.case-hero-screen img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: var(--ratio);
+  aspect-ratio: var(--ratio, auto);
   border-radius: var(--surface-radius);
   corner-shape: superellipse(1.4);
   background: var(--surface);
