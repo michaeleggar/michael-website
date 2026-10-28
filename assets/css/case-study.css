@@ -99,6 +99,23 @@
     0 24px 48px -24px color-mix(in oklch, oklch(0% 0 0) 55%, transparent);
 }
 
+/* Entrance, on desktop: the page opens on the hero's recording (or picture)
+   filling the window edge to edge, square-cornered, the navigation away;
+   case-study.js then settles it into its frame and brings the navigation
+   back. */
+:root[data-hero-entrance] .case-hero-screen { position: relative; z-index: 60; }
+:root[data-hero-entrance] :is(.site-header, .site-edge-blur),
+:root[data-hero-entrance] .case-hero-masthead {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+:root[data-hero-entrance="settle"] :is(.site-header, .site-edge-blur),
+:root[data-hero-entrance="settle"] .case-hero-masthead {
+  opacity: 1;
+  transform: none;
+  transition: opacity 500ms ease 550ms, transform 700ms var(--ease-out-expo) 550ms;
+}
+
 /* The project links at the end of the page. */
 .portfolio-case-study > .project-navigation {
   width: min(calc(100% - 2 * var(--page-gutter)), var(--wide-content-width));

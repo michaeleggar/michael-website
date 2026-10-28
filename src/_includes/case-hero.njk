@@ -2,7 +2,9 @@
     details (agency and year, role, the live site, contributors) stacked
     under it in the copy column. `heroClip` names one of the page's
     `recordings` to lead, playing; `heroPicture` leads with a photograph
-    instead; with neither, the hero is the name and details.
+    instead; with neither, the hero is the name and details. On desktop,
+    case-study.js opens the page on it filling the window, then settles it
+    into place (once per page every two days).
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
 {% set screen = recordings[heroClip] if heroClip and recordings else null %}
 <header class="case-hero" data-case-hero{% if screen or heroPicture %} data-screen{% endif %}>
