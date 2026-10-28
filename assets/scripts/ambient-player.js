@@ -322,6 +322,50 @@
     volume.value = Number(volume.value) + (event.deltaY < 0 ? 5 : -5);
     volume.dispatchEvent(new Event('input'));
   }, { passive: false });
+  // On touch, the display turns like a jog wheel: drag sideways from wherever the
+  // thumb lands rather than jumping to it, so a tap never changes the volume.
+  let scrub;
+  lcd.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' || event.target === volume || tucked) return;
+    scrub = { id: event.pointerId, x: event.clientX, value: Number(volume.value) };
+    lcd.setPointerCapture(event.pointerId);
+  });
+  lcd.addEventListener('pointermove', event => {
+    if (event.pointerId !== scrub?.id) return;
+    const next = Math.round(scrub.value + (event.clientX - scrub.x) * .8);
+    const value = Math.min(100, Math.max(0, next));
+    // Past either end, the wheel starts again from the thumb so turning back responds at once.
+    if (value !== next) Object.assign(scrub, { x: event.clientX, value });
+    if (value === Number(volume.value)) return;
+    volume.value = value;
+    volume.dispatchEvent(new Event('input'));
+  });
+  ['pointerup', 'pointercancel'].forEach(type => lcd.addEventListener(type, event => {
+    if (event.pointerId === scrub?.id) scrub = undefined;
+  }));
+  // A finger on the shell flicks it: down to tuck it away, up to bring it back.
+  let flick;
+  let flicked = false;
+  machine.addEventListener('pointerdown', event => {
+    flicked = false;
+    if (event.pointerType === 'mouse' || event.target.closest('button, .cd-lcd')) return;
+    flick = { id: event.pointerId, y: event.clientY };
+  });
+  machine.addEventListener('pointermove', event => {
+    if (event.pointerId !== flick?.id || Math.abs(event.clientY - flick.y) < 24) return;
+    const down = event.clientY > flick.y;
+    flick = undefined;
+    flicked = true;
+    if (down && open && !tucked) setTucked(true);
+    else if (!down && tucked) {
+      raise();
+      // Like a tap, a flick up leaves the player raised until the next touch.
+      activePointers.delete(event.pointerId);
+    }
+  });
+  ['pointerup', 'pointercancel'].forEach(type => machine.addEventListener(type, event => {
+    if (event.pointerId === flick?.id) flick = undefined;
+  }));
   // The display and the disc invite the player back up; the keys just work where they are.
   panel.querySelectorAll('[data-cd-peek]').forEach(element => {
     element.addEventListener('pointerenter', event => {
@@ -332,6 +376,7 @@
     element.addEventListener('pointerleave', () => clearTimeout(hoverTimer));
   });
   machine.addEventListener('click', event => {
+    if (flicked) { flicked = false; return; }
     if (!event.target.closest('button')) raise();
   });
   panel.addEventListener('pointerenter', event => {
