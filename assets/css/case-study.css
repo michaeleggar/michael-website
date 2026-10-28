@@ -1,5 +1,5 @@
-/* Case-study pages: a masthead with the title and project details over a
-   recording of the site, a serif lede, a paragraph or two, recorded clips of
+/* Case-study pages: a recording of the site with the title and project
+   details under it, a serif lede, a paragraph or two, recorded clips of
    the site, pictures and galleries, the framed chat demo, and the project
    links at the end. */
 
@@ -50,9 +50,8 @@
   .project-nav-live:hover > svg { transform: translate(2px, -1.5px) rotate(-3deg); }
 }
 
-/* Hero: a masthead with the project's name and its details, then the
-   recording of the site. On wide screens the name sits beside the details
-   across the media width; on narrow ones they stack. */
+/* Hero: the recording of the site, then the project's name with its details
+   stacked under it, in the copy column so they line up with the text below. */
 .case-hero {
   display: grid;
   gap: clamp(2rem, 5vw, 3.5rem);
@@ -64,14 +63,6 @@
   gap: clamp(1.5rem, 4vw, 2.25rem);
   width: min(calc(100% - 2 * var(--page-gutter)), var(--case-copy-width));
   margin-inline: auto;
-}
-@media (min-width: 64rem) {
-  .case-hero-masthead {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 25rem);
-    align-items: start;
-    column-gap: clamp(2.5rem, 5vw, 4.5rem);
-    width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
-  }
 }
 
 /* The name, in the sans. */
@@ -116,8 +107,6 @@
 /* Project details under the hero title: the dense ledger, the original 4px
    dash / 4px gap rules at uniform 60% opacity, in a reading-column width. */
 .case-hero .project-details { margin-block-start: 0; }
-/* On wide screens the ledger's top rule lines up with the cap height of the name. */
-@media (min-width: 64rem) { .case-hero .project-details { margin-block-start: 0.6rem; } }
 .project-details-live { display: inline-flex; align-items: center; gap: 0.3rem; }
 .project-details-live svg { width: 14px; height: 14px; color: var(--text-muted); transition: color 140ms ease; }
 .project-details-live:hover svg { color: inherit; }

@@ -1,10 +1,19 @@
-{#- The hero: the project's name and its details (agency and year, role,
-    tools, contributors, the live site) set as a masthead, then a recording of
-    the site. `heroClip` names one of the page's `recordings` to lead, playing;
-    with none, the hero is the masthead alone.
+{#- The hero: a recording of the site, then the project's name and its
+    details (agency and year, role, tools, contributors, the live site) stacked
+    under it in the copy column. `heroClip` names one of the page's
+    `recordings` to lead, playing; with none, the hero is the name and details.
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
 {% set screen = recordings[heroClip] if heroClip and recordings else null %}
 <header class="case-hero" data-case-hero{% if screen %} data-screen{% endif %}>
+  {% if screen %}
+  {#- Plays like the other clips (case-study.js). -#}
+  <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }};">
+    <video muted loop playsinline preload="auto" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
+      <source src="{{ screen.video }}" type="video/mp4" />
+    </video>
+  </figure>
+  {% endif %}
+
   <div class="case-hero-masthead">
     <h1>
       {% if heroTitle %}
@@ -43,13 +52,4 @@
       {% endif %}
     </dl>
   </div>
-
-  {% if screen %}
-  {#- Plays like the other clips (case-study.js). -#}
-  <figure class="case-hero-screen" data-clip style="--ratio: {{ (screen.width / screen.height) | round(4) }};">
-    <video muted loop playsinline preload="auto" poster="{{ screen.poster }}" width="{{ screen.width }}" height="{{ screen.height }}" aria-label="{{ screen.label }}">
-      <source src="{{ screen.video }}" type="video/mp4" />
-    </video>
-  </figure>
-  {% endif %}
 </header>
