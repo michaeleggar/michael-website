@@ -1,5 +1,5 @@
 {#- The hero: a recording of the site, then the project's name and its
-    details (agency and year, role, tools, contributors, the live site) stacked
+    details (agency and year, role, the live site, contributors) stacked
     under it in the copy column. `heroClip` names one of the page's
     `recordings` to lead, playing; with none, the hero is the name and details.
     `heroTitle` sets the title as lines; it falls back to `heading` or `cardTitle`. -#}
@@ -33,7 +33,7 @@
           <dt>{{ group.label }}</dt>
           <dd>
             {% for item in group.items %}
-              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer"{% if group.label == "Link" %} class="project-details-live"{% endif %}>{{ item.label }}{% if group.label == "Link" %}{% include "icons/arrow-up-right-solid-micro.svg" %}{% endif %}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
+              {% if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>{% else %}{{ item.label or item }}{% endif %}{% if not loop.last %}{% if group.label == "My role" %} / {% else %}, {% endif %}{% endif %}
             {% endfor %}
           </dd>
         </div>

@@ -78,10 +78,10 @@
 }
 .case-hero h1 .case-title-line { display: block; }
 
-/* The recording leads at the media width, framed like the clips below it,
-   with a little more lift. */
+/* The recording leads at the copy column's width, framed like the clips
+   below it, with a little more lift. */
 .case-hero-screen {
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-copy-width));
   margin: 0 auto;
 }
 .case-hero-screen video {
@@ -107,9 +107,6 @@
 /* Project details under the hero title: the dense ledger, the original 4px
    dash / 4px gap rules at uniform 60% opacity, in a reading-column width. */
 .case-hero .project-details { margin-block-start: 0; }
-.project-details-live { display: inline-flex; align-items: center; gap: 0.3rem; }
-.project-details-live svg { width: 14px; height: 14px; color: var(--text-muted); transition: color 140ms ease; }
-.project-details-live:hover svg { color: inherit; }
 
 .project-details {
   --project-details-column-gap: var(--space-lg);
