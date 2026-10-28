@@ -2,35 +2,21 @@
 
 /* Fonts */
 
+/* Rethink Sans, one variable file per style covering weights 400 to 800 (OFL,
+   assets/fonts/RethinkSans-OFL.txt). */
 @font-face {
-  font-family: "Lato";
-  src: url("/assets/fonts/LatoLatin-Regular.woff2") format("woff2");
+  font-family: "Rethink Sans";
+  src: url("/assets/fonts/RethinkSans-Latin.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 800;
   font-display: block;
 }
 
 @font-face {
-  font-family: "Lato";
-  src: url("/assets/fonts/LatoLatin-Italic.woff2") format("woff2");
+  font-family: "Rethink Sans";
+  src: url("/assets/fonts/RethinkSans-Latin-Italic.woff2") format("woff2");
   font-style: italic;
-  font-weight: 400;
-  font-display: block;
-}
-
-@font-face {
-  font-family: "Lato";
-  src: url("/assets/fonts/LatoLatin-Medium.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 500;
-  font-display: block;
-}
-
-@font-face {
-  font-family: "Lato";
-  src: url("/assets/fonts/LatoLatin-Semibold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 400 800;
   font-display: block;
 }
 
@@ -60,10 +46,10 @@
   --surface-radius: 12px;
   --control-radius: 11px;
   --card-radius: var(--surface-radius);
-  --font-body: "Lato", sans-serif;
-  /* The serif, for case-study titles, ledes, numbers, and project cards. Rowan
-     loads from Fontshare (see head.html); the rest is the fallback meanwhile. */
-  --font-display: "Rowan", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "Rethink Sans", sans-serif;
+  /* The display face (case-study ledes and copy, project card titles) is
+     Rethink Sans too, for now; it was Rowan, a serif. */
+  --font-display: var(--font-body);
   --hairline: color-mix(in oklch, var(--text-primary) 10%, transparent);
   --panel: color-mix(in oklch, var(--text-primary) 3%, transparent);
   --type-meta: 0.8125rem;
