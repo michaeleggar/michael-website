@@ -78,10 +78,10 @@
 }
 .case-hero h1 .case-title-line { display: block; }
 
-/* The recording leads at the copy column's width, framed like the clips
-   below it, with a little more lift. */
+/* The recording leads at the media width, framed like the clips below it,
+   with a little more lift. */
 .case-hero-screen {
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-copy-width));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
   margin: 0 auto;
 }
 .case-hero-screen video {
