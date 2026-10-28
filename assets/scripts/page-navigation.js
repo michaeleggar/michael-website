@@ -18,6 +18,56 @@
   history.replaceState({ ...history.state, sitePageKey: currentKey }, '', location.href);
   history.scrollRestoration = 'manual';
 
+  // Pages are fetched when a visitor shows intent (hovering, touching, or
+  // tabbing to a link), so most navigations are already loaded by the click.
+  // Each is fetched once; the destination's stylesheets and first picture
+  // (a case study's recording poster) and scripts are warmed at the same time.
+  const pages = new Map();
+  const saveData = navigator.connection?.saveData;
+
+  function fetchPage(href) {
+    const key = href.split('#')[0];
+    if (pages.has(key)) return pages.get(key);
+    const page = fetch(key, { headers: { Accept: 'text/html' } }).then(async response => {
+      if (!response.ok || !response.headers.get('content-type')?.includes('text/html')) throw new Error('Page unavailable');
+      return { url: response.url, text: await response.text() };
+    });
+    pages.set(key, page);
+    page.catch(() => pages.delete(key));
+    return page;
+  }
+
+  function warm({ url, text }) {
+    const page = new DOMParser().parseFromString(text, 'text/html');
+    for (const link of page.querySelectorAll('link[data-page-style]')) fetch(new URL(link.getAttribute('href'), url)).catch(() => {});
+    for (const script of page.querySelectorAll('script[data-page-script]')) {
+      const src = new URL(script.getAttribute('src'), url).href;
+      if (!loadedScripts.has(src)) fetch(src).catch(() => {});
+    }
+    const poster = page.querySelector('.case-hero-screen video[poster], link[rel="preload"][as="image"]');
+    const src = poster?.getAttribute('poster') || poster?.getAttribute('href');
+    if (src) new Image().src = new URL(src, url).href;
+  }
+
+  function sameSitePage(link) {
+    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return null;
+    const url = new URL(link.href);
+    if (url.origin !== location.origin || !['http:', 'https:'].includes(url.protocol)) return null;
+    if (/\.[^/]+$/.test(url.pathname) && !/\.html?$/.test(url.pathname)) return null;
+    return url;
+  }
+
+  function prefetch(event) {
+    if (saveData) return;
+    const url = sameSitePage(event.target.closest?.('a[href]'));
+    if (!url || (url.pathname === location.pathname && url.search === location.search)) return;
+    if (pages.has(url.href.split('#')[0])) return;
+    fetchPage(url.href).then(warm).catch(() => {});
+  }
+  document.addEventListener('pointerover', prefetch, { passive: true });
+  document.addEventListener('touchstart', prefetch, { passive: true });
+  document.addEventListener('focusin', prefetch);
+
   function rememberScroll() {
     scrollPositions.set(currentKey, { left: window.scrollX, top: window.scrollY });
   }
@@ -89,13 +139,13 @@
     document.querySelector('#main-content')?.setAttribute('aria-busy', 'true');
 
     try {
-      const response = await fetch(destination.href, { signal, headers: { Accept: 'text/html' } });
-      if (!response.ok || !response.headers.get('content-type')?.includes('text/html')) throw new Error('Page unavailable');
-      const url = new URL(response.url);
+      const fetched = await fetchPage(destination.href);
+      if (signal.aborted) return;
+      const url = new URL(fetched.url);
       if (url.origin !== location.origin) throw new Error('External redirect');
       // Fetch excludes fragments; keep anchors from the requested URL.
       url.hash = destination.hash;
-      const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const page = new DOMParser().parseFromString(fetched.text, 'text/html');
       const nextMain = page.querySelector('#main-content');
       if (!nextMain || !page.querySelector('#ambient-player')) throw new Error('Page has no shared layout');
       const styles = await loadStyles(page, url, signal);
@@ -155,11 +205,8 @@
 
   document.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const link = event.target.closest('a[href]');
-    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
-    const url = new URL(link.href);
-    if (url.origin !== location.origin || !['http:', 'https:'].includes(url.protocol)) return;
-    if (/\.[^/]+$/.test(url.pathname) && !/\.html?$/.test(url.pathname)) return;
+    const url = sameSitePage(event.target.closest('a[href]'));
+    if (!url) return;
     if (url.pathname === location.pathname && url.search === location.search) {
       if (!url.hash || url.hash === location.hash) {
         event.preventDefault();
