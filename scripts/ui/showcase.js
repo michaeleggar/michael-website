@@ -38,6 +38,7 @@ function initializeShowcase() {
   let photoGrowth = 1;
   let photoTopLimit = -Infinity;
   let cardTop = 0;
+  let curveShift = 0;
   let replayTimer;
   // Phones: the cards ride the top of a wheel that runs off both edges. `position`
   // is the card at the top, fractional while it turns.
@@ -63,6 +64,30 @@ function initializeShowcase() {
     if (!settings.sizing.bottomAnchored) return 0;
     const bounds = photoBounds(state.width, state.photoHeight, rotation, scale);
     return (1 - 1 / photoGrowth) * (state.photoHeight + bounds.height) / 2;
+  }
+  // How far down a card rests on the curve: a smile dips in the middle, an arch
+  // (a frown, like the phone wheel) falls away at the ends, both within the baseline.
+  function curveDrop(slot) {
+    const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
+    const baseline = settings.layout.baseline * layoutScale;
+    const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
+    return curveShift + (direction < 0 ? arc : baseline - direction * arc);
+  }
+  // Moves the curve so the middle pair of cards rests halfway between the intro
+  // and the caption.
+  function centreCurve() {
+    const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
+    const stageTop = stage.getBoundingClientRect().top;
+    const midpoint = (intro.getBoundingClientRect().bottom + caption.getBoundingClientRect().top) / 2 - stageTop;
+    const middle = [Math.floor((cards.length - 1) / 2), Math.ceil((cards.length - 1) / 2)];
+    const resting = middle.reduce((sum, index) => {
+      const state = states[index];
+      const slot = index - (cards.length - 1) / 2;
+      const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
+      const rotation = Math.max(-30, Math.min(30, -slot * settings.layout.rotation * direction));
+      return sum + cardTop + curveDrop(slot) + stagger - bottomAnchor(state, rotation) + state.photoHeight / 2;
+    }, 0) / middle.length;
+    curveShift += midpoint - resting;
   }
   // The tallest a card can be at a given width: a project, or an upright painting.
   const tallest = cardWidth => cardWidth * Math.max(1 / settings.photos.workAspect, settings.photos.artHeight);
@@ -105,6 +130,7 @@ function initializeShowcase() {
     cardTop = mobile ? 0 : 38 * layoutScale;
     style.setProperty('--showcase-card-top', `${cardTop}px`);
     photoGrowth = 1;
+    curveShift = 0;
     states.forEach((state, index) => {
       state.width = cards[index].offsetWidth;
       state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
@@ -114,17 +140,16 @@ function initializeShowcase() {
       wheelSpacing = settings.photos.mobileWidth * layoutScale * settings.layout.wheelSpacing;
       return;
     }
+    if (page) centreCurve();
     photoTopLimit = page ? intro.getBoundingClientRect().bottom - stage.getBoundingClientRect().top + settings.sizing.textClearance : -Infinity;
     let growthLimit = settings.sizing.growth;
-    const baseline = settings.layout.baseline * layoutScale;
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
     states.forEach((state, index) => {
       const slot = index - (cards.length - 1) / 2;
-      const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
       const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
       const rotation = Math.max(-30, Math.min(30, -slot * settings.layout.rotation * direction));
       const bounds = photoBounds(state.width, state.photoHeight, rotation);
-      const top = cardTop + baseline - direction * arc + stagger + state.photoHeight / 2 - bounds.height / 2;
+      const top = cardTop + curveDrop(slot) + stagger + state.photoHeight / 2 - bounds.height / 2;
       if (bounds.height > 0) growthLimit = Math.min(growthLimit, 1 + (top - photoTopLimit) / bounds.height);
       const horizontalRoom = width / 2 - Math.abs(slot * settings.layout.spacing * layoutScale) - 12;
       if (bounds.width > 0) growthLimit = Math.min(growthLimit, horizontalRoom * 2 / bounds.width);
@@ -139,6 +164,8 @@ function initializeShowcase() {
       state.width = cards[index].offsetWidth;
       state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
     });
+    // Growing lifts the cards off their bottoms, so settle the middle again.
+    if (page) centreCurve();
   }
   let active = -1;
   let hover = null;
@@ -208,7 +235,6 @@ function initializeShowcase() {
     const fieldCenter = hover ? hover.x : hasActive ? (active - center) * step : null;
     const energy = hover && settings.hover.verticalInfluence ? clamp(1.2 - hover.y / 800, 0.75, 1.15) : 1;
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
-    const baseline = settings.layout.baseline * layoutScale;
     cards.forEach((card, index) => {
       const state = states[index];
       const slot = index - center;
@@ -219,9 +245,8 @@ function initializeShowcase() {
       const side = fieldCenter === null ? 0 : clamp((x - fieldCenter) / step, -1, 1);
       const lift = (influence * settings.hover.lift * energy + (active === index ? settings.spotlight.lift : 0)) * layoutScale;
       const spread = side * influence * settings.hover.spread * layoutScale;
-      const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
       const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
-      let y = baseline - direction * arc - lift + stagger;
+      let y = curveDrop(slot) - lift + stagger;
       const restingRotation = clamp(-slot * settings.layout.rotation * direction, -30, 30);
       const rotation = active === index ? restingRotation * settings.spotlight.rotationFollow : restingRotation + side * influence * settings.hover.tilt;
       const scale = active === index ? settings.spotlight.scale : 1 + influence * (settings.hover.neighborScale - 1);
@@ -306,7 +331,6 @@ function initializeShowcase() {
   function setHover(localX, localY) {
     const step = settings.layout.spacing * layoutScale;
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
-    const baseline = settings.layout.baseline * layoutScale;
     let next = -1;
     let closest = Infinity;
     cards.forEach((card, index) => {
@@ -314,7 +338,7 @@ function initializeShowcase() {
       const x = width / 2 + slot * step;
       const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
       const rotation = clamp(-slot * settings.layout.rotation * direction, -30, 30);
-      const top = cardTop + baseline - direction * Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale) + stagger - bottomAnchor(states[index], rotation);
+      const top = cardTop + curveDrop(slot) + stagger - bottomAnchor(states[index], rotation);
       const distance = Math.abs(localX - x);
       if (distance < states[index].width * 0.6 && localY >= top - 65 && localY <= top + states[index].photoHeight + 20 && distance < closest) { closest = distance; next = index; }
     });

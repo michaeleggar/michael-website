@@ -50,7 +50,7 @@ async function startShowcaseTuner() {
     },
     layout: {
       _collapsed: true,
-      curve: { type: 'select', options: [{ value: 'smile', label: 'Smile' }, { value: 'arch', label: 'Arch' }, { value: 'flat', label: 'Flat' }], default: 'smile' },
+      curve: { type: 'select', options: [{ value: 'smile', label: 'Smile' }, { value: 'arch', label: 'Arch' }, { value: 'flat', label: 'Flat' }], default: 'arch' },
       maxWidth: slider('layout', 'maxWidth', 600, 1600, 10),
       spacing: slider('layout', 'spacing', 60, 180),
       curveDepth: slider('layout', 'curveDepth', 0, 16, 0.25),
