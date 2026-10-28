@@ -33,7 +33,7 @@ Shared colors, typography, spacing, widths, and corner radii live in `assets/css
 
 ## Browser scripts
 
-Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and the project and art card hover), `contact-menu.js` (the header menus), `art-lightbox.js`, `case-study.js` (hero picture dots and clips that play while on screen), and `chat-demo.js` (the chat app demo). Each is self-contained. Run `npm run bundle` after changing a source; dev and production builds also bundle automatically. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
+Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets/scripts/`: `site.js` (the homepage fan and the project and art card hover), `contact-menu.js` (the header menus), `art-lightbox.js`, `case-study.js` (hero picture dots and clips that play while on screen), and `chat-demo.js` (the chat app demo). Each is self-contained. Every Eleventy build bundles them first, and `npm run dev` watches `scripts/ui/` and rebuilds when a source changes; `npm run bundle` still bundles on its own. The generated files are ignored by Git. `ambient-player.js` and `page-navigation.js` are hand-written and served as-is.
 
 ## Content and behavior
 

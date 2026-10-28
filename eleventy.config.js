@@ -1,4 +1,10 @@
+const bundleScripts = require('./scripts/bundle-scripts.js');
+
 module.exports = function (eleventyConfig) {
+  // Bundle the browser scripts before every build, and rebuild while serving
+  // when their sources change, so the copies in dist/ stay current.
+  eleventyConfig.on('eleventy.before', bundleScripts);
+  eleventyConfig.addWatchTarget('scripts/ui/');
   const serving = process.env.ELEVENTY_RUN_MODE === 'serve' || process.argv.includes('--serve');
   const showcaseTuningEnabled = serving && process.env.SHOWCASE_DIALKIT === '1';
   const typeTuningEnabled = serving && process.env.TYPE_DIALKIT === '1';
