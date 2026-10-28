@@ -1,7 +1,7 @@
 module.exports = {
   site: 'okcid', url: 'https://okcinnovation.com/',
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.194, 0.393, 0.53, 0.679, 0.833, 1], timing: { lead: 2.8 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.194, 0.393, 0.53, 0.679, 0.833, 1], timing: { lead: 5 } },
     { name: 'phone', viewport: 'PHONE', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
     { name: 'phone-hall', viewport: 'PHONE', url: 'https://okcinnovation.com/innovation-hall/', stops: [0, 0.16, 0.33, 0.5, 0.67, 0.84, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
     { name: 'hall-page', viewport: 'FULL', url: 'https://okcinnovation.com/innovation-hall/', stops: [0, 0.2, 0.4, 0.6, 0.8, 1] },

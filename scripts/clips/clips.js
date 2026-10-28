@@ -20,7 +20,7 @@ const clips = {
   'goldenmesa-full': { shot: 'goldenmesa-full', crop: null, out: [1600, 1000], fade: 14 },
   'goldenmesa-phone': { shot: 'goldenmesa-phone', crop: null, out: [524, 982], fade: 14, css: 393 },
   'okcid-full': { shot: 'okcid-full', crop: null, out: [1600, 1000], fade: 14 },
-  'okcid-hall-page': { shot: 'okcid-hall-page', crop: null, out: [1920, 1200], fade: 14 },
+  'okcid-hall-page': { shot: 'okcid-hall-page', crop: null, out: [1600, 1000], fade: 14 },
   'okcid-phone': { shot: 'okcid-phone', crop: null, out: [524, 982], fade: 14, css: 393 },
   'kochcomm-full': { shot: 'kochcomm-full', crop: null, out: [1600, 1000], fade: 14 },
   'kochcomm-phone': { shot: 'kochcomm-phone', crop: null, out: [524, 982], fade: 14, css: 393 },

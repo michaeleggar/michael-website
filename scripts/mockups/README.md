@@ -1,8 +1,9 @@
 # Card mockups
 
 How the Golden Mesa and OKC Innovation District cards are made: live pages
-put onto the screens of two studio photographs from the Koch Comm and RIA
-shoots that the site doesn't otherwise use, so they match the other cards.
+put onto the screens of device photographs, so they match the other cards.
+OKCID uses an unused studio photograph from the Koch Comm shoot; Golden Mesa
+a stock photograph of a laptop in a café.
 Originals land in `assets/images/<project>/`; prepare them with
 `npm run images -- <original> <project>/<name> --social`.
 
@@ -19,13 +20,15 @@ of the script. `node phones.js <out.jpg> a.png b.png c.png` drops them into
 is a resize into the bezel (x 198, 612, 1022; y 176; 279 × 604) with a 44px
 corner radius.
 
-## Tablet (Golden Mesa)
+## Laptop (Golden Mesa)
 
-`node capture-tablet.js https://goldenmesa.com/ gm.png 0.5` captures the page,
-then `node tablet.js gm.png <out.jpg>` warps it onto `ria-tablet.jpg`. The
-tablet is at an angle, so the screen is a perspective fit (`homog.js`): its
-top corners and sides are fitted to the bezel, and its foreshortening comes
-from the top of the navy band across the original screenshot, which sits 512px
-down RIA's resources page at 1180px wide. The capture is scaled to that width,
-supersampled 4 × 4, with the display's rounded top corners carried through the
-perspective.
+The photograph is a MacBook Air on a café table, from Unsplash
+(photo-1781614651982, free to use under the Unsplash License), kept as
+`assets/images/goldenmesa/cafe-laptop-unsplash.jpg`.
+`node capture.js https://goldenmesa.com/ gm.png 1470 956 0.5` captures the
+homepage at the MacBook Air's own size, its hero video held on the sunset
+frame, then `node laptop.js cafe-laptop-unsplash.jpg gm.png <out.jpg>` warps it
+onto the screen: a perspective fit (`homog.js`) to the four corners of the
+bezel, supersampled 4 × 4, with the display's rounded top corners, and the
+photo's own notch laid back over the top. Crop the result to the cards'
+proportion (3000 × 1888) before `npm run images`.

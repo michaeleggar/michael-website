@@ -20,6 +20,11 @@ const only = process.argv[3];
     const dir = path.join(__dirname, 'frames', `${cfg.site}-${shot.name}`);
     fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
     const page = await open(browser, shot.url || cfg.url, viewport, { css: cfg.css, slow });
+    // open() moves the mouse onto the page to wake scripts that wait for a
+    // visitor; it would sit there and light up whatever scrolls beneath it.
+    // Nothing on the page takes the pointer while it scrolls.
+    await page.addStyleTag({ content: 'html, html * { pointer-events: none !important; }' });
+    await page.mouse.move(1, 1);
     // Stop short of the last pixels, where a fractional page height can show a sliver of the root background.
     const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight - 2);
     const track = stopsTrack(shot.stops, max, shot.timing);

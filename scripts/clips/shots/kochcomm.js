@@ -1,7 +1,7 @@
 module.exports = {
   site: 'kochcomm', url: 'https://www.kochcomm.com/',
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.193, 0.335, 0.502, 0.682, 0.824, 1], timing: { lead: 2.8 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.193, 0.335, 0.502, 0.682, 0.824, 1], timing: { lead: 5 } },
     { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
     { name: 'phone-work', viewport: 'PHONE', url: 'https://www.kochcomm.com/all-work/', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.1, hold: 0.8 } },
   ],
