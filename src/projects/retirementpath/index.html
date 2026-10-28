@@ -78,7 +78,7 @@ recordings:
   </p>
 </div>
 
-{{ clipRow([recordings.phone]) }}
+{{ clipRow([recordings.phone, recordings["phone-library"]], true) }}
 {{ clip(recordings.services) }}
 {{ clip(recordings.library) }}
 {{ picture({ image: "/assets/images/optimized/ria/ria-headline", width: 1600, height: 382, alt: "The homepage headline: Your guide on the path to retirement, with the second line in gold italic" }) }}
