@@ -328,6 +328,13 @@ p {
   margin-block-start: var(--paragraph-gap);
 }
 
+/* A small line for what's current (what I'm reading), kept apart from the
+   intro so it can change without rewording it. */
+.page-intro .page-now {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
 .page-section {
   margin-block-start: var(--section-gap);
 }
