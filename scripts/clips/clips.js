@@ -38,6 +38,7 @@ const clips = {
   'okcid-directory': { shot: 'okcid-directory', crop: [50, 41, 1412, 1159], out: [2118, 1738], fade: 6 },
   'okcid-nav': { shot: 'okcid-nav', crop: [0, 0, 1512, 560], out: [2268, 840], fade: 6 },
   'ductworx-full-home': { shot: 'ductworx-full-home', crop: null, out: [1600, 1000], fade: 14 },
+  'ductworx-phone-home': { shot: 'ductworx-phone-home', crop: null, out: [524, 982], fade: 14, css: 393 },
   'ductworx-phone-menu': { shot: 'phone-menu-loop', crop: null, out: [524, 982], fade: 6, css: 393 },
   'goldenmesa-phone-promos': { shot: 'goldenmesa-phone-promos', crop: null, out: [524, 982], fade: 14, css: 393 },
   'okcid-phone-hall': { shot: 'okcid-phone-hall', crop: null, out: [524, 982], fade: 14, css: 393 },

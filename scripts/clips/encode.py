@@ -1,6 +1,6 @@
 # Encodes a clip's frames to an H.264 MP4 with Blender's own FFmpeg, at the
 # frames' own size.
-# Run: blender -b -P encode.py -- <frames dir> <output.mp4> [crf]
+# Run: blender -b -P encode.py -- <frames dir> <output.mp4> [crf: a number, or a preset like LOW]
 import bpy, os, sys
 args = sys.argv[sys.argv.index('--') + 1:]
 src, dest = args[0], args[1]
@@ -24,7 +24,11 @@ if hasattr(r.image_settings, 'media_type'): r.image_settings.media_type = 'VIDEO
 r.image_settings.file_format = 'FFMPEG'
 r.ffmpeg.format = 'MPEG4'
 r.ffmpeg.codec = 'H264'
-r.ffmpeg.constant_rate_factor = crf
+if crf.isdigit():
+    r.ffmpeg.constant_rate_factor = 'CUSTOM'
+    r.ffmpeg.custom_constant_rate_factor = int(crf)
+else:
+    r.ffmpeg.constant_rate_factor = crf
 r.ffmpeg.ffmpeg_preset = 'BEST'
 r.ffmpeg.gopsize = 30
 r.ffmpeg.audio_codec = 'NONE'

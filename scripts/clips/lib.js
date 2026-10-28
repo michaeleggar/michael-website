@@ -12,8 +12,11 @@ const sine = t => -(Math.cos(Math.PI * t) - 1) / 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
 // Scroll stops as fractions of the page's scroll range: each move eases over
-// `move` seconds, then holds for `hold`.
-function stopsTrack(stops, max, { lead = 0.8, move = 1.3, hold = 1.1 } = {}) {
+// `move` seconds, then holds for `hold`. `step` (CSS px) instead spaces the
+// stops evenly so no move is longer than it, for phones, where a long jump
+// in a short move is hard to watch.
+function stopsTrack(stops, max, { lead = 0.8, move = 1.3, hold = 1.1, step } = {}) {
+  if (step) { const n = Math.max(1, Math.ceil(max / step)); stops = Array.from({ length: n + 1 }, (_, i) => i / n); }
   const moves = [];
   let t = lead;
   for (let i = 1; i < stops.length; i++) {
@@ -25,7 +28,7 @@ function stopsTrack(stops, max, { lead = 0.8, move = 1.3, hold = 1.1 } = {}) {
     let value = moves.length ? moves[0][2] : 0;
     for (const [s, e, a, b] of moves) {
       if (time >= e) value = b;
-      else if (time > s) return a + (b - a) * quint((time - s) / (e - s));
+      else if (time > s) return a + (b - a) * sine((time - s) / (e - s));
     }
     return value;
   };

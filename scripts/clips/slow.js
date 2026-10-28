@@ -28,6 +28,19 @@ const only = process.argv[3];
     // Stop short of the last pixels, where a fractional page height can show a sliver of the root background.
     const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight - 2);
     const track = stopsTrack(shot.stops, max, shot.timing);
+    // Chrome won't play a video slower than 1/16, so the page's videos are
+    // held still and stepped to each sub-frame's moment instead, from wherever
+    // each one was when recording began.
+    await page.evaluate(() => {
+      window.__videos = [...document.querySelectorAll('video')].filter(v => v.duration > 0).map(v => { v.pause(); return { v, from: v.currentTime }; });
+    });
+    const seekVideos = t => page.evaluate(t => Promise.all(window.__videos.map(({ v, from }) => new Promise(done => {
+      const at = (from + t) % v.duration;
+      if (Math.abs(v.currentTime - at) < 0.004) return done();
+      const timer = setTimeout(done, 400);
+      v.addEventListener('seeked', () => { clearTimeout(timer); requestAnimationFrame(() => done()); }, { once: true });
+      v.currentTime = at;
+    }))), t);
     const client = await page.createCDPSession();
     await client.send('Animation.enable');
     await client.send('Animation.setPlaybackRate', { playbackRate: 1 / slow });
@@ -39,6 +52,7 @@ const only = process.argv[3];
         const t = (i + (s / SUB) * SHUTTER) / FPS;
         const wait = start + t * slow * 1000 - Date.now();
         if (wait > 0) await new Promise(r => setTimeout(r, wait)); else late++;
+        await seekVideos(t);
         const y = track.at(t);
         await page.evaluate(y => window.scrollTo(0, y), Math.round(y * viewport.deviceScaleFactor) / viewport.deviceScaleFactor);
         await page.screenshot({ path: path.join(dir, `${String(i + 1).padStart(4, '0')}-${s}.jpg`), type: 'jpeg', quality: 92, optimizeForSpeed: true });

@@ -27,10 +27,15 @@ window where a section needs it.
 
 1. `node slow.js shots/<site>.js` records the scroll shots. Each 30fps frame
    is four sub-frames across the shutter, blended later into motion blur; the
-   page's CSS animations and videos run 16–24 times slower while each
-   sub-frame is taken on schedule. A shot's `timing` sets its `lead` (the hold
-   on the first stop: 2.8s for the homepage scrolls, since they lead the page
-   and the loop's crossfade eats half a second of it), `move`, and `hold`.
+   page's CSS animations run 16–24 times slower while each sub-frame is taken
+   on schedule. The page's videos are paused and stepped to each sub-frame's
+   moment instead, since Chrome won't play a video slower than 1/16 and they'd
+   come out sped up. JavaScript timers aren't slowed, so stop anything that
+   rotates on its own (sliders are paused in `lib.js`). A shot's `timing` sets
+   its `lead` (the hold on the first stop: 5s for the homepage scrolls, which
+   lead the page, less half a second the loop's crossfade takes), `move`, and
+   `hold`; moves ease gently (sine) so the page never rushes. Phones use
+   `step: 640` instead of stops, so no move is longer than most of a screen.
    The scroll stops two pixels short of the bottom, where a fractional page
    height can show a sliver of the root background.
 2. `node live.js shots/<site>.js` records the details in real time with
@@ -52,9 +57,12 @@ window where a section needs it.
    content bounds and blank rows, and `sheet.js` makes contact sheets.
 4. `./make.sh <site>-<name> ...` cuts each clip (blend, pointer, crop, a
    crossfade from the tail into the opening so the loop has no seam), encodes
-   H.264 with Blender's built-in FFmpeg (`encode.py`, CRF `LOW`), and writes
-   the first frame as the poster. Full-site scrolls render at 1600 × 1000 and
-   phones at 524 × 982, which is all their on-page size needs. Every `out` size
+   H.264 at CRF 28 with Blender's built-in FFmpeg (`encode.py`), moves the
+   file's index to the front (`faststart.py`, so playback starts on the first
+   bytes; Blender writes it last), writes the first frame as a WebP poster
+   (quality 72, at most 1824 wide), and deletes its rendered frames. Full-site
+   scrolls render at 1600 × 1000, phones at 524 × 982, and details at most
+   1824 wide, the most any of them shows at on a 2x screen. Every `out` size
    must be even in both directions, or the encoder won't start.
 5. `node stills.js <url> "text" ...` captures, at 2x, the full-width section
    holding each text, for detail stills; optimize the chosen ones with

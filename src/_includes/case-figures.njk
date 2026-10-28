@@ -41,12 +41,13 @@
 {% endmacro %}
 
 {#- A recorded clip of the site: muted, looping, framed like the other
-    pictures. case-study.js plays it only while it is on screen, and not at
-    all for reduced motion, when the poster (its first frame) stands in.
+    pictures. case-study.js gives it its poster (its first frame) and starts
+    loading it a screen before it arrives, plays it only while it is on
+    screen, and not at all for reduced motion, when the poster stands in.
     item: { video, poster, width, height, label } (full URLs) -#}
 {% macro clip(item) %}
 <figure class="case-clip" data-clip data-shape="{{ 'tall' if item.height > item.width else 'wide' }}" style="--ratio: {{ (item.width / item.height) | round(4) }};">
-  <video muted loop playsinline preload="none" poster="{{ item.poster }}" width="{{ item.width }}" height="{{ item.height }}" aria-label="{{ item.label }}">
+  <video muted loop playsinline preload="none" data-poster="{{ item.poster }}" width="{{ item.width }}" height="{{ item.height }}" aria-label="{{ item.label }}">
     <source src="{{ item.video }}" type="video/mp4" />
   </video>
 </figure>
