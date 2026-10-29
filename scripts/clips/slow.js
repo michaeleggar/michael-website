@@ -1,5 +1,5 @@
 // Scroll shots (the full site and the phone) for one site's shot file. Each
-// 30fps frame is SUB sub-frames across a 3/4 shutter, blended later into
+// 30fps frame is SUB sub-frames across a half shutter, blended later into
 // motion blur; the page's CSS animations and videos run `slow` times slower
 // while each sub-frame is taken on schedule.
 // Usage: node slow.js shots/<site>.js [shot]
@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { puppeteer, CHROME, FULL, PHONE, stopsTrack, open } = require('./lib');
 
-const FPS = 30, SUB = 4, SHUTTER = 0.75;
+const FPS = 30, SUB = 4, SHUTTER = 0.5;
 const cfg = require(path.resolve(process.argv[2]));
 const only = process.argv[3];
 
@@ -37,13 +37,14 @@ const only = process.argv[3];
     const seekVideos = t => page.evaluate(t => Promise.all(window.__videos.map(({ v, from }) => new Promise(done => {
       const at = (from + t) % v.duration;
       if (Math.abs(v.currentTime - at) < 0.004) return done();
-      const timer = setTimeout(done, 400);
-      v.addEventListener('seeked', () => { clearTimeout(timer); requestAnimationFrame(() => done()); }, { once: true });
+      const timer = window.__real.setTimeout(done, 400);
+      v.addEventListener('seeked', () => { window.__real.clearTimeout(timer); window.__real.raf(() => done()); }, { once: true });
       v.currentTime = at;
     }))), t);
     const client = await page.createCDPSession();
     await client.send('Animation.enable');
     await client.send('Animation.setPlaybackRate', { playbackRate: 1 / slow });
+    await page.evaluate(slow => window.__setTimeScale(slow), slow);
     const frames = Math.round(track.seconds * FPS);
     const start = Date.now();
     let late = 0;

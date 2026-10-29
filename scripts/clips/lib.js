@@ -8,6 +8,20 @@ const FULL = { width: 1512, height: 945, deviceScaleFactor: 1.5 };
 const PHONE = { width: 393, height: 736, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
 
 const quint = t => (t < 0.5 ? 16 * t ** 5 : 1 - Math.pow(-2 * t + 2, 5) / 2);
+// cubic-bezier(x1, y1, x2, y2) as a function of progress, like CSS.
+function bezier(x1, y1, x2, y2) {
+  const at = (a, b, t) => ((1 - 3 * b + 3 * a) * t + (3 * b - 6 * a)) * t * t + 3 * a * t;
+  return x => {
+    if (x <= 0 || x >= 1) return x <= 0 ? 0 : 1;
+    let lo = 0, hi = 1, t = x;
+    for (let i = 0; i < 40; i++) { const v = at(x1, x2, t); if (Math.abs(v - x) < 1e-6) break; if (v < x) lo = t; else hi = t; t = (lo + hi) / 2; }
+    return at(y1, y2, t);
+  };
+}
+// Scroll moves ease in and out on a firm but not peaky curve (animations.dev's
+// ease-in-out-cubic): it gets going promptly and settles without whipping
+// through the middle.
+const scrollEase = bezier(0.645, 0.045, 0.355, 1);
 const sine = t => -(Math.cos(Math.PI * t) - 1) / 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
@@ -28,7 +42,7 @@ function stopsTrack(stops, max, { lead = 0.8, move = 1.3, hold = 1.1, step } = {
     let value = moves.length ? moves[0][2] : 0;
     for (const [s, e, a, b] of moves) {
       if (time >= e) value = b;
-      else if (time > s) return a + (b - a) * sine((time - s) / (e - s));
+      else if (time > s) return a + (b - a) * scrollEase((time - s) / (e - s));
     }
     return value;
   };
@@ -56,8 +70,49 @@ async function tidy(page, extraCss = '') {
   }, JUNK.source);
 }
 
+// The page's own clock, slowable. Recording slows CSS animations through
+// DevTools, but JavaScript timers (an autoplaying carousel, tabs that rotate
+// every few seconds) would run at full speed against the slowed page and flip
+// many times a second in the clip. Installed before any of the page's code,
+// it runs at normal speed until the recorder calls __setTimeScale(n): from
+// then on timeouts, intervals, Date.now, performance.now, and animation-frame
+// times all run n times slower. The recorder's own in-page code uses __real.
+function clockShim() {
+  if (window.__setTimeScale) return;
+  const real = {
+    setTimeout: window.setTimeout.bind(window), clearTimeout: window.clearTimeout.bind(window),
+    raf: window.requestAnimationFrame.bind(window), now: performance.now.bind(performance), dateNow: Date.now,
+  };
+  window.__real = real;
+  let scale = 1, realAt = real.now(), virtualAt = realAt;
+  const now = () => virtualAt + (real.now() - realAt) / scale;
+  window.__setTimeScale = n => { virtualAt = now(); realAt = real.now(); scale = n; };
+  const dateOffset = real.dateNow() - real.now();
+  performance.now = now;
+  Date.now = () => Math.round(now() + dateOffset);
+  const timers = new Map();
+  let nextId = 1e6;
+  const call = (fn, args) => (typeof fn === 'function' ? fn(...args) : Function(String(fn))());
+  window.setTimeout = (fn, delay = 0, ...args) => {
+    const id = nextId++;
+    timers.set(id, real.setTimeout(() => { timers.delete(id); call(fn, args); }, delay * scale));
+    return id;
+  };
+  window.setInterval = (fn, delay = 0, ...args) => {
+    const id = nextId++;
+    const tick = () => timers.set(id, real.setTimeout(() => { if (!timers.has(id)) return; tick(); call(fn, args); }, Math.max(delay, 4) * scale));
+    tick();
+    return id;
+  };
+  window.clearTimeout = window.clearInterval = id => {
+    if (timers.has(id)) { real.clearTimeout(timers.get(id)); timers.delete(id); } else real.clearTimeout(id);
+  };
+  window.requestAnimationFrame = cb => real.raf(() => cb(now()));
+}
+
 async function open(browser, url, viewport, { css = '', slow = 1 } = {}) {
   const page = await browser.newPage();
+  await page.evaluateOnNewDocument(clockShim);
   await page.setViewport(viewport);
   await page.goto(url, { waitUntil: 'networkidle2', timeout: 90000 }).catch(() => {});
   // Real input releases scripts that wait for a visitor (sticky headers, sliders).
@@ -126,4 +181,4 @@ function pointerAt(moves, points, t) {
   return { x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k - Math.sin(Math.PI * k) * (from === to ? 0 : 18) };
 }
 
-module.exports = { puppeteer, CHROME, DESKTOP, FULL, PHONE, stopsTrack, tidy, open, locate, pointerAt, quint, sine, clamp };
+module.exports = { puppeteer, CHROME, DESKTOP, FULL, PHONE, stopsTrack, tidy, open, locate, pointerAt, quint, sine, clamp, bezier };

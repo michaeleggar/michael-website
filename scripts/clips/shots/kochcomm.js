@@ -1,9 +1,9 @@
 module.exports = {
   site: 'kochcomm', url: 'https://www.kochcomm.com/',
   scroll: [
-    { name: 'full', viewport: 'FULL', stops: [0, 0.193, 0.335, 0.502, 0.682, 0.824, 1], timing: { lead: 5, move: 1.6, hold: 1.3 } },
-    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.5, hold: 1.1, step: 640 } },
-    { name: 'phone-work', viewport: 'PHONE', url: 'https://www.kochcomm.com/all-work/', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 2, move: 1.5, hold: 1.1, step: 640 } },
+    { name: 'full', viewport: 'FULL', stops: [0, 0.193, 0.335, 0.502, 0.682, 0.824, 1], timing: { lead: 4, move: 1.5, hold: 1.1 } },
+    { name: 'phone', viewport: 'PHONE', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 1.6, move: 1.3, hold: 0.9, step: 680 } },
+    { name: 'phone-work', viewport: 'PHONE', url: 'https://www.kochcomm.com/all-work/', stops: [0, 0.18, 0.36, 0.54, 0.72, 1], timing: { lead: 1.6, move: 1.3, hold: 0.9, step: 680 } },
   ],
   details: [
     {

@@ -26,16 +26,25 @@ window where a section needs it.
 ## Steps
 
 1. `node slow.js shots/<site>.js` records the scroll shots. Each 30fps frame
-   is four sub-frames across the shutter, blended later into motion blur; the
-   page's CSS animations run 16–24 times slower while each sub-frame is taken
-   on schedule. The page's videos are paused and stepped to each sub-frame's
-   moment instead, since Chrome won't play a video slower than 1/16 and they'd
-   come out sped up. JavaScript timers aren't slowed, so stop anything that
-   rotates on its own (sliders are paused in `lib.js`). A shot's `timing` sets
-   its `lead` (the hold on the first stop: 5s for the homepage scrolls, which
-   lead the page, less half a second the loop's crossfade takes), `move`, and
-   `hold`; moves ease gently (sine) so the page never rushes. Phones use
-   `step: 640` instead of stops, so no move is longer than most of a screen.
+   is four sub-frames across a half shutter, blended later into a light motion
+   blur (a longer shutter on a fast move smeared and was hard to watch). The
+   page runs 16–24 times slower while each sub-frame is taken on schedule,
+   and everything on it has to slow together: CSS animations through
+   DevTools; the page's videos, paused and stepped to each sub-frame's moment
+   (Chrome won't play one slower than 1/16, so left alone they come out sped
+   up); and the page's own clock, through a shim `lib.js` installs before
+   any of the site's code runs, so timers, `Date.now`, `performance.now`, and
+   animation frames all slow too. Without it a carousel or tabs that rotate
+   every few seconds (OKCID's People, Ideas, Industries) flip many times a
+   second in the clip. The recorder parks no pointer on the page (pointer
+   events are off), so nothing shows a hover, and anything that pauses on
+   hover plays as it would for a visitor who isn't touching it.
+
+   A shot's `timing` sets its `lead` (the opening hold: 4s on a homepage
+   whose hero moves by itself, 2.5s on a still one, less the half second the
+   loop's crossfade takes), `move`, and `hold`. Moves follow animations.dev's
+   ease-in-out-cubic, firm without whipping through the middle; phones use
+   `step: 680` instead of stops, so no move is longer than most of a screen.
    The scroll stops two pixels short of the bottom, where a fractional page
    height can show a sliver of the root background.
 2. `node live.js shots/<site>.js` records the details in real time with
@@ -64,7 +73,12 @@ window where a section needs it.
    scrolls render at 1600 × 1000, phones at 524 × 982, and details at most
    1824 wide, the most any of them shows at on a 2x screen. Every `out` size
    must be even in both directions, or the encoder won't start.
-5. `node stills.js <url> "text" ...` captures, at 2x, the full-width section
+5. `node qa.js shots/<site>.js <shot> <max scroll>` checks a recording before
+   it ships: for every hold it reports the share of frames where something
+   changed (a timer running against the slowed page shows near 100%; a real
+   rotation, a short burst every few seconds) and writes a contact sheet with
+   a frame every half second. `slow.js` prints the max scroll.
+6. `node stills.js <url> "text" ...` captures, at 2x, the full-width section
    holding each text, for detail stills; optimize the chosen ones with
    `npm run images`.
 
