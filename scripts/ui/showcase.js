@@ -70,7 +70,10 @@ function initializeShowcase() {
   function curveDrop(slot) {
     const direction = settings.layout.curve === 'smile' ? 1 : settings.layout.curve === 'arch' ? -1 : 0;
     const baseline = settings.layout.baseline * layoutScale;
-    const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * layoutScale);
+    // The curve is tuned for six cards; more spread the same arch further out
+    // instead of dropping the end cards lower, so the fan keeps its shape.
+    const ends = Math.max(2.5, (cards.length - 1) / 2);
+    const arc = Math.min(baseline, slot * slot * settings.layout.curveDepth * (2.5 / ends) ** 2 * layoutScale);
     return curveShift + (direction < 0 ? arc : baseline - direction * arc);
   }
   // Moves the curve so the middle pair of cards rests halfway between the intro
@@ -166,6 +169,28 @@ function initializeShowcase() {
     });
     // Growing lifts the cards off their bottoms, so settle the middle again.
     if (page) centreCurve();
+    // No card may hang past the stage's clip: shrink them all until the lowest fits,
+    // counting the push down that keeps a grown card off the intro text.
+    const clipBottom = stage.clientHeight + (parseFloat(getComputedStyle(stage).overflowClipMargin) || 0) - 8;
+    for (let pass = 0; pass < 10; pass++) {
+      const lowest = Math.max(...states.map((state, index) => {
+        const slot = index - (cards.length - 1) / 2;
+        const stagger = (index % 2 ? -settings.layout.stagger / 3 : settings.layout.stagger * 2 / 3) * layoutScale;
+        const rotation = Math.max(-30, Math.min(30, -slot * settings.layout.rotation * direction));
+        const bounds = photoBounds(state.width, state.photoHeight, rotation);
+        let top = cardTop + curveDrop(slot) + stagger - bottomAnchor(state, rotation) + state.photoHeight / 2 - bounds.height / 2;
+        if (photoGrowth > 1 && settings.sizing.protectTextOnHover) top = Math.max(top, photoTopLimit);
+        return top + bounds.height;
+      }));
+      if (lowest <= clipBottom) break;
+      photoGrowth *= Math.max(0.85, Math.min(0.98, (clipBottom - cardTop) / (lowest - cardTop)));
+      style.setProperty('--showcase-desktop-width', `${settings.photos.workWidth * layoutScale * photoGrowth}px`);
+      states.forEach((state, index) => {
+        state.width = cards[index].offsetWidth;
+        state.photoHeight = cards[index].querySelector('.showcase-photo').offsetHeight;
+      });
+      if (page) centreCurve();
+    }
   }
   let active = -1;
   let hover = null;
