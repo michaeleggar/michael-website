@@ -48,7 +48,7 @@ Sources in `scripts/ui/` are bundled by `scripts/bundle-scripts.js` into `assets
 
 ## CD player
 
-Open **Other Stuff → CD player** to raise one shiny, hand-marked disc already seated beneath a fixed transparent lid. Press play to start the original Web Audio wind-and-leaf placeholder; no third-party samples, recordings, or streaming embeds are used.
+Open **Other Stuff → CD player** to raise one shiny, hand-marked disc already seated beneath a fixed transparent lid. Press play to start Backyard Rain, Michael's own recording of rain outside (`assets/audio/backyard-rain.m4a`, AAC at 40 kbps mono, about 0.9 MB, loaded only on play). The disc is labeled “backyard rain” in marker. Without `data-audio-src`, the player falls back to an original Web Audio wind-and-leaf sound; no third-party samples or streaming embeds are used.
 
 The disc, lid, and shell share one center, so the rims stay even all the way around; the display and the three keys sit on a single row above them. The keys handle restart, stop, and play/pause. The seven-segment display shows elapsed time above a segmented volume strip, and the whole display is the volume control: drag it, scroll over it, or use the arrow keys. The handwritten artwork eases up to speed beneath fixed reflections and coasts to a stop; a paused disc blinks its time. Restart resets the counter while preserving playback, stop resets and pauses, pause preserves the time, and closing stops the audio. Site navigation preserves the player and audio state.
 

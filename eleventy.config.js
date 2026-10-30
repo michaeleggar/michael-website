@@ -35,6 +35,7 @@ module.exports = function (eleventyConfig) {
     "assets/fonts/Oddball.woff2",
     "assets/scripts",
     "assets/video",
+    "assets/audio",
   ].forEach((assetPath) => eleventyConfig.addPassthroughCopy(assetPath));
 
   eleventyConfig.addCollection("workProjects", (collectionApi) =>
@@ -48,10 +49,16 @@ module.exports = function (eleventyConfig) {
       }),
   );
 
-  eleventyConfig.addFilter('featuredArtwork', (artworks, slugs) => slugs.map(slug => {
-    const artwork = artworks.find(item => item.image.endsWith(`/${slug}`));
-    if (!artwork) throw new Error(`Featured artwork "${slug}" was not found in art.json.`);
-    return artwork;
+  // The homepage fan, left to right: 'art:<slug>' for an artwork, or a project's folder name.
+  eleventyConfig.addFilter('fanItems', (entries, artworks, projects) => entries.map(entry => {
+    if (entry.startsWith('art:')) {
+      const artwork = artworks.find(item => item.image.endsWith(`/${entry.slice(4)}`));
+      if (!artwork) throw new Error(`Fan artwork "${entry}" was not found in art.json.`);
+      return { kind: 'art', artwork };
+    }
+    const project = projects.find(item => item.url === `/projects/${entry}/`);
+    if (!project) throw new Error(`Fan project "${entry}" was not found.`);
+    return { kind: 'work', project };
   }));
   // Card tags: the agency, then each "My role" detail.
   eleventyConfig.addFilter('projectTags', data => {

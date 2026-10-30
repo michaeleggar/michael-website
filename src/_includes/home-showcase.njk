@@ -1,15 +1,10 @@
 {% from "showcase-cards.njk" import workCard, artCard %}
 <section class="page-section home-showcase" aria-label="Projects and art">
   <div class="showcase-stage" data-showcase role="group" aria-label="Explore projects and art">
-    {% set selectedArt = art | featuredArtwork(site.featuredArt) %}
-    {# The first few projects; more would crowd the fan. #}
-    {% set fanProjects = collections.workProjects.slice(0, site.fanProjects or 5) %}
-    {% set fanCenter = (fanProjects.length + selectedArt.length - 1) / 2 %}
-    {% for project in fanProjects %}
-      {% set workPosition = loop.index0 * 2 %}
-      {% if loop.index0 >= selectedArt.length %}{% set workPosition = loop.index0 + selectedArt.length %}{% endif %}
-      {{ workCard(project, workPosition, fanCenter) }}
-      {% if loop.index0 < selectedArt.length %}{{ artCard(selectedArt[loop.index0], loop.index0 * 2 + 1, fanCenter) }}{% endif %}
+    {% set fanItems = site.fan | fanItems(art, collections.workProjects) %}
+    {% set fanCenter = (fanItems.length - 1) / 2 %}
+    {% for item in fanItems %}
+      {% if item.kind == 'art' %}{{ artCard(item.artwork, loop.index0, fanCenter) }}{% else %}{{ workCard(item.project, loop.index0, fanCenter) }}{% endif %}
     {% endfor %}
   </div>
   <div class="showcase-label" data-showcase-caption aria-hidden="true">

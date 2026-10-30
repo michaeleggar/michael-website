@@ -71,8 +71,8 @@
     })(began);
   }
 
-  // The disc plays original wind-and-leaf synthesis.
-  // A future local recording can be supplied through data-audio-src on the panel.
+  // The disc plays the recording named by data-audio-src on the panel (Backyard Rain);
+  // without one, it falls back to original wind-and-leaf synthesis.
   function createEngine() {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) throw new Error('Audio is unavailable in this browser.');

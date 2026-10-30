@@ -244,7 +244,7 @@ a:hover {
 }
 
 :where(p, dd, li, figcaption) a:not([class]) {
-  padding-block-end: 3px;
+  padding-block-end: 2px;
   background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px calc(5px + var(--stitch-gap))) 0 100% / 100% 1.5px no-repeat;
   text-decoration: none;
   -webkit-box-decoration-break: clone;

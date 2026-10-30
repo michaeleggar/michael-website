@@ -60,7 +60,7 @@ function createMenu(mount, { name, label, items, status = false }) {
   return { menu, trigger, close: () => setOpen(false) };
 }
 
-const elsewhereItems = () => `<a role="menuitem" class="elsewhere-item" href="https://github.com/micha3l-e" target="_blank" rel="noopener noreferrer">GitHub ${arrow}</a>
+const elsewhereItems = () => `<a role="menuitem" class="elsewhere-item" href="https://github.com/michaeleggar" target="_blank" rel="noopener noreferrer">GitHub ${arrow}</a>
   <a role="menuitem" class="elsewhere-item" href="https://www.linkedin.com/in/michaeleggar" target="_blank" rel="noopener noreferrer">LinkedIn ${arrow}</a>
   <button role="menuitem" class="elsewhere-item elsewhere-email" type="button">Email <span class="elsewhere-copy-note"><span class="elsewhere-copy-label">Copy</span><span class="elsewhere-copy-reserve" aria-hidden="true">Copied again!</span></span></button>`;
 
