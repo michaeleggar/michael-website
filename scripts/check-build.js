@@ -91,7 +91,9 @@ for (const htmlPath of htmlFiles) {
 
   if (!title) errors.push(`${relativePath} is missing a title`);
   if (!description) errors.push(`${relativePath} is missing a description`);
-  if (!canonical) errors.push(`${relativePath} is missing a canonical URL`);
+  // Pages kept out of search (the 404) have no canonical URL.
+  const noindex = /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html);
+  if (!canonical && !noindex) errors.push(`${relativePath} is missing a canonical URL`);
   if (!socialImage) errors.push(`${relativePath} is missing an Open Graph image`);
 
   if (title) {

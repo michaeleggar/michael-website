@@ -20,6 +20,12 @@
   text-transform: lowercase;
 }
 
+/* Oddball has letters only; the 404's numbers and face are set in the body face. */
+.not-found-glyphs {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
 /* Project gallery: as wide as the Art page, two big pictures to a row, three
    once there are six projects. */
 

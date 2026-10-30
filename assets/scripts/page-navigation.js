@@ -139,6 +139,11 @@
     document.querySelector('#main-content')?.setAttribute('aria-busy', 'true');
 
     try {
+      // Let the click paint first. A page fetched on hover is ready at once, so
+      // without this, parsing and laying out the next page all land in the
+      // click's own frame, which reads as a slow response (Interaction to Next Paint).
+      await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 0)));
+      if (signal.aborted) return;
       const fetched = await fetchPage(destination.href);
       if (signal.aborted) return;
       const url = new URL(fetched.url);

@@ -18,7 +18,7 @@
 {% set metaImageAlt = socialImageAlt or cardImageAlt or site.defaultSocialImageAlt %}
 <title>{{ metaTitle }}</title>
 <meta name="description" content="{{ metaDescription }}" />
-<link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+{% if noindex %}<meta name="robots" content="noindex" />{% else %}<link rel="canonical" href="{{ site.url }}{{ page.url }}" />{% endif %}
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{{ site.name }}" />
 <meta property="og:title" content="{{ metaTitle }}" />
