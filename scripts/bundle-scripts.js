@@ -3,7 +3,7 @@ const esbuild = require('esbuild');
 // Each source becomes its own self-contained script.
 function bundleScripts() {
   esbuild.buildSync({
-    entryPoints: ['scripts/ui/site.js', 'scripts/ui/contact-menu.js', 'scripts/ui/art-lightbox.js', 'scripts/ui/chat-demo.js', 'scripts/ui/case-study.js'],
+    entryPoints: ['scripts/ui/site.js', 'scripts/ui/contact-menu.js', 'scripts/ui/art-lightbox.js', 'scripts/ui/case-study.js'],
     bundle: true,
     minify: true,
     format: 'iife',

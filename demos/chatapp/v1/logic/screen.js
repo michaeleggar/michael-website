@@ -806,6 +806,10 @@ const renderFeed = () => {
   const feed = elements.messageFeed;
   if (!feed) return;
   closeMessageContextMenu();
+  // Clearing the feed resets its scroll to the top; restore it after the
+  // rebuild so each new message eases down from where the feed was instead of
+  // jumping to the top first.
+  const previousScrollTop = feed.scrollTop;
   feed.innerHTML = "";
   const thread = state.view;
   const filtered = state.messages.filter((message) => {
@@ -816,6 +820,7 @@ const renderFeed = () => {
   filtered.forEach((message) => {
     feed.append(renderMessage(message));
   });
+  feed.scrollTop = previousScrollTop;
   feed.scrollTo({ top: feed.scrollHeight, behavior: "smooth" });
 };
 

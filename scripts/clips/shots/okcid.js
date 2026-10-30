@@ -43,17 +43,17 @@ module.exports = {
       clicks: [1.1, 2.9, 4.7, 6.0],
     },
     {
-      name: 'map', height: 1040, url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Explore the Neighborhood', top: 110 }, seconds: 9.2,
+      // Directory pins on the map: each opens its organization's card. Starts and ends on the first pin's card.
+      name: 'map', height: 1040, url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Explore the Neighborhood', top: 110 }, seconds: 11.6,
+      reset: ['sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]'], late: ['sel:|.okcid-map-marker[aria-label="View Harold Hamm Diabetes Center"]', 'sel:|.okcid-map-marker[aria-label="View OU University Research Park"]', 'sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]#2'],
       pointer: [
-        [0, 0.4, 'rest:0.86,0.5', 'rest:0.86,0.5'],
-        [0.4, 1.0, 'rest:0.86,0.5', 'in:Explore the Neighborhood|Stiles Park'], [1.0, 3.2, 'in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|Stiles Park'],
-        [3.2, 3.7, 'in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|The Tower at Convergence'], [3.7, 5.9, 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|The Tower at Convergence'],
-        [5.9, 6.6, 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|Innovation Hall'], [6.6, 8.6, 'in:Explore the Neighborhood|Innovation Hall', 'in:Explore the Neighborhood|Innovation Hall'],
-        [8.6, 9.2, 'in:Explore the Neighborhood|Innovation Hall', 'rest:0.86,0.5'],
+        [0, 0.6, 'rest:0.93,0.86', 'rest:0.93,0.86'],
+        [0.6, 1.3, 'rest:0.93,0.86', 'sel:|.okcid-map-marker[aria-label="View Harold Hamm Diabetes Center"]'], [1.3, 3.6, 'sel:|.okcid-map-marker[aria-label="View Harold Hamm Diabetes Center"]', 'sel:|.okcid-map-marker[aria-label="View Harold Hamm Diabetes Center"]'],
+        [3.6, 4.3, 'sel:|.okcid-map-marker[aria-label="View Harold Hamm Diabetes Center"]', 'sel:|.okcid-map-marker[aria-label="View OU University Research Park"]'], [4.3, 6.6, 'sel:|.okcid-map-marker[aria-label="View OU University Research Park"]', 'sel:|.okcid-map-marker[aria-label="View OU University Research Park"]'],
+        [6.6, 7.3, 'sel:|.okcid-map-marker[aria-label="View OU University Research Park"]', 'sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]#2'], [7.3, 9.6, 'sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]#2', 'sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]#2'],
+        [9.6, 10.5, 'sel:|.okcid-map-marker[aria-label="View Oklahoma Center for Non-Profits"]#2', 'rest:0.93,0.86'], [10.5, 11.6, 'rest:0.93,0.86', 'rest:0.93,0.86'],
       ],
-      clicks: [1.1, 3.8, 6.7],
-      // Fly to each place once first, so the map tiles are loaded.
-      reset: ['in:Explore the Neighborhood|Stiles Park', 'in:Explore the Neighborhood|The Tower at Convergence', 'in:Explore the Neighborhood|Innovation Hall'],
+      clicks: [1.4, 4.4, 7.4],
     },
     {
       name: 'directory', height: 1200, url: 'https://okcinnovation.com/map-directory/', pin: { text: 'Meet More of the District', top: 90 }, seconds: 9.6,
@@ -86,6 +86,21 @@ module.exports = {
         [9.7, 10.0, 'rest:0.8,0.82', 'rest:0.8,0.82'],
       ],
       clicks: [1.1, 3.2, 5.3, 7.4],
+    },
+    {
+      // Events narrowed to a week on the flatpickr calendar, then cleared.
+      name: 'events', url: 'https://okcinnovation.com/events/', height: 1100, pin: { sel: '.okcid-archive-filters', top: 200 }, seconds: 12.4,
+      late: ['sel:|.flatpickr-calendar.open .flatpickr-next-month', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 1, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 7, 2026"]'],
+      pointer: [
+        [0, 0.4, 'rest:0.6,0.2', 'rest:0.6,0.2'],
+        [0.4, 1.0, 'rest:0.6,0.2', 'sel:|.okcid-archive-filters__date'], [1.0, 1.6, 'sel:|.okcid-archive-filters__date', 'sel:|.okcid-archive-filters__date'],
+        [1.6, 2.2, 'sel:|.okcid-archive-filters__date', 'sel:|.flatpickr-calendar.open .flatpickr-next-month'], [2.2, 2.8, 'sel:|.flatpickr-calendar.open .flatpickr-next-month', 'sel:|.flatpickr-calendar.open .flatpickr-next-month'],
+        [2.8, 3.4, 'sel:|.flatpickr-calendar.open .flatpickr-next-month', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 1, 2026"]'], [3.4, 3.9, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 1, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 1, 2026"]'],
+        [3.9, 4.3, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 1, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 7, 2026"]'], [4.3, 6.8, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 7, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 7, 2026"]'],
+        [6.8, 7.6, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="November 7, 2026"]', 'sel:|button, a@Clear'], [7.6, 9.4, 'sel:|button, a@Clear', 'sel:|button, a@Clear'],
+        [9.4, 10.2, 'sel:|button, a@Clear', 'rest:0.6,0.2'], [10.2, 12.4, 'rest:0.6,0.2', 'rest:0.6,0.2'],
+      ],
+      clicks: [1.1, 2.3, 3.5, 4.4, 7.7],
     },
   ],
 };

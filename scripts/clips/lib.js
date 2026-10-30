@@ -140,6 +140,7 @@ async function open(browser, url, viewport, { css = '', slow = 1 } = {}) {
 // text), or 'sel:Scope text|css selector'. Returned in viewport coordinates at
 // the page's current scroll; `doc` marks targets that move with the page.
 async function locate(page, target) {
+  target = target.replace(/#\d+$/, '');
   const { width, height } = page.viewport();
   const [kind, rest] = [target.slice(0, target.indexOf(':')), target.slice(target.indexOf(':') + 1)];
   if (kind === 'rest') { const [fx, fy] = rest.split(',').map(Number); return { x: width * fx, y: height * fy, doc: false }; }

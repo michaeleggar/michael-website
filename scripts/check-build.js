@@ -65,11 +65,7 @@ if (!fs.existsSync(outputRoot)) {
   throw new Error("dist does not exist; run the build before checking it");
 }
 
-// Embedded app demos are standalone builds without site metadata.
-const demoRoot = path.join(outputRoot, "projects", "chatapp", "demo");
-const htmlFiles = walk(outputRoot).filter(
-  (file) => file.endsWith(".html") && !file.startsWith(demoRoot + path.sep),
-);
+const htmlFiles = walk(outputRoot).filter((file) => file.endsWith(".html"));
 
 for (const htmlPath of htmlFiles) {
   const html = fs.readFileSync(htmlPath, "utf8");

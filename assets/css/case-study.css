@@ -12,7 +12,6 @@
   --case-study-copy-gap: clamp(2.5rem, 5vw, 3.5rem);
   --case-section-gap: clamp(3.5rem, 8vw, 6rem);
   --project-details-overhang: 1rem;
-  --case-figure-pad: clamp(0.875rem, 2.5vw, 1.5rem);
   width: 100%;
 }
 
@@ -22,14 +21,6 @@
 .case-section > :where(.case-heading, .case-copy, p, ul, ol, h3) {
   width: min(calc(100% - 2 * var(--page-gutter)), var(--case-copy-width));
   margin-inline: auto;
-}
-
-/* Small labels on figures and the demo. */
-.case-label {
-  color: var(--text-muted);
-  font-size: var(--type-meta);
-  font-weight: 500;
-  line-height: 1.4;
 }
 
 .project-navigation {
@@ -380,50 +371,7 @@
   .case-aside[data-side="start"] > figure { order: 0; }
 }
 
-/* Framed figures: a hairline panel with a title row, a body, and a caption. */
-.case-figure {
-  width: min(calc(100% - 2 * var(--page-gutter)), var(--case-study-media-width));
-  margin: var(--case-study-copy-gap) auto 0;
-}
-.case-figure-frame {
-  padding: var(--case-figure-pad);
-  border: 1px solid var(--hairline);
-  border-radius: var(--surface-radius);
-  corner-shape: superellipse(1.4);
-  background: var(--panel);
-}
-.case-figure-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem 1.25rem;
-  margin-block-end: var(--case-figure-pad);
-}
-.case-figure-title { margin: 0; font-size: var(--type-sm); font-weight: 600; line-height: 1.3; }
-
-/* Tabs switch what a figure shows. */
-.case-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0; padding: 0; list-style: none; }
-.case-tab {
-  padding: 0.3rem 0;
-  border: 0;
-  border-block-end: 1.5px solid transparent;
-  background: transparent;
-  color: var(--text-muted);
-  font: 500 var(--type-xs) / 1.3 var(--font-body);
-  cursor: pointer;
-  transition: color 140ms ease, border-color 140ms ease;
-}
-.case-tab:hover { color: var(--text-primary); }
-.case-tab[aria-pressed="true"], .case-tab[aria-selected="true"] { color: var(--text-primary); border-color: var(--accent); }
-.case-tab:focus-visible { outline: 2px solid var(--text-secondary); outline-offset: 2px; }
-.case-tab-note { color: var(--text-muted); font-weight: 400; }
-
 @media (max-width: 780px) {
   .portfolio-case-study { --project-details-overhang: 0.25rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .case-tab { transition: none; }
 }
 

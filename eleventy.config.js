@@ -36,10 +36,6 @@ module.exports = function (eleventyConfig) {
     "assets/scripts",
     "assets/video",
   ].forEach((assetPath) => eleventyConfig.addPassthroughCopy(assetPath));
-  // Static builds of the chat app, embedded live in its case study. Rebuild them
-  // from the chat-app repo with `npm run build:demo`, with its base path set to
-  // /projects/chatapp/demo/ (it was /work/chatapp/demo/).
-  eleventyConfig.addPassthroughCopy({ "demos/chatapp": "projects/chatapp/demo" });
 
   eleventyConfig.addCollection("workProjects", (collectionApi) =>
     collectionApi

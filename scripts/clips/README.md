@@ -19,7 +19,11 @@ through targets, timed clicks). Every detail ends where it starts, so it loops.
 Targets are `rest:x,y` (viewport fractions), `text:Label`, `in:Scope text|Label`,
 `sel:Scope text|css`, or `sel:|css@Exact text`. `reveal` opens menus before
 targets are measured; `reset`/`resetSel` click things once before recording
-(to warm images and map tiles, then close what was opened). Details hide the
+(to warm images and map tiles, then close what was opened), and `resetKey`
+presses keys. Targets listed in `late` only exist mid-shot (a calendar's days,
+a Clear button) and are measured when the pointer first heads for them; a
+`#2` suffix measures the same target again later. A `pin` can be a `sel`
+(css) instead of `text`. Details hide the
 site's sticky header unless `keepHeader` is set, and `height` gives a taller
 window where a section needs it.
 
@@ -79,8 +83,25 @@ window where a section needs it.
    rotation, a short burst every few seconds) and writes a contact sheet with
    a frame every half second. `slow.js` prints the max scroll.
 6. `node stills.js <url> "text" ...` captures, at 2x, the full-width section
-   holding each text, for detail stills; optimize the chosen ones with
-   `npm run images`.
+   holding each text, for detail stills. Where that block isn't the right one,
+   `fullpage.js <url> <out>` (the whole page) or `top.js <url> <out>` (its
+   first screen) take a 2x capture to crop by hand at a section's edges.
+   Optimize the chosen ones with `npm run images`.
+
+## The chat app
+
+Film Chat's clips come from the original app in `demos/chatapp/v1`, served
+locally (`python3 -m http.server 4719 --bind 127.0.0.1` in that folder).
+`node chatrec.js shots/chatapp.js [name] [--still]` opens the crew panel and
+the actor's screen in windows of their own, seeds the opening lines over the
+app's BroadcastChannel, and screencasts both while the pointer moves; each
+frame then puts the part of each window in use (`region`) on a plain stage,
+side by side or stacked (`column`), so `make.sh chatapp-<name>` cuts it like
+any other clip. Framing the two apps in one page doesn't work: framed, they
+never draw, so a screencast gets nothing and input waits on frames that never
+come. Clicks, typing, and right-clicks are dispatched to the element under the
+drawn pointer (a select's native list can't be filmed), and the windows' real
+pointers follow it for hover states.
 
 `survey.js` films a page's load and a steady scroll into a contact sheet, to
 spot which parts of a site move. `record-ductworx.js` and

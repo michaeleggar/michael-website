@@ -45,6 +45,15 @@ const clips = {
   'kochcomm-phone-work': { shot: 'kochcomm-phone-work', crop: null, out: [524, 982], fade: 14, css: 393 },
   'ria-phone-library': { shot: 'ria-phone-library', crop: null, out: [524, 982], fade: 14, css: 393 },
   'goldenmesa-rooms': { shot: 'goldenmesa-rooms', crop: [0, 60, 1512, 820], out: [2268, 1230], fade: 6 },
+  'goldenmesa-filter': { shot: 'goldenmesa-filter', crop: [30, 40, 1452, 920], out: [2178, 1380], fade: 6 },
+  'okcid-events': { shot: 'okcid-events', crop: [0, 74, 1512, 808], out: [2268, 1212], fade: 6 },
+  'kochcomm-archive': { shot: 'kochcomm-archive', crop: [0, 0, 1512, 860], out: [2268, 1290], fade: 6 },
+  'kochcomm-history': { shot: 'kochcomm-history', crop: null, out: [1600, 1000], fade: 14 },
+  'chatapp-roster': { shot: 'chatapp-roster', crop: null, out: [2084, 1050], fade: 6, css: 1302 },
+  'chatapp-send': { shot: 'chatapp-send', crop: null, out: [2240, 912], fade: 6, css: 1400 },
+  'chatapp-saved': { shot: 'chatapp-saved', crop: null, out: [1690, 1220], fade: 6, css: 1056 },
+  'chatapp-video': { shot: 'chatapp-video', crop: null, out: [2036, 1120], fade: 6, css: 1272 },
+  'chatapp-edit': { shot: 'chatapp-edit', crop: null, out: [1998, 1248], fade: 6, css: 1248 },
   'okcid-programs': { shot: 'okcid-programs', crop: [0, 18, 1512, 794], out: [2268, 1190], fade: 6 },
 };
 

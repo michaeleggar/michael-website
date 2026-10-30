@@ -85,13 +85,19 @@ recordings:
     poster: /assets/images/optimized/okcid/clips/map.webp
     width: 1824
     height: 1152
-    label: "The district map flying between Stiles Park, the Tower at Convergence, and Innovation Hall"
+    label: "Directory pins on the district map opening the cards for the Oklahoma Center for Non-Profits, Harold Hamm Diabetes Center, and OU University Research Park"
   programs:
     video: /assets/video/okcid/programs.mp4
     poster: /assets/images/optimized/okcid/clips/programs.webp
     width: 1824
     height: 958
     label: "The Signature Programs tabs switching between Aerospace Week, Bio Week, Innovation Week, and the Innovators Awards Breakfast"
+  events:
+    video: /assets/video/okcid/events.mp4
+    poster: /assets/images/optimized/okcid/clips/events.webp
+    width: 1824
+    height: 975
+    label: "The events archive narrowed to November 1 through 7 on the calendar, leaving Coffee & Connect, then cleared"
   directory:
     video: /assets/video/okcid/directory.mp4
     poster: /assets/images/optimized/okcid/clips/directory.webp
@@ -127,12 +133,16 @@ recordings:
 
 {{ clipRow([recordings.phone, recordings["phone-hall"]], true) }}
 {{ clip(recordings.nav) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-tints", width: 1600, height: 1312, alt: "The tops of three pages, Our Team, Map & Directory, and Sponsorship Opportunities, with the header's active menu, its icons, and the curve under each title tinted blue, teal, and amber in turn" }) }}
 {{ clip(recordings.audience) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-cta", width: 1600, height: 368, alt: "An amber call to action with a watercolor texture, reading Meet the organization behind the district" }) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-stats", width: 1600, height: 797, alt: "A section headed Growing the industries moving Oklahoma City forward, with four dark tiles of figures beside a photograph of a researcher at a microscope" }) }}
 {{ clip(recordings.map) }}
 {{ clip(recordings.directory) }}
-{{ picture({ image: "/assets/images/optimized/okcid/okcid-stats", width: 1600, height: 797, alt: "A section headed Growing the industries moving Oklahoma City forward, with four dark tiles of figures beside a photograph of a researcher at a microscope" }) }}
+{{ clip(recordings.events) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-event", width: 1600, height: 772, alt: "The Coffee & Connect event page, with its date, time, place, and registration across the top and a Plan Your Visit panel ending in Add to Calendar" }) }}
+{{ picture({ image: "/assets/images/optimized/okcid/okcid-events", width: 1600, height: 854, alt: "Three upcoming event cards, each with a photograph, a date, and Innovation Hall as the venue" }) }}
 {{ clip(recordings.hall) }}
 {{ clip(recordings["hall-page"]) }}
 {{ picture({ image: "/assets/images/optimized/okcid/okcid-campus", width: 1600, height: 817, alt: "The Convergence OKC Campus section, with tinted photo cards for Innovation Hall, Stiles Park, and the Tower at Convergence" }) }}
 {{ clip(recordings.programs) }}
-{{ picture({ image: "/assets/images/optimized/okcid/okcid-events", width: 1600, height: 854, alt: "Three upcoming event cards, each with a photograph, a date, and Innovation Hall as the venue" }) }}

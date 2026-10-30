@@ -26,8 +26,8 @@ const only = process.argv[3];
       }
     });
     // Bring the detail into view: the block holding `pin.text` at `pin.top`.
-    const target = await page.evaluate(({ text, top }) => {
-      const leaf = [...document.querySelectorAll('body *')].filter(n => n.textContent.toLowerCase().includes(text.toLowerCase()) && n.getBoundingClientRect().height > 0).sort((a, b) => a.textContent.length - b.textContent.length)[0];
+    const target = await page.evaluate(({ text, sel, top }) => {
+      const leaf = sel ? document.querySelector(sel) : [...document.querySelectorAll('body *')].filter(n => n.textContent.toLowerCase().includes(text.toLowerCase()) && n.getBoundingClientRect().height > 0).sort((a, b) => a.textContent.length - b.textContent.length)[0];
       const y = Math.round(leaf.getBoundingClientRect().top + scrollY - top);
       window.scrollTo(0, y);
       return y;
@@ -43,11 +43,13 @@ const only = process.argv[3];
     // Open anything whose contents the pointer will need, before measuring.
     for (const css of shot.reveal || []) { await page.click(css); await new Promise(r => setTimeout(r, 900)); }
     const points = {};
-    for (const [, , from, to] of shot.pointer) for (const t of [from, to]) points[t] ??= await locate(page, t);
+    // Targets listed in `late` only exist mid-shot (a calendar's days, a Clear button); they're measured when first reached.
+    for (const [, , from, to] of shot.pointer) for (const t of [from, to]) if (!shot.late?.includes(t)) points[t] ??= await locate(page, t);
     // Visit each target once first, so hover images are loaded and warm.
-    for (const target of Object.keys(points)) { await page.mouse.move(points[target].x, points[target].y); await new Promise(r => setTimeout(r, 500)); }
-    for (const action of shot.reset || []) { await page.mouse.click(points[action].x, points[action].y); await new Promise(r => setTimeout(r, 2500)); }
+    for (const target of Object.keys(points).filter(k => !k.startsWith('rest:'))) { await page.mouse.move(points[target].x, points[target].y); await new Promise(r => setTimeout(r, 500)); }
+    for (const action of shot.reset || []) { points[action] ??= await locate(page, action); await page.mouse.click(points[action].x, points[action].y); await new Promise(r => setTimeout(r, 2500)); }
     for (const css of shot.resetSel || []) { await page.click(css); await new Promise(r => setTimeout(r, 900)); }
+    for (const key of shot.resetKey || []) { await page.keyboard.press(key); await new Promise(r => setTimeout(r, 900)); }
     const first = pointerAt(shot.pointer, points, 0);
     await page.mouse.move(first.x, first.y);
     await new Promise(r => setTimeout(r, 1500));
@@ -65,6 +67,7 @@ const only = process.argv[3];
     while (true) {
       const t = Date.now() / 1000 - start;
       if (t > shot.seconds + 0.1) break;
+      for (const seg of shot.pointer) if (t >= seg[0] - 0.05) for (const k of [seg[2], seg[3]]) if (!points[k]) points[k] = await locate(page, k);
       const p = pointerAt(shot.pointer, points, t);
       await page.mouse.move(p.x, p.y);
       if (clicks.length && clicks[0] <= t) { clicks.shift(); await page.mouse.down(); await page.mouse.up(); }

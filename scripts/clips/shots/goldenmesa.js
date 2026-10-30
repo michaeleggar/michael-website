@@ -30,15 +30,19 @@ module.exports = {
       reset: ['in:Players Club|Play', 'in:Players Club|Eat', 'in:Players Club|Stay', 'in:Players Club|Stay'],
     },
     {
-      name: 'filter', url: 'https://goldenmesa.com/promotions/', height: 1100, pin: { text: 'Category', top: 110 }, seconds: 8.4,
+      // Pick a date range on the flatpickr calendar, narrow to events, then clear back to everything.
+      name: 'filter', url: 'https://goldenmesa.com/promotions/', height: 1100, pin: { sel: '.gm-promotions-filter', top: 150 }, seconds: 12.6,
+      late: ['sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 8, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 10, 2026"]', 'sel:|.gm-promotions-filter__clear'],
       pointer: [
-        [0, 0.4, 'rest:0.58,0.6', 'rest:0.58,0.6'],
-        [0.4, 1.0, 'rest:0.58,0.6', 'sel:|.gm-promotions-filter__type-control@Event'], [1.0, 2.8, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Event'],
-        [2.8, 3.2, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Event'],
-        [3.2, 3.8, 'sel:|.gm-promotions-filter__type-control@Event', 'sel:|.gm-promotions-filter__type-control@Promotion'], [3.8, 6.6, 'sel:|.gm-promotions-filter__type-control@Promotion', 'sel:|.gm-promotions-filter__type-control@Promotion'],
-        [6.6, 7.6, 'sel:|.gm-promotions-filter__type-control@Promotion', 'rest:0.58,0.6'], [7.6, 8.4, 'rest:0.58,0.6', 'rest:0.58,0.6'],
+        [0, 0.4, 'rest:0.955,0.52', 'rest:0.955,0.52'],
+        [0.4, 1.0, 'rest:0.955,0.52', 'sel:|.gm-promotions-filter__date'], [1.0, 1.7, 'sel:|.gm-promotions-filter__date', 'sel:|.gm-promotions-filter__date'],
+        [1.7, 2.3, 'sel:|.gm-promotions-filter__date', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 8, 2026"]'], [2.3, 2.8, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 8, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 8, 2026"]'],
+        [2.8, 3.2, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 8, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 10, 2026"]'], [3.2, 4.4, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 10, 2026"]', 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 10, 2026"]'],
+        [4.4, 5.0, 'sel:|.flatpickr-calendar.open .flatpickr-day[aria-label="October 10, 2026"]', 'sel:|.gm-promotions-filter__type-control@Promotion'], [5.0, 8.0, 'sel:|.gm-promotions-filter__type-control@Promotion', 'sel:|.gm-promotions-filter__type-control@Promotion'],
+        [8.0, 8.6, 'sel:|.gm-promotions-filter__type-control@Promotion', 'sel:|.gm-promotions-filter__clear'], [8.6, 9.8, 'sel:|.gm-promotions-filter__clear', 'sel:|.gm-promotions-filter__clear'],
+        [9.8, 10.6, 'sel:|.gm-promotions-filter__clear', 'rest:0.955,0.52'], [10.6, 12.6, 'rest:0.955,0.52', 'rest:0.955,0.52'],
       ],
-      clicks: [1.1, 2.9, 3.9, 5.7],
+      clicks: [1.1, 2.4, 3.3, 5.1, 7.0, 8.7],
     },
     {
       name: 'rooms', url: 'https://goldenmesa.com/hotel/', height: 1000, pin: { text: 'Double Queen Room', top: 560 }, seconds: 9.7,

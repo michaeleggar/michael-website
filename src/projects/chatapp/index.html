@@ -23,68 +23,42 @@ deck: >-
   Film Chat was built as a digital prop for a feature film. An actor can use
   it just like a real group chat while the crew sends messages as other users
   from a separate interface.
-stylesheets: [chat-demo]
-scripts: [chat-demo]
 projectDetails:
   - label: My role
     items:
       - Design
       - Development
 recordings:
-  crew:
-    video: /assets/video/chatapp/v1-crew.mp4
-    poster: /assets/images/optimized/chatapp/clips/v1-crew.webp
+  roster:
+    video: /assets/video/chatapp/roster.mp4
+    poster: /assets/images/optimized/chatapp/clips/roster.webp
     width: 1824
-    height: 1320
-    label: "The original’s crew window. A line for BillyTheKid is typed with a 1.5 second typing delay, saved, and sent, and his Typing box stays ticked until it posts."
+    height: 919
+    label: "The crew’s roster beside the actor’s screen. BillyTheKid is set typing, Ichigo99 goes offline and back, and the screen switches to a DM with Ichigo99 and back to the group."
+  send:
+    video: /assets/video/chatapp/send.mp4
+    poster: /assets/images/optimized/chatapp/clips/send.webp
+    width: 1824
+    height: 743
+    label: "The crew’s message controls. A line is written as jen_brian with a two-second typing delay, and on the actor’s screen jen_brian types, then the line lands."
+  video:
+    video: /assets/video/chatapp/video.mp4
+    poster: /assets/images/optimized/chatapp/clips/video.webp
+    width: 1824
+    height: 1003
+    label: "The crew sends a video request as BillyTheKid, it’s accepted on the actor’s screen, and the crew ends the call."
+  saved:
+    video: /assets/video/chatapp/saved.mp4
+    poster: /assets/images/optimized/chatapp/clips/saved.webp
+    width: 1690
+    height: 1220
+    label: "Two saved lines sent in turn from the crew’s Saved Messages, each landing on the actor’s screen after its own typing delay."
   edit:
-    video: /assets/video/chatapp/v1-edit.mp4
-    poster: /assets/images/optimized/chatapp/clips/v1-edit.webp
+    video: /assets/video/chatapp/edit.mp4
+    poster: /assets/images/optimized/chatapp/clips/edit.webp
     width: 1824
-    height: 1140
-    label: "The original’s screen. A message with a typo is opened from its right-click menu, corrected, and saved in place."
-  settings:
-    video: /assets/video/chatapp/v2-settings.mp4
-    poster: /assets/images/optimized/chatapp/clips/v2-settings.webp
-    width: 1824
-    height: 1140
-    label: "The rebuild’s settings panel slides out beside the chat, and a saved line from jen_brian lands after its typing delay."
-  phone-chat:
-    video: /assets/video/chatapp/v2-phone-chat.mp4
-    poster: /assets/images/optimized/chatapp/clips/v2-phone-chat.webp
-    width: 524
-    height: 982
-    label: "The rebuild on a phone. jen_brian’s question arrives after a typing indicator, Sadie replies, and BillyTheKid answers."
-  phone-settings:
-    video: /assets/video/chatapp/v2-phone-settings.mp4
-    poster: /assets/images/optimized/chatapp/clips/v2-phone-settings.webp
-    width: 524
-    height: 982
-    label: "The rebuild’s settings on a phone. A saved line goes out from the Compose tab and lands once the panel closes."
-demoScene:
-  versions:
-    - id: v1
-      name: Original
-      note: as used on set
-      screen: /projects/chatapp/demo/v1/screen.html
-      control: /projects/chatapp/demo/v1/control.html
-    - id: v2
-      name: Rebuild
-      note: React and Vite
-      screen: /projects/chatapp/demo/v2/
-      control: /projects/chatapp/demo/v2/control/
-  opening:
-    - [user_friend, "anyone else up?"]
-    - [user_ichigo99, "always lol"]
-    - [user_jen_brian, "same. scan results tomorrow so sleep isn't happening"]
-    - [user_friend, "you got this. waiting is the worst part"]
-    - [user_main, "hey everyone, sorry I've been quiet"]
-    - [user_ichigo99, "SADIE 👋 we missed you"]
-  cues:
-    - { userId: user_jen_brian, name: jen_brian, color: "#6ec2e8", delayMs: 2500, text: "how did the appointment go?" }
-    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 1800, text: "you don't have to say if you don't want to" }
-    - { userId: user_friend, name: BillyTheKid, color: "#7ab49c", delayMs: 1500, text: "we're all here for you, seriously" }
-    - { userId: user_ichigo99, name: Ichigo99, color: "#de5b49", delayMs: 900, text: "brb, nurse just walked in" }
+    height: 1139
+    label: "On the actor’s screen, a typo is fixed from a message’s right-click menu, then Sadie’s message is moved up."
 ---
 {% from "case-figures.njk" import clip, clipRow, picture %}
 
@@ -97,7 +71,9 @@ demoScene:
   </p>
 </div>
 
-{% include "chat-demo.njk" %}
+{{ clip(recordings.roster) }}
+{{ clip(recordings.send) }}
+{{ clip(recordings.video) }}
 
 <div class="case-copy">
   <p>
@@ -108,10 +84,7 @@ demoScene:
   </p>
 </div>
 
-{{ clip(recordings.crew) }}
+{{ clip(recordings.saved) }}
 {{ clip(recordings.edit) }}
-
-{{ clip(recordings.settings) }}
-{{ clipRow([recordings["phone-chat"], recordings["phone-settings"]], true) }}
 
 {{ picture({ image: "/assets/images/optimized/chatapp/chat-onset-2", width: 1600, height: 1069, alt: "A close-up of a camera monitor, with the chat app on the actor’s laptop inside the frame" }) }}

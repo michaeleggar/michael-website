@@ -58,12 +58,18 @@ recordings:
     width: 1824
     height: 690
     label: "The pointer moving across three service cards, each filling with orange"
-  work:
-    video: /assets/video/kochcomm/work.mp4
-    poster: /assets/images/optimized/kochcomm/clips/work.webp
+  archive:
+    video: /assets/video/kochcomm/archive.mp4
+    poster: /assets/images/optimized/kochcomm/clips/archive.webp
     width: 1824
-    height: 696
-    label: "The case study carousel stepping forward two projects and back"
+    height: 1037
+    label: "The work archive filtered to Nonprofit under Industries, then to Brands under Services, then back to all"
+  history:
+    video: /assets/video/kochcomm/history.mp4
+    poster: /assets/images/optimized/kochcomm/clips/history.webp
+    width: 1600
+    height: 1000
+    label: "The 20th anniversary history page scrolling down its timeline from 2025 back to 2005"
 ---
 {% from "case-figures.njk" import clip, clipRow, picture %}
 
@@ -78,8 +84,8 @@ recordings:
     On the development side, services, case studies, team members,
     testimonials, and open positions are each their own post type, so a new
     hire or a new client goes up as easily as a blog post. The work archive
-    filters by service and industry, so someone looking for nonprofit
-    branding finds it without wading through everything else. Since launch
+    filters by service and industry, so someone looking for nonprofit work
+    or for branding finds it without wading through everything else. Since launch
     I’ve kept iterating and building on it as needs come up from the team,
     including a timeline page for the agency’s 20th anniversary and landing
     pages for its web audit and crisis communications plans.
@@ -88,6 +94,6 @@ recordings:
 
 {{ clipRow([recordings.phone, recordings["phone-work"]], true) }}
 {{ clip(recordings.services) }}
-{{ clip(recordings.work) }}
+{{ clip(recordings.archive) }}
+{{ clip(recordings.history) }}
 {{ picture({ image: "/assets/images/optimized/kochcomm/kochcomm-intro", width: 1600, height: 389, alt: "The homepage headline, An OKC advertising agency built to help you grow, with the last words in orange" }) }}
-{{ picture({ image: "/assets/images/optimized/kochcomm/kochcomm-faq", width: 1600, height: 683, alt: "The FAQ, headed Questions you may have" }) }}
