@@ -4,7 +4,7 @@ title: OKC Innovation District
 description: The OKC Innovation District website, designed and built by Michael Eggar. A live district map, a filterable directory, Innovation Hall’s rooms, and events the team publishes themselves.
 cardOrder: 4
 cardTitle: OKC Innovation District
-cardSummary: A map, a directory, and a front door for Oklahoma City’s innovation district.
+cardSummary: A website redesign for Oklahoma City’s innovation district.
 year: "2026"
 agency: Koch Comm
 contributors:
@@ -25,11 +25,9 @@ socialImage: /assets/images/optimized/okcid/okcid-phones-social.jpg
 cardImageAlt: "Three phones showing the OKC Innovation District homepage, its neighborhood map, and the Innovation Hall page"
 heroClip: full
 deck: >-
-  The OKC Innovation District is 1.3 square miles of hospitals, labs, and
-  startups, and the organization running it needed one site for three very
-  different readers. Residents, researchers, and founders. It explains the
-  district to each of them and gets them into Innovation Hall, the building
-  at its center.
+  The OKC Innovation District, 1.3 square miles of hospitals, labs, and
+  startups in Oklahoma City, needed one website that could speak to
+  residents, researchers, and founders.
 projectDetails:
   - label: My role
     items:
@@ -105,19 +103,25 @@ recordings:
 
 <div class="case-copy">
   <p>
-    The homepage asks who you are before it shows you anything. People,
-    Ideas, and Industries each pull up their own tags and photograph, so a
-    resident and a startup founder each find their own way in. The Map &
-    Directory page plots every organization in the district on a live map
-    that flies between its landmarks, with a directory beneath it that
-    filters by field.
+    The design started with their story. I worked closely with Julia, our
+    content marketing manager, to understand who the district is to each of
+    those audiences, and the look grew out of that. It’s technical and
+    scientific, but also artsy and colorful, with lots of white space, big
+    bold type, and three main colors with tints that shift depending on which
+    part of the site you’re on. Their logo has a watercolor texture, so I
+    carried that onto the calls to action, used sparingly.
   </p>
   <p>
-    Innovation Hall is the district’s coworking and event space, and it gets
-    a page of its own, with the hours up front and a tab for each room that
-    ends at a Book Now button. Events and news are posts the OKCID team
-    publishes themselves. They line up on the homepage by date and move to
-    the archive once they’ve passed.
+    On the development side, this was the first time I built my own custom
+    Elementor widgets. The site is made from more than twenty of them written
+    from scratch, with ACF handling the post types. I also put a lot of care
+    into connecting the directory to the district map. Their team adds an
+    organization with its address and information, and when they save, a
+    script looks up its coordinates in the background. Checking a box on the
+    post places it on the custom MapLibre map, with a pin that shows that
+    organization’s details. Events got the same considered treatment. They
+    filter by date with a custom flatpickr calendar, and an Add to Calendar
+    button builds a calendar file straight from each event post.
   </p>
 </div>
 

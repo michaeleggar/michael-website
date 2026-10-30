@@ -1,10 +1,10 @@
 ---
 layout: layouts/work-case-study.njk
-title: Film Production Chat App
-description: A chat app Michael Eggar built as an on-screen prop for a feature film, with a crew window for cueing messages, then rebuilt in React. Both versions run live on the page.
+title: Film Chat
+description: A chat app Michael Eggar built as a working prop for a feature film, with a separate crew interface for sending messages as other users.
 cardOrder: 2
-cardTitle: Film Production Chat App
-cardSummary: A group chat built as a prop for a feature film, played live by the crew from a second window.
+cardTitle: Film Chat
+cardSummary: A chat app built as a working prop for a feature film.
 year: "2026"
 contributors: []
 cardImage:
@@ -20,9 +20,9 @@ heroPicture:
   height: 1004
   alt: A camera monitor during a take, showing the actor on a bed in a blue-lit bedroom, typing on the laptop that runs the chat app
 deck: >-
-  A group chat built to be filmed. It ran on an actor’s laptop as a prop in a
-  feature film, while the crew played her friends from off camera. Afterward I
-  rebuilt it in React. Both versions run live on this page.
+  Film Chat was built as a digital prop for a feature film. An actor can use
+  it just like a real group chat while the crew sends messages as other users
+  from a separate interface.
 stylesheets: [chat-demo]
 scripts: [chat-demo]
 projectDetails:
@@ -90,18 +90,10 @@ demoScene:
 
 <div class="case-copy">
   <p>
-    In the scene, a teenager with cancer is up late in a group chat with
-    friends who understand. The camera needed a real conversation on her
-    laptop, one the actor could read and answer in the moment. So I built the
-    app in Electron as two windows sharing one conversation. Hers is the chat
-    the camera sees. The crew’s holds everyone else. From there they added
-    characters, set who was online, sent lines as anyone on cue, and switched
-    her screen to a video call.
-  </p>
-  <p>
-    Both builds run below, the original from the shoot and the React rebuild.
-    Cue a line from the crew’s side and the character types for a moment
-    before it lands. Or type back as Sadie.
+    The crew interface initially controlled adding and editing users,
+    changing online statuses, toggling typing indicators, sending messages as
+    any user, and switching the on-film screen between direct messages and
+    video chats.
   </p>
 </div>
 
@@ -109,36 +101,17 @@ demoScene:
 
 <div class="case-copy">
   <p>
-    The first shoot day showed what was missing. Every reshoot meant retyping
-    the script by hand, and a message, once sent, couldn’t be fixed or moved.
-    So I added saved lines that post after an adjustable typing delay, a
-    right-click menu for editing and reordering messages in place, and a reset
-    between takes.
+    After the first day on set, the crew needed a way to reshoot scenes
+    without retyping the script by hand each time. I added a template system
+    that lets the crew save messages alongside typing indicator delays. I
+    also added a way to edit and reorder messages after they’d been sent.
   </p>
 </div>
 
 {{ clip(recordings.crew) }}
 {{ clip(recordings.edit) }}
 
-<div class="case-copy">
-  <p>
-    The original grew fast under production pressure, so after the shoot I
-    rebuilt it with React and Vite. A single reducer drives both windows, and
-    each one replays the other’s changes, so the actor’s screen and the crew’s
-    side always agree. The crew’s tools now live in a settings panel that
-    slides out beside the chat, or pops out into a window of its own. The
-    rebuild also adds chat rooms and a layout that works on a phone.
-  </p>
-</div>
-
 {{ clip(recordings.settings) }}
 {{ clipRow([recordings["phone-chat"], recordings["phone-settings"]], true) }}
-
-<div class="case-copy">
-  <p>
-    On the monitor it reads as an ordinary group chat late at night. That was
-    the job.
-  </p>
-</div>
 
 {{ picture({ image: "/assets/images/optimized/chatapp/chat-onset-2", width: 1600, height: 1069, alt: "A close-up of a camera monitor, with the chat app on the actor’s laptop inside the frame" }) }}
